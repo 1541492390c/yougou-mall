@@ -1,0 +1,28 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: yougou-mall-gateway
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.121.128:8848
+        namespace: 606b4378-3f6c-4982-837e-2cbbbe41e99b
+        group: DEV_GROUP
+      config:
+        server-addr: 192.168.121.128:8848
+        namespace: 606b4378-3f6c-4982-837e-2cbbbe41e99b
+        group: DEV_GROUP
+        file-extension: yaml
+  gateway:
+    discovery:
+      locator:
+        enabled: true
