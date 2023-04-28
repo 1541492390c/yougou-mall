@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-api/yougou-mall-api-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-api/yougou-mall-api-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-order/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-order/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-payment/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-payment/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-platform/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-platform/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-product/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-product/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-resources/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-resources/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-search/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-search/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-security/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yougou-mall-user/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

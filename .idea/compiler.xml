@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="yougou-mall-platform" />
+        <module name="yougou-mall-gateway" />
+        <module name="yougou-mall-user" />
+        <module name="yougou-mall-payment" />
+        <module name="yougou-mall-common" />
+        <module name="yougou-mall-resources" />
+        <module name="yougou-mall-product" />
+        <module name="yougou-mall-api-auth" />
+        <module name="yougou-mall-auth" />
+        <module name="yougou-mall-search" />
+        <module name="yougou-mall-order" />
+        <module name="yougou-mall-security" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

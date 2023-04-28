@@ -1,34 +1,46 @@
-*.class
-*.log
-*.lock
-
-# Package Files #
-*.jar
-*.war
-*.ear
-target/
-
-# idea
-.idea/
-*.iml/
-
-*velocity.log*
-
 ### STS ###
+.settings/
 .apt_generated
+.classpath
 .factorypath
+.project
+.settings
 .springBeans
+bin/
 
 ### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
 *.ipr
-*.iws
-.idea
-.classpath
-.project
-.settings/
-bin/
-tem/
+*.lock
+rebel.xml
 
-#rebel
-*rebel.xml*
+### maven ###
+target/
+*.war
+*.ear
+*.zip
+*.tar
+*.tar.gz
+
+### logs ####
+/logs/
+*.log
+
+### temp ignore ###
+*.cache
+*.diff
+*.patch
+*.tmp
+*.java~
+*.properties~
+*.xml~
+
+### system ignore ###
+.DS_Store
+Thumbs.db
+Servers
+.metadata
+upload
+gen_code
