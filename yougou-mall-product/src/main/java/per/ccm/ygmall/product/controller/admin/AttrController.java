@@ -30,14 +30,6 @@ public class AttrController extends BaseController {
         return ResponseEntity.success();
     }
 
-    @GetMapping("/list")
-    @Operation(summary = "获取商品属性列表", description = "传入商品spuID获取该spu的商品属性值列表")
-    @Parameter(name = "spuId", description = "spuID")
-    public ResponseEntity<List<AttrVO>> getAttrListBySpuId(@RequestParam("spu_id") Long spuId) throws Exception {
-        List<AttrVO> attrList = attrService.getAttrListBySpuId(spuId);
-        return ResponseEntity.success(attrList);
-    }
-
     @DeleteMapping("/batch_delete")
     public ResponseEntity<Void> batchDelete(@RequestBody List<Long> attrIdList) throws Exception {
         attrService.batchDelete(attrIdList);

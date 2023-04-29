@@ -54,7 +54,7 @@ public class CategoryController extends BaseController {
     }
 
     @DeleteMapping("/batch_delete")
-    @Operation(summary = "删除商品分类", description = "根据商品分类ID批量删除商品分类")
+    @Operation(summary = "批量删除商品分类", description = "根据商品分类ID批量删除商品分类")
     public ResponseEntity<Void> batchDelete(@RequestBody List<Long> categoryIdList) throws Exception {
         categoryService.batchDelete(categoryIdList);
         return ResponseEntity.success();

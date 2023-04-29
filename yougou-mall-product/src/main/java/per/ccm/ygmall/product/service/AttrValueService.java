@@ -21,13 +21,6 @@ public interface AttrValueService {
     List<AttrValueVO> getAttrValueListByAttrIdList(List<Long> attrIdList) throws Exception;
 
     /**
-     * 更新属性值
-     *
-     * @param attrValueDTO 属性值传输数据
-     * */
-    void update(AttrValueDTO attrValueDTO) throws Exception;
-
-    /**
      *根据商品属性值ID批量删除商品属性值
      *
      * @param attrValueIdList 商品属性值ID列表

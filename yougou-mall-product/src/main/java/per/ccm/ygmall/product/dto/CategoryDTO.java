@@ -1,30 +1,22 @@
 package per.ccm.ygmall.product.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 分类传输数据
  * */
 public class CategoryDTO extends BaseDTO {
-
-    /**
-     * 主键ID
-     * */
+    @Schema(name = "主键ID")
     private Long categoryId;
 
-    /**
-     * 上级分类ID
-     * */
+    @Schema(name = "上级分类ID")
     private Long parentId;
 
-    /**
-     * 分类级别
-     * */
+    @Schema(name = "分类级别")
     private Integer level;
 
-    /**
-     * 分类名称
-     * */
+    @Schema(name = "分类名称")
     private String name;
 
     public Long getCategoryId() {

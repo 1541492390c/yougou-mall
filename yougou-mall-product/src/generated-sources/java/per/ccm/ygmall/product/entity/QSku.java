@@ -21,8 +21,6 @@ public class QSku extends EntityPathBase<Sku> {
 
     public final StringPath desc = createString("desc");
 
-    public final StringPath name = createString("name");
-
     public final NumberPath<Double> price = createNumber("price", Double.class);
 
     public final NumberPath<Long> skuId = createNumber("skuId", Long.class);

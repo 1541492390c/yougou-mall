@@ -17,6 +17,9 @@ public class SpuVO extends BaseVO {
     @Schema(name = "商品状态 0-上架 1-已下架")
     private Integer state;
 
+    @Schema(name = "sku最低价")
+    private Double price;
+
     @Schema(name = "分类列表")
     private String categories;
 
@@ -25,6 +28,9 @@ public class SpuVO extends BaseVO {
 
     @Schema(name = "商品封面")
     private String cover;
+
+    @Schema(name = "商品图片列表")
+    private String imgList;
 
     public Long getSpuId() {
         return spuId;
@@ -48,6 +54,14 @@ public class SpuVO extends BaseVO {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getCategories() {
@@ -74,15 +88,25 @@ public class SpuVO extends BaseVO {
         this.cover = cover;
     }
 
+    public String getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(String imgList) {
+        this.imgList = imgList;
+    }
+
     @Override
     public String toString() {
         return "SpuVO{" +
                 "spuId=" + spuId +
                 ", brandId=" + brandId +
                 ", state=" + state +
+                ", price=" + price +
                 ", categories='" + categories + '\'' +
                 ", name='" + name + '\'' +
                 ", cover='" + cover + '\'' +
+                ", imgList='" + imgList + '\'' +
                 '}';
     }
 }

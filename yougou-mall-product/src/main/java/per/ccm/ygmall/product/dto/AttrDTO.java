@@ -8,7 +8,7 @@ import per.ccm.ygmall.common.dto.BaseDTO;
  * */
 public class AttrDTO extends BaseDTO {
 
-    @Schema(name = "商品属性ID")
+    @Schema(name = "主键ID")
     private Long attrId;
 
     @Schema(name = "spuID")

@@ -5,6 +5,8 @@ import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.SpuDTO;
 import per.ccm.ygmall.product.vo.SpuVO;
 
+import java.util.List;
+
 public interface SpuService {
     /**
      * 保存spu信息
@@ -12,6 +14,13 @@ public interface SpuService {
      * @param spuDTO spu传输数据
      * */
     void save(SpuDTO spuDTO) throws Exception;
+
+    /**
+     * 获取推荐的商品信息
+     *
+     * @return 推荐商品spu信息列表
+     * */
+    List<SpuVO> getRecommendedSpuList() throws Exception;
 
     /**
      * 分页获取spu信息

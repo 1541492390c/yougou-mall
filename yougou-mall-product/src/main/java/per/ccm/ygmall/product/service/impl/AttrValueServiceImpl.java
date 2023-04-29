@@ -42,7 +42,6 @@ public class AttrValueServiceImpl extends BaseService implements AttrValueServic
 
         List<Long> attrIdList = attrValueList.stream().distinct().map(AttrValue::getAttrId).collect(Collectors.toList());
         List<AttrValue> attrValueExistList = super.jpaQueryFactory.selectFrom(qAttrValue).where(qAttrValue.attrId.in(attrIdList)).fetch();
-
         // 判断商品属性值是否存在或过多
         this.isRepeatOrTooMuch(attrValueExistList, attrValueList);
         attrValueRepository.saveAll(attrValueList);
@@ -53,11 +52,6 @@ public class AttrValueServiceImpl extends BaseService implements AttrValueServic
         QAttrValue qAttrValue = QAttrValue.attrValue;
         QBean<AttrValueVO> qBean = this.getQBean(qAttrValue);
         return super.jpaQueryFactory.select(qBean).from(qAttrValue).where(qAttrValue.attrId.in(attrIdList)).fetch();
-    }
-
-    @Override
-    public void update(AttrValueDTO attrValueDTO) throws Exception {
-        QAttrValue qAttrValue = QAttrValue.attrValue;
     }
 
     @Override

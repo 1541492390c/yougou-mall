@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.service.impl;
 
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.QBean;
+import com.querydsl.core.types.*;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +12,7 @@ import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.SpuDTO;
+import per.ccm.ygmall.product.entity.QSku;
 import per.ccm.ygmall.product.entity.QSpu;
 import per.ccm.ygmall.product.entity.Spu;
 import per.ccm.ygmall.product.repository.SpuRepository;
@@ -42,12 +42,26 @@ public class SpuServiceImpl extends BaseService implements SpuService {
     }
 
     @Override
+    public List<SpuVO> getRecommendedSpuList() {
+        QSpu qSpu = QSpu.spu;
+        QSku qSku = QSku.sku;
+        return null;
+    }
+
+    @Override
     public PageVO<SpuVO> getSpuPages(Pageable pageable) {
         QSpu qSpu = QSpu.spu;
-        QBean<SpuVO> qBean = this.getQBean(qSpu);
+        QSku qSku = QSku.sku;
+        QBean<SpuVO> qBean = this.getQBean(qSpu, qSku);
 
         Long total = spuRepository.count();
-        List<SpuVO> spuList = super.jpaQueryFactory.select(qBean).from(qSpu).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+        List<SpuVO> spuList = super.jpaQueryFactory.select(qBean)
+                .from(qSpu)
+                .leftJoin(qSku)
+                .on(qSpu.spuId.eq(qSpu.spuId))
+                .offset(pageable.getOffset()).limit(pageable.getPageSize())
+                .distinct()
+                .fetch();
         return new PageVO<>(total, spuList);
     }
 
@@ -85,9 +99,13 @@ public class SpuServiceImpl extends BaseService implements SpuService {
      * 获取映射对象
      *
      * @param qSpu querydsl实体
+     * @param qSku querydsl实体
      * @return 映射对象
      * */
-    private QBean<SpuVO> getQBean(QSpu qSpu) {
-        return Projections.bean(SpuVO.class, qSpu.spuId, qSpu.brandId, qSpu.name, qSpu.state, qSpu.categories, qSpu.cover);
+    private QBean<SpuVO> getQBean(QSpu qSpu, QSku qSku) {
+        // sku最低价格
+        Expression<Double> expression = super.jpaQueryFactory.select(qSku.price.min()).from(qSku).where(qSpu.spuId.eq(qSku.spuId));
+        return Projections.bean(SpuVO.class, qSpu.spuId, qSpu.brandId, qSpu.name, qSpu.state, qSpu.categories, qSpu.cover,
+                ExpressionUtils.as(expression, "price"));
     }
 }

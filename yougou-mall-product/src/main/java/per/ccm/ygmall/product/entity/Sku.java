@@ -28,7 +28,7 @@ public class Sku extends BaseEntity {
     private Long spuId;
 
     /**
-     * 商品库存
+     * sku库存
      * */
     @Column(name = "sku_stock")
     private Integer skuStock;
@@ -38,12 +38,6 @@ public class Sku extends BaseEntity {
      * */
     @Column(name = "price")
     private Double price;
-
-    /**
-     * 商品名称
-     * */
-    @Column(name = "name")
-    private String name;
 
     /**
      * sku描述
@@ -89,14 +83,6 @@ public class Sku extends BaseEntity {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -120,7 +106,6 @@ public class Sku extends BaseEntity {
                 ", spuId=" + spuId +
                 ", skuStock=" + skuStock +
                 ", price=" + price +
-                ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
                 ", specs='" + specs + '\'' +
                 '}';
