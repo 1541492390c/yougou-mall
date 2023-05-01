@@ -105,6 +105,8 @@ public class Sku extends BaseEntity {
                 ", price=" + price +
                 ", skuDesc='" + skuDesc + '\'' +
                 ", specs='" + specs + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

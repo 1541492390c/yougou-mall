@@ -144,6 +144,8 @@ public class Spu extends BaseEntity {
                 ", imgList='" + imgList + '\'' +
                 ", recommended=" + recommended +
                 ", enabled=" + enabled +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

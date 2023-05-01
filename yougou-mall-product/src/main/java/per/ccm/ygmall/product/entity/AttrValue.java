@@ -60,6 +60,8 @@ public class AttrValue extends BaseEntity {
                 "attrValueId=" + attrValueId +
                 ", attrId=" + attrId +
                 ", name='" + name + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

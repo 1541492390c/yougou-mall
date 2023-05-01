@@ -46,8 +46,10 @@ public class CategoryServiceImpl extends BaseService implements CategoryService 
     @Override
     @Cacheable(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, key = "#parentId", sync = true)
     public List<CategoryVO> getCategoryList(Long parentId) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+
         // 获取所有分类
-        List<CategoryVO> categoryList = categoryMapper.selectCategoryList();
+        List<CategoryVO> categoryList = ConvertUtils.converList(categoryMapper.selectList(queryWrapper), CategoryVO.class);
         // 获取当前分类
         List<CategoryVO> parentCategoryList = categoryList.stream()
                 .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId)).collect(Collectors.toList());
@@ -57,8 +59,11 @@ public class CategoryServiceImpl extends BaseService implements CategoryService 
 
     @Override
     public PageVO<CategoryVO> getCategoryPages(Long parentId, Page<Category> page) {
-        IPage<CategoryVO> pageInfo = categoryMapper.selectCategoryPages(parentId, page);
-        return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+
+        IPage<Category> pageInfo = categoryMapper.selectPage(page, queryWrapper.eq(Category::getParentId, parentId));
+        List<CategoryVO> categoryList = ConvertUtils.converList(pageInfo.getRecords(), CategoryVO.class);
+        return new PageVO<>(pageInfo.getTotal(), categoryList);
     }
 
     @Override

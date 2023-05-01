@@ -87,6 +87,8 @@ public class Brand extends BaseEntity {
                 ", categories='" + categories + '\'' +
                 ", img='" + img + '\'' +
                 ", desc='" + desc + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

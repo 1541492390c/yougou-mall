@@ -75,6 +75,8 @@ public class Category extends BaseEntity {
                 ", parentId=" + parentId +
                 ", level=" + level +
                 ", name='" + name + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

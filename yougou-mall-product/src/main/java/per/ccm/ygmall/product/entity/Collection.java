@@ -60,6 +60,8 @@ public class Collection extends BaseEntity {
                 "collectionId=" + collectionId +
                 ", spuId=" + spuId +
                 ", userId=" + userId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

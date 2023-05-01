@@ -50,9 +50,6 @@ public class AttrServiceImpl extends BaseService implements AttrService {
         LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
 
         List<AttrVO> attrList = ConvertUtils.converList(attrMapper.selectList(queryWrapper.eq(Attr::getSpuId, spuId)), AttrVO.class);
-        if (ObjectUtils.isEmpty(attrList)) {
-            return attrList;
-        }
         // 获取商品属性ID列表
         List<Long> attrIdList = attrList.stream().map(AttrVO::getAttrId).collect(Collectors.toList());
         System.out.println(attrIdList);
