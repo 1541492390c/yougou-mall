@@ -25,10 +25,11 @@ public interface SpuService {
     /**
      * 分页获取spu信息
      *
+     * @param categories 分类路径
      * @param pageable 分页信息
      * @return 商品信息分页列表
      * */
-    PageVO<SpuVO> getSpuPages(Pageable pageable) throws Exception;
+    PageVO<SpuVO> getSpuPages(String categories, Pageable pageable) throws Exception;
 
     /**
      * 更新商品spu信息

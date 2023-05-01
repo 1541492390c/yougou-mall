@@ -25,9 +25,13 @@ public class QSpu extends EntityPathBase<Spu> {
 
     public final StringPath cover = createString("cover");
 
+    public final BooleanPath enabled = createBoolean("enabled");
+
     public final StringPath imgList = createString("imgList");
 
     public final StringPath name = createString("name");
+
+    public final BooleanPath recommended = createBoolean("recommended");
 
     public final NumberPath<Long> spuId = createNumber("spuId", Long.class);
 

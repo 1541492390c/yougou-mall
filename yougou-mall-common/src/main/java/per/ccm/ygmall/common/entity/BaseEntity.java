@@ -10,13 +10,13 @@ public class BaseEntity implements Serializable {
      * 创建时间
      * */
     @Column(name = "create_time")
-    private Date createTime;
+    protected Date createTime;
 
     /**
      * 更新时间
      * */
     @Column(name = "update_time")
-    private Date updateTime;
+    protected Date updateTime;
 
     public Date getCreateTime() {
         return createTime;

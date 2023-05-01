@@ -96,7 +96,12 @@ public enum ResponseCode {
     /**
      * 商品属性最多拥有10个属性值
      * */
-    PRODUCT_ERROR_B30003("B30003", "商品属性最多拥有10个属性值");
+    PRODUCT_ERROR_B30003("B30003", "商品属性最多拥有10个属性值"),
+
+    /**
+     * 商品sku规格已存在
+     * */
+    PRODUCT_ERROR_B40001("B40001", "商品sku规格已存在");
 
     private final String value;
     private final String message;

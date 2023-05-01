@@ -57,6 +57,12 @@ public class Spu extends BaseEntity {
     @Column(name = "img_list")
     private String imgList;
 
+    @Column(name = "recommended")
+    private Boolean recommended;
+
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     public Long getSpuId() {
         return spuId;
     }
@@ -113,6 +119,22 @@ public class Spu extends BaseEntity {
         this.imgList = imgList;
     }
 
+    public Boolean getRecommended() {
+        return recommended;
+    }
+
+    public void setRecommended(Boolean recommended) {
+        this.recommended = recommended;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return "Spu{" +
@@ -123,6 +145,8 @@ public class Spu extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", cover='" + cover + '\'' +
                 ", imgList='" + imgList + '\'' +
+                ", recommended=" + recommended +
+                ", enabled=" + enabled +
                 '}';
     }
 }

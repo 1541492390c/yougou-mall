@@ -3,9 +3,11 @@ package per.ccm.ygmall.product.service.impl;
 import com.querydsl.core.types.*;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.common.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.service.BaseService;
@@ -42,24 +44,36 @@ public class SpuServiceImpl extends BaseService implements SpuService {
     }
 
     @Override
+    @Cacheable(cacheNames = CacheNames.PRODUCT_SPU_CACHE_NAME, key = "'recommended-list'", sync = true)
     public List<SpuVO> getRecommendedSpuList() {
-        QSpu qSpu = QSpu.spu;
-        QSku qSku = QSku.sku;
-        return null;
-    }
-
-    @Override
-    public PageVO<SpuVO> getSpuPages(Pageable pageable) {
         QSpu qSpu = QSpu.spu;
         QSku qSku = QSku.sku;
         QBean<SpuVO> qBean = this.getQBean(qSpu, qSku);
 
+        Predicate predicate = qSpu.enabled.isTrue().and(qSpu.recommended.isTrue());
+        return super.jpaQueryFactory.select(qBean).from(qSku).where(predicate).fetch();
+    }
+
+    @Override
+    public PageVO<SpuVO> getSpuPages(String categories, Pageable pageable) {
+        QSpu qSpu = QSpu.spu;
+        QSku qSku = QSku.sku;
+        QBean<SpuVO> qBean = this.getQBean(qSpu, qSku);
+
+        Predicate predicate = qSpu.enabled.isTrue();
+
+        // 拼接查询条件
+        if (!ObjectUtils.isEmpty(categories)) {
+            predicate = ExpressionUtils.and(predicate, qSpu.categories.eq(categories));
+        }
         Long total = spuRepository.count();
         List<SpuVO> spuList = super.jpaQueryFactory.select(qBean)
                 .from(qSpu)
                 .leftJoin(qSku)
                 .on(qSpu.spuId.eq(qSpu.spuId))
-                .offset(pageable.getOffset()).limit(pageable.getPageSize())
+                .where(predicate)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .distinct()
                 .fetch();
         return new PageVO<>(total, spuList);

@@ -30,16 +30,6 @@ public class SpuController extends BaseController {
         return ResponseEntity.success();
     }
 
-    @GetMapping("/pages")
-    @Operation(summary = "分页获取spu信息列表", description = "分页获取spu信息列表")
-    public ResponseEntity<PageVO<SpuVO>> getSpuPages(
-            @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        PageVO<SpuVO> pageVO = spuService.getSpuPages(pageable);
-        return ResponseEntity.success(pageVO);
-    }
-
     @PutMapping("/update")
     @Operation(summary = "更新spu信息", description = "更新spu信息")
     public ResponseEntity<Void> update(@RequestBody SpuDTO spuDTO) throws Exception {

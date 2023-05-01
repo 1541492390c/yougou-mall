@@ -27,7 +27,7 @@ public class SkuController extends BaseController {
     @Operation(summary = "获取sku信息列表", description = "根据spuID获取对应的sku列表")
     @Parameter(name = "spuId", description = "spuID")
     public ResponseEntity<List<SkuVO>> getSkuList(@RequestParam("spu_id") Long spuId) throws Exception {
-        List<SkuVO> skuList = skuService.getSkuList(spuId);
+        List<SkuVO> skuList = skuService.getSkuListBySpuId(spuId);
         return ResponseEntity.success(skuList);
     }
 }
