@@ -1,36 +1,33 @@
 package per.ccm.ygmall.product.entity;
 
-import org.hibernate.annotations.DynamicInsert;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.*;
 
 /**
  * 商品属性
  * */
-@Entity
-@DynamicInsert
-@Table(name = "attr")
+@TableName("attr")
 public class Attr extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "attr_id")
+    @TableId(type = IdType.AUTO)
     private Long attrId;
 
     /**
      * spuID
      * */
-    @Column(name = "spu_id")
+    @TableField("spu_id")
     private Long spuId;
 
     /**
      * 属性名称
      * */
-    @Column(name = "name")
+    @TableField("name")
     private String name;
 
     public Long getAttrId() {

@@ -1,45 +1,42 @@
 package per.ccm.ygmall.product.entity;
 
-import org.hibernate.annotations.DynamicInsert;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.*;
 
 /**
  * 品牌
  * */
-@Entity
-@DynamicInsert
-@Table(name = "brand")
+@TableName("brand")
 public class Brand extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "brand_id")
+    @TableId(type = IdType.AUTO)
     private Long brandId;
 
     /**
      * 品牌名称
      * */
-    @Column(name = "name")
+    @TableField("name")
     private String name;
 
     /**
      * 分类
      * */
-    @Column(name = "categories")
+    @TableField("categories")
     private String categories;
 
     /**
      * 品牌(logo)图片
      * */
-    @Column(name = "img")
+    @TableField("img")
     private String img;
 
-    @Column(name = "desc")
+    @TableField("desc")
     private String desc;
 
     public Long getBrandId() {

@@ -12,7 +12,7 @@ public class FeedbackTypeDTO extends BaseDTO {
     private Long feedbackTypeId;
 
     @Schema(description = "用户反馈类型名称")
-    private String feedbackTypeName;
+    private String name;
 
     public Long getFeedbackTypeId() {
         return feedbackTypeId;
@@ -22,19 +22,19 @@ public class FeedbackTypeDTO extends BaseDTO {
         this.feedbackTypeId = feedbackTypeId;
     }
 
-    public String getFeedbackTypeName() {
-        return feedbackTypeName;
+    public String getName() {
+        return name;
     }
 
-    public void setFeedbackTypeName(String feedbackTypeName) {
-        this.feedbackTypeName = feedbackTypeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "FeedbackTypeDTO{" +
                 "feedbackTypeId=" + feedbackTypeId +
-                ", feedbackTypeName='" + feedbackTypeName + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

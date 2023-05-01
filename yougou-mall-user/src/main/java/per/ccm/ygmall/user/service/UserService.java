@@ -1,8 +1,10 @@
 package per.ccm.ygmall.user.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.data.domain.Pageable;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserDTO;
+import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.vo.UserVO;
 
 /**
@@ -29,10 +31,10 @@ public interface UserService {
      *
      * @param userId 用户ID
      * @param useType 用户类型
-     * @param pageable 分页信息
+     * @param page 分页信息
      * @return 用户分页信息
      * */
-    PageVO<UserVO> getUserPages(Long userId, Integer useType, Pageable pageable) throws Exception;
+    PageVO<UserVO> getUserPages(Long userId, Integer useType, Page<User> page) throws Exception;
 
     /**
      * 更新用户信息

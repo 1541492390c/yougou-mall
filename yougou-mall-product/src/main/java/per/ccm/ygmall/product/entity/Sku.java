@@ -1,54 +1,51 @@
 package per.ccm.ygmall.product.entity;
 
-import org.hibernate.annotations.DynamicInsert;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.*;
 
 /**
  * 商品Sku
  * */
-@Entity
-@DynamicInsert
-@Table(name = "sku")
+@TableName("sku")
 public class Sku extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sku_id")
+    @TableId(type = IdType.AUTO)
     private Long skuId;
 
     /**
      * spuID
      * */
-    @Column(name = "spu_id")
+    @TableField("spu_id")
     private Long spuId;
 
     /**
      * sku库存
      * */
-    @Column(name = "sku_stock")
+    @TableField("sku_stock")
     private Integer skuStock;
 
     /**
      * sku价格
      * */
-    @Column(name = "price")
+    @TableField("price")
     private Double price;
 
     /**
      * sku描述
      * */
-    @Column(name = "desc")
-    private String desc;
+    @TableField("sku_desc")
+    private String skuDesc;
 
     /**
      * sku规格
      * */
-    @Column(name = "specs")
+    @TableField("specs")
     private String specs;
 
     public Long getSkuId() {
@@ -83,12 +80,12 @@ public class Sku extends BaseEntity {
         this.price = price;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getSkuDesc() {
+        return skuDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setSkuDesc(String skuDesc) {
+        this.skuDesc = skuDesc;
     }
 
     public String getSpecs() {
@@ -106,7 +103,7 @@ public class Sku extends BaseEntity {
                 ", spuId=" + spuId +
                 ", skuStock=" + skuStock +
                 ", price=" + price +
-                ", desc='" + desc + '\'' +
+                ", skuDesc='" + skuDesc + '\'' +
                 ", specs='" + specs + '\'' +
                 '}';
     }

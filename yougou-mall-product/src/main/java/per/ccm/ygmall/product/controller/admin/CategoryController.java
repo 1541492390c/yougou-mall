@@ -1,5 +1,6 @@
 package per.ccm.ygmall.product.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -13,6 +14,7 @@ import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.CategoryDTO;
+import per.ccm.ygmall.product.entity.Category;
 import per.ccm.ygmall.product.service.CategoryService;
 import per.ccm.ygmall.product.vo.CategoryVO;
 
@@ -37,12 +39,15 @@ public class CategoryController extends BaseController {
     @GetMapping("/pages")
     @Operation(summary = "分页获取分类信息列表", description = "分页获取分类信息列表")
     @Parameters({
-            @Parameter(name = "pageNum", description = "当前页"), @Parameter(name = "pageSize", description = "页数")})
+            @Parameter(name = "pageNum", description = "当前页"),
+            @Parameter(name = "pageSize", description = "页数"),
+            @Parameter(name = "parentId", description = "父级分类ID")})
     public ResponseEntity<PageVO<CategoryVO>> getCategoryPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        PageVO<CategoryVO> pageVO = categoryService.getCategoryPages(pageable);
+            @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "parent_id", required = false) Long parentId) throws Exception {
+        Page<Category> page = new Page<>(pageNum, pageSize);
+        PageVO<CategoryVO> pageVO = categoryService.getCategoryPages(parentId, page);
         return ResponseEntity.success(pageVO);
     }
 

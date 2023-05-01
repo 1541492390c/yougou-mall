@@ -1,26 +1,25 @@
 package per.ccm.ygmall.user.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "feedback_type")
+@TableName("feedback_type")
 public class FeedbackType extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "feedback_type_id")
+    @TableId(type = IdType.AUTO)
     private Long feedbackTypeId;
 
     /**
      * 用户反馈类型名称
      * */
-    @Column(name = "feedback_type_name")
-    private String feedbackTypeName;
+    @TableField("name")
+    private String name;
 
     public Long getFeedbackTypeId() {
         return feedbackTypeId;
@@ -30,19 +29,19 @@ public class FeedbackType extends BaseEntity {
         this.feedbackTypeId = feedbackTypeId;
     }
 
-    public String getFeedbackTypeName() {
-        return feedbackTypeName;
+    public String getName() {
+        return name;
     }
 
-    public void setFeedbackTypeName(String feedbackTypeName) {
-        this.feedbackTypeName = feedbackTypeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "FeedbackType{" +
                 "feedbackTypeId=" + feedbackTypeId +
-                ", feedbackTypeName='" + feedbackTypeName + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

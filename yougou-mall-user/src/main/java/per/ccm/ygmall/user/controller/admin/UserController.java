@@ -1,12 +1,11 @@
 package per.ccm.ygmall.user.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.controller.BaseController;
@@ -14,6 +13,7 @@ import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.security.util.SecurityUtils;
 import per.ccm.ygmall.user.dto.UserDTO;
+import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.service.UserService;
 import per.ccm.ygmall.user.vo.UserVO;
 
@@ -46,8 +46,8 @@ public class UserController extends BaseController {
             @RequestParam(value = "user_type", required = false) Integer userType) throws Exception {
         Long userId = SecurityUtils.getUserId();
 
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        PageVO<UserVO> pageVO = userService.getUserPages(userId, userType, pageable);
+        Page<User> page = new Page<>(pageNum, pageSize);
+        PageVO<UserVO> pageVO = userService.getUserPages(userId, userType, page);
         return ResponseEntity.success(pageVO);
     }
 }

@@ -1,5 +1,6 @@
 package per.ccm.ygmall.product.controller.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
+import per.ccm.ygmall.product.entity.Spu;
 import per.ccm.ygmall.product.service.SpuService;
 import per.ccm.ygmall.product.vo.SpuVO;
 
@@ -42,9 +44,9 @@ public class SpuController extends BaseController {
     public ResponseEntity<PageVO<SpuVO>> getByCategories(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
-            @RequestParam(value = "categories") String categories) throws Exception {
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        PageVO<SpuVO> pageVO = spuService.getSpuPages(categories, pageable);
+            @RequestParam(value = "categories", required = false) String categories) throws Exception {
+        Page<Spu> page = new Page<>(pageNum, pageSize);
+        PageVO<SpuVO> pageVO = spuService.getSpuPages(categories, page);
         return ResponseEntity.success(pageVO);
     }
 }

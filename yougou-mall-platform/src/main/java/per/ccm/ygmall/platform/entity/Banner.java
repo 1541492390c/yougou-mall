@@ -1,57 +1,54 @@
 package per.ccm.ygmall.platform.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * 轮播图
  * */
-@Entity
-@Table(name = "platform_banner")
+@TableName("platform_banner")
 public class Banner extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @Column(name = "platform_banner_id")
+    @TableId(type = IdType.AUTO)
     private Long bannerId;
 
     /**
      * 轮播图类型 1-PC端 2-移动端 3-小程序端
      * */
-    @Column(name = "type")
+    @TableField("type")
     private Integer type;
 
     /**
      * 简介
      * */
-    @Column(name = "desc")
+    @TableField("desc")
     private String desc;
 
     /**
      * 轮播图链接
      * */
-    @Column(name = "link")
+    @TableField("link")
     private String link;
 
     /**
      * 图片地址
      * */
-    @Column(name = "img")
+    @TableField("img")
     private String img;
 
     /**
      * 所属页面
      * */
-    @Column(name = "page")
+    @TableField("page")
     private String page;
 
-    @Column(name = "enabled")
+    @TableField("enabled")
     private Boolean enabled;
 
     public Long getBannerId() {

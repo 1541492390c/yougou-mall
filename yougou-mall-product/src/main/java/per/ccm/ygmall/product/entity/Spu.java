@@ -1,66 +1,63 @@
 package per.ccm.ygmall.product.entity;
 
-import org.hibernate.annotations.DynamicInsert;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.*;
 
 /**
  * 商品Spu
  * */
-@Entity
-@DynamicInsert
-@Table(name = "spu")
+@TableName("spu")
 public class Spu extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "spu_id")
+    @TableId(type = IdType.ASSIGN_ID)
     private Long spuId;
 
     /**
      * 品牌ID
      * */
-    @Column(name = "brand_id")
+    @TableField("brand_id")
     private Long brandId;
 
     /**
      * 商品状态 0-上架 1-已下架
      * */
-    @Column(name = "state")
+    @TableField("state")
     private Integer state;
 
     /**
      * 分类列表
      * */
-    @Column(name = "categories")
+    @TableField("categories")
     private String categories;
 
     /**
      * 商品名称
      * */
-    @Column(name = "name")
+    @TableField("name")
     private String name;
 
     /**
      * 商品封面
      * */
-    @Column(name = "cover")
+    @TableField("cover")
     private String cover;
 
     /**
      * 商品列表
      * */
-    @Column(name = "img_list")
+    @TableField("img_list")
     private String imgList;
 
-    @Column(name = "recommended")
+    @TableField("recommended")
     private Boolean recommended;
 
-    @Column(name = "enabled")
+    @TableField("enabled")
     private Boolean enabled;
 
     public Long getSpuId() {

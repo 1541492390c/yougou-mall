@@ -1,56 +1,55 @@
 package per.ccm.ygmall.product.service.impl;
 
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.QBean;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.SkuDTO;
-import per.ccm.ygmall.product.entity.QSku;
 import per.ccm.ygmall.product.entity.Sku;
-import per.ccm.ygmall.product.repository.SkuRepository;
+import per.ccm.ygmall.product.mapper.SkuMapper;
 import per.ccm.ygmall.product.service.SkuService;
 import per.ccm.ygmall.product.vo.SkuVO;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SkuServiceImpl extends BaseService implements SkuService {
 
     @Autowired
-    private SkuRepository skuRepository;
+    private SkuMapper skuMapper;
 
     @Override
     public void save(SkuDTO skuDTO) throws Exception {
-        QSku qSku = QSku.sku;
+        LambdaQueryWrapper<Sku> queryWrapper = new LambdaQueryWrapper<>();
 
-        Optional<Sku> skuSpecsExist = skuRepository.findOne(qSku.specs.eq(skuDTO.getSpecs()));
         // 判断sku规格是否存在
-        if (skuSpecsExist.isPresent()) {
+        if (this.isExist(queryWrapper, skuDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B40001);
         }
         Sku sku = ConvertUtils.dtoConvertToEntity(skuDTO, Sku.class);
-        skuRepository.save(sku);
+        skuMapper.insert(sku);
     }
 
     @Override
     public List<SkuVO> getSkuListBySpuId(Long spuId) {
-        QSku qSku = QSku.sku;
-        QBean<SkuVO> qBean = this.getQBean(qSku);
-        return super.jpaQueryFactory.select(qBean).from(qSku).where(qSku.spuId.eq(spuId)).fetch();
+        LambdaQueryWrapper<Sku> queryWrapper = new LambdaQueryWrapper<>();
+        List<Sku> skuList = skuMapper.selectList(queryWrapper.eq(Sku::getSpuId, spuId));
+        return ConvertUtils.converList(skuList, SkuVO.class);
     }
 
     /**
-     * 获取映射对象
+     * 判断当该sku规格是否存在
      *
-     * @param qSku querydsl实体
-     * @return 映射对象
+     * @param queryWrapper 查询
+     * @param skuDTO sku传输数据
+     * @return 是否存在该sku名称
      * */
-    private QBean<SkuVO> getQBean(QSku qSku) {
-        return Projections.bean(SkuVO.class, qSku.skuId, qSku.spuId, qSku.skuStock, qSku.price, qSku.desc, qSku.specs);
+    private Boolean isExist(LambdaQueryWrapper<Sku> queryWrapper, SkuDTO skuDTO) {
+        Sku skuExist = skuMapper.selectOne(queryWrapper.eq(Sku::getSkuDesc, skuDTO.getSkuDesc()));
+        return !ObjectUtils.isEmpty(skuExist);
     }
 }

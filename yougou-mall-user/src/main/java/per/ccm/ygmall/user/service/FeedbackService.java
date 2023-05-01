@@ -1,8 +1,9 @@
 package per.ccm.ygmall.user.service;
 
-import org.springframework.data.domain.Pageable;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
+import per.ccm.ygmall.user.entity.Feedback;
 import per.ccm.ygmall.user.vo.FeedbackVO;
 
 /**
@@ -20,8 +21,8 @@ public interface FeedbackService {
      * 分页获取用户反馈信息列表
      *
      * @param userId 用户ID
-     * @param pageable 分页信息
+     * @param page 分页信息
      * @return 用户反馈分页信息
      * */
-    PageVO<FeedbackVO> getFeedbackPages(Long userId, Pageable pageable) throws Exception;
+    PageVO<FeedbackVO> getFeedbackPages(Long userId, Page<Feedback> page) throws Exception;
 }

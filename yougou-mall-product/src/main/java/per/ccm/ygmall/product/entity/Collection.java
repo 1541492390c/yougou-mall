@@ -1,36 +1,33 @@
 package per.ccm.ygmall.product.entity;
 
-import org.hibernate.annotations.DynamicInsert;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.*;
 
 /**
  * 商品收藏
  * */
-@Entity
-@DynamicInsert
-@Table(name = "collection")
+@TableName("collection")
 public class Collection extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "collection_id")
+    @TableId(type = IdType.AUTO)
     private Long collectionId;
 
     /**
      * spuID
      * */
-    @Column(name = "spu_id")
+    @TableField("spu_id")
     private Long spuId;
 
     /**
      * 用户ID
      * */
-    @Column(name = "user_id")
+    @TableField("user_id")
     private Long userId;
 
     public Long getCollectionId() {

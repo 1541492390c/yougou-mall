@@ -1,65 +1,65 @@
 package per.ccm.ygmall.user.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "user")
+@TableName("user")
 public class User extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @TableId(type = IdType.ASSIGN_ID)
     private Long userId;
 
     /**
      * 年龄
      * */
-    @Column(name = "age")
+    @TableField("age")
     private Integer age;
 
     /**
      * 性别 0-未知 1-男 2-女
      * */
-    @Column(name = "gender")
+    @TableField("gender")
     private Integer gender;
 
     /**
      * 用户角色 0-管理员 1-普通用户
      * */
-    @Column(name = "user_type")
+    @TableField("user_type")
     private Integer userType;
 
     /**
      * 状态 0-正常 1-禁用
      * */
-    @Column(name = "state")
+    @TableField("state")
     private Integer state;
 
     /**
      * 用户名
      * */
-    @Column(name = "username")
+    @TableField("username")
     private String username;
 
     /**
      * 头像地址
      * */
-    @Column(name = "avatar")
+    @TableField("avatar")
     private String avatar;
 
     /**
      * 生日
      * */
-    @Column(name = "birthday")
+    @TableField("birthday")
     private Date birthday;
 
-    @Column(name = "enabled")
+    @TableField("enabled")
     private Boolean enabled;
 
     public Long getUserId() {

@@ -1,18 +1,18 @@
 package per.ccm.ygmall.platform.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
+import per.ccm.ygmall.platform.entity.Banner;
 import per.ccm.ygmall.platform.service.BannerService;
 import per.ccm.ygmall.platform.vo.BannerVO;
 
@@ -42,8 +42,8 @@ public class BannerController extends BaseController {
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "type", required = false) Integer type) throws Exception {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
-        PageVO<BannerVO> pageVO = bannerService.getBannerPages(type, pageable);
+        Page<Banner> page = new Page<>(pageNum, pageSize);
+        PageVO<BannerVO> pageVO = bannerService.getBannerPages(type, page);
         return ResponseEntity.success(pageVO);
     }
 }

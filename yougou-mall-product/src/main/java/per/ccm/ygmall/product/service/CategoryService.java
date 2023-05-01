@@ -1,8 +1,10 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.data.domain.Pageable;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.CategoryDTO;
+import per.ccm.ygmall.product.entity.Category;
 import per.ccm.ygmall.product.vo.CategoryVO;
 
 import java.util.List;
@@ -25,10 +27,10 @@ public interface CategoryService {
     /**
      * 分页获取分类信息
      *
-     * @param pageable 分页信息
+     * @param page 分页信息
      * @return 分类信息分页信息列表
      * */
-    PageVO<CategoryVO> getCategoryPages(Pageable pageable) throws Exception;
+    PageVO<CategoryVO> getCategoryPages(Long parentId, Page<Category> page) throws Exception;
 
     /**
      * 更新商品分类信息

@@ -1,79 +1,75 @@
 package per.ccm.ygmall.auth.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * 认证账号
  * */
-@Entity
-@Table(name = "auth_account")
+@TableName("auth_account")
 public class AuthAccount extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @Column(name = "auth_account_id")
+    @TableId(type = IdType.ASSIGN_ID)
     private Long authAccountId;
 
     /**
      * 用户ID
      * */
-    @Column(name = "user_id")
+    @TableField("user_id")
     private Long userId;
 
     /**
      * 状态 0-正常 1-禁用
      * */
-    @Column(name = "state")
+    @TableField("state")
     private Integer state;
 
     /**
      * 账号(11位)
      * */
-    @Column(name = "account")
+    @TableField("account")
     private String account;
 
     /**
      * 用户名
      * */
-    @Column(name = "username")
+    @TableField("username")
     private String username;
 
     /**
      * 密码
      * */
-    @Column(name = "password")
+    @TableField("password")
     private String password;
 
     /**
      * 电子邮箱
      * */
-    @Schema(name = "email")
+    @TableField("email")
     private String email;
 
     /**
      * 手机号
      * */
-    @Column(name = "mp")
+    @TableField("mp")
     private String mp;
 
     /**
      * 角色
      * */
-    @Column(name = "role")
+    @TableField("role")
     private String role;
 
     /**
      * 是否启用
      * */
-    @Column(name = "enabled")
+    @TableField("enabled")
     private Boolean enabled;
 
     public Long getAuthAccountId() {

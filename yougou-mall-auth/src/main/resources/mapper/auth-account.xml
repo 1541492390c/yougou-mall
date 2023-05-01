@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.ccm.ygmall.auth.mapper.AuthAccountMapper">
+    <sql id="auth_account_vo_column">
+        `auth_account_id`, `user_id`, `state`, `account`, `email`, `email`, `mp`, `role`
+    </sql>
+</mapper>

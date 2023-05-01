@@ -1,6 +1,7 @@
 package per.ccm.ygmall.common.entity;
 
-import javax.persistence.Column;
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,13 +10,13 @@ public class BaseEntity implements Serializable {
     /**
      * 创建时间
      * */
-    @Column(name = "create_time")
+    @TableField("create_time")
     protected Date createTime;
 
     /**
      * 更新时间
      * */
-    @Column(name = "update_time")
+    @TableField("update_time")
     protected Date updateTime;
 
     public Date getCreateTime() {

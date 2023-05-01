@@ -1,49 +1,48 @@
 package per.ccm.ygmall.user.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "feedback")
+@TableName("feedback")
 public class Feedback extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "feedback_id")
+    @TableId(type = IdType.AUTO)
     private Long feedbackId;
 
     /**
      * 用户ID
      * */
-    @Column(name = "user_id")
+    @TableField("user_id")
     private Long userId;
 
     /**
      * 反馈类型
      * */
-    @Column(name = "feedback_type_id")
+    @TableField("feedback_type_id")
     private Long feedbackTypeId;
 
     /**
      * 评分
      * */
-    @Column(name = "rate")
+    @TableField("rate")
     private Double rate;
 
     /**
      * 反馈内容
      * */
-    @Column(name = "content")
+    @TableField("content")
     private String content;
 
     /**
      * 联系方式 (手机/电话/邮箱)
      * */
-    @Column(name = "contact_way")
+    @TableField("contact_way")
     private String contactWay;
 
     public Long getFeedbackId() {

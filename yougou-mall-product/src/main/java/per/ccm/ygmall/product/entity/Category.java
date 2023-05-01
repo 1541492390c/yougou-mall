@@ -1,42 +1,39 @@
 package per.ccm.ygmall.product.entity;
 
-import org.hibernate.annotations.DynamicInsert;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
-
-import javax.persistence.*;
 
 /**
  * 商品分类
  * */
-@Entity
-@DynamicInsert
-@Table(name = "category")
+@TableName("category")
 public class Category extends BaseEntity {
 
     /**
      * 主键ID
      * */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @TableId(type = IdType.AUTO)
     private Long categoryId;
 
     /**
      * 父级分类ID 顶级分类为0
      * */
-    @Column(name = "parent_id")
+    @TableField("parent_id")
     private Long parentId;
 
     /**
      * 分类级别
      * */
-    @Column(name = "level")
+    @TableField("level")
     private Integer level;
 
     /**
      * 分类名称
      * */
-    @Column(name = "name")
+    @TableField("name")
     private String name;
 
     public Long getCategoryId() {

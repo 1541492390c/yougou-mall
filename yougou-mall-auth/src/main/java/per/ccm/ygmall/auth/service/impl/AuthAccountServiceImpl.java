@@ -1,8 +1,6 @@
 package per.ccm.ygmall.auth.service.impl;
 
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.QBean;
-import com.querydsl.jpa.impl.JPAUpdateClause;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,8 +15,7 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.entity.AuthAccount;
-import per.ccm.ygmall.auth.entity.QAuthAccount;
-import per.ccm.ygmall.auth.repository.AuthAccountRepository;
+import per.ccm.ygmall.auth.mapper.AuthAccountMapper;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.exception.YougouException;
@@ -41,7 +38,7 @@ import java.util.Map;
 public class AuthAccountServiceImpl extends BaseService implements AuthAccountService {
 
     @Autowired
-    private AuthAccountRepository authAccountRepository;
+    private AuthAccountMapper authAccountMapper;
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
@@ -51,9 +48,8 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        QAuthAccount qAuthAccount = QAuthAccount.authAccount;
-        AuthAccount authAccount = super.jpaQueryFactory.select(qAuthAccount).from(qAuthAccount)
-                .where(qAuthAccount.username.eq(username)).fetchFirst();
+        LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
+        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, username));
 
         // 用户不存在
         if (ObjectUtils.isEmpty(authAccount)) {
@@ -69,7 +65,7 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
         authAccount.setAccount(RandomUtils.createAccount());
         authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
         authAccount.setEnabled(true);
-        authAccountRepository.save(authAccount);
+        authAccountMapper.insert(authAccount);
     }
 
     @Override
@@ -87,49 +83,29 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
 
     @Override
     public AuthAccountVO getAuthAccountByUserId(Long userId) {
-        QAuthAccount qAuthAccount = QAuthAccount.authAccount;
-        QBean<AuthAccountVO> qBean = this.getQBean(qAuthAccount);
-
-        return super.jpaQueryFactory.select(qBean).from(qAuthAccount).where(qAuthAccount.userId.eq(userId)).fetchFirst();
+        LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
+        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
+        return ConvertUtils.entityConvertToVO(authAccount, AuthAccountVO.class);
     }
 
     @Override
     public void updatePassword(Long authAccountId, UpdatePasswordDTO updatePasswordDTO) {
-        QAuthAccount qAuthAccount = QAuthAccount.authAccount;
+        LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
 
-        AuthAccount authAccount = super.jpaQueryFactory.select(qAuthAccount).from(qAuthAccount)
-                .where(qAuthAccount.authAccountId.eq(authAccountId)).fetchFirst();
+        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getAuthAccountId, authAccountId));
         //判断原密码与传入的密码是否一致
         if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
             throw new YougouException(ResponseCode.USER_ERROR_A00006);
         }
+
         String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
-        super.jpaQueryFactory.update(qAuthAccount).set(qAuthAccount.password, newPassword)
-                .where(qAuthAccount.authAccountId.eq(authAccountId)).execute();
+        authAccount.setPassword(newPassword);
+        authAccountMapper.updateById(authAccount);
     }
 
     @Override
     public void update(AuthAccountDTO authAccountDTO) {
-        QAuthAccount qAuthAccount = QAuthAccount.authAccount;
-
-        JPAUpdateClause jpaUpdateClause = super.jpaQueryFactory.update(qAuthAccount);
-        // 更新电子邮箱
-        if (ObjectUtils.isEmpty(authAccountDTO.getEmail())) {
-            jpaUpdateClause.set(qAuthAccount.email, authAccountDTO.getEmail());
-        }
-        // 更新手机号
-        if (ObjectUtils.isEmpty(authAccountDTO.getMp())) {
-            jpaUpdateClause.set(qAuthAccount.mp, authAccountDTO.getMp());
-        }
-        // 更新角色
-        if (ObjectUtils.isEmpty(authAccountDTO.getRole())) {
-            jpaUpdateClause.set(qAuthAccount.role, authAccountDTO.getRole());
-        }
-        jpaUpdateClause.where(qAuthAccount.authAccountId.eq(authAccountDTO.getAuthAccountId())).execute();
-    }
-
-    private QBean<AuthAccountVO> getQBean(QAuthAccount qAuthAccount) {
-        return Projections.bean(AuthAccountVO.class, qAuthAccount.authAccountId, qAuthAccount.userId, qAuthAccount.state,
-                qAuthAccount.account, qAuthAccount.username, qAuthAccount.email, qAuthAccount.mp);
+        AuthAccount authAccount = ConvertUtils.dtoConvertToEntity(authAccountDTO, AuthAccount.class);
+        authAccountMapper.updateById(authAccount);
     }
 }

@@ -1,8 +1,9 @@
 package per.ccm.ygmall.platform.service;
 
-import org.springframework.data.domain.Pageable;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
+import per.ccm.ygmall.platform.entity.Banner;
 import per.ccm.ygmall.platform.vo.BannerVO;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public interface BannerService {
      * 分页获取轮播图信息
      *
      * @param type 轮播图类型
-     * @param pageable 分页信息
+     * @param page 分页信息
      * @return 轮播图分页信息
      * */
-    PageVO<BannerVO> getBannerPages(Integer type, Pageable pageable) throws Exception;
+    PageVO<BannerVO> getBannerPages(Integer type, Page<Banner> page) throws Exception;
 
     /**
      * 获取轮播图信息列表
