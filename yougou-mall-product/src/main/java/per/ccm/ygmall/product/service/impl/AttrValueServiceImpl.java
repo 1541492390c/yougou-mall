@@ -45,9 +45,9 @@ public class AttrValueServiceImpl extends BaseService implements AttrValueServic
     }
 
     @Override
-    public List<AttrValueVO> getAttrValueListByAttrIdList(List<Long> attrIdList) {
+    public List<AttrValueVO> getAttrValueListByAttrValueIdList(List<Long> attrValueIdList) {
         LambdaQueryWrapper<AttrValue> queryWrapper = new LambdaQueryWrapper<>();
-        List<AttrValue> attrValueList = attrValueMapper.selectList(queryWrapper.in(AttrValue::getAttrId, attrIdList));
+        List<AttrValue> attrValueList = attrValueMapper.selectList(queryWrapper.in(AttrValue::getAttrValueId, attrValueIdList));
         return ConvertUtils.converList(attrValueList, AttrValueVO.class);
     }
 

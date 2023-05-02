@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.user.mapper.FeedbackMapper">
+    <resultMap id="feedbackVOMap" type="per.ccm.ygmall.user.vo.FeedbackVO">
+        <id column="feedback_id" property="feedbackId" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="feedback_type_id" property="feedbackTypeId" jdbcType="BIGINT" />
+        <result column="rate" property="rate" jdbcType="DECIMAL" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="content_way" property="contactWay" jdbcType="VARCHAR" />
+        <result column="name" property="feedbackTypeName" jdbcType="VARCHAR" />
+    </resultMap>
+
     <sql id="feedback_vo_column">
         feedback.`feedback_id`,
         feedback.`user_id`,
@@ -15,7 +25,7 @@
         FROM feedback LEFT JOIN feedback_type ON feedback.`feedbac_type_id` = feedback_type.`feedback_type_id`
     </sql>
 
-    <select id="selectFeedbackPages" resultType="per.ccm.ygmall.user.vo.FeedbackVO">
+    <select id="selectFeedbackPages" resultMap="feedbackVOMap">
         SELECT <include refid="feedback_vo_column" /> <include refid="feedback_left_join_feedback_type" />
         <where>
             <if test="userId != null">user_id = #{userId}</if>

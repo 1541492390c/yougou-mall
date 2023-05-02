@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.product.mapper.SpuMapper">
+    <resultMap id="spuVOMap" type="per.ccm.ygmall.product.vo.SpuVO">
+        <id column="spu_id" property="spuId" jdbcType="BIGINT" />
+        <result column="brand_id" property="brandId" jdbcType="BIGINT" />
+        <result column="state" property="state" jdbcType="TINYINT" />
+        <result column="categories" property="categories" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="cover" property="cover" jdbcType="VARCHAR" />
+        <result column="img_list" property="imgList" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+    </resultMap>
+
     <sql id="spu_vo_column">
         spu.`spu_id`,
         spu.`brand_id`,
@@ -16,11 +27,11 @@
         FROM spu LEFT JOIN sku ON spu.`spu_id` = sku.`spu_id`
     </sql>
 
-    <select id="selectRecommendedSpuList" resultType="per.ccm.ygmall.product.vo.SpuVO">
+    <select id="selectRecommendedSpuList" resultMap="spuVOMap">
         SELECT DISTINCT <include refid="spu_vo_column" /> <include refid="spu_left_join_sku" />
     </select>
 
-    <select id="selectSpuPages" resultType="per.ccm.ygmall.product.vo.SpuVO">
+    <select id="selectSpuPages" resultMap="spuVOMap">
         SELECT DISTINCT <include refid="spu_vo_column" /> <include refid="spu_left_join_sku" />
             <where>
                 <if test="categories != null">spu.`categories` = #{categories}</if>

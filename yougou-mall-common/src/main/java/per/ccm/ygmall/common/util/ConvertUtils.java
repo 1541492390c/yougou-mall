@@ -76,7 +76,7 @@ public class ConvertUtils {
     public static <T> List<T> converList(Collection<?> sourceList, Class<T> target) {
         try {
             if (ObjectUtils.isEmpty(sourceList)) {
-                return null;
+                return new ArrayList<>();
             }
             List<T> targetList = new ArrayList<>(sourceList.size());
 

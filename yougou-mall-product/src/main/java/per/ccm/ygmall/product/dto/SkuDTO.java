@@ -3,6 +3,8 @@ package per.ccm.ygmall.product.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import per.ccm.ygmall.common.dto.BaseDTO;
 
+import java.util.List;
+
 /**
  * sku传输数据
  * */
@@ -20,8 +22,8 @@ public class SkuDTO extends BaseDTO {
     @Schema(name = "sku描述")
     private String skuDesc;
 
-    @Schema(name = "规格")
-    private String specs;
+    @Schema(name = "商品规格")
+    private List<SkuSpecsDTO> skuSpecs;
 
     public Long getSkuId() {
         return skuId;
@@ -55,12 +57,12 @@ public class SkuDTO extends BaseDTO {
         this.skuDesc = skuDesc;
     }
 
-    public String getSpecs() {
-        return specs;
+    public List<SkuSpecsDTO> getSkuSpecs() {
+        return skuSpecs;
     }
 
-    public void setSpecs(String specs) {
-        this.specs = specs;
+    public void setSkuSpecsList(List<SkuSpecsDTO> skuSpecs) {
+        this.skuSpecs = skuSpecs;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class SkuDTO extends BaseDTO {
                 ", spuId=" + spuId +
                 ", price=" + price +
                 ", skuDesc='" + skuDesc + '\'' +
-                ", specs='" + specs + '\'' +
+                ", skuSpecs=" + skuSpecs +
                 '}';
     }
 }

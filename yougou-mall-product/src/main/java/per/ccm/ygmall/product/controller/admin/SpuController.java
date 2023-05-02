@@ -3,16 +3,12 @@ package per.ccm.ygmall.product.controller.admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.SpuDTO;
 import per.ccm.ygmall.product.service.SpuService;
-import per.ccm.ygmall.product.vo.SpuVO;
 
 @RestController("adminSpuController")
 @RequestMapping("/admin/product/spu")

@@ -42,12 +42,6 @@ public class Sku extends BaseEntity {
     @TableField("sku_desc")
     private String skuDesc;
 
-    /**
-     * sku规格
-     * */
-    @TableField("specs")
-    private String specs;
-
     public Long getSkuId() {
         return skuId;
     }
@@ -88,14 +82,6 @@ public class Sku extends BaseEntity {
         this.skuDesc = skuDesc;
     }
 
-    public String getSpecs() {
-        return specs;
-    }
-
-    public void setSpecs(String specs) {
-        this.specs = specs;
-    }
-
     @Override
     public String toString() {
         return "Sku{" +
@@ -104,7 +90,6 @@ public class Sku extends BaseEntity {
                 ", skuStock=" + skuStock +
                 ", price=" + price +
                 ", skuDesc='" + skuDesc + '\'' +
-                ", specs='" + specs + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

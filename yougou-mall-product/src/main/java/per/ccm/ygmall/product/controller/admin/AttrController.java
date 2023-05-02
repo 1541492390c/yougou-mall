@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,7 +9,6 @@ import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.AttrDTO;
 import per.ccm.ygmall.product.service.AttrService;
-import per.ccm.ygmall.product.vo.AttrVO;
 
 import java.util.List;
 
@@ -30,7 +28,15 @@ public class AttrController extends BaseController {
         return ResponseEntity.success();
     }
 
+    @PutMapping("/update")
+    @Operation(summary = "更新商品属性", description = "更新商品属性")
+    public ResponseEntity<Void> update(@RequestBody AttrDTO attrDTO) throws Exception {
+        attrService.update(attrDTO);
+        return ResponseEntity.success();
+    }
+
     @DeleteMapping("/batch_delete")
+    @Operation(summary = "批量删除商品属性", description = "批量删除商品属性")
     public ResponseEntity<Void> batchDelete(@RequestBody List<Long> attrIdList) throws Exception {
         attrService.batchDelete(attrIdList);
         return ResponseEntity.success();

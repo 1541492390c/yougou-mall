@@ -14,11 +14,12 @@ public interface AttrValueService {
     void batchSave(List<AttrValueDTO> attrDTOList) throws Exception;
 
     /**
-     * 查询属性ID列表中的属性值
+     * 查询属性值ID列表中的属性值
      *
-     * @param attrIdList 商品属性ID
+     * @param attrIdValueList 商品属性值ID
+     * @return 商品属性值信息列表
      * */
-    List<AttrValueVO> getAttrValueListByAttrIdList(List<Long> attrIdList) throws Exception;
+    List<AttrValueVO> getAttrValueListByAttrValueIdList(List<Long> attrIdValueList) throws Exception;
 
     /**
      *根据商品属性值ID批量删除商品属性值

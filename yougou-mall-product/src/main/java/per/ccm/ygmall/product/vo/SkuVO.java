@@ -3,6 +3,8 @@ package per.ccm.ygmall.product.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import per.ccm.ygmall.common.vo.BaseVO;
 
+import java.util.List;
+
 /**
  * 商品sku信息
  * */
@@ -19,6 +21,12 @@ public class SkuVO extends BaseVO {
 
     @Schema(name = "sku价格")
     private Double price;
+
+    @Schema(name = "sku描述")
+    private String skuDesc;
+
+    @Schema(name = "sku规格")
+    private List<SkuSpecsVO> skuSpecs;
 
     public Long getSkuId() {
         return skuId;
@@ -52,6 +60,22 @@ public class SkuVO extends BaseVO {
         this.price = price;
     }
 
+    public String getSkuDesc() {
+        return skuDesc;
+    }
+
+    public void setSkuDesc(String skuDesc) {
+        this.skuDesc = skuDesc;
+    }
+
+    public List<SkuSpecsVO> getSkuSpecs() {
+        return skuSpecs;
+    }
+
+    public void setSkuSpecs(List<SkuSpecsVO> skuSpecs) {
+        this.skuSpecs = skuSpecs;
+    }
+
     @Override
     public String toString() {
         return "SkuVO{" +
@@ -59,6 +83,8 @@ public class SkuVO extends BaseVO {
                 ", spuId=" + spuId +
                 ", skuStock=" + skuStock +
                 ", price=" + price +
+                ", skuDesc=" + skuDesc +
+                ", skuSpecs=" + skuSpecs +
                 '}';
     }
 }

@@ -22,6 +22,14 @@ public interface AttrService {
     List<AttrVO> getAttrListBySpuId(Long spuId) throws Exception;
 
     /**
+     * 根据属性ID列表获取商品属性列表
+     *
+     * @param attrIdList 属性ID列表
+     * @return 商品属性列表
+     * */
+    List<AttrVO> getAttrListByAttrIdList(List<Long> attrIdList) throws Exception;
+
+    /**
      * 更新商品属性信息
      *
      * @param attrDTO 商品属性传输数据
