@@ -24,4 +24,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+
 }

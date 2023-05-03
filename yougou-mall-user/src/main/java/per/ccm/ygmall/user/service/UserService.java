@@ -1,9 +1,9 @@
 package per.ccm.ygmall.user.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.data.domain.Pageable;
 import per.ccm.ygmall.common.vo.PageVO;
-import per.ccm.ygmall.user.dto.UserDTO;
+import per.ccm.ygmall.user.dto.UserRegisterDTO;
+import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.vo.UserVO;
 
@@ -14,9 +14,9 @@ public interface UserService {
     /**
      * 保存用户信息
      *
-     * @param userDTO 用户信息传输数据
+     * @param userRegisterDTO 用户注册信息传输数据
      * */
-    void save(UserDTO userDTO) throws Exception;
+    void save(UserRegisterDTO userRegisterDTO) throws Exception;
 
     /**
      * 根据用户id获取用户信息
@@ -39,7 +39,7 @@ public interface UserService {
     /**
      * 更新用户信息
      *
-     * @param userDTO 用户传输数据
+     * @param userUpdateDTO 用户更新传输数据
      * */
-    void update(UserDTO userDTO) throws Exception;
+    void update(UserUpdateDTO userUpdateDTO) throws Exception;
 }

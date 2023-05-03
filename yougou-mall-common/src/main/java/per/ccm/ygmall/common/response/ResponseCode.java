@@ -1,5 +1,8 @@
 package per.ccm.ygmall.common.response;
 
+import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.common.exception.ServerException;
+
 public enum ResponseCode {
 
     /**
@@ -48,14 +51,19 @@ public enum ResponseCode {
     USER_ERROR_A00006("A00006", "原密码错误"),
 
     /**
-     * 注册失败,用户名已存在
+     * 用户名已存在
      * */
-    USER_ERROR_A00007("A00007", "注册失败,用户名已存在"),
+    USER_ERROR_A00007("A00007", "用户名已存在"),
+
+    /**
+     * 机号已存在
+     * */
+    USER_ERROR_A00008("A00008", "手机号已存在"),
 
     /**
      * 用户不存在
      * */
-    USER_ERROR_A00008("A00008", "用户不存在"),
+    USER_ERROR_A0009("A00009", "用户不存在"),
 
     /**
      * 用户反馈类型已存在
@@ -117,5 +125,14 @@ public enum ResponseCode {
 
     public String message() {
         return message;
+    }
+
+    public static ResponseCode responseCodeOf(String value) {
+        for (ResponseCode responseCode : ResponseCode.values()) {
+            if (ObjectUtils.nullSafeEquals(responseCode.value(), value)) {
+                return responseCode;
+            }
+        }
+        throw new ServerException("响应码不存在");
     }
 }

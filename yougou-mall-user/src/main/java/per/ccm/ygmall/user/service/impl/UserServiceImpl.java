@@ -3,6 +3,7 @@ package per.ccm.ygmall.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,10 +14,12 @@ import per.ccm.ygmall.api.auth.feign.AuthAccountFeign;
 import per.ccm.ygmall.common.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.vo.PageVO;
-import per.ccm.ygmall.user.dto.UserDTO;
+import per.ccm.ygmall.user.dto.UserRegisterDTO;
+import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.mapper.UserMapper;
 import per.ccm.ygmall.user.service.UserService;
@@ -34,20 +37,25 @@ public class UserServiceImpl extends BaseService implements UserService {
     private AuthAccountFeign authAccountFeign;
 
     @Override
-    public void save(UserDTO userDTO) throws Exception {
+    @GlobalTransactional(rollbackFor = Exception.class)
+    public void save(UserRegisterDTO userRegisterDTO) throws Exception {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
-        // 判断用户名是否存在
-        if (userMapper.exists(queryWrapper.eq(User::getUsername, userDTO.getUsername()))) {
+        // 用户名已被使用
+        if (userMapper.exists(queryWrapper.eq(User::getUsername, userRegisterDTO.getUsername()))) {
             throw new YougouException(ResponseCode.USER_ERROR_A00007);
         }
-        User user = ConvertUtils.dtoConvertToEntity(userDTO, User.class);
+        User user = ConvertUtils.dtoConvertToEntity(userRegisterDTO, User.class);
         userMapper.insert(user);
 
-        AuthAccountBO authAccountBO = ConvertUtils.dtoConvertToBO(userDTO, AuthAccountBO.class);
+        AuthAccountBO authAccountBO = ConvertUtils.dtoConvertToBO(userRegisterDTO, AuthAccountBO.class);
         authAccountBO.setUserId(user.getUserId());
         authAccountBO.setUsername(user.getUsername());
-        authAccountFeign.save(authAccountBO);
+        // 抛异常回滚
+        ResponseEntity<Void> response =authAccountFeign.save(authAccountBO);
+        if (!ObjectUtils.nullSafeEquals(response.getCode(), ResponseCode.OK.value())) {
+            throw new YougouException(ResponseCode.responseCodeOf(response.getCode()));
+        }
     }
 
     @Override
@@ -73,16 +81,19 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheNames.USERINFO_CACHE_NAME, key = "#userDTO.userId")
-    public void update(UserDTO userDTO) throws Exception {
-        User user = ConvertUtils.dtoConvertToEntity(userDTO, User.class);
+    @CacheEvict(cacheNames = CacheNames.USERINFO_CACHE_NAME, key = "#userUpdateDTO.userId")
+    @GlobalTransactional(rollbackFor = Exception.class)
+    public void update(UserUpdateDTO userUpdateDTO) throws Exception {
+        User user = ConvertUtils.dtoConvertToEntity(userUpdateDTO, User.class);
         userMapper.updateById(user);
 
-        if (ObjectUtils.isEmpty(userDTO.getEmail()) || ObjectUtils.isEmpty(userDTO.getMp()) || ObjectUtils.isEmpty(userDTO.getRole())) {
-            AuthAccountBO authAccountBO = ConvertUtils.dtoConvertToBO(userDTO, AuthAccountBO.class);
-            // 密码不允许在此处更新
-            authAccountBO.setPassword(null);
-            authAccountFeign.update(authAccountBO);
+        if (ObjectUtils.isEmpty(userUpdateDTO.getEmail()) || ObjectUtils.isEmpty(userUpdateDTO.getRole())) {
+            AuthAccountBO authAccountBO = ConvertUtils.dtoConvertToBO(userUpdateDTO, AuthAccountBO.class);
+            ResponseEntity<Void> response = authAccountFeign.update(authAccountBO);
+            // 抛异常回滚
+            if (!ObjectUtils.nullSafeEquals(response.getCode(), ResponseCode.OK.value())) {
+                throw new YougouException(ResponseCode.responseCodeOf(response.getCode()));
+            }
         }
     }
 }

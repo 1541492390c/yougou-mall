@@ -22,7 +22,6 @@ import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.common.util.RandomUtils;
 import per.ccm.ygmall.security.config.ClientConfig;
 import per.ccm.ygmall.security.enums.GrantType;
 import per.ccm.ygmall.security.enums.UserType;
@@ -56,15 +55,19 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
             throw new YougouException(ResponseCode.USER_ERROR_A00002);
         }
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(RoleConfig.ROLE_SUFFIX + authAccount.getRole()));
-        return new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getAccount(), authAccount.getPassword(), authorities);
+        return new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
     }
 
     @Override
     public void save(AuthAccountDTO authAccountDTO) {
+        LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 手机号已被使用
+        if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMp, authAccountDTO.getMp()))) {
+            throw new YougouException(ResponseCode.USER_ERROR_A00008);
+        }
         AuthAccount authAccount = ConvertUtils.dtoConvertToEntity(authAccountDTO, AuthAccount.class);
-        authAccount.setAccount(RandomUtils.createAccount());
         authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
-        authAccount.setEnabled(true);
         authAccountMapper.insert(authAccount);
     }
 

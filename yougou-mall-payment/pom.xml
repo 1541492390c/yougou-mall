@@ -44,10 +44,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.mysema.maven</groupId>
-                <artifactId>apt-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 </project>

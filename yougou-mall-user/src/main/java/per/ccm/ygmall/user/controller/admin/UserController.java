@@ -12,7 +12,7 @@ import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.security.util.SecurityUtils;
-import per.ccm.ygmall.user.dto.UserDTO;
+import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.service.UserService;
 import per.ccm.ygmall.user.vo.UserVO;
@@ -28,8 +28,8 @@ public class UserController extends BaseController {
     @PostMapping("/save")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "保存用户(管理员)信息", description = "保存用户(管理员)信息")
-    public ResponseEntity<Void> save(@RequestBody UserDTO userDTO) throws Exception {
-        userService.save(userDTO);
+    public ResponseEntity<Void> save(@RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
+        userService.save(userRegisterDTO);
         return ResponseEntity.success();
     }
 

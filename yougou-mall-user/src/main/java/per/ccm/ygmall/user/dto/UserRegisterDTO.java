@@ -8,10 +8,7 @@ import java.util.Date;
 /**
  * 用户传输数据
  * */
-public class UserDTO extends BaseDTO {
-
-    @Schema(description = "用户ID")
-    private Long userId;
+public class UserRegisterDTO extends BaseDTO {
 
     @Schema(description = "年龄")
     private Integer age;
@@ -28,9 +25,6 @@ public class UserDTO extends BaseDTO {
     @Schema(description = "用户名")
     private String username;
 
-    @Schema(description = "头像")
-    private String avatar;
-
     @Schema(description = "电子邮箱")
     private String email;
 
@@ -45,14 +39,6 @@ public class UserDTO extends BaseDTO {
 
     @Schema(description = "生日")
     private Date birthday;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Integer getAge() {
         return age;
@@ -92,14 +78,6 @@ public class UserDTO extends BaseDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getEmail() {
@@ -145,13 +123,11 @@ public class UserDTO extends BaseDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "userId=" + userId +
                 ", age=" + age +
                 ", gender=" + gender +
                 ", userType=" + userType +
                 ", state=" + state +
                 ", username='" + username + '\'' +
-                ", avatar='" + avatar + '\'' +
                 ", email='" + email + '\'' +
                 ", mp='" + mp + '\'' +
                 ", password='" + password + '\'' +

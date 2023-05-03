@@ -7,7 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.security.util.SecurityUtils;
-import per.ccm.ygmall.user.dto.UserDTO;
+import per.ccm.ygmall.user.dto.UserRegisterDTO;
+import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.service.UserService;
 import per.ccm.ygmall.user.vo.UserVO;
 
@@ -22,8 +23,8 @@ public class UserController {
     @PostMapping("/register")
     @PreAuthorize("hasRole(@roleConfig.USER)")
     @Operation(summary = "用户注册", description = "用户注册")
-    public ResponseEntity<Void> register(@RequestBody UserDTO userDTO) throws Exception {
-        userService.save(userDTO);
+    public ResponseEntity<Void> register(@RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
+        userService.save(userRegisterDTO);
         return ResponseEntity.success();
     }
 
@@ -37,11 +38,11 @@ public class UserController {
 
     @PutMapping("/update")
     @Operation(summary = "更新用户信息", description = "更新用户信息")
-    public ResponseEntity<Void> update(@RequestBody UserDTO userDTO) throws Exception {
+    public ResponseEntity<Void> update(@RequestBody UserUpdateDTO userUpdateDTO) throws Exception {
         Long userId = SecurityUtils.getUserId();
 
-        userDTO.setUserId(userId);
-        userService.update(userDTO);
+        userUpdateDTO.setUserId(userId);
+        userService.update(userUpdateDTO);
         return ResponseEntity.success();
     }
 }

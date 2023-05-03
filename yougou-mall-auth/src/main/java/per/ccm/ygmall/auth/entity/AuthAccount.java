@@ -31,12 +31,6 @@ public class AuthAccount extends BaseEntity {
     private Integer state;
 
     /**
-     * 账号(11位)
-     * */
-    @TableField("account")
-    private String account;
-
-    /**
      * 用户名
      * */
     @TableField("username")
@@ -96,14 +90,6 @@ public class AuthAccount extends BaseEntity {
         this.state = state;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String authAccount) {
-        this.account = authAccount;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -158,7 +144,6 @@ public class AuthAccount extends BaseEntity {
                 "authAccountId=" + authAccountId +
                 ", userId=" + userId +
                 ", state=" + state +
-                ", account='" + account + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
