@@ -9,7 +9,7 @@ import per.ccm.ygmall.common.entity.BaseEntity;
 /**
  * 轮播图
  * */
-@TableName("platform_banner")
+@TableName("banner")
 public class Banner extends BaseEntity {
 
     /**

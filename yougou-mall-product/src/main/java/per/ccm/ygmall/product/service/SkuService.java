@@ -14,7 +14,10 @@ public interface SkuService {
     void save(SkuDTO skuDTO) throws Exception;
 
     /**
+     * 根据spuID获取sku信息列表
      *
+     * @param spuId spuID
+     * @return sku信息列表
      * */
     List<SkuVO> getSkuListBySpuId(Long spuId) throws Exception;
 }

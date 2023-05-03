@@ -8,12 +8,6 @@ import per.ccm.ygmall.common.dto.BaseDTO;
  * */
 public class SkuSpecsDTO extends BaseDTO {
 
-    @Schema(name = "主键ID")
-    private Long skuSpecsId;
-
-    @Schema(name = "spuID")
-    private Long spuId;
-
     @Schema(name = "skuID")
     private Long skuId;
 
@@ -22,22 +16,6 @@ public class SkuSpecsDTO extends BaseDTO {
 
     @Schema(name = "属性值ID")
     private Long attrValueId;
-
-    public Long getSkuSpecsId() {
-        return skuSpecsId;
-    }
-
-    public void setSkuSpecsId(Long skuSpecsId) {
-        this.skuSpecsId = skuSpecsId;
-    }
-
-    public Long getSpuId() {
-        return spuId;
-    }
-
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
-    }
 
     public Long getSkuId() {
         return skuId;
@@ -66,8 +44,6 @@ public class SkuSpecsDTO extends BaseDTO {
     @Override
     public String toString() {
         return "SkuSpecsDTO{" +
-                "skuSpecsId=" + skuSpecsId +
-                ", spuId=" + spuId +
                 ", skuId=" + skuId +
                 ", attrId=" + attrId +
                 ", attrValueId=" + attrValueId +

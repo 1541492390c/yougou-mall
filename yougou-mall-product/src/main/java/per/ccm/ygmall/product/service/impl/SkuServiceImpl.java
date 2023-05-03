@@ -31,7 +31,7 @@ public class SkuServiceImpl extends BaseService implements SkuService {
             return;
         }
         // 判断sku规格是否存在
-        if (skuSpecsService.isExist(skuDTO.getSkuSpecs())) {
+        if (skuSpecsService.isExist(skuDTO.getSpuId(), skuDTO.getSkuSpecs())) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B40001);
         }
         Sku sku = ConvertUtils.dtoConvertToEntity(skuDTO, Sku.class);

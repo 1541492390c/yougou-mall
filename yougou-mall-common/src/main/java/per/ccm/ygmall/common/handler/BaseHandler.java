@@ -6,7 +6,7 @@ import org.springframework.util.ObjectUtils;
 
 public class BaseHandler {
 
-    private Logger logger;
+    private static Logger logger;
 
     protected Logger logger() {
         if (ObjectUtils.isEmpty(logger)) {

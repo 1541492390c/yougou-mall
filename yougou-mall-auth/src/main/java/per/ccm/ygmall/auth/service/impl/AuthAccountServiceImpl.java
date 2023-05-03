@@ -49,8 +49,8 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
-        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, username));
 
+        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, username));
         // 用户不存在
         if (ObjectUtils.isEmpty(authAccount)) {
             throw new YougouException(ResponseCode.USER_ERROR_A00002);
@@ -70,7 +70,7 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
 
     @Override
     public OAuth2AccessToken getToken(String username, String password, UserType userType) throws Exception {
-        UserDetails userDetails = new User(ClientConfig.TIAOWA_TRAVEL_CLIENT_ID, ClientConfig.TIAOWA_TRAVEL_CLIENT_SECRET, new ArrayList<>());
+        UserDetails userDetails = new User(ClientConfig.YOUGOU_MALL_CLIENT_ID, ClientConfig.YOUGOU_MALL_CLIENT_SECRET, new ArrayList<>());
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
 
         Map<String, String> params = new HashMap<>();

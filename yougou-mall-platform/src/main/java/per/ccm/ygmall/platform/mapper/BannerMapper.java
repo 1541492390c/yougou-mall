@@ -11,7 +11,4 @@ import java.util.List;
 
 @Repository
 public interface BannerMapper extends BaseMapper<Banner> {
-    IPage<BannerVO> selectBannerPages(Integer type, Page<Banner> page);
-
-    List<BannerVO> selectBannerList(Integer type, String page);
 }

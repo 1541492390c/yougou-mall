@@ -22,6 +22,8 @@ import per.ccm.ygmall.user.mapper.UserMapper;
 import per.ccm.ygmall.user.service.UserService;
 import per.ccm.ygmall.user.vo.UserVO;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl extends BaseService implements UserService {
 
@@ -57,12 +59,21 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public PageVO<UserVO> getUserPages(Long userId, Integer userType, Page<User> page) {
-        IPage<UserVO> pageInfo = userMapper.selectUserPages(userId, userType, page);
-        return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+
+        if (!ObjectUtils.isEmpty(userId)) {
+            queryWrapper.eq(User::getUserId, userId);
+        }
+        if (!ObjectUtils.isEmpty(userType)) {
+            queryWrapper.eq(User::getUserType, userType);
+        }
+        IPage<User> pageInfo = userMapper.selectPage(page, queryWrapper);
+        List<UserVO> userList = ConvertUtils.converList(pageInfo.getRecords(), UserVO.class);
+        return new PageVO<>(pageInfo.getTotal(), userList);
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheNames.USERINFO_CACHE_NAME)
+    @CacheEvict(cacheNames = CacheNames.USERINFO_CACHE_NAME, key = "#userDTO.userId")
     public void update(UserDTO userDTO) throws Exception {
         User user = ConvertUtils.dtoConvertToEntity(userDTO, User.class);
         userMapper.updateById(user);

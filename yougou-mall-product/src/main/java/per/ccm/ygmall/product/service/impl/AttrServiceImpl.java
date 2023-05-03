@@ -50,7 +50,8 @@ public class AttrServiceImpl extends BaseService implements AttrService {
     @Override
     public List<AttrVO> getAttrListByAttrIdList(List<Long> attrIdList) {
         LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
-        return ConvertUtils.converList(attrMapper.selectList(queryWrapper.in(Attr::getAttrId, attrIdList)), AttrVO.class);
+        List<Attr> attrList = attrMapper.selectList(queryWrapper.in(Attr::getAttrId, attrIdList));
+        return ConvertUtils.converList(attrList, AttrVO.class);
     }
 
     @Override

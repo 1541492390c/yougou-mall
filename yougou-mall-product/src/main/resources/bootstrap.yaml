@@ -22,9 +22,3 @@ spring:
           namespace: @nacos.namespace@
           group: @nacos.group@
           refresh: true
-
-seata:
-  tx-service-group: product_tx_group
-  service:
-    vgroup-mapping:
-      product_tx_group: default
