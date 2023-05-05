@@ -1,9 +1,6 @@
 package per.ccm.ygmall.user.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import per.ccm.ygmall.common.entity.BaseEntity;
 
 import java.util.Date;
@@ -60,6 +57,7 @@ public class User extends BaseEntity {
     private Date birthday;
 
     @TableField("enabled")
+    @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 
     public Long getUserId() {
