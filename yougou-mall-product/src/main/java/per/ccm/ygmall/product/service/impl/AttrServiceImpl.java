@@ -35,7 +35,7 @@ public class AttrServiceImpl extends BaseService implements AttrService {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B2001);
         }
         // 一个spu最多拥有5个属性
-        if (attrMapper.selectCount(queryWrapper.eq(Attr::getSpuId, attrDTO.getSpuId())) >= 5) {
+        if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B20002);
         }
         Attr attr = ConvertUtils.dtoConvertToEntity(attrDTO, Attr.class);
@@ -43,8 +43,8 @@ public class AttrServiceImpl extends BaseService implements AttrService {
     }
 
     @Override
-    public List<AttrVO> getAttrListBySpuId(Long spuId) {
-        return attrMapper.selectAttrList(spuId);
+    public List<AttrVO> getAttrListByProductId(Long productId) {
+        return attrMapper.selectAttrList(productId);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class AttrServiceImpl extends BaseService implements AttrService {
      * @return 是否存在该属性名称
      * */
     private Boolean isExist(LambdaQueryWrapper<Attr> queryWrapper, AttrDTO attrDTO) {
-        Attr attrExist = attrMapper.selectOne(queryWrapper.eq(Attr::getSpuId, attrDTO.getSpuId()).eq(Attr::getName, attrDTO.getName()));
+        Attr attrExist = attrMapper.selectOne(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId()).eq(Attr::getName, attrDTO.getName()));
         return !ObjectUtils.isEmpty(attrExist);
     }
 }

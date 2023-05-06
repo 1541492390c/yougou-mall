@@ -8,11 +8,11 @@ public interface SkuSpecsService {
     /**
      * 判断sku规格是否存在
      *
-     * @param spuId spuID
+     * @param productId 商品ID
      * @param skuSpecsDTOList sku规格传输数据列表
      * @return sku规格是否存在
      * */
-    Boolean isExist(Long spuId, List<SkuSpecsDTO> skuSpecsDTOList) throws Exception;
+    Boolean isExist(Long productId, List<SkuSpecsDTO> skuSpecsDTOList) throws Exception;
 
     /**
      * 批量保存sku规格

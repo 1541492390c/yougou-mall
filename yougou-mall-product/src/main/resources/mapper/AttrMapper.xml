@@ -3,7 +3,7 @@
 <mapper namespace="per.ccm.ygmall.product.mapper.AttrMapper">
     <resultMap id="attrVOMap" type="per.ccm.ygmall.product.vo.AttrVO">
         <id column="attr_id" property="attrId" jdbcType="BIGINT" />
-        <result column="spu_id" property="spuId" jdbcType="BIGINT" />
+        <result column="product_id" property="productId" jdbcType="BIGINT" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <collection property="attrValueList" ofType="per.ccm.ygmall.product.vo.AttrValueVO" fetchType="eager">
             <id column="attr_value_id" property="attrValueId" jdbcType="BIGINT" />
@@ -14,7 +14,7 @@
 
     <sql id="attr_vo_column">
         attr.`attr_id`,
-        attr.`spu_id`,
+        attr.`product_id`,
         attr.`name`,
         attr_value.`attr_value_id`,
         attr_value.`attr_id`,
@@ -26,6 +26,6 @@
     </sql>
 
     <select id="selectAttrList" resultMap="attrVOMap">
-        SELECT <include refid="attr_vo_column" /> <include refid="attr_left_join_attr_value" /> WHERE attr.`spu_id` = #{spuId}
+        SELECT <include refid="attr_vo_column" /> <include refid="attr_left_join_attr_value" /> WHERE attr.`product_id` = #{productId}
     </select>
 </mapper>

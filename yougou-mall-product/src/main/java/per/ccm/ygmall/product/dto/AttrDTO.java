@@ -11,8 +11,8 @@ public class AttrDTO extends BaseDTO {
     @Schema(name = "主键ID")
     private Long attrId;
 
-    @Schema(name = "spuID")
-    private Long spuId;
+    @Schema(name = "商品ID")
+    private Long productId;
 
     @Schema(name = "商品属性名称")
     private String name;
@@ -25,12 +25,12 @@ public class AttrDTO extends BaseDTO {
         this.attrId = attrId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -45,7 +45,7 @@ public class AttrDTO extends BaseDTO {
     public String toString() {
         return "AttrDTO{" +
                 "attrId=" + attrId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", name='" + name + '\'' +
                 '}';
     }

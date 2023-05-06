@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface AttrMapper extends BaseMapper<Attr> {
-    List<AttrVO> selectAttrList(Long spuId);
+    List<AttrVO> selectAttrList(Long productId);
 }

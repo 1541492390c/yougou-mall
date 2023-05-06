@@ -1,21 +1,24 @@
-package per.ccm.ygmall.product.dto;
+package per.ccm.ygmall.product.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
+import per.ccm.ygmall.common.vo.BaseVO;
 
 /**
- * Spu传输数据
+ * 商品信息
  * */
-public class SpuDTO extends BaseDTO {
+public class ProductVO extends BaseVO {
 
     @Schema(name = "主键ID")
-    private Long spuId;
+    private Long productId;
 
     @Schema(name = "品牌ID")
     private Long brandId;
 
     @Schema(name = "商品状态 0-上架 1-已下架")
     private Integer state;
+
+    @Schema(name = "sku最低价")
+    private Double price;
 
     @Schema(name = "分类列表")
     private String categories;
@@ -26,12 +29,15 @@ public class SpuDTO extends BaseDTO {
     @Schema(name = "商品封面")
     private String cover;
 
-    public Long getSpuId() {
-        return spuId;
+    @Schema(name = "商品图片列表")
+    private String imgList;
+
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getBrandId() {
@@ -48,6 +54,14 @@ public class SpuDTO extends BaseDTO {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getCategories() {
@@ -74,15 +88,25 @@ public class SpuDTO extends BaseDTO {
         this.cover = cover;
     }
 
+    public String getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(String imgList) {
+        this.imgList = imgList;
+    }
+
     @Override
     public String toString() {
-        return "SpuDTO{" +
-                "spuId=" + spuId +
+        return "ProductVO{" +
+                "productId=" + productId +
                 ", brandId=" + brandId +
                 ", state=" + state +
+                ", price=" + price +
                 ", categories='" + categories + '\'' +
                 ", name='" + name + '\'' +
                 ", cover='" + cover + '\'' +
+                ", imgList='" + imgList + '\'' +
                 '}';
     }
 }

@@ -24,10 +24,10 @@ public class AttrController extends BaseController {
     private AttrService attrService;
 
     @GetMapping("/list")
-    @Operation(summary = "获取商品属性列表", description = "传入商品spuID获取该spu的商品属性值列表")
-    @Parameter(name = "spuId", description = "spuID")
-    public ResponseEntity<List<AttrVO>> getAttrListBySpuId(@RequestParam("spu_id") Long spuId) throws Exception {
-        List<AttrVO> attrList = attrService.getAttrListBySpuId(spuId);
+    @Operation(summary = "获取商品属性列表", description = "传入商品商品ID获取该商品的商品属性值列表")
+    @Parameter(name = "productId", description = "商品ID")
+    public ResponseEntity<List<AttrVO>> getAttrListBySpuId(@RequestParam("product_id") Long productId) throws Exception {
+        List<AttrVO> attrList = attrService.getAttrListByProductId(productId);
         return ResponseEntity.success(attrList);
     }
 }

@@ -27,6 +27,7 @@ public class AuthProvider implements AuthenticationProvider {
 
     @Autowired
     private AuthAccountService authAccountService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -36,9 +37,9 @@ public class AuthProvider implements AuthenticationProvider {
         });
 
         AuthPrincipal authPrincipal = (AuthPrincipal) authAccountService.loadUserByUsername(authentication.getName());
-        List<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(authPrincipal.getAuthorities());
 
-        String password = (String) authentication.getCredentials();
+        List<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(authPrincipal.getAuthorities());
+        String password = String.valueOf(authentication.getCredentials());
         String role = String.valueOf(authorities.get(0));
 
         // 密码错误

@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SkuMapper extends BaseMapper<Sku> {
-    List<SkuVO> selectSkuList(Long spuId);
+    List<SkuVO> selectSkuList(Long productId);
 }

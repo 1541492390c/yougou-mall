@@ -19,10 +19,10 @@ public class Attr extends BaseEntity {
     private Long attrId;
 
     /**
-     * spuID
+     * 商品ID
      * */
-    @TableField("spu_id")
-    private Long spuId;
+    @TableField("product_id")
+    private Long productId;
 
     /**
      * 属性名称
@@ -38,12 +38,12 @@ public class Attr extends BaseEntity {
         this.attrId = attrId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -58,7 +58,7 @@ public class Attr extends BaseEntity {
     public String toString() {
         return "Attr{" +
                 "attrId=" + attrId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", name='" + name + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

@@ -31,14 +31,14 @@ public class SkuSpecsServiceImpl extends BaseService implements SkuSpecsService 
     private AttrValueService attrValueService;
 
     @Override
-    public Boolean isExist(Long spuId, List<SkuSpecsDTO> skuSpecsDTOList) {
+    public Boolean isExist(Long productId, List<SkuSpecsDTO> skuSpecsDTOList) {
         LambdaQueryWrapper<SkuSpecs> queryWrapper = new LambdaQueryWrapper<>();
 
         List<SkuSpecs> skuSpecsList = ConvertUtils.converList(skuSpecsDTOList, SkuSpecs.class);
         List<Long> attrIdList = skuSpecsList.stream().distinct().map(SkuSpecs::getAttrId).collect(Collectors.toList());
         List<Long> attrValueIdList = skuSpecsList.stream().distinct().map(SkuSpecs::getAttrValueId).collect(Collectors.toList());
 
-        queryWrapper.eq(SkuSpecs::getSpuId, spuId).in(SkuSpecs::getAttrId, attrIdList).in(SkuSpecs::getAttrValueId, attrValueIdList);
+        queryWrapper.eq(SkuSpecs::getProductId, productId).in(SkuSpecs::getAttrId, attrIdList).in(SkuSpecs::getAttrValueId, attrValueIdList);
         return skuSpecsMapper.exists(queryWrapper);
     }
 

@@ -3,7 +3,7 @@
 <mapper namespace="per.ccm.ygmall.product.mapper.SkuMapper">
     <resultMap id="skuVOMap" type="per.ccm.ygmall.product.vo.SkuVO">
         <id column="sku_id" property="skuId" jdbcType="BIGINT" />
-        <result column="spu_id" property="spuId" jdbcType="BIGINT" />
+        <result column="product_id" property="productId" jdbcType="BIGINT" />
         <result column="sku_stock" property="skuStock" jdbcType="INTEGER" />
         <result column="price" property="price" jdbcType="DECIMAL" />
         <result column="sku_desc" property="skuDesc" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
 
     <sql id="sku_vo_column">
         sku.`sku_id`,
-        sku.`spu_id`,
+        sku.`product_id`,
         sku.`sku_stock`,
         sku.`price`,
         sku.`sku_desc`,
@@ -28,6 +28,6 @@
     </sql>
 
     <select id="selectSkuList" resultMap="skuVOMap">
-        SELECT <include refid="sku_vo_column" /> <include refid="sku_left_join_sku_specs" /> WHERE sku.`spu_id` = #{spuId}
+        SELECT <include refid="sku_vo_column" /> <include refid="sku_left_join_sku_specs" /> WHERE sku.`product_id` = #{productId}
     </select>
 </mapper>

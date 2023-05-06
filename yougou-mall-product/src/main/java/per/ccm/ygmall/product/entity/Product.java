@@ -7,16 +7,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.common.entity.BaseEntity;
 
 /**
- * 商品Spu
+ * 商品
  * */
-@TableName("spu")
-public class Spu extends BaseEntity {
+@TableName("product")
+public class Product extends BaseEntity {
 
     /**
      * 主键ID
      * */
     @TableId(type = IdType.ASSIGN_ID)
-    private Long spuId;
+    private Long productId;
 
     /**
      * 品牌ID
@@ -60,12 +60,12 @@ public class Spu extends BaseEntity {
     @TableField("enabled")
     private Boolean enabled;
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getBrandId() {
@@ -134,8 +134,8 @@ public class Spu extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Spu{" +
-                "spuId=" + spuId +
+        return "Product{" +
+                "productId=" + productId +
                 ", brandId=" + brandId +
                 ", state=" + state +
                 ", categories='" + categories + '\'' +

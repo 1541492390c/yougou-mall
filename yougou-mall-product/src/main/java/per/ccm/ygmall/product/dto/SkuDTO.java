@@ -13,8 +13,8 @@ public class SkuDTO extends BaseDTO {
     @Schema(name = "主键ID")
     private Long skuId;
 
-    @Schema(name = "spuID")
-    private Long spuId;
+    @Schema(name = "商品ID")
+    private Long productId;
 
     @Schema(name = "sku价格")
     private Double price;
@@ -33,12 +33,16 @@ public class SkuDTO extends BaseDTO {
         this.skuId = skuId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public void setSkuSpecs(List<SkuSpecsDTO> skuSpecs) {
+        this.skuSpecs = skuSpecs;
     }
 
     public Double getPrice() {
@@ -69,7 +73,7 @@ public class SkuDTO extends BaseDTO {
     public String toString() {
         return "SkuDTO{" +
                 "skuId=" + skuId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", price=" + price +
                 ", skuDesc='" + skuDesc + '\'' +
                 ", skuSpecs=" + skuSpecs +

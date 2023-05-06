@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.ccm.ygmall.product.mapper.ProductMapper">
+    <resultMap id="productVOMap" type="per.ccm.ygmall.product.vo.ProductVO">
+        <id column="product_id" property="productId" jdbcType="BIGINT" />
+        <result column="brand_id" property="brandId" jdbcType="BIGINT" />
+        <result column="state" property="state" jdbcType="TINYINT" />
+        <result column="categories" property="categories" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="cover" property="cover" jdbcType="VARCHAR" />
+        <result column="img_list" property="imgList" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <sql id="product_vo_column">
+        product.`product_id`,
+        product.`brand_id`,
+        product.`state`,
+        product.`categories`,
+        product.`name`,
+        product.`cover`,
+        product.`img_list`,
+        (SELECT MIN(sku.`price`) FROM sku WHERE sku.`product_id` = product.`product_id`) AS `price`
+    </sql>
+
+    <sql id="product_left_join_sku">
+        FROM product LEFT JOIN sku ON product.`product_id` = sku.`product_id`
+    </sql>
+
+    <select id="selectRecommendedProductList" resultMap="productVOMap">
+        SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
+    </select>
+
+    <select id="selectProductPages" resultMap="productVOMap">
+        SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
+            <where>
+                <if test="categories != null">product.`categories` = #{categories}</if>
+            </where>
+    </select>
+</mapper>

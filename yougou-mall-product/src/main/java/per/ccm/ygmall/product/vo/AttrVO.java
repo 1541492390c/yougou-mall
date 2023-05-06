@@ -15,9 +15,9 @@ public class AttrVO extends BaseVO {
     private Long attrId;
 
     /**
-     * 商品spuID
+     * 商品ID
      * */
-    private Long spuId;
+    private Long productId;
 
     /**
      * 属性名称
@@ -37,12 +37,12 @@ public class AttrVO extends BaseVO {
         this.attrId = attrId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -65,7 +65,7 @@ public class AttrVO extends BaseVO {
     public String toString() {
         return "AttrVO{" +
                 "attrId=" + attrId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", name='" + name + '\'' +
                 ", attrValueList=" + attrValueList +
                 '}';

@@ -16,10 +16,10 @@ public interface AttrService {
     /**
      * 根据spuID获取商品属性列表
      *
-     * @param spuId spuID
+     * @param productId 商品ID
      * @return 商品属性列表
      * */
-    List<AttrVO> getAttrListBySpuId(Long spuId) throws Exception;
+    List<AttrVO> getAttrListByProductId(Long productId) throws Exception;
 
     /**
      * 根据属性ID列表获取商品属性列表

@@ -13,8 +13,8 @@ public class SkuVO extends BaseVO {
     @Schema(name = "主键ID")
     private Long skuId;
 
-    @Schema(name = "spuID")
-    private Long spuId;
+    @Schema(name = "商品ID")
+    private Long productId;
 
     @Schema(name = "商品库存")
     private Integer skuStock;
@@ -36,12 +36,12 @@ public class SkuVO extends BaseVO {
         this.skuId = skuId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Integer getSkuStock() {
@@ -80,7 +80,7 @@ public class SkuVO extends BaseVO {
     public String toString() {
         return "SkuVO{" +
                 "skuId=" + skuId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", skuStock=" + skuStock +
                 ", price=" + price +
                 ", skuDesc=" + skuDesc +

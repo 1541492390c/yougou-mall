@@ -19,10 +19,10 @@ public class SkuSpecs extends BaseEntity {
     private Long skuSpecsId;
 
     /**
-     * spuID
+     * 商品ID
      * */
-    @TableField("spu_id")
-    private Long spuId;
+    @TableField("product_id")
+    private Long productId;
 
     /**
      * skuID
@@ -62,12 +62,12 @@ public class SkuSpecs extends BaseEntity {
         this.skuSpecsId = skuSpecsId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getSkuId() {
@@ -114,7 +114,7 @@ public class SkuSpecs extends BaseEntity {
     public String toString() {
         return "SkuAttrValue{" +
                 "skuSpecsId=" + skuSpecsId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", skuId=" + skuId +
                 ", attrId=" + attrId +
                 ", attrValueId=" + attrValueId +

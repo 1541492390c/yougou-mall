@@ -6,8 +6,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,23 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
-import per.ccm.ygmall.product.entity.Spu;
-import per.ccm.ygmall.product.service.SpuService;
-import per.ccm.ygmall.product.vo.SpuVO;
+import per.ccm.ygmall.product.entity.Product;
+import per.ccm.ygmall.product.service.ProductService;
+import per.ccm.ygmall.product.vo.ProductVO;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/product/spu")
-@Tag(name = "spu接口", description = "spu接口")
-public class SpuController extends BaseController {
+@RequestMapping("/product")
+@Tag(name = "商品接口", description = "商品接口")
+public class ProductController extends BaseController {
 
     @Autowired
-    private SpuService spuService;
+    private ProductService productService;
 
     @GetMapping("/recommended_list")
-    public ResponseEntity<List<SpuVO>> getRecommendedList() throws Exception {
-        List<SpuVO> recommendedList = spuService.getRecommendedSpuList();
+    public ResponseEntity<List<ProductVO>> getRecommendedList() throws Exception {
+        List<ProductVO> recommendedList = productService.getRecommendedProductList();
         return ResponseEntity.success(recommendedList);
     }
 
@@ -41,12 +39,12 @@ public class SpuController extends BaseController {
             @Parameter(name = "pageNum", description = "当前页"),
             @Parameter(name = "pageSize", description = "页数"),
             @Parameter(name = "categories", description = "分类路径")})
-    public ResponseEntity<PageVO<SpuVO>> getByCategories(
+    public ResponseEntity<PageVO<ProductVO>> getByCategories(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "categories", required = false) String categories) throws Exception {
-        Page<Spu> page = new Page<>(pageNum, pageSize);
-        PageVO<SpuVO> pageVO = spuService.getSpuPages(categories, page);
+        Page<Product> page = new Page<>(pageNum, pageSize);
+        PageVO<ProductVO> pageVO = productService.getProductPages(categories, page);
         return ResponseEntity.success(pageVO);
     }
 }

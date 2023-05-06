@@ -19,10 +19,10 @@ public class Collection extends BaseEntity {
     private Long collectionId;
 
     /**
-     * spuID
+     * 商品ID
      * */
-    @TableField("spu_id")
-    private Long spuId;
+    @TableField("product_id")
+    private Long productId;
 
     /**
      * 用户ID
@@ -38,12 +38,12 @@ public class Collection extends BaseEntity {
         this.collectionId = collectionId;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getUserId() {
@@ -58,7 +58,7 @@ public class Collection extends BaseEntity {
     public String toString() {
         return "Collection{" +
                 "collectionId=" + collectionId +
-                ", spuId=" + spuId +
+                ", productId=" + productId +
                 ", userId=" + userId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
