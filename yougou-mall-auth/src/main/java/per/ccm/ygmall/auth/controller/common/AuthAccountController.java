@@ -11,7 +11,7 @@ import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.security.enums.UserType;
-import per.ccm.ygmall.security.util.SecurityUtils;
+import per.ccm.ygmall.security.util.SecurityContextUtils;
 import per.ccm.ygmall.security.util.TokenUtils;
 import per.ccm.ygmall.security.vo.TokenVO;
 
@@ -38,8 +38,8 @@ public class AuthAccountController {
     @PutMapping("/update_password")
     @Operation(summary = "更新密码", description = "更新密码")
     public ResponseEntity<Void> updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO) throws Exception {
-        Long accountId = SecurityUtils.getAuthAccountId();
-        authAccountService.updatePassword(accountId, updatePasswordDTO);
+        Long userId = SecurityContextUtils.getUserId();
+        authAccountService.updatePassword(userId, updatePasswordDTO);
         return ResponseEntity.success();
     }
 }

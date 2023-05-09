@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.security.util.SecurityUtils;
+import per.ccm.ygmall.security.util.SecurityContextUtils;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.service.UserService;
@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping("/info")
     @Operation(summary = "获取用户信息", description = "获取用户信息")
     public ResponseEntity<UserVO> getUserinfo() throws Exception {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityContextUtils.getUserId();
         UserVO userinfo = userService.getUserinfo(userId);
         return ResponseEntity.success(userinfo);
     }
@@ -39,7 +39,7 @@ public class UserController {
     @PutMapping("/update")
     @Operation(summary = "更新用户信息", description = "更新用户信息")
     public ResponseEntity<Void> update(@RequestBody UserUpdateDTO userUpdateDTO) throws Exception {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityContextUtils.getUserId();
 
         userUpdateDTO.setUserId(userId);
         userService.update(userUpdateDTO);

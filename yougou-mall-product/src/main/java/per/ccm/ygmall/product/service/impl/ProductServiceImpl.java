@@ -29,10 +29,8 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 
     @Override
     public void save(ProductDTO productDTO) {
-        LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
-
         // 判断商品名称是否存在
-        if (this.isExist(queryWrapper, productDTO)) {
+        if (this.isExist(productDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B10001);
         }
         Product product = ConvertUtils.dtoConvertToEntity(productDTO, Product.class);
@@ -40,7 +38,7 @@ public class ProductServiceImpl extends BaseService implements ProductService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheNames.PRODUCT_SPU_CACHE_NAME, key = "'recommended-list'", sync = true)
+    @Cacheable(cacheNames = CacheNames.PRODUCT_CACHE_NAME, key = "'recommended-list'", sync = true)
     public List<ProductVO> getRecommendedProductList() {
         return productMapper.selectRecommendedProductList();
     }
@@ -53,10 +51,8 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 
     @Override
     public void update(ProductDTO productDTO) {
-        LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
-
         // 判断商品名称是否存在
-        if (this.isExist(queryWrapper, productDTO)) {
+        if (this.isExist(productDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B10001);
         }
         Product product = ConvertUtils.dtoConvertToEntity(productDTO, Product.class);
@@ -64,13 +60,13 @@ public class ProductServiceImpl extends BaseService implements ProductService {
     }
 
     /**
-     * 判断当该s商品名称是否存在
+     * 判断当前该商品名称是否存在
      *
-     * @param queryWrapper 查询
      * @param productDTO 商品传输数据
      * @return 是否存在该商品名称
      * */
-    private Boolean isExist(LambdaQueryWrapper<Product> queryWrapper, ProductDTO productDTO) {
+    private Boolean isExist(ProductDTO productDTO) {
+        LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
         Product productExist = productMapper.selectOne(queryWrapper.eq(Product::getName, productDTO.getName()));
         return !ObjectUtils.isEmpty(productExist);
     }

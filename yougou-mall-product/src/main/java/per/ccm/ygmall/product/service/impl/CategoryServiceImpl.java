@@ -21,7 +21,6 @@ import per.ccm.ygmall.product.service.CategoryService;
 import per.ccm.ygmall.product.vo.CategoryVO;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,17 +50,18 @@ public class CategoryServiceImpl extends BaseService implements CategoryService 
         // 获取所有分类
         List<CategoryVO> categoryList = ConvertUtils.converList(categoryMapper.selectList(queryWrapper), CategoryVO.class);
         // 获取当前分类
-        List<CategoryVO> parentCategoryList = categoryList.stream()
-                .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId)).collect(Collectors.toList());
-        this.setChildrenCategoryList(parentCategoryList, categoryList);
-        return parentCategoryList;
+        return categoryList.stream()
+                .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId))
+                .peek(item -> item.setChildren(setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
     }
 
     @Override
     public PageVO<CategoryVO> getCategoryPages(Long parentId, Page<Category> page) {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        // 查询条件
+        queryWrapper.eq(!ObjectUtils.isEmpty(parentId), Category::getParentId, parentId);
 
-        IPage<Category> pageInfo = categoryMapper.selectPage(page, queryWrapper.eq(Category::getParentId, parentId));
+        IPage<Category> pageInfo = categoryMapper.selectPage(page, queryWrapper);
         List<CategoryVO> categoryList = ConvertUtils.converList(pageInfo.getRecords(), CategoryVO.class);
         return new PageVO<>(pageInfo.getTotal(), categoryList);
     }
@@ -89,9 +89,9 @@ public class CategoryServiceImpl extends BaseService implements CategoryService 
      * 判断当该分类名称是否存在
      *
      * @param queryWrapper 查询
-     * @param categoryDTO 分类传输数据
+     * @param categoryDTO  分类传输数据
      * @return 是否存在该分类名称
-     * */
+     */
     private Boolean isExist(LambdaQueryWrapper<Category> queryWrapper, CategoryDTO categoryDTO) {
         Category categoryExist = categoryMapper.selectOne(queryWrapper.eq(Category::getName, categoryDTO.getName()));
         return !ObjectUtils.isEmpty(categoryExist);
@@ -100,16 +100,14 @@ public class CategoryServiceImpl extends BaseService implements CategoryService 
     /**
      * 设置子分类列表
      *
-     * @param categoryList 上级分类列表
-     * @param childrenCategoryList 子分类列表
-     * */
-    private void setChildrenCategoryList(List<CategoryVO> categoryList, List<CategoryVO> childrenCategoryList) {
-        if (ObjectUtils.isEmpty(categoryList) || ObjectUtils.isEmpty(childrenCategoryList)) {
-            return;
-        }
-        Map<Long, List<CategoryVO>> map = childrenCategoryList.stream().collect(Collectors.groupingBy(CategoryVO::getParentId));
-        for (CategoryVO category : categoryList) {
-            category.setChildren(map.get(category.getCategoryId()));
-        }
+     * @param parentCategory  上级分类
+     * @param allCategoryList 所有分类列表
+     * @return 子分类列表
+     */
+    private List<CategoryVO> setChildrenCategoryList(CategoryVO parentCategory, List<CategoryVO> allCategoryList) {
+        return allCategoryList.stream()
+                .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentCategory.getCategoryId()))
+                .peek(item -> item.setChildren(setChildrenCategoryList(item, allCategoryList)))
+                .collect(Collectors.toList());
     }
 }

@@ -10,9 +10,6 @@ import java.util.Date;
  * */
 public class UserRegisterDTO extends BaseDTO {
 
-    @Schema(description = "年龄")
-    private Integer age;
-
     @Schema(description = "性别 1-男 2-女")
     private Integer gender;
 
@@ -39,14 +36,6 @@ public class UserRegisterDTO extends BaseDTO {
 
     @Schema(description = "生日")
     private Date birthday;
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 
     public Integer getGender() {
         return gender;
@@ -123,7 +112,6 @@ public class UserRegisterDTO extends BaseDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                ", age=" + age +
                 ", gender=" + gender +
                 ", userType=" + userType +
                 ", state=" + state +

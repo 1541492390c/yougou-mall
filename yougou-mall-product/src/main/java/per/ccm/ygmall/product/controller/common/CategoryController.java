@@ -27,7 +27,7 @@ public class CategoryController extends BaseController {
     @Operation(summary = "获取分类信息列表", description = "传入分类ID和分类级别可进行条件查询")
     @Parameter(name = "parentId", description = "父级ID")
     public ResponseEntity<List<CategoryVO>> getCategoryList(
-            @RequestParam(value = "parent_id", required = false) Long parentId) throws Exception {
+            @RequestParam(value = "parent_id", defaultValue = "0") Long parentId) throws Exception {
         List<CategoryVO> categoryList = categoryService.getCategoryList(parentId);
         return ResponseEntity.success(categoryList);
     }

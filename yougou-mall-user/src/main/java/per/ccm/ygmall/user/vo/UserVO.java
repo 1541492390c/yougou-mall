@@ -13,9 +13,6 @@ public class UserVO extends BaseVO {
     @Schema(description = "用户ID")
     private Long userId;
 
-    @Schema(description = "年龄")
-    private Integer age;
-
     @Schema(description = "性别 0-未填写 1-男 2-女")
     private Integer gender;
 
@@ -40,14 +37,6 @@ public class UserVO extends BaseVO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Integer getGender() {
@@ -102,7 +91,6 @@ public class UserVO extends BaseVO {
     public String toString() {
         return "UserVO{" +
                 "userId=" + userId +
-                ", age=" + age +
                 ", gender=" + gender +
                 ", userType=" + userType +
                 ", state=" + state +

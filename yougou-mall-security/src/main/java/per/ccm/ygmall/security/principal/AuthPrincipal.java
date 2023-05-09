@@ -8,9 +8,13 @@ import java.util.Collection;
 public class AuthPrincipal implements UserDetails {
 
     private Long authAccountId;
+
     private Long userId;
+
     private String username;
+
     private String password;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public AuthPrincipal(Long authAccountId, Long userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {

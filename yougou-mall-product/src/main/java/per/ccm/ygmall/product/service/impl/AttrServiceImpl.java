@@ -30,11 +30,11 @@ public class AttrServiceImpl extends BaseService implements AttrService {
     public void save(AttrDTO attrDTO) {
         LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
 
-        // 判断当前spu下是否存在该属性名称
+        // 判断当前商品下是否存在该属性名称
         if (this.isExist(queryWrapper, attrDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B2001);
         }
-        // 一个spu最多拥有5个属性
+        // 一个商品最多拥有5个属性
         if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B20002);
         }
@@ -58,7 +58,7 @@ public class AttrServiceImpl extends BaseService implements AttrService {
     public void update(AttrDTO attrDTO) {
         LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
 
-        // 判断当前spu下是否存在该属性名称
+        // 判断当前商品下是否存在该属性名称
         if (this.isExist(queryWrapper, attrDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B2001);
         }
@@ -81,7 +81,8 @@ public class AttrServiceImpl extends BaseService implements AttrService {
      * @return 是否存在该属性名称
      * */
     private Boolean isExist(LambdaQueryWrapper<Attr> queryWrapper, AttrDTO attrDTO) {
-        Attr attrExist = attrMapper.selectOne(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId()).eq(Attr::getName, attrDTO.getName()));
+        queryWrapper.eq(Attr::getProductId, attrDTO.getProductId()).eq(Attr::getName, attrDTO.getName());
+        Attr attrExist = attrMapper.selectOne(queryWrapper);
         return !ObjectUtils.isEmpty(attrExist);
     }
 }

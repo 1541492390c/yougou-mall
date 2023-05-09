@@ -70,7 +70,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
         // 查询条件
-        queryWrapper.eq(!ObjectUtils.isEmpty(userId) ,User::getUserId, userId).eq(!ObjectUtils.isEmpty(userType), User::getUserType, userType);
+        queryWrapper.eq(!ObjectUtils.isEmpty(userId), User::getUserId, userId).eq(!ObjectUtils.isEmpty(userType), User::getUserType, userType);
         IPage<User> pageInfo = userMapper.selectPage(page, queryWrapper);
         List<UserVO> userList = ConvertUtils.converList(pageInfo.getRecords(), UserVO.class);
         return new PageVO<>(pageInfo.getTotal(), userList);

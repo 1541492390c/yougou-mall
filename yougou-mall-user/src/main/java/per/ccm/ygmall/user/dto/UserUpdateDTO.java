@@ -13,9 +13,6 @@ public class UserUpdateDTO extends BaseDTO {
     @Schema(name = "用户ID")
     private Long userId;
 
-    @Schema(description = "年龄")
-    private Integer age;
-
     @Schema(description = "性别 1-男 2-女")
     private Integer gender;
 
@@ -34,14 +31,6 @@ public class UserUpdateDTO extends BaseDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Integer getGender() {
@@ -80,7 +69,6 @@ public class UserUpdateDTO extends BaseDTO {
     public String toString() {
         return "UserUpdateDTO{" +
                 "userId=" + userId +
-                ", age=" + age +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +

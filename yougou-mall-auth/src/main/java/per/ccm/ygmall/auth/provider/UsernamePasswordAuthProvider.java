@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class AuthProvider implements AuthenticationProvider {
+public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
     @Autowired
     private AuthAccountService authAccountService;

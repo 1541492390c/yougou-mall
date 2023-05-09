@@ -38,10 +38,10 @@ public interface AuthAccountService extends UserDetailsService {
     /**
      * 更新密码
      *
-     * @param authAccountId 认证账号ID
+     * @param userId 用户ID
      * @param updatePasswordDTO 更新密码传输数据
      * */
-    void updatePassword(Long authAccountId, UpdatePasswordDTO updatePasswordDTO) throws Exception;
+    void updatePassword(Long userId, UpdatePasswordDTO updatePasswordDTO) throws Exception;
 
     /**
      * 更新认证账号信息

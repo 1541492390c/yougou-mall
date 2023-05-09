@@ -4,14 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
-import per.ccm.ygmall.security.util.SecurityUtils;
+import per.ccm.ygmall.security.util.SecurityContextUtils;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
 import per.ccm.ygmall.user.entity.Feedback;
 import per.ccm.ygmall.user.service.FeedbackService;
@@ -39,7 +37,7 @@ public class FeedbackController extends BaseController {
     public ResponseEntity<PageVO<FeedbackVO>> getFeedbackPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityContextUtils.getUserId();
 
         Page<Feedback> page = new Page<>(pageNum, pageSize);
         PageVO<FeedbackVO> pageVO = feedbackService.getFeedbackPages(userId, page);

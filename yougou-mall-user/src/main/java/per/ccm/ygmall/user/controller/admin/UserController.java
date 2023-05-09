@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
-import per.ccm.ygmall.security.util.SecurityUtils;
+import per.ccm.ygmall.security.util.SecurityContextUtils;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.service.UserService;
@@ -44,7 +44,7 @@ public class UserController extends BaseController {
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "user_type", required = false) Integer userType) throws Exception {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityContextUtils.getUserId();
 
         Page<User> page = new Page<>(pageNum, pageSize);
         PageVO<UserVO> pageVO = userService.getUserPages(userId, userType, page);

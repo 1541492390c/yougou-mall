@@ -15,7 +15,7 @@ public enum Cache {
     /**
      * 商品spu
      * */
-    PRODUCT(CacheNames.PRODUCT_SPU_CACHE_NAME, 7 * 24 * 60 * 60L);
+    PRODUCT(CacheNames.PRODUCT_CACHE_NAME, 7 * 24 * 60 * 60L);
 
     private final String value;
     private final Long expired;

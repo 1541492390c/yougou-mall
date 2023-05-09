@@ -15,12 +15,6 @@ public class User extends BaseEntity {
     private Long userId;
 
     /**
-     * 年龄
-     * */
-    @TableField("age")
-    private Integer age;
-
-    /**
      * 性别 0-未知 1-男 2-女
      * */
     @TableField("gender")
@@ -33,7 +27,7 @@ public class User extends BaseEntity {
     private Integer userType;
 
     /**
-     * 状态 0-正常 1-禁用
+     * 状态 0-禁用 1-正常
      * */
     @TableField("state")
     private Integer state;
@@ -66,14 +60,6 @@ public class User extends BaseEntity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Integer getGender() {
@@ -136,7 +122,6 @@ public class User extends BaseEntity {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", age=" + age +
                 ", gender=" + gender +
                 ", userType=" + userType +
                 ", state=" + state +

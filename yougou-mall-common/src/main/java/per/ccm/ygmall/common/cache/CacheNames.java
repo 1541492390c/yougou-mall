@@ -6,5 +6,5 @@ public class CacheNames {
 
     public static final String PRODUCT_CATEGORY_CACHE_NAME = "product-category";
 
-    public static final String PRODUCT_SPU_CACHE_NAME = "product-spu";
+    public static final String PRODUCT_CACHE_NAME = "product-spu";
 }

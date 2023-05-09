@@ -92,10 +92,10 @@ public class AuthAccountServiceImpl extends BaseService implements AuthAccountSe
     }
 
     @Override
-    public void updatePassword(Long authAccountId, UpdatePasswordDTO updatePasswordDTO) {
+    public void updatePassword(Long userId, UpdatePasswordDTO updatePasswordDTO) {
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
 
-        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getAuthAccountId, authAccountId));
+        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
         //判断原密码与传入的密码是否一致
         if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
             throw new YougouException(ResponseCode.USER_ERROR_A00006);
