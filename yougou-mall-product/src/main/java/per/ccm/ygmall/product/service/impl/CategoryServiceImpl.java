@@ -1,8 +1,6 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,9 +9,7 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.CategoryDTO;
 import per.ccm.ygmall.product.entity.Category;
 import per.ccm.ygmall.product.mapper.CategoryMapper;
@@ -24,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryServiceImpl extends BaseService implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -53,17 +49,6 @@ public class CategoryServiceImpl extends BaseService implements CategoryService 
         return categoryList.stream()
                 .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId))
                 .peek(item -> item.setChildren(setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
-    }
-
-    @Override
-    public PageVO<CategoryVO> getCategoryPages(Long parentId, Page<Category> page) {
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        // 查询条件
-        queryWrapper.eq(!ObjectUtils.isEmpty(parentId), Category::getParentId, parentId);
-
-        IPage<Category> pageInfo = categoryMapper.selectPage(page, queryWrapper);
-        List<CategoryVO> categoryList = ConvertUtils.converList(pageInfo.getRecords(), CategoryVO.class);
-        return new PageVO<>(pageInfo.getTotal(), categoryList);
     }
 
     @Override

@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
@@ -20,7 +19,7 @@ import per.ccm.ygmall.platform.vo.BannerVO;
 @RequestMapping("/admin/banner")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
 @Tag(name = "轮播图(管理员)", description = "轮播图(管理员)")
-public class BannerController extends BaseController {
+public class BannerController {
 
     @Autowired
     private BannerService bannerService;

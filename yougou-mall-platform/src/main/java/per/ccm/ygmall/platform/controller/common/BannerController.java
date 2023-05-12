@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.platform.service.BannerService;
 import per.ccm.ygmall.platform.vo.BannerVO;
@@ -18,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/banner")
 @Tag(name = "轮播图(通用)", description = "轮播图(通用)")
-public class BannerController extends BaseController {
+public class BannerController {
 
     @Autowired
     private BannerService bannerService;

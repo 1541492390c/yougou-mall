@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.service.SkuService;
@@ -17,7 +16,7 @@ import per.ccm.ygmall.product.service.SkuService;
 @RequestMapping("/admin/product/sku")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
 @Tag(name = "sku接口", description = "sku接口")
-public class SkuController extends BaseController {
+public class SkuController {
 
     @Autowired
     private SkuService skuService;

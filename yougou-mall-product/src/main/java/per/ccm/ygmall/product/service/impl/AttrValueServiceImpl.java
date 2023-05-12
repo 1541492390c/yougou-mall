@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.AttrValueDTO;
 import per.ccm.ygmall.product.entity.AttrValue;
@@ -18,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class AttrValueServiceImpl extends BaseService implements AttrValueService {
+public class AttrValueServiceImpl implements AttrValueService {
 
     @Autowired
     private AttrValueMapper attrValueMapper;

@@ -3,10 +3,10 @@ package per.ccm.ygmall.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.AttrDTO;
 import per.ccm.ygmall.product.entity.Attr;
@@ -18,7 +18,7 @@ import per.ccm.ygmall.product.vo.AttrVO;
 import java.util.List;
 
 @Service
-public class AttrServiceImpl extends BaseService implements AttrService {
+public class AttrServiceImpl implements AttrService {
 
     @Autowired
     private AttrMapper attrMapper;
@@ -67,6 +67,7 @@ public class AttrServiceImpl extends BaseService implements AttrService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void batchDelete(List<Long> attrIdList) throws Exception {
         attrMapper.deleteBatchIds(attrIdList);
         // 删除对应的商品属性值

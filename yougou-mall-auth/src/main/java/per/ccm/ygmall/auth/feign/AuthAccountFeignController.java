@@ -7,13 +7,12 @@ import per.ccm.ygmall.api.auth.bo.AuthAccountBO;
 import per.ccm.ygmall.api.auth.feign.AuthAccountFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.service.AuthAccountService;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.util.ConvertUtils;
 
 @Hidden
 @RestController
-public class AuthAccountFeignController extends BaseController implements AuthAccountFeign {
+public class AuthAccountFeignController implements AuthAccountFeign {
 
     @Autowired
     private AuthAccountService authAccountService;

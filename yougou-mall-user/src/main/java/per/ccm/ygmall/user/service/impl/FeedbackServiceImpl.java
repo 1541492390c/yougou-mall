@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
@@ -14,7 +13,7 @@ import per.ccm.ygmall.user.service.FeedbackService;
 import per.ccm.ygmall.user.vo.FeedbackVO;
 
 @Service
-public class FeedbackServiceImpl extends BaseService implements FeedbackService {
+public class FeedbackServiceImpl implements FeedbackService {
 
     @Autowired
     private FeedbackMapper feedbackMapper;

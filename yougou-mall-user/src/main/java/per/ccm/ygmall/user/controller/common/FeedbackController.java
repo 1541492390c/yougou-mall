@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
@@ -18,7 +17,7 @@ import per.ccm.ygmall.user.vo.FeedbackVO;
 @RestController
 @RequestMapping("/user/feedback")
 @Tag(name = "用户反馈接口", description = "用户反馈接口")
-public class FeedbackController extends BaseController {
+public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;

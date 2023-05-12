@@ -20,7 +20,6 @@ import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.security.config.ClientConfig;
 import per.ccm.ygmall.security.enums.GrantType;
@@ -34,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AuthAccountServiceImpl extends BaseService implements AuthAccountService {
+public class AuthAccountServiceImpl implements AuthAccountService {
 
     @Autowired
     private AuthAccountMapper authAccountMapper;

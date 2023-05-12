@@ -3,8 +3,8 @@ package per.ccm.ygmall.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.SkuSpecsDTO;
 import per.ccm.ygmall.product.entity.SkuSpecs;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SkuSpecsServiceImpl extends BaseService implements SkuSpecsService {
+public class SkuSpecsServiceImpl implements SkuSpecsService {
 
     @Autowired
     private SkuSpecsMapper skuSpecsMapper;
@@ -43,6 +43,7 @@ public class SkuSpecsServiceImpl extends BaseService implements SkuSpecsService 
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void batchSave(List<SkuSpecsDTO> skuSpecsDTOList) throws Exception {
         List<SkuSpecs> skuSpecsList = ConvertUtils.converList(skuSpecsDTOList, SkuSpecs.class);
 

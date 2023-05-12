@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.product.service.SkuService;
 import per.ccm.ygmall.product.vo.SkuVO;
@@ -18,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product/sku")
 @Tag(name = "sku接口", description = "sku接口")
-public class SkuController extends BaseController {
+public class SkuController {
 
     @Autowired
     private SkuService skuService;

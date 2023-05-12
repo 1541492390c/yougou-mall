@@ -7,6 +7,7 @@ import per.ccm.ygmall.common.dto.BaseDTO;
  * 分类传输数据
  * */
 public class CategoryDTO extends BaseDTO {
+
     @Schema(name = "主键ID")
     private Long categoryId;
 

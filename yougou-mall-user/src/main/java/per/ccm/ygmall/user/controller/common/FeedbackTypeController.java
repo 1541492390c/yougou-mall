@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.user.service.FeedbackTypeService;
 import per.ccm.ygmall.user.vo.FeedbackTypeVO;
@@ -16,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user/feedback_type")
 @Tag(name = "用户反馈类型接口", description = "用户反馈类型接口")
-public class FeedbackTypeController extends BaseController {
+public class FeedbackTypeController {
 
     @Autowired
     private FeedbackTypeService feedbackTypeService;

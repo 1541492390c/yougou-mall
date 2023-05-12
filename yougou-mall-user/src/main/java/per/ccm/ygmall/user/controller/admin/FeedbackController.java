@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.entity.Feedback;
@@ -20,7 +19,7 @@ import per.ccm.ygmall.user.vo.FeedbackVO;
 @RequestMapping("/admin/user/feedback")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
 @Tag(name = "用户反馈接口(管理员)", description = "用户反馈接口(管理员)")
-public class FeedbackController extends BaseController {
+public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;

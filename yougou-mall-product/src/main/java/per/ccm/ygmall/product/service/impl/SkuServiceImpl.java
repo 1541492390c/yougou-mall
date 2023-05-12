@@ -2,10 +2,10 @@ package per.ccm.ygmall.product.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.entity.Sku;
@@ -17,7 +17,7 @@ import per.ccm.ygmall.product.vo.SkuVO;
 import java.util.List;
 
 @Service
-public class SkuServiceImpl extends BaseService implements SkuService {
+public class SkuServiceImpl implements SkuService {
 
     @Autowired
     private SkuMapper skuMapper;
@@ -26,6 +26,7 @@ public class SkuServiceImpl extends BaseService implements SkuService {
     private SkuSpecsService skuSpecsService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void save(SkuDTO skuDTO) throws Exception {
         if (ObjectUtils.isEmpty(skuDTO.getSkuSpecs())) {
             return;

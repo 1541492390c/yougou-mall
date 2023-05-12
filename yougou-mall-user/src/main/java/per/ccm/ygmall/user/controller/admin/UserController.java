@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
@@ -20,7 +19,7 @@ import per.ccm.ygmall.user.vo.UserVO;
 @RestController("adminUserController")
 @RequestMapping("/admin/user")
 @Tag(name = "用户接口(管理员)", description = "用户接口(管理员)")
-public class UserController extends BaseController {
+public class UserController {
 
     @Autowired
     private UserService userService;

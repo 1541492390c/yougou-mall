@@ -36,8 +36,8 @@ public class Brand extends BaseEntity {
     @TableField("img")
     private String img;
 
-    @TableField("desc")
-    private String desc;
+    @TableField("brand_desc")
+    private String brandDesc;
 
     public Long getBrandId() {
         return brandId;
@@ -71,12 +71,12 @@ public class Brand extends BaseEntity {
         this.img = img;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getBrandDesc() {
+        return brandDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setBrandDesc(String brandDesc) {
+        this.brandDesc = brandDesc;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Brand extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", categories='" + categories + '\'' +
                 ", img='" + img + '\'' +
-                ", desc='" + desc + '\'' +
+                ", brandDesc='" + brandDesc + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

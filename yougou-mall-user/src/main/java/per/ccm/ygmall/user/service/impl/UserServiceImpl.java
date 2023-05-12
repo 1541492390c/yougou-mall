@@ -15,7 +15,6 @@ import per.ccm.ygmall.common.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
@@ -28,7 +27,7 @@ import per.ccm.ygmall.user.vo.UserVO;
 import java.util.List;
 
 @Service
-public class UserServiceImpl extends BaseService implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;

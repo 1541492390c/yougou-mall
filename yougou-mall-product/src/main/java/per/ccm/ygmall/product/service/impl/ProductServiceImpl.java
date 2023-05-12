@@ -10,7 +10,6 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.ProductDTO;
@@ -22,7 +21,7 @@ import per.ccm.ygmall.product.vo.ProductVO;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl extends BaseService implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;

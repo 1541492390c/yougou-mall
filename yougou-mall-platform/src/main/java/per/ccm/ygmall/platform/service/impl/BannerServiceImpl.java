@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.service.BaseService;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
@@ -20,7 +19,7 @@ import per.ccm.ygmall.platform.vo.BannerVO;
 import java.util.List;
 
 @Service
-public class BannerServiceImpl extends BaseService implements BannerService {
+public class BannerServiceImpl implements BannerService {
 
     @Autowired
     private BannerMapper bannerMapper;

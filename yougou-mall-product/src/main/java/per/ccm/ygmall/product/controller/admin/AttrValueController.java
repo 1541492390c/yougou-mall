@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.AttrValueDTO;
 import per.ccm.ygmall.product.service.AttrValueService;
@@ -16,7 +15,7 @@ import java.util.List;
 @RequestMapping("/admin/product/attr_value")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
 @Tag(name = "商品属性值接口(管理员)", description = "商品属性值接口(管理员)")
-public class AttrValueController extends BaseController {
+public class AttrValueController {
 
     @Autowired
     private AttrValueService attrValueService;

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.product.service.CategoryService;
 import per.ccm.ygmall.product.vo.CategoryVO;
@@ -18,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product/category")
 @Tag(name = "分类接口", description = "分类接口")
-public class CategoryController extends BaseController {
+public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.controller.BaseController;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.entity.Product;
@@ -22,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 @Tag(name = "商品接口", description = "商品接口")
-public class ProductController extends BaseController {
+public class ProductController {
 
     @Autowired
     private ProductService productService;
