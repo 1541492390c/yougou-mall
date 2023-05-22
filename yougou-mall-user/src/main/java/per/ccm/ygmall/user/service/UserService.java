@@ -1,7 +1,7 @@
 package per.ccm.ygmall.user.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import per.ccm.ygmall.common.vo.PageVO;
+import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;

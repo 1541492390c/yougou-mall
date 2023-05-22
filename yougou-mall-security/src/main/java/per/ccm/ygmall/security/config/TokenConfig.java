@@ -9,7 +9,7 @@ import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import per.ccm.ygmall.common.config.RedisConfig;
+import per.ccm.ygmall.cache.config.RedisConfig;
 import per.ccm.ygmall.common.util.RandomUtils;
 
 @Configuration

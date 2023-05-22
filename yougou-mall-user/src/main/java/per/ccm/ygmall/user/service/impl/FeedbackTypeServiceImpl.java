@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.database.util.ConvertUtils;
 import per.ccm.ygmall.user.dto.FeedbackTypeDTO;
 import per.ccm.ygmall.user.entity.FeedbackType;
 import per.ccm.ygmall.user.mapper.FeedbackTypeMapper;

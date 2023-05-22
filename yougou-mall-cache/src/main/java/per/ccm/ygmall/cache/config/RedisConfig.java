@@ -1,4 +1,4 @@
-package per.ccm.ygmall.common.config;
+package per.ccm.ygmall.cache.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
@@ -14,9 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.*;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.common.cache.Cache;
+import per.ccm.ygmall.cache.cache.Cache;
 
 import java.time.Duration;
 import java.util.HashMap;

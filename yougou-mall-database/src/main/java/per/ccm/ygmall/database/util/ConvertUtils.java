@@ -1,12 +1,12 @@
-package per.ccm.ygmall.common.util;
+package per.ccm.ygmall.database.util;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.bo.BaseBO;
 import per.ccm.ygmall.common.dto.BaseDTO;
-import per.ccm.ygmall.common.entity.BaseEntity;
 import per.ccm.ygmall.common.exception.ServerException;
 import per.ccm.ygmall.common.vo.BaseVO;
+import per.ccm.ygmall.database.entity.BaseEntity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

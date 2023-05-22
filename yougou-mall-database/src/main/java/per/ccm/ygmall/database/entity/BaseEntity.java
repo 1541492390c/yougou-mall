@@ -1,4 +1,4 @@
-package per.ccm.ygmall.common.entity;
+package per.ccm.ygmall.database.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 

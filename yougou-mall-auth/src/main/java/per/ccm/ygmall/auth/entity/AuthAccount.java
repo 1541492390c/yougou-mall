@@ -1,7 +1,7 @@
 package per.ccm.ygmall.auth.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import per.ccm.ygmall.common.entity.BaseEntity;
+import per.ccm.ygmall.database.entity.BaseEntity;
 
 /**
  * 认证账号

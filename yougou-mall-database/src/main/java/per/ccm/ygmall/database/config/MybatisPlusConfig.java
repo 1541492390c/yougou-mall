@@ -1,4 +1,4 @@
-package per.ccm.ygmall.common.config;
+package per.ccm.ygmall.database.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

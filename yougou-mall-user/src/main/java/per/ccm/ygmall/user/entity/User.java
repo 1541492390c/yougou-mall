@@ -1,7 +1,7 @@
 package per.ccm.ygmall.user.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import per.ccm.ygmall.common.entity.BaseEntity;
+import per.ccm.ygmall.database.entity.BaseEntity;
 
 import java.util.Date;
 

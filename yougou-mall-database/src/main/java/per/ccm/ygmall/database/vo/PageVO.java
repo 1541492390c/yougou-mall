@@ -1,4 +1,4 @@
-package per.ccm.ygmall.common.vo;
+package per.ccm.ygmall.database.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.database.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.SkuSpecsDTO;
 import per.ccm.ygmall.product.entity.SkuSpecs;
 import per.ccm.ygmall.product.mapper.SkuSpecsMapper;

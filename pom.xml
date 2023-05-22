@@ -21,6 +21,8 @@
         <module>yougou-mall-platform</module>
         <module>yougou-mall-search</module>
         <module>yougou-mall-resource</module>
+        <module>yougou-mall-database</module>
+        <module>yougou-mall-cache</module>
     </modules>
 
     <properties>
@@ -36,6 +38,8 @@
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
         <redisson.version>3.17.4</redisson.version>
         <springdoc.version>4.1.0</springdoc.version>
+        <minio.version>8.4.3</minio.version>
+        <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
         <seata.version>1.6.1</seata.version>
         <spring-security.version>2.2.5.RELEASE</spring-security.version>
         <spring-cloud.version>2020.0.0</spring-cloud.version>
@@ -124,6 +128,12 @@
                         <artifactId>spring-security-core</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
 
             <dependency>

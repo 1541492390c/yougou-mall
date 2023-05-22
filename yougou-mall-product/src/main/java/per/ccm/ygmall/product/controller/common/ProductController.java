@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.vo.PageVO;
+import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.entity.Product;
 import per.ccm.ygmall.product.service.ProductService;
 import per.ccm.ygmall.product.vo.ProductVO;

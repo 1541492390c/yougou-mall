@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import per.ccm.ygmall.common.entity.BaseEntity;
+import per.ccm.ygmall.database.entity.BaseEntity;
 
 /**
  * 商品属性值

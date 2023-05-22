@@ -1,4 +1,4 @@
-package per.ccm.ygmall.common.cache;
+package per.ccm.ygmall.cache.cache;
 
 public enum Cache {
 

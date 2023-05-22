@@ -20,7 +20,7 @@ import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.database.util.ConvertUtils;
 import per.ccm.ygmall.security.config.ClientConfig;
 import per.ccm.ygmall.security.enums.GrantType;
 import per.ccm.ygmall.security.enums.UserType;
