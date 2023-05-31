@@ -1,12 +1,11 @@
 package per.ccm.ygmall.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 认证账号传输数据
  * */
-public class AuthAccountDTO extends BaseDTO {
+public class AuthAccountDTO {
 
     @Schema(description = "主键ID")
     private Long authAccountId;

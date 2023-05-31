@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
 import per.ccm.ygmall.platform.entity.Banner;
@@ -33,7 +33,7 @@ public class BannerServiceImpl implements BannerService {
         if (bannerMapper.selectCount(queryWrapper) >= 5) {
             throw new YougouException(ResponseCode.USER_ERROR_A00004);
         }
-        Banner banner = ConvertUtils.dtoConvertToEntity(bannerDTO, Banner.class);
+        Banner banner = ConvertUtils.convertProperties(bannerDTO, Banner.class);
         bannerMapper.insert(banner);
     }
 

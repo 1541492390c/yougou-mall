@@ -10,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.dto.ProductDTO;
 import per.ccm.ygmall.product.entity.Product;
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         if (this.isExist(productDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B10001);
         }
-        Product product = ConvertUtils.dtoConvertToEntity(productDTO, Product.class);
+        Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.insert(product);
     }
 
@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
         if (this.isExist(productDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B10001);
         }
-        Product product = ConvertUtils.dtoConvertToEntity(productDTO, Product.class);
+        Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.updateById(product);
     }
 

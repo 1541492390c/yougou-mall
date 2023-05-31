@@ -1,14 +1,13 @@
 package per.ccm.ygmall.product.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 import java.util.List;
 
 /**
  * sku传输数据
  * */
-public class SkuDTO extends BaseDTO {
+public class SkuDTO {
 
     @Schema(name = "主键ID")
     private Long skuId;

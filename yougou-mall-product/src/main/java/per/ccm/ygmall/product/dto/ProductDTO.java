@@ -1,12 +1,11 @@
 package per.ccm.ygmall.product.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 商品传输数据
  * */
-public class ProductDTO extends BaseDTO {
+public class ProductDTO {
 
     @Schema(name = "主键ID")
     private Long productId;

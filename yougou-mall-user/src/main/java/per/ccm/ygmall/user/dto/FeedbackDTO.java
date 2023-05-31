@@ -1,12 +1,11 @@
 package per.ccm.ygmall.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 用户反馈信息传输数据
  * */
-public class FeedbackDTO extends BaseDTO {
+public class FeedbackDTO {
 
     @Schema(description = "主键ID")
     private Long feedbackId;

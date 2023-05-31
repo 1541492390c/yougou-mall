@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
 import per.ccm.ygmall.user.entity.Feedback;
@@ -20,7 +20,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void save(FeedbackDTO feedbackDTO) {
-        Feedback feedback = ConvertUtils.dtoConvertToEntity(feedbackDTO, Feedback.class);
+        Feedback feedback = ConvertUtils.convertProperties(feedbackDTO, Feedback.class);
         feedbackMapper.insert(feedback);
     }
 

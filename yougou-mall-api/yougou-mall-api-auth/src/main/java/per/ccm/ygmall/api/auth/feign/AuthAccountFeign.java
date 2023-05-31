@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import per.ccm.ygmall.api.auth.bo.AuthAccountBO;
-import per.ccm.ygmall.api.auth.mapping.AuthAccountMapping;
 import per.ccm.ygmall.common.config.FeignUrlConfig;
 import per.ccm.ygmall.common.response.ResponseEntity;
 
 @FeignClient("yougou-mall-auth")
-@RequestMapping(FeignUrlConfig.FEIGN_INNER_URL)
+@RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/auth")
 public interface AuthAccountFeign {
     /**
      * 保存认证账号信息
@@ -19,7 +18,7 @@ public interface AuthAccountFeign {
      * @param authAccountBO 认证账号内部传输数据
      * @return 响应体
      * */
-    @PostMapping( AuthAccountMapping.AUTH_ACCOUNT_SAVE_URL)
+    @PostMapping( "/save")
     ResponseEntity<Void> save(@RequestBody AuthAccountBO authAccountBO) throws Exception;
 
     /**
@@ -28,6 +27,6 @@ public interface AuthAccountFeign {
      * @param authAccountBO 认证账号内部传输数据
      * @return 响应体
      * */
-    @PutMapping(AuthAccountMapping.AUTH_ACCOUNT_UPDATE_URL)
+    @PutMapping("/update")
     ResponseEntity<Void> update(@RequestBody AuthAccountBO authAccountBO) throws Exception;
 }

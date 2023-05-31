@@ -1,12 +1,11 @@
 package per.ccm.ygmall.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 更新密码传输数据
  * */
-public class UpdatePasswordDTO extends BaseDTO {
+public class UpdatePasswordDTO {
 
     @Schema(description = "原密码")
     private String password;

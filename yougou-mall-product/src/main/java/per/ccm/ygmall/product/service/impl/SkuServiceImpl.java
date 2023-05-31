@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.entity.Sku;
 import per.ccm.ygmall.product.mapper.SkuMapper;
@@ -35,7 +35,7 @@ public class SkuServiceImpl implements SkuService {
         if (skuSpecsService.isExist(skuDTO.getProductId(), skuDTO.getSkuSpecs())) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B40001);
         }
-        Sku sku = ConvertUtils.dtoConvertToEntity(skuDTO, Sku.class);
+        Sku sku = ConvertUtils.convertProperties(skuDTO, Sku.class);
         skuMapper.insert(sku);
 
         skuDTO.getSkuSpecs().forEach(item -> item.setSkuId(sku.getSkuId()));

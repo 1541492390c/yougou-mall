@@ -1,14 +1,13 @@
 package per.ccm.ygmall.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 import java.util.Date;
 
 /**
  * 用户传输数据
  * */
-public class UserRegisterDTO extends BaseDTO {
+public class UserRegisterDTO {
 
     @Schema(description = "性别 1-男 2-女")
     private Integer gender;

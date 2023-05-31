@@ -1,8 +1,6 @@
 package per.ccm.ygmall.api.auth.bo;
 
-import per.ccm.ygmall.common.bo.BaseBO;
-
-public class AuthAccountBO extends BaseBO {
+public class AuthAccountBO {
 
     /**
      * 用户ID

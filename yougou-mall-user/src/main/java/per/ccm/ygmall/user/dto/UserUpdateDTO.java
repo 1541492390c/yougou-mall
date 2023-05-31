@@ -1,20 +1,22 @@
 package per.ccm.ygmall.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 import java.util.Date;
 
 /**
  * 用户更新传输数据
  * */
-public class UserUpdateDTO extends BaseDTO {
+public class UserUpdateDTO {
 
     @Schema(name = "用户ID")
     private Long userId;
 
     @Schema(description = "性别 1-男 2-女")
     private Integer gender;
+
+    @Schema(description = "头像")
+    private String avatar;
 
     @Schema(description = "电子邮箱")
     private String email;
@@ -39,6 +41,14 @@ public class UserUpdateDTO extends BaseDTO {
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {
@@ -70,6 +80,7 @@ public class UserUpdateDTO extends BaseDTO {
         return "UserUpdateDTO{" +
                 "userId=" + userId +
                 ", gender=" + gender +
+                ", avatar='" + avatar + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 ", birthday=" + birthday +

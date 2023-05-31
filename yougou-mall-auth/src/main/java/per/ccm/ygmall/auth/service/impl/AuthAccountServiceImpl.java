@@ -20,7 +20,7 @@ import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.security.config.ClientConfig;
 import per.ccm.ygmall.security.enums.GrantType;
 import per.ccm.ygmall.security.enums.UserType;
@@ -65,7 +65,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMp, authAccountDTO.getMp()))) {
             throw new YougouException(ResponseCode.USER_ERROR_A00008);
         }
-        AuthAccount authAccount = ConvertUtils.dtoConvertToEntity(authAccountDTO, AuthAccount.class);
+        AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);
         authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
         authAccountMapper.insert(authAccount);
     }
@@ -87,7 +87,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     public AuthAccountVO getAuthAccountByUserId(Long userId) {
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
-        return ConvertUtils.entityConvertToVO(authAccount, AuthAccountVO.class);
+        return ConvertUtils.convertProperties(authAccount, AuthAccountVO.class);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 
     @Override
     public void update(AuthAccountDTO authAccountDTO) {
-        AuthAccount authAccount = ConvertUtils.dtoConvertToEntity(authAccountDTO, AuthAccount.class);
+        AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);
         authAccountMapper.updateById(authAccount);
     }
 }

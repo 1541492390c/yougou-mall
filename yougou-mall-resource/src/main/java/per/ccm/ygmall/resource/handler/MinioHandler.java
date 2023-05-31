@@ -34,7 +34,7 @@ public class MinioHandler {
             throw new ServerException("MinioHandler-->upload error, originFilename is empty");
         }
         String fileName = originalFilename.substring(file.getOriginalFilename().lastIndexOf('.'));
-        String fileObject = resourceType.getValue() + fileName;
+        String fileObject = resourceType.getPath() + fileName;
         PutObjectArgs args = PutObjectArgs.builder()
                 .bucket(bucket)
                 .object(fileObject)

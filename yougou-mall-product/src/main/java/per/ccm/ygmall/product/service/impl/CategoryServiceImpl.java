@@ -9,7 +9,7 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.CategoryDTO;
 import per.ccm.ygmall.product.entity.Category;
 import per.ccm.ygmall.product.mapper.CategoryMapper;
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (this.isExist(queryWrapper, categoryDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B00001);
         }
-        Category category = ConvertUtils.dtoConvertToEntity(categoryDTO, Category.class);
+        Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.insert(category);
     }
 
@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (this.isExist(queryWrapper, categoryDTO)) {
             throw new YougouException(ResponseCode.PRODUCT_ERROR_B00001);
         }
-        Category category = ConvertUtils.dtoConvertToEntity(categoryDTO, Category.class);
+        Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.updateById(category);
     }
 

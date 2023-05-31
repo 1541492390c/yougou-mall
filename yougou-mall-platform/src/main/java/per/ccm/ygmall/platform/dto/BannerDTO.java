@@ -1,12 +1,11 @@
 package per.ccm.ygmall.platform.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 轮播图传输数据
  * */
-public class BannerDTO extends BaseDTO {
+public class BannerDTO {
 
     @Schema(description = "主键ID")
     private Long bannerId;

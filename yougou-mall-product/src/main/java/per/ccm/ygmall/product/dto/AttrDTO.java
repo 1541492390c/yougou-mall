@@ -1,12 +1,11 @@
 package per.ccm.ygmall.product.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import per.ccm.ygmall.common.dto.BaseDTO;
 
 /**
  * 商品属性传输数据
  * */
-public class AttrDTO extends BaseDTO {
+public class AttrDTO {
 
     @Schema(name = "主键ID")
     private Long attrId;

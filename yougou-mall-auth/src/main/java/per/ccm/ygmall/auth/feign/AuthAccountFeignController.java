@@ -8,7 +8,7 @@ import per.ccm.ygmall.api.auth.feign.AuthAccountFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 
 @Hidden
 @RestController
@@ -19,14 +19,14 @@ public class AuthAccountFeignController implements AuthAccountFeign {
 
     @Override
     public ResponseEntity<Void> save(AuthAccountBO authAccountBO) throws Exception {
-        AuthAccountDTO authAccountDTO = ConvertUtils.boToDTO(authAccountBO, AuthAccountDTO.class);
+        AuthAccountDTO authAccountDTO = ConvertUtils.convertProperties(authAccountBO, AuthAccountDTO.class);
         authAccountService.save(authAccountDTO);
         return ResponseEntity.success();
     }
 
     @Override
     public ResponseEntity<Void> update(AuthAccountBO authAccountBO) throws Exception {
-        AuthAccountDTO authAccountDTO = ConvertUtils.boToDTO(authAccountBO, AuthAccountDTO.class);
+        AuthAccountDTO authAccountDTO = ConvertUtils.convertProperties(authAccountBO, AuthAccountDTO.class);
         authAccountService.update(authAccountDTO);
         return ResponseEntity.success();
     }

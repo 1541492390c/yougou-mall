@@ -15,7 +15,7 @@ import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
@@ -44,10 +44,10 @@ public class UserServiceImpl implements UserService {
         if (userMapper.exists(queryWrapper.eq(User::getUsername, userRegisterDTO.getUsername()))) {
             throw new YougouException(ResponseCode.USER_ERROR_A00007);
         }
-        User user = ConvertUtils.dtoConvertToEntity(userRegisterDTO, User.class);
+        User user = ConvertUtils.convertProperties(userRegisterDTO, User.class);
         userMapper.insert(user);
 
-        AuthAccountBO authAccountBO = ConvertUtils.dtoConvertToBO(userRegisterDTO, AuthAccountBO.class);
+        AuthAccountBO authAccountBO = ConvertUtils.convertProperties(userRegisterDTO, AuthAccountBO.class);
         authAccountBO.setUserId(user.getUserId());
         authAccountBO.setUsername(user.getUsername());
         // 抛异常回滚
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Cacheable(cacheNames = CacheNames.USERINFO_CACHE_NAME, key = "#userId", sync = true)
     public UserVO getUserinfo(Long userId) {
         User user = userMapper.selectById(userId);
-        return ConvertUtils.entityConvertToVO(user, UserVO.class);
+        return ConvertUtils.convertProperties(user, UserVO.class);
     }
 
     @Override
@@ -79,11 +79,11 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(cacheNames = CacheNames.USERINFO_CACHE_NAME, key = "#userUpdateDTO.userId")
     @GlobalTransactional(rollbackFor = Exception.class)
     public void update(UserUpdateDTO userUpdateDTO) throws Exception {
-        User user = ConvertUtils.dtoConvertToEntity(userUpdateDTO, User.class);
+        User user = ConvertUtils.convertProperties(userUpdateDTO, User.class);
         userMapper.updateById(user);
 
         if (ObjectUtils.isEmpty(userUpdateDTO.getEmail()) || ObjectUtils.isEmpty(userUpdateDTO.getRole())) {
-            AuthAccountBO authAccountBO = ConvertUtils.dtoConvertToBO(userUpdateDTO, AuthAccountBO.class);
+            AuthAccountBO authAccountBO = ConvertUtils.convertProperties(userUpdateDTO, AuthAccountBO.class);
             ResponseEntity<Void> response = authAccountFeign.update(authAccountBO);
             // 抛异常回滚
             if (!ObjectUtils.nullSafeEquals(response.getCode(), ResponseCode.OK.value())) {

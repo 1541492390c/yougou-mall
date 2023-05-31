@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.database.util.ConvertUtils;
+import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.user.dto.FeedbackTypeDTO;
 import per.ccm.ygmall.user.entity.FeedbackType;
 import per.ccm.ygmall.user.mapper.FeedbackTypeMapper;
@@ -28,7 +28,7 @@ public class FeedbackTypeServiceImpl implements FeedbackTypeService {
         if (feedbackTypeMapper.exists(queryWrapper.eq(FeedbackType::getName, feedbackTypeDTO.getName()))) {
             throw new YougouException(ResponseCode.USER_ERROR_A10001);
         }
-        FeedbackType feedbackType = ConvertUtils.dtoConvertToEntity(feedbackTypeDTO, FeedbackType.class);
+        FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.insert(feedbackType);
     }
 
@@ -47,7 +47,7 @@ public class FeedbackTypeServiceImpl implements FeedbackTypeService {
         if (feedbackTypeMapper.exists(queryWrapper.eq(FeedbackType::getName, feedbackTypeDTO.getName()))) {
             throw new YougouException(ResponseCode.USER_ERROR_A10001);
         }
-        FeedbackType feedbackType = ConvertUtils.dtoConvertToEntity(feedbackTypeDTO, FeedbackType.class);
+        FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.updateById(feedbackType);
     }
 
