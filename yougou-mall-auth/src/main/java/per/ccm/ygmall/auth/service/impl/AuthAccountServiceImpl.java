@@ -71,13 +71,15 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     }
 
     @Override
-    public OAuth2AccessToken getToken(String username, String password, UserType userType) throws Exception {
+    public OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserType userType) throws Exception {
         UserDetails userDetails = new User(ClientConfig.YOUGOU_MALL_CLIENT_ID, ClientConfig.YOUGOU_MALL_CLIENT_SECRET, new ArrayList<>());
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
 
         Map<String, String> params = new HashMap<>();
+        params.put("ip_address", ipAddress);
         params.put("username", username);
         params.put("password", password);
+        params.put("code", code);
         params.put("type", userType.value());
         params.put("grant_type", GrantType.PASSWORD.value());
         return tokenEndpoint.postAccessToken(token, params).getBody();

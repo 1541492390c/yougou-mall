@@ -1,4 +1,4 @@
-package per.ccm.ygmall.resource.config;
+package per.ccm.ygmall.biz.config;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package per.ccm.ygmall.resource.enums;
+package per.ccm.ygmall.biz.enums;
 
 public enum ResourceType {
 

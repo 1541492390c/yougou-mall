@@ -1,4 +1,4 @@
-package per.ccm.ygmall.resource.handler;
+package per.ccm.ygmall.biz.handler;
 
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import per.ccm.ygmall.common.exception.ServerException;
-import per.ccm.ygmall.resource.enums.ResourceType;
+import per.ccm.ygmall.biz.enums.ResourceType;
+import per.ccm.ygmall.common.util.RandomUtils;
 
 @Component
 public class MinioHandler {
@@ -33,7 +34,10 @@ public class MinioHandler {
         if (ObjectUtils.isEmpty(originalFilename)) {
             throw new ServerException("MinioHandler-->upload error, originFilename is empty");
         }
-        String fileName = originalFilename.substring(file.getOriginalFilename().lastIndexOf('.'));
+        // 获取文件扩展名
+        String fileSuffix = originalFilename.substring(file.getOriginalFilename().indexOf('.'));
+        // 产生新的文件名称
+        String fileName = RandomUtils.randomUUID() + fileSuffix;
         String fileObject = resourceType.getPath() + fileName;
         PutObjectArgs args = PutObjectArgs.builder()
                 .bucket(bucket)

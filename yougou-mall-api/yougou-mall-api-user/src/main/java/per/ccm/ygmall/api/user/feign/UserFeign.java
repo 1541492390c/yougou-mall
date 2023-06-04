@@ -12,7 +12,7 @@ import per.ccm.ygmall.common.response.ResponseEntity;
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/user")
 public interface UserFeign {
     /**
-     * 更新用户信息
+     * 更新用户信息内部接口
      *
      * @param userBO 用户信息内部传输数据
      * */

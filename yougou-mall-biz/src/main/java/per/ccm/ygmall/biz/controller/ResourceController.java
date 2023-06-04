@@ -1,4 +1,4 @@
-package per.ccm.ygmall.resource.controller.common;
+package per.ccm.ygmall.biz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.resource.manager.ResourceManager;
+import per.ccm.ygmall.biz.manager.ResourceManager;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
 
 import java.util.List;

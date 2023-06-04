@@ -1,12 +1,12 @@
-package per.ccm.ygmall.resource.manager;
+package per.ccm.ygmall.biz.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import per.ccm.ygmall.api.user.bo.UserBO;
 import per.ccm.ygmall.api.user.feign.UserFeign;
-import per.ccm.ygmall.resource.enums.ResourceType;
-import per.ccm.ygmall.resource.handler.MinioHandler;
+import per.ccm.ygmall.biz.enums.ResourceType;
+import per.ccm.ygmall.biz.handler.MinioHandler;
 
 @Component
 public class ResourceManager {

@@ -27,7 +27,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/v3/**").permitAll()
                 .antMatchers("/yougou-mall-feign/**").permitAll()
                 .antMatchers("/auth/login", "/admin/auth/login").permitAll()
+                .antMatchers("/user/register").permitAll()
                 .antMatchers("/product/*", "/product/category/*", "/product/attr/*", "/product/sku/*").permitAll()
+                .antMatchers("/biz/captcha/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .cors();

@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         authAccountBO.setUserId(user.getUserId());
         authAccountBO.setUsername(user.getUsername());
         // 抛异常回滚
-        ResponseEntity<Void> response =authAccountFeign.save(authAccountBO);
+        ResponseEntity<Void> response = authAccountFeign.save(authAccountBO);
         if (!ObjectUtils.nullSafeEquals(response.getCode(), ResponseCode.OK.value())) {
             throw new YougouException(ResponseCode.responseCodeOf(response.getCode()));
         }

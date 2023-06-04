@@ -2,6 +2,8 @@ package per.ccm.ygmall.auth.provider;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.auth.service.AuthAccountService;
+import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.util.JSONUtils;
@@ -30,6 +33,9 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -56,6 +62,16 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
         if (!isAdmin && !isUser) {
             throw new YougouException(ResponseCode.USER_ERROR_A00005);
+        }
+
+        String ipAddress = params.get("ip_address");
+        String code = params.get("code");
+
+        Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
+
+        // 判断验证码是否正确
+        if (!ObjectUtils.isEmpty(cache) && !ObjectUtils.nullSafeEquals(code.toLowerCase(), cache.get(ipAddress, String.class).toLowerCase())) {
+            throw new YougouException(ResponseCode.USER_ERROR_A00010);
         }
         return new UsernamePasswordAuthenticationToken(authPrincipal, null, authPrincipal.getAuthorities());
     }

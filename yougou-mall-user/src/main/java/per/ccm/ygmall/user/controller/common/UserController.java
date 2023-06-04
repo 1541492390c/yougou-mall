@@ -3,7 +3,6 @@ package per.ccm.ygmall.user.controller.common;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
@@ -21,7 +20,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    @PreAuthorize("hasRole(@roleConfig.USER)")
     @Operation(summary = "用户注册", description = "用户注册")
     public ResponseEntity<Void> register(@RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
         userService.save(userRegisterDTO);

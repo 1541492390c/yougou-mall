@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: @artifactId@
+  profiles:
+    active: @profile.active@
   cloud:
     nacos:
       discovery:
@@ -16,13 +18,7 @@ spring:
         group: @nacos.group@
         file-extension: yaml
         shared-configs[0]:
-          data-id: yougou-mall-common-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          data-id: yougou-mall-cache-${profile.active}.${spring.cloud.nacos.config.file-extension}
           namespace: @nacos.namespace@
           group: @nacos.group@
           refresh: true
-
-minio:
-  endpoint: 'http://127.0.0.1:9001'
-  bucket: 'yougou-mall-resource'
-  access-key: 'H539qz6LBPXhFIqK'
-  secret-key: 'JXqijbCAshcbdM4YMQMunLXvV5WA36iL'

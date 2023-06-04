@@ -66,6 +66,11 @@ public enum ResponseCode {
     USER_ERROR_A0009("A00009", "用户不存在"),
 
     /**
+     * 验证码错误
+     * */
+    USER_ERROR_A00010("A00010", "验证码错误"),
+
+    /**
      * 用户反馈类型已存在
      * */
     USER_ERROR_A10001("A10001", "用户反馈类型已存在"),
