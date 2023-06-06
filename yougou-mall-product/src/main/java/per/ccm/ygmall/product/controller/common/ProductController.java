@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.entity.Product;
@@ -45,5 +42,11 @@ public class ProductController {
         Page<Product> page = new Page<>(pageNum, pageSize);
         PageVO<ProductVO> pageVO = productService.getProductPages(categories, page);
         return ResponseEntity.success(pageVO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductVO> getProductByProductId(@PathVariable("id") Long productId) throws Exception {
+        ProductVO productVO = productService.getProductByProductId(productId);
+        return ResponseEntity.success(productVO);
     }
 }

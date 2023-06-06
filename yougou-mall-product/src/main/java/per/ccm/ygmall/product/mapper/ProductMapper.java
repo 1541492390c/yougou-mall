@@ -15,4 +15,6 @@ public interface ProductMapper extends BaseMapper<Product> {
     List<ProductVO> selectRecommendedProductList();
 
     IPage<ProductVO> selectProductPages(@Param("categories") String categories, Page<Product> page);
+
+    ProductVO selectProductByProductId(Long productId);
 }

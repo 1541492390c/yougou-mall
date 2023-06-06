@@ -5,20 +5,27 @@ public enum UserType {
     /**
      * 管理员
      * */
-    ADMIN("admin"),
+    ADMIN(0, "admin"),
 
     /**
      * 普通用户
      * */
-    USER("user");
+    USER(1, "user");
 
-    private final String value;
+    private final Integer value;
 
-    UserType(String value) {
+    private final String name;
+
+    UserType(Integer value, String name) {
         this.value = value;
+        this.name = name;
     }
 
-    public String value() {
+    public Integer getValue() {
         return value;
+    }
+
+    public String getName() {
+        return name;
     }
 }

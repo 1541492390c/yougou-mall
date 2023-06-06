@@ -12,7 +12,7 @@ public class BannerVO extends BaseVO {
     private Long bannerId;
 
     @Schema(description = "简介")
-    private String desc;
+    private String description;
 
     @Schema(description = "轮播图链接")
     private String link;
@@ -28,12 +28,12 @@ public class BannerVO extends BaseVO {
         this.bannerId = bannerId;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLink() {
@@ -56,7 +56,7 @@ public class BannerVO extends BaseVO {
     public String toString() {
         return "BannerVO{" +
                 "bannerId=" + bannerId +
-                ", desc='" + desc + '\'' +
+                ", description='" + description + '\'' +
                 ", link='" + link + '\'' +
                 ", img='" + img + '\'' +
                 '}';

@@ -33,6 +33,14 @@ public interface ProductService {
     PageVO<ProductVO> getProductPages(String categories, Page<Product> page) throws Exception;
 
     /**
+     * 根据商品ID获取商品信息
+     *
+     * @param productId 商品ID
+     * @return 商品信息
+     * */
+    ProductVO getProductByProductId(Long productId) throws Exception;
+
+    /**
      * 更新商品商品信息
      *
      * @param productDTO 商品传输数据

@@ -27,8 +27,8 @@ public class Banner extends BaseEntity {
     /**
      * 简介
      * */
-    @TableField("desc")
-    private String desc;
+    @TableField("description")
+    private String description;
 
     /**
      * 轮播图链接
@@ -67,12 +67,12 @@ public class Banner extends BaseEntity {
         this.type = type;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLink() {
@@ -112,11 +112,13 @@ public class Banner extends BaseEntity {
         return "Banner{" +
                 "bannerId=" + bannerId +
                 ", type=" + type +
-                ", desc='" + desc + '\'' +
+                ", description='" + description + '\'' +
                 ", link='" + link + '\'' +
                 ", img='" + img + '\'' +
                 ", page='" + page + '\'' +
                 ", enabled=" + enabled +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

@@ -33,7 +33,7 @@ public class SkuSpecsVO extends BaseVO {
     @Override
     public String toString() {
         return "SkuSpecsVO{" +
-                ", attrName='" + attrName + '\'' +
+                "attrName='" + attrName + '\'' +
                 ", attrValueName='" + attrValueName + '\'' +
                 '}';
     }

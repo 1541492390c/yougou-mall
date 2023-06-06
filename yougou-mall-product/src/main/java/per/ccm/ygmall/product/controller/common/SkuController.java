@@ -23,10 +23,10 @@ public class SkuController {
     private SkuService skuService;
 
     @GetMapping("/list")
-    @Operation(summary = "获取sku信息列表", description = "根据spuID获取对应的sku列表")
-    @Parameter(name = "spuId", description = "spuID")
-    public ResponseEntity<List<SkuVO>> getSkuList(@RequestParam("spu_id") Long spuId) throws Exception {
-        List<SkuVO> skuList = skuService.getSkuListByProductId(spuId);
+    @Operation(summary = "获取sku信息列表", description = "根据商品ID获取对应的sku列表")
+    @Parameter(name = "productId", description = "商品ID")
+    public ResponseEntity<List<SkuVO>> getSkuList(@RequestParam("product_id") Long productId) throws Exception {
+        List<SkuVO> skuList = skuService.getSkuListByProductId(productId);
         return ResponseEntity.success(skuList);
     }
 }

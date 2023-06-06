@@ -2,8 +2,6 @@ package per.ccm.ygmall.auth.provider;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,8 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.api.biz.feign.CaptchaFeign;
 import per.ccm.ygmall.auth.service.AuthAccountService;
-import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.util.JSONUtils;
@@ -35,7 +33,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private CacheManager cacheManager;
+    private CaptchaFeign captchaFeign;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -53,11 +51,11 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
             throw new YougouException(ResponseCode.USER_ERROR_A00002);
         }
         //判断登录类型是否为管理员登录
-        boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserType.ADMIN.value())
+        boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserType.ADMIN.getName())
                 && (ObjectUtils.nullSafeEquals(role, (RoleConfig.SUPER_ADMIN))
                 || ObjectUtils.nullSafeEquals(role, (RoleConfig.COMMON_ADMIN)));
         //判断登录类型是否为用户登录
-        boolean isUser = ObjectUtils.nullSafeEquals(params.get("type"), UserType.USER.value())
+        boolean isUser = ObjectUtils.nullSafeEquals(params.get("type"), UserType.USER.getName())
                 && ObjectUtils.nullSafeEquals(role, RoleConfig.USER);
 
         if (!isAdmin && !isUser) {
@@ -67,11 +65,12 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         String ipAddress = params.get("ip_address");
         String code = params.get("code");
 
-        Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
-
-        // 判断验证码是否正确
-        if (!ObjectUtils.isEmpty(cache) && !ObjectUtils.nullSafeEquals(code.toLowerCase(), cache.get(ipAddress, String.class).toLowerCase())) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00010);
+        if (ObjectUtils.nullSafeEquals(captchaFeign.validate(ipAddress, code).getCode(), ResponseCode.OK.value())) {
+            Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
+            // 判断验证码是否正确
+            if (!validateResult) {
+                throw new YougouException(ResponseCode.USER_ERROR_A00010);
+            }
         }
         return new UsernamePasswordAuthenticationToken(authPrincipal, null, authPrincipal.getAuthorities());
     }

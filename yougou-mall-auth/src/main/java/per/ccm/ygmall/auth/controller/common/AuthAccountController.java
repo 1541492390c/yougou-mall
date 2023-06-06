@@ -7,8 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.response.ResponseEntity;

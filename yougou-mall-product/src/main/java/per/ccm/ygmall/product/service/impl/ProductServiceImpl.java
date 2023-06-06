@@ -49,6 +49,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(cacheNames = CacheNames.PRODUCT_CACHE_NAME, key = "#productId", sync = true)
+    public ProductVO getProductByProductId(Long productId) {
+        return productMapper.selectProductByProductId(productId);
+    }
+
+    @Override
     public void update(ProductDTO productDTO) {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {

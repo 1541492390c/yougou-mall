@@ -15,7 +15,7 @@ import per.ccm.ygmall.platform.vo.BannerVO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/banner")
+@RequestMapping("/platform/banner")
 @Tag(name = "轮播图(通用)", description = "轮播图(通用)")
 public class BannerController {
 

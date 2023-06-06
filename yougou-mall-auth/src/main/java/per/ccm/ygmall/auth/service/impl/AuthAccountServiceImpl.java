@@ -80,7 +80,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         params.put("username", username);
         params.put("password", password);
         params.put("code", code);
-        params.put("type", userType.value());
+        params.put("type", userType.getName());
         params.put("grant_type", GrantType.PASSWORD.value());
         return tokenEndpoint.postAccessToken(token, params).getBody();
     }

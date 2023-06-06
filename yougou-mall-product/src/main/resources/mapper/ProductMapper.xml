@@ -28,7 +28,7 @@
     </sql>
 
     <select id="selectRecommendedProductList" resultMap="productVOMap">
-        SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
+        SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" /> WHERE product.`recommended` = TRUE
     </select>
 
     <select id="selectProductPages" resultMap="productVOMap">
@@ -36,5 +36,9 @@
             <where>
                 <if test="categories != null">product.`categories` = #{categories}</if>
             </where>
+    </select>
+
+    <select id="selectProductByProductId" resultMap="productVOMap">
+        SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" /> WHERE product.`product_id` = #{productId}
     </select>
 </mapper>

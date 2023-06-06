@@ -11,7 +11,7 @@ public class BannerDTO {
     private Long bannerId;
 
     @Schema(description = "简介")
-    private String desc;
+    private String description;
 
     @Schema(description = "轮播图类型 1-PC端 2-移动端 3-小程序端")
     private Integer type;
@@ -36,12 +36,12 @@ public class BannerDTO {
         this.bannerId = bannerId;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getType() {
@@ -88,7 +88,7 @@ public class BannerDTO {
     public String toString() {
         return "BannerDTO{" +
                 "bannerId=" + bannerId +
-                ", desc='" + desc + '\'' +
+                ", description='" + description + '\'' +
                 ", type=" + type +
                 ", link='" + link + '\'' +
                 ", img='" + img + '\'' +

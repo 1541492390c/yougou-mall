@@ -1,6 +1,7 @@
 package per.ccm.ygmall.biz.controller;
 
 import cn.hutool.captcha.ICaptcha;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/biz/captcha")
+@Tag(name = "验证码接口", description = "验证码接口")
 public class CaptchaController {
 
     @Autowired

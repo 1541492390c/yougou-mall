@@ -18,9 +18,11 @@ public class ResourceManager {
     private UserFeign userFeign;
 
     public String uploadAvatar(Long userId, String oldFileName, MultipartFile file) throws Exception {
-        minioHandler.delete(oldFileName);
+        String oldAvatarFileName = oldFileName.substring(oldFileName.lastIndexOf('/'));
+        // 删除原头像
+        minioHandler.delete(oldAvatarFileName);
+        // 上传新头像
         String avatarFileName = minioHandler.upload(ResourceType.AVATAR, file);
-
         // 更新用户头像
         UserBO userBO = new UserBO();
         userBO.setUserId(userId);
