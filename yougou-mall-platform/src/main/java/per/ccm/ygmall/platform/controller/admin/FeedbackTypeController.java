@@ -1,4 +1,4 @@
-package per.ccm.ygmall.user.controller.admin;
+package per.ccm.ygmall.platform.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.user.dto.FeedbackTypeDTO;
-import per.ccm.ygmall.user.service.FeedbackTypeService;
+import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
+import per.ccm.ygmall.platform.service.FeedbackTypeService;
 
 @RestController("adminFeedbackTypeController")
 @RequestMapping("/admin/user/feedback_type")

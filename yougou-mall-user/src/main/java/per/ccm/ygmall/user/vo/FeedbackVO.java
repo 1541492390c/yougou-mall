@@ -17,11 +17,11 @@ public class FeedbackVO extends BaseVO {
     @Schema(description = "反馈类型ID")
     private Long feedbackTypeId;
 
-    @Schema(description = "反馈类型名称")
-    private String feedbackTypeName;
-
     @Schema(description = "用户评分")
     private Double rate;
+
+    @Schema(description = "反馈类型名称")
+    private String feedbackTypeName;
 
     @Schema(description = "反馈内容")
     private String content;
@@ -53,20 +53,20 @@ public class FeedbackVO extends BaseVO {
         this.feedbackTypeId = feedbackTypeId;
     }
 
-    public String getFeedbackTypeName() {
-        return feedbackTypeName;
-    }
-
-    public void setFeedbackTypeName(String feedbackTypeName) {
-        this.feedbackTypeName = feedbackTypeName;
-    }
-
     public Double getRate() {
         return rate;
     }
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public String getFeedbackTypeName() {
+        return feedbackTypeName;
+    }
+
+    public void setFeedbackTypeName(String feedbackTypeName) {
+        this.feedbackTypeName = feedbackTypeName;
     }
 
     public String getContent() {
@@ -91,8 +91,8 @@ public class FeedbackVO extends BaseVO {
                 "feedbackId=" + feedbackId +
                 ", userId=" + userId +
                 ", feedbackTypeId=" + feedbackTypeId +
-                ", feedbackTypeName='" + feedbackTypeName + '\'' +
                 ", rate=" + rate +
+                ", feedbackTypeName='" + feedbackTypeName + '\'' +
                 ", content='" + content + '\'' +
                 ", contactWay='" + contactWay + '\'' +
                 '}';

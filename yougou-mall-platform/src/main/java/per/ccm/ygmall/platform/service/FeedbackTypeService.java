@@ -1,7 +1,8 @@
-package per.ccm.ygmall.user.service;
+package per.ccm.ygmall.platform.service;
 
-import per.ccm.ygmall.user.dto.FeedbackTypeDTO;
-import per.ccm.ygmall.user.vo.FeedbackTypeVO;
+
+import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
+import per.ccm.ygmall.platform.vo.FeedbackTypeVO;
 
 import java.util.List;
 

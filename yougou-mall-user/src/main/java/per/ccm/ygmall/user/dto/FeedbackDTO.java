@@ -19,6 +19,9 @@ public class FeedbackDTO {
     @Schema(description = "评分")
     private Double rate;
 
+    @Schema(description = "用户反馈类型名称")
+    private String feedbackTypeName;
+
     @Schema(description = "反馈内容")
     private String content;
 
@@ -57,6 +60,14 @@ public class FeedbackDTO {
         this.rate = rate;
     }
 
+    public String getFeedbackTypeName() {
+        return feedbackTypeName;
+    }
+
+    public void setFeedbackTypeName(String feedbackTypeName) {
+        this.feedbackTypeName = feedbackTypeName;
+    }
+
     public String getContent() {
         return content;
     }
@@ -80,6 +91,7 @@ public class FeedbackDTO {
                 ", userId=" + userId +
                 ", feedbackTypeId=" + feedbackTypeId +
                 ", rate=" + rate +
+                ", feedbackTypeName='" + feedbackTypeName + '\'' +
                 ", content='" + content + '\'' +
                 ", contactWay='" + contactWay + '\'' +
                 '}';

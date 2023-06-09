@@ -1,4 +1,4 @@
-package per.ccm.ygmall.user.service.impl;
+package per.ccm.ygmall.platform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCode;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.user.dto.FeedbackTypeDTO;
-import per.ccm.ygmall.user.entity.FeedbackType;
-import per.ccm.ygmall.user.mapper.FeedbackTypeMapper;
-import per.ccm.ygmall.user.service.FeedbackTypeService;
-import per.ccm.ygmall.user.vo.FeedbackTypeVO;
+import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
+import per.ccm.ygmall.platform.entity.FeedbackType;
+import per.ccm.ygmall.platform.mapper.FeedbackTypeMapper;
+import per.ccm.ygmall.platform.service.FeedbackTypeService;
+import per.ccm.ygmall.platform.vo.FeedbackTypeVO;
 
 import java.util.List;
 

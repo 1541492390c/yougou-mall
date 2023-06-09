@@ -1,4 +1,4 @@
-package per.ccm.ygmall.user.vo;
+package per.ccm.ygmall.platform.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import per.ccm.ygmall.common.vo.BaseVO;

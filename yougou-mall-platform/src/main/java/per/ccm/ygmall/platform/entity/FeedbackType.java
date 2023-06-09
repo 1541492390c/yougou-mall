@@ -1,4 +1,4 @@
-package per.ccm.ygmall.user.entity;
+package per.ccm.ygmall.platform.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

@@ -1,4 +1,4 @@
-package per.ccm.ygmall.user.dto;
+package per.ccm.ygmall.platform.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

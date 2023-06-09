@@ -34,6 +34,12 @@ public class Feedback extends BaseEntity {
     private Double rate;
 
     /**
+     * 用户反馈类型名称
+     * */
+    @TableField("feedback_type_name")
+    private String feedbackTypeName;
+
+    /**
      * 反馈内容
      * */
     @TableField("content")
@@ -77,6 +83,14 @@ public class Feedback extends BaseEntity {
         this.rate = rate;
     }
 
+    public String getFeedbackTypeName() {
+        return feedbackTypeName;
+    }
+
+    public void setFeedbackTypeName(String feedbackTypeName) {
+        this.feedbackTypeName = feedbackTypeName;
+    }
+
     public String getContent() {
         return content;
     }
@@ -100,8 +114,11 @@ public class Feedback extends BaseEntity {
                 ", userId=" + userId +
                 ", feedbackTypeId=" + feedbackTypeId +
                 ", rate=" + rate +
+                ", feedbackTypeName='" + feedbackTypeName + '\'' +
                 ", content='" + content + '\'' +
                 ", contactWay='" + contactWay + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
