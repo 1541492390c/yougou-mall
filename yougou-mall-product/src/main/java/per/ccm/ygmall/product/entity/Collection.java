@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
 /**
@@ -12,6 +13,7 @@ import per.ccm.ygmall.database.entity.BaseEntity;
  * */
 @Getter
 @Setter
+@ToString
 @TableName("collection")
 public class Collection extends BaseEntity {
 
@@ -30,15 +32,4 @@ public class Collection extends BaseEntity {
      * 用户ID
      * */
     private Long userId;
-
-    @Override
-    public String toString() {
-        return "Collection{" +
-                "collectionId=" + collectionId +
-                ", productId=" + productId +
-                ", userId=" + userId +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

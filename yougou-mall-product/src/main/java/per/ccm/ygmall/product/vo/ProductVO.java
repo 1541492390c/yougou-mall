@@ -1,11 +1,17 @@
 package per.ccm.ygmall.product.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
 /**
  * 商品信息
  * */
+@Getter
+@Setter
+@ToString
 public class ProductVO extends BaseVO {
 
     @Schema(name = "主键ID")
@@ -31,82 +37,4 @@ public class ProductVO extends BaseVO {
 
     @Schema(name = "商品图片列表")
     private String imgList;
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Long getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
-    public String getImgList() {
-        return imgList;
-    }
-
-    public void setImgList(String imgList) {
-        this.imgList = imgList;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductVO{" +
-                "productId=" + productId +
-                ", brandId=" + brandId +
-                ", state=" + state +
-                ", price=" + price +
-                ", categories='" + categories + '\'' +
-                ", name='" + name + '\'' +
-                ", cover='" + cover + '\'' +
-                ", imgList='" + imgList + '\'' +
-                '}';
-    }
 }

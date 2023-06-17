@@ -1,12 +1,18 @@
 package per.ccm.ygmall.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
 /**
  * 用户传输数据
  * */
+@Getter
+@Setter
+@ToString
 public class UserRegisterDTO {
 
     @Schema(description = "性别 1-男 2-女")
@@ -35,91 +41,4 @@ public class UserRegisterDTO {
 
     @Schema(description = "生日")
     private Date birthday;
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMp() {
-        return mp;
-    }
-
-    public void setMp(String mp) {
-        this.mp = mp;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                ", gender=" + gender +
-                ", userType=" + userType +
-                ", state=" + state +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", mp='" + mp + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", birthday=" + birthday +
-                '}';
-    }
 }

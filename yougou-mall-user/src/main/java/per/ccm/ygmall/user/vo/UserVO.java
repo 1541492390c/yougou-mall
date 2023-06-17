@@ -1,6 +1,9 @@
 package per.ccm.ygmall.user.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
 import java.util.Date;
@@ -8,6 +11,9 @@ import java.util.Date;
 /**
  * 用户信息
  * */
+@Getter
+@Setter
+@ToString
 public class UserVO extends BaseVO {
 
     @Schema(description = "用户ID")
@@ -30,73 +36,4 @@ public class UserVO extends BaseVO {
 
     @Schema(description = "生日")
     private Date birthday;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    @Override
-    public String toString() {
-        return "UserVO{" +
-                "userId=" + userId +
-                ", gender=" + gender +
-                ", userType=" + userType +
-                ", state=" + state +
-                ", username='" + username + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", birthday=" + birthday +
-                '}';
-    }
 }

@@ -17,6 +17,9 @@ public enum Cache {
      * */
     PRODUCT(CacheNames.PRODUCT_CACHE_NAME, 10 * 60L),
 
+    /**
+     * 验证码
+     * */
     BIZ_VALIDATE_CODE(CacheNames.BIZ_VALIDATE_CODE_NAME, 5 * 60L);
 
     private final String value;

@@ -1,10 +1,16 @@
 package per.ccm.ygmall.product.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 商品传输数据
  * */
+@Getter
+@Setter
+@ToString
 public class ProductDTO {
 
     @Schema(name = "主键ID")
@@ -24,64 +30,4 @@ public class ProductDTO {
 
     @Schema(name = "商品封面")
     private String cover;
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Long getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductDTO{" +
-                "productId=" + productId +
-                ", brandId=" + brandId +
-                ", state=" + state +
-                ", categories='" + categories + '\'' +
-                ", name='" + name + '\'' +
-                ", cover='" + cover + '\'' +
-                '}';
-    }
 }

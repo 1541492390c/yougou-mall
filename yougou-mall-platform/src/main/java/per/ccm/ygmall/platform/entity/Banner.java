@@ -4,11 +4,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
 /**
  * 轮播图
  * */
+@Getter
+@Setter
+@ToString
 @TableName("banner")
 public class Banner extends BaseEntity {
 
@@ -48,75 +54,4 @@ public class Banner extends BaseEntity {
      * */
     @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
-
-    public Long getBannerId() {
-        return bannerId;
-    }
-
-    public void setBannerId(Long bannerId) {
-        this.bannerId = bannerId;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public String toString() {
-        return "Banner{" +
-                "bannerId=" + bannerId +
-                ", type=" + type +
-                ", description='" + description + '\'' +
-                ", link='" + link + '\'' +
-                ", img='" + img + '\'' +
-                ", page='" + page + '\'' +
-                ", enabled=" + enabled +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

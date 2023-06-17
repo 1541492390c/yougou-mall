@@ -1,11 +1,17 @@
 package per.ccm.ygmall.auth.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
 /**
  * 认证账号
  * */
+@Getter
+@Setter
+@ToString
 @TableName("auth_account")
 public class AuthAccount extends BaseEntity {
 
@@ -55,93 +61,4 @@ public class AuthAccount extends BaseEntity {
      * */
     @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
-
-    public Long getAuthAccountId() {
-        return authAccountId;
-    }
-
-    public void setAuthAccountId(Long authAccountId) {
-        this.authAccountId = authAccountId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMp() {
-        return mp;
-    }
-
-    public void setMp(String mp) {
-        this.mp = mp;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public String toString() {
-        return "AuthAccount{" +
-                "authAccountId=" + authAccountId +
-                ", userId=" + userId +
-                ", state=" + state +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", mp='" + mp + '\'' +
-                ", role='" + role + '\'' +
-                ", enabled=" + enabled +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

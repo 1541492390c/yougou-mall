@@ -1,10 +1,16 @@
 package per.ccm.ygmall.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 更新密码传输数据
  * */
+@Getter
+@Setter
+@ToString
 public class UpdatePasswordDTO {
 
     @Schema(description = "原密码")
@@ -12,36 +18,4 @@ public class UpdatePasswordDTO {
 
     @Schema(description = "新密码")
     private String newPassword;
-
-    public UpdatePasswordDTO() {
-    }
-
-    public UpdatePasswordDTO(String password, String newPassword) {
-        this.password = password;
-        this.newPassword = newPassword;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String oldPassword) {
-        this.password = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    @Override
-    public String toString() {
-        return "UpdatePasswordDTO{" +
-                "password='" + password + '\'' +
-                ", newPassword='" + newPassword + '\'' +
-                '}';
-    }
 }
