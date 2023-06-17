@@ -40,6 +40,8 @@ public class FeedbackType extends BaseEntity {
         return "FeedbackType{" +
                 "feedbackTypeId=" + feedbackTypeId +
                 ", name='" + name + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package per.ccm.ygmall.platform.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
@@ -43,8 +44,9 @@ public class Banner extends BaseEntity {
     private String page;
 
     /**
-     * 是否启用 0-否 1-是
+     * 是否启用
      * */
+    @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 
     public Long getBannerId() {

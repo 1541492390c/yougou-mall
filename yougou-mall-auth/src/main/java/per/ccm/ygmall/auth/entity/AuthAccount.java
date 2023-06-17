@@ -140,6 +140,8 @@ public class AuthAccount extends BaseEntity {
                 ", mp='" + mp + '\'' +
                 ", role='" + role + '\'' +
                 ", enabled=" + enabled +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

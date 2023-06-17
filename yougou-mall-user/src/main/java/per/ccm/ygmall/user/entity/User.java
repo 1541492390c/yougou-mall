@@ -125,6 +125,8 @@ public class User extends BaseEntity {
                 ", avatar='" + avatar + '\'' +
                 ", birthday=" + birthday +
                 ", enabled=" + enabled +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
