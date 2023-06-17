@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.entity.AuthAccount;
@@ -50,7 +49,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, username));
         // 用户不存在
-        if (ObjectUtils.isEmpty(authAccount)) {
+        if (!authAccountMapper.exists(queryWrapper.eq(AuthAccount::getUsername, username))) {
             throw new YougouException(ResponseCode.USER_ERROR_A00002);
         }
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(RoleConfig.ROLE_SUFFIX + authAccount.getRole()));

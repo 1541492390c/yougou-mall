@@ -18,49 +18,41 @@ public class AuthAccount extends BaseEntity {
     /**
      * 用户ID
      * */
-    @TableField("user_id")
     private Long userId;
 
     /**
-     * 状态 0-正常 1-禁用
+     * 状态 0-禁用 1-正常
      * */
-    @TableField("state")
     private Integer state;
 
     /**
      * 用户名
      * */
-    @TableField("username")
     private String username;
 
     /**
      * 密码
      * */
-    @TableField("password")
     private String password;
 
     /**
      * 电子邮箱
      * */
-    @TableField("email")
     private String email;
 
     /**
      * 手机号
      * */
-    @TableField("mp")
     private String mp;
 
     /**
      * 角色
      * */
-    @TableField("role")
     private String role;
 
     /**
      * 是否启用
      * */
-    @TableField("enabled")
     @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 

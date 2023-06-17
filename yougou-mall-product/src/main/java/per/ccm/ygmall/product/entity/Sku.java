@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
@@ -21,26 +20,22 @@ public class Sku extends BaseEntity {
     /**
      * 商品ID
      * */
-    @TableField("product_id")
     private Long productId;
 
     /**
      * sku库存
      * */
-    @TableField("sku_stock")
     private Integer skuStock;
 
     /**
      * sku价格
      * */
-    @TableField("price")
     private Double price;
 
     /**
      * sku描述
      * */
-    @TableField("sku_desc")
-    private String skuDesc;
+    private String description;
 
     public Long getSkuId() {
         return skuId;
@@ -74,12 +69,12 @@ public class Sku extends BaseEntity {
         this.price = price;
     }
 
-    public String getSkuDesc() {
-        return skuDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSkuDesc(String skuDesc) {
-        this.skuDesc = skuDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -89,7 +84,7 @@ public class Sku extends BaseEntity {
                 ", productId=" + productId +
                 ", skuStock=" + skuStock +
                 ", price=" + price +
-                ", skuDesc='" + skuDesc + '\'' +
+                ", description='" + description + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

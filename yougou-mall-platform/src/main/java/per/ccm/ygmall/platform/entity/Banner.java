@@ -1,7 +1,6 @@
 package per.ccm.ygmall.platform.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
@@ -21,34 +20,31 @@ public class Banner extends BaseEntity {
     /**
      * 轮播图类型 1-PC端 2-移动端 3-小程序端
      * */
-    @TableField("type")
     private Integer type;
 
     /**
      * 简介
      * */
-    @TableField("description")
     private String description;
 
     /**
      * 轮播图链接
      * */
-    @TableField("link")
     private String link;
 
     /**
      * 图片地址
      * */
-    @TableField("img")
     private String img;
 
     /**
      * 所属页面
      * */
-    @TableField("page")
     private String page;
 
-    @TableField("enabled")
+    /**
+     * 是否启用 0-否 1-是
+     * */
     private Boolean enabled;
 
     public Long getBannerId() {

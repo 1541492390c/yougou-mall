@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
@@ -21,13 +20,11 @@ public class Attr extends BaseEntity {
     /**
      * 商品ID
      * */
-    @TableField("product_id")
     private Long productId;
 
     /**
      * 属性名称
      * */
-    @TableField("name")
     private String name;
 
     public Long getAttrId() {

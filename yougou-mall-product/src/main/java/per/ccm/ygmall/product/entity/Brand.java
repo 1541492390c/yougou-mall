@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
@@ -21,23 +20,22 @@ public class Brand extends BaseEntity {
     /**
      * 品牌名称
      * */
-    @TableField("name")
     private String name;
 
     /**
      * 分类
      * */
-    @TableField("categories")
     private String categories;
 
     /**
      * 品牌(logo)图片
      * */
-    @TableField("img")
     private String img;
 
-    @TableField("brand_desc")
-    private String brandDesc;
+    /**
+     * 品牌描述
+     * */
+    private String description;
 
     public Long getBrandId() {
         return brandId;
@@ -71,12 +69,12 @@ public class Brand extends BaseEntity {
         this.img = img;
     }
 
-    public String getBrandDesc() {
-        return brandDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBrandDesc(String brandDesc) {
-        this.brandDesc = brandDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -86,7 +84,7 @@ public class Brand extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", categories='" + categories + '\'' +
                 ", img='" + img + '\'' +
-                ", brandDesc='" + brandDesc + '\'' +
+                ", description='" + description + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

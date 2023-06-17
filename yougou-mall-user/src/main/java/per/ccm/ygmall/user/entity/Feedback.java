@@ -1,7 +1,6 @@
 package per.ccm.ygmall.user.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
@@ -18,37 +17,31 @@ public class Feedback extends BaseEntity {
     /**
      * 用户ID
      * */
-    @TableField("user_id")
     private Long userId;
 
     /**
      * 反馈类型
      * */
-    @TableField("feedback_type_id")
     private Long feedbackTypeId;
 
     /**
      * 评分
      * */
-    @TableField("rate")
     private Double rate;
 
     /**
      * 用户反馈类型名称
      * */
-    @TableField("feedback_type_name")
     private String feedbackTypeName;
 
     /**
      * 反馈内容
      * */
-    @TableField("content")
     private String content;
 
     /**
      * 联系方式 (手机/电话/邮箱)
      * */
-    @TableField("contact_way")
     private String contactWay;
 
     public Long getFeedbackId() {

@@ -1,8 +1,8 @@
 package per.ccm.ygmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
@@ -21,43 +21,42 @@ public class Product extends BaseEntity {
     /**
      * 品牌ID
      * */
-    @TableField("brand_id")
     private Long brandId;
 
     /**
-     * 商品状态 0-上架 1-已下架
+     * 商品状态 0-已下架 1-上架
      * */
-    @TableField("state")
     private Integer state;
 
     /**
      * 分类列表
      * */
-    @TableField("categories")
     private String categories;
 
     /**
      * 商品名称
      * */
-    @TableField("name")
     private String name;
 
     /**
      * 商品封面
      * */
-    @TableField("cover")
     private String cover;
 
     /**
      * 商品列表
      * */
-    @TableField("img_list")
     private String imgList;
 
-    @TableField("recommended")
+    /**
+     * 是否推荐
+     * */
     private Boolean recommended;
 
-    @TableField("enabled")
+    /**
+     * 是否启用
+     * */
+    @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 
     public Long getProductId() {

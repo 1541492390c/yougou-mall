@@ -13,7 +13,7 @@ public enum ResponseCode {
     /**
      * 服务器内部错误
      * */
-    SERVER_ERROR_000001("000001", "服务器内部错误"),
+    SERVER_ERROR_000001("00001", "服务器内部错误"),
 
     /**
      * 传输参数错误

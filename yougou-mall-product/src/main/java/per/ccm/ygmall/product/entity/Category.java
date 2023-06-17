@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import per.ccm.ygmall.database.entity.BaseEntity;
@@ -21,19 +20,16 @@ public class Category extends BaseEntity {
     /**
      * 父级分类ID 顶级分类为0
      * */
-    @TableField("parent_id")
     private Long parentId;
 
     /**
      * 分类级别
      * */
-    @TableField("level")
     private Integer level;
 
     /**
      * 分类名称
      * */
-    @TableField("name")
     private String name;
 
     public Long getCategoryId() {
