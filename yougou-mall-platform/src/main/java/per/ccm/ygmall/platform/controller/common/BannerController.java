@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/platform/banner")
-@Tag(name = "轮播图(通用)", description = "轮播图(通用)")
+@Tag(name = "轮播图接口", description = "轮播图接口")
 public class BannerController {
 
     @Autowired

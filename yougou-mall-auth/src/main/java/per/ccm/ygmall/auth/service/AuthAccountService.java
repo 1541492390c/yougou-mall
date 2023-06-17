@@ -50,4 +50,12 @@ public interface AuthAccountService extends UserDetailsService {
      * @param authAccountDTO 认证账号传输数据
      */
     void update(AuthAccountDTO authAccountDTO) throws Exception;
+
+    /**
+     * 移除token
+     *
+     * @param userId 用户ID
+     * @param token 认证token
+     * */
+    void removeToken(Long userId, String token) throws Exception;
 }

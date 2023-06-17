@@ -18,7 +18,7 @@ import per.ccm.ygmall.platform.vo.BannerVO;
 @RestController("adminBannerController")
 @RequestMapping("/admin/banner")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
-@Tag(name = "轮播图(管理员)", description = "轮播图(管理员)")
+@Tag(name = "轮播图接口(管理员)", description = "轮播图接口(管理员)")
 public class BannerController {
 
     @Autowired

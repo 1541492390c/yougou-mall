@@ -10,7 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.api.user.feign.UserFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.entity.AuthAccount;
@@ -42,6 +45,12 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenStore tokenStore;
+
+    @Autowired
+    private UserFeign userFeign;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -110,5 +119,16 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     public void update(AuthAccountDTO authAccountDTO) {
         AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);
         authAccountMapper.updateById(authAccount);
+    }
+
+    @Override
+    public void removeToken(Long userId, String token) throws Exception {
+        OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
+        tokenStore.removeAccessToken(accessToken);
+        // 删除用户信息缓存
+        String responseCode = userFeign.removerUserinfoCache(userId).getCode();
+        if (!ObjectUtils.nullSafeEquals(responseCode, ResponseCode.OK.value())) {
+            throw new YougouException(ResponseCode.responseCodeOf(responseCode));
+        }
     }
 }

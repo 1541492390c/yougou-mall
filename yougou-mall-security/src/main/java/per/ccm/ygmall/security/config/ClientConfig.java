@@ -16,8 +16,7 @@ public class ClientConfig {
     public static final String YOUGOU_MALL_CLIENT_SCOPE = "all";
 
     public static final String[] YOUGOU_MALL_GRANT_TYPES = {
-            GrantType.PASSWORD.value(),
-            GrantType.REFRESH_TOKEN.value()
+            GrantType.PASSWORD.value()
     };
 
     @Bean

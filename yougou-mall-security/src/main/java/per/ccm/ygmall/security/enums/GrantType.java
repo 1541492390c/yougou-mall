@@ -5,12 +5,7 @@ public enum GrantType {
     /**
      * 密码
      * */
-    PASSWORD("password"),
-
-    /**
-     * 刷新令牌
-     * */
-    REFRESH_TOKEN("refresh_token");
+    PASSWORD("password");
 
     private final String value;
 

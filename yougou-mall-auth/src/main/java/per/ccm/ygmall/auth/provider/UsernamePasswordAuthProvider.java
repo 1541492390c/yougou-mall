@@ -65,12 +65,15 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         String ipAddress = params.get("ip_address");
         String code = params.get("code");
 
-        if (ObjectUtils.nullSafeEquals(captchaFeign.validate(ipAddress, code).getCode(), ResponseCode.OK.value())) {
+        String responseCode = captchaFeign.validate(ipAddress, code).getCode();
+        if (ObjectUtils.nullSafeEquals(responseCode, ResponseCode.OK.value())) {
             Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
             // 判断验证码是否正确
             if (!validateResult) {
                 throw new YougouException(ResponseCode.USER_ERROR_A00010);
             }
+            // 验证码正确,移除验证码缓存
+            captchaFeign.removeCaptchaCache(ipAddress);
         }
         return new UsernamePasswordAuthenticationToken(authPrincipal, null, authPrincipal.getAuthorities());
     }

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController("adminAuthAccountController")
 @RequestMapping("/admin/auth")
-@Tag(name = "认证授权(管理员)", description = "认证授权(管理员)")
+@Tag(name = "认证授权接口(管理员)", description = "认证授权接口(管理员)")
 public class AuthAccountController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class AuthAccountController {
     @PostMapping("/login")
     @Operation(summary = "登录", description = "传入账号、密码进行登录")
     @Parameters({
-            @Parameter(name = "username", description = "用户名(账号)", required = true),
+            @Parameter(name = "username", description = "用户名", required = true),
             @Parameter(name = "password", description = "密码", required = true),
             @Parameter(name = "code", description = "验证码", required = true)})
     public ResponseEntity<TokenVO> login(

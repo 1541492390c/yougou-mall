@@ -84,11 +84,16 @@ public class UserServiceImpl implements UserService {
 
         if (ObjectUtils.isEmpty(userUpdateDTO.getEmail()) || ObjectUtils.isEmpty(userUpdateDTO.getRole())) {
             AuthAccountBO authAccountBO = ConvertUtils.convertProperties(userUpdateDTO, AuthAccountBO.class);
-            ResponseEntity<Void> response = authAccountFeign.update(authAccountBO);
+            String responseCode = authAccountFeign.update(authAccountBO).getCode();
             // 抛异常回滚
-            if (!ObjectUtils.nullSafeEquals(response.getCode(), ResponseCode.OK.value())) {
-                throw new YougouException(ResponseCode.responseCodeOf(response.getCode()));
+            if (!ObjectUtils.nullSafeEquals(responseCode, ResponseCode.OK.value())) {
+                throw new YougouException(ResponseCode.responseCodeOf(responseCode));
             }
         }
+    }
+
+    @Override
+    @CacheEvict(cacheNames = CacheNames.USERINFO_CACHE_NAME, key = "#userId")
+    public void removeUserinfoCache(Long userId) {
     }
 }

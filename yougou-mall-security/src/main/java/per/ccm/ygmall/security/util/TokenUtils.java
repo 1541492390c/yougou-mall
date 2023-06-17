@@ -8,7 +8,6 @@ public class TokenUtils {
     public static TokenVO getTokenVO(OAuth2AccessToken token) {
         TokenVO tokenVO = new TokenVO();
         tokenVO.setAccessToken(token.getValue());
-        tokenVO.setRefreshToken(token.getRefreshToken().getValue());
         tokenVO.setExpiredIn(token.getExpiresIn());
         return tokenVO;
     }

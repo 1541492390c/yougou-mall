@@ -18,4 +18,12 @@ public interface CaptchaFeign {
      */
     @GetMapping("/validate")
     ResponseEntity<Boolean> validate(@RequestParam("ip_address") String ipAddress, @RequestParam("code") String code);
+
+    /**
+     * 移除验证码缓存
+     *
+     * @param ipAddress ip地址
+     * */
+    @GetMapping("/remove_captcha_cache")
+    ResponseEntity<Void> removeCaptchaCache(@RequestParam("ip_address") String ipAddress);
 }

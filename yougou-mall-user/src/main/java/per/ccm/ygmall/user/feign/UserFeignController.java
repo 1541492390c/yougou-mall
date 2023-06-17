@@ -23,4 +23,10 @@ public class UserFeignController implements UserFeign {
         userService.update(userUpdateDTO);
         return ResponseEntity.success();
     }
+
+    @Override
+    public ResponseEntity<Void> removerUserinfoCache(Long userId) throws Exception {
+        userService.removeUserinfoCache(userId);
+        return ResponseEntity.success();
+    }
 }

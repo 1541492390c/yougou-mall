@@ -42,4 +42,11 @@ public interface UserService {
      * @param userUpdateDTO 用户更新传输数据
      * */
     void update(UserUpdateDTO userUpdateDTO) throws Exception;
+
+    /**
+     * 移除用户信息
+     *
+     * @param userId 用户ID
+     * */
+    void removeUserinfoCache(Long userId) throws Exception;
 }

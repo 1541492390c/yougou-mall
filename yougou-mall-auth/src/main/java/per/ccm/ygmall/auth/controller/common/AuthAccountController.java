@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "认证授权(通用)", description = "认证授权(通用)")
+@Tag(name = "认证授权接口", description = "认证授权接口")
 public class AuthAccountController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class AuthAccountController {
     @PostMapping("/login")
     @Operation(summary = "登录", description = "传入账号、密码进行登录")
     @Parameters({
-            @Parameter(name = "username", description = "用户名(账号)", required = true),
+            @Parameter(name = "username", description = "用户名", required = true),
             @Parameter(name = "password", description = "密码", required = true),
             @Parameter(name = "code", description = "验证码", required = true)})
     public ResponseEntity<TokenVO> login(
@@ -47,6 +47,17 @@ public class AuthAccountController {
     public ResponseEntity<Void> updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
         authAccountService.updatePassword(userId, updatePasswordDTO);
+        return ResponseEntity.success();
+    }
+
+    @GetMapping("/logout")
+    @Operation(summary = "退出登录", description = "退出登录")
+    public ResponseEntity<Void> logout(HttpServletRequest request) throws Exception {
+        Long userId = SecurityContextUtils.getUserId();
+
+        String bearer = request.getHeader("Authorization");
+        String token = bearer.substring(bearer.lastIndexOf(' ') + 1);
+        authAccountService.removeToken(userId, token);
         return ResponseEntity.success();
     }
 }

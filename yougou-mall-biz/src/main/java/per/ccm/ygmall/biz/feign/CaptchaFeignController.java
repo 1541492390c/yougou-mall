@@ -19,4 +19,10 @@ public class CaptchaFeignController implements CaptchaFeign {
         Boolean validateResult = captchaManager.validate(ipAddress, code);
         return ResponseEntity.success(validateResult);
     }
+
+    @Override
+    public ResponseEntity<Void> removeCaptchaCache(String ipAddress) {
+        captchaManager.removeCaptchaCache(ipAddress);
+        return ResponseEntity.success();
+    }
 }
