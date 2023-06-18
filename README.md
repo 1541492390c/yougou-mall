@@ -1,6 +1,6 @@
 # 优购商城
 
- **优购商城是一个基于 SprngCloud Alibaba、MyBatis-Plus、OAuth2.0、RabbitMQ、Elasticsearch、MySql、Redis、Minio  的分布式微服务商城系统, 支持服务注册和发现以及拥有完整的订单流程等，优购商城包括了商城前端和后台管理平台，后台管理平台包括了商品管理、订单管理、用户管理、轮播图管理、活动管理、优惠券管理、规格管理。** 
+优购商城是一个基于 SprngCloud Alibaba、Nacos、Seata、MyBatis-Plus、OAuth2.0、RabbitMQ、Elasticsearch、MySql、Redis、Minio  的分布式微服务商城系统, 支，优购商城包括了商城前端和后台管理平台，商城包含了完整的购物流程，后台管理平台包括了商品管理、订单管理、用户管理、轮播图管理、活动管理、优惠券管理、规格管理。
 
 #### 软件架构
 软件架构说明
@@ -11,6 +11,8 @@
 1.  xxxx
 2.  xxxx
 3.  xxxx
+
+### 技术选型
 
 #### 使用说明
 
