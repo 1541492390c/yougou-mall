@@ -1,9 +1,6 @@
 # 优购商城
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+ **优购商城是一个基于 SprngCloud Alibaba、MyBatis-Plus、OAuth2.0、RabbitMQ、Elasticsearch、MySql、Redis、Minio  的分布式微服务商城系统, 支持服务注册和发现以及拥有完整的订单流程等，优购商城包括了商城前端和后台管理平台，后台管理平台包括了商品管理、订单管理、用户管理、轮播图管理、活动管理、优惠券管理、规格管理。** 
 
 #### 软件架构
 软件架构说明
