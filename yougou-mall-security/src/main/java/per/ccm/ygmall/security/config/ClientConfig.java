@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import per.ccm.ygmall.security.enums.GrantType;
+import per.ccm.ygmall.security.enums.GrantTypeEnum;
 
 @Configuration
 public class ClientConfig {
@@ -16,7 +16,7 @@ public class ClientConfig {
     public static final String YOUGOU_MALL_CLIENT_SCOPE = "all";
 
     public static final String[] YOUGOU_MALL_GRANT_TYPES = {
-            GrantType.PASSWORD.value()
+            GrantTypeEnum.PASSWORD.getValue()
     };
 
     @Bean

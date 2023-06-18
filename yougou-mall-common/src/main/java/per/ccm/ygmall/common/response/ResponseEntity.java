@@ -2,6 +2,7 @@ package per.ccm.ygmall.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.util.ObjectUtils;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ResponseEntity<T> {
@@ -17,31 +18,35 @@ public class ResponseEntity<T> {
 
     public static ResponseEntity<Void> success() {
         ResponseEntity<Void> responseEntity = new ResponseEntity<>();
-        responseEntity.setCode(ResponseCode.OK.value());
-        responseEntity.setMessage(ResponseCode.OK.message());
+        responseEntity.setCode(ResponseCodeEnum.OK.getValue());
+        responseEntity.setMessage(ResponseCodeEnum.OK.getMessage());
         return responseEntity;
     }
 
     public static <T> ResponseEntity<T> success(T data) {
         ResponseEntity<T> responseEntity = new ResponseEntity<>();
-        responseEntity.setCode(ResponseCode.OK.value());
-        responseEntity.setMessage(ResponseCode.OK.message());
+        responseEntity.setCode(ResponseCodeEnum.OK.getValue());
+        responseEntity.setMessage(ResponseCodeEnum.OK.getMessage());
         responseEntity.setData(data);
         return responseEntity;
     }
 
     public static <T> ResponseEntity<T> fail() {
         ResponseEntity<T> responseEntity = new ResponseEntity<>();
-        responseEntity.setCode(ResponseCode.SERVER_ERROR_000001.value());
-        responseEntity.setMessage(ResponseCode.SERVER_ERROR_000001.message());
+        responseEntity.setCode(ResponseCodeEnum.SERVER_ERROR_000001.getValue());
+        responseEntity.setMessage(ResponseCodeEnum.SERVER_ERROR_000001.getMessage());
         return responseEntity;
     }
 
-    public static <T> ResponseEntity<T> fail(ResponseCode responseCode) {
+    public static <T> ResponseEntity<T> fail(ResponseCodeEnum responseCodeEnum) {
         ResponseEntity<T> responseEntity = new ResponseEntity<>();
-        responseEntity.setCode(responseCode.value());
-        responseEntity.setMessage(responseCode.message());
+        responseEntity.setCode(responseCodeEnum.getValue());
+        responseEntity.setMessage(responseCodeEnum.getMessage());
         return responseEntity;
+    }
+
+    public Boolean responseSuccess() {
+        return ObjectUtils.nullSafeEquals(this.code, ResponseCodeEnum.OK.getValue());
     }
 
     public String getMessage() {

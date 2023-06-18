@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
-import per.ccm.ygmall.security.enums.UserType;
+import per.ccm.ygmall.security.enums.UserTypeEnum;
 
 /**
  * 认证授权服务
@@ -26,7 +26,7 @@ public interface AuthAccountService extends UserDetailsService {
      * @param password  密码
      * @return token
      */
-    OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserType userType) throws Exception;
+    OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) throws Exception;
 
     /**
      * 根据用户ID获取认证授权账号信息

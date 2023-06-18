@@ -13,8 +13,7 @@ import per.ccm.ygmall.api.auth.bo.AuthAccountBO;
 import per.ccm.ygmall.api.auth.feign.AuthAccountFeign;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCode;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         // 用户名已被使用
         if (userMapper.exists(queryWrapper.eq(User::getUsername, userRegisterDTO.getUsername()))) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00007);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00007);
         }
         User user = ConvertUtils.convertProperties(userRegisterDTO, User.class);
         userMapper.insert(user);
@@ -51,9 +50,8 @@ public class UserServiceImpl implements UserService {
         authAccountBO.setUserId(user.getUserId());
         authAccountBO.setUsername(user.getUsername());
         // 抛异常回滚
-        ResponseEntity<Void> response = authAccountFeign.save(authAccountBO);
-        if (!ObjectUtils.nullSafeEquals(response.getCode(), ResponseCode.OK.value())) {
-            throw new YougouException(ResponseCode.responseCodeOf(response.getCode()));
+        if (!authAccountFeign.save(authAccountBO).responseSuccess()) {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_000001);
         }
     }
 
@@ -84,10 +82,9 @@ public class UserServiceImpl implements UserService {
 
         if (ObjectUtils.isEmpty(userUpdateDTO.getEmail()) || ObjectUtils.isEmpty(userUpdateDTO.getRole())) {
             AuthAccountBO authAccountBO = ConvertUtils.convertProperties(userUpdateDTO, AuthAccountBO.class);
-            String responseCode = authAccountFeign.update(authAccountBO).getCode();
             // 抛异常回滚
-            if (!ObjectUtils.nullSafeEquals(responseCode, ResponseCode.OK.value())) {
-                throw new YougouException(ResponseCode.responseCodeOf(responseCode));
+            if (!authAccountFeign.update(authAccountBO).responseSuccess()) {
+                throw new YougouException(ResponseCodeEnum.SERVER_ERROR_000001);
             }
         }
     }

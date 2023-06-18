@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.api.user.feign.UserFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
@@ -21,11 +20,11 @@ import per.ccm.ygmall.auth.mapper.AuthAccountMapper;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.security.config.ClientConfig;
-import per.ccm.ygmall.security.enums.GrantType;
-import per.ccm.ygmall.security.enums.UserType;
+import per.ccm.ygmall.security.enums.GrantTypeEnum;
+import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.principal.AuthPrincipal;
 import per.ccm.ygmall.security.config.RoleConfig;
 
@@ -44,10 +43,10 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     private TokenEndpoint tokenEndpoint;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private TokenStore tokenStore;
 
     @Autowired
-    private TokenStore tokenStore;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserFeign userFeign;
@@ -59,7 +58,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, username));
         // 用户不存在
         if (!authAccountMapper.exists(queryWrapper.eq(AuthAccount::getUsername, username))) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00002);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00002);
         }
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(RoleConfig.ROLE_SUFFIX + authAccount.getRole()));
         return new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
@@ -71,7 +70,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 
         // 手机号已被使用
         if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMp, authAccountDTO.getMp()))) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00008);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00008);
         }
         AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);
         authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
@@ -79,7 +78,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     }
 
     @Override
-    public OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserType userType) throws Exception {
+    public OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) throws Exception {
         UserDetails userDetails = new User(ClientConfig.YOUGOU_MALL_CLIENT_ID, ClientConfig.YOUGOU_MALL_CLIENT_SECRET, new ArrayList<>());
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
 
@@ -88,8 +87,8 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         params.put("username", username);
         params.put("password", password);
         params.put("code", code);
-        params.put("type", userType.getName());
-        params.put("grant_type", GrantType.PASSWORD.value());
+        params.put("type", userTypeEnum.getName());
+        params.put("grant_type", GrantTypeEnum.PASSWORD.getValue());
         return tokenEndpoint.postAccessToken(token, params).getBody();
     }
 
@@ -107,7 +106,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
         //判断原密码与传入的密码是否一致
         if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00006);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00006);
         }
 
         String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
@@ -126,9 +125,8 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
         tokenStore.removeAccessToken(accessToken);
         // 删除用户信息缓存
-        String responseCode = userFeign.removerUserinfoCache(userId).getCode();
-        if (!ObjectUtils.nullSafeEquals(responseCode, ResponseCode.OK.value())) {
-            throw new YougouException(ResponseCode.responseCodeOf(responseCode));
+        if (!userFeign.removerUserinfoCache(userId).responseSuccess()) {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_000001);
         }
     }
 }

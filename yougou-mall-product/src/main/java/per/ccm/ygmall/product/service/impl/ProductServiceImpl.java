@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.dto.ProductDTO;
@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     public void save(ProductDTO productDTO) {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B10001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B10001);
         }
         Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.insert(product);
@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
     public void update(ProductDTO productDTO) {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B10001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B10001);
         }
         Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.updateById(product);

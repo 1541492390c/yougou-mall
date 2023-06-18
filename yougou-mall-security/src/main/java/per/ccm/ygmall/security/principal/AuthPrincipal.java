@@ -1,29 +1,44 @@
 package per.ccm.ygmall.security.principal;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 public class AuthPrincipal implements UserDetails {
 
+    /**
+     * 认证授权ID
+     * */
     private Long authAccountId;
 
+    /**
+     * 用户ID
+     * */
     private Long userId;
 
+    /**
+     * 用户名称
+     * */
     private String username;
 
+    /**
+     * 密码
+     * */
     private String password;
 
+    /**
+     * 授权范围
+     * */
     private Collection<? extends GrantedAuthority> authorities;
-
-    public AuthPrincipal(Long authAccountId, Long userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.authAccountId = authAccountId;
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,33 +73,5 @@ public class AuthPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Long getAuthAccountId() {
-        return authAccountId;
-    }
-
-    public void setAuthAccountId(Long authAccountId) {
-        this.authAccountId = authAccountId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
     }
 }

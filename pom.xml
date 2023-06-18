@@ -23,6 +23,7 @@
         <module>yougou-mall-biz</module>
         <module>yougou-mall-database</module>
         <module>yougou-mall-cache</module>
+        <module>yougou-mall-rabbitmq</module>
     </modules>
 
     <properties>

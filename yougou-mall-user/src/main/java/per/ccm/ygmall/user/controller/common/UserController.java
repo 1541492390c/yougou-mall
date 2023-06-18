@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.security.enums.UserType;
+import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("/register")
     @Operation(summary = "用户注册", description = "用户注册")
     public ResponseEntity<Void> register(@RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
-        userRegisterDTO.setUserType(UserType.USER.getValue());
+        userRegisterDTO.setUserType(UserTypeEnum.USER.getValue());
         userService.save(userRegisterDTO);
         return ResponseEntity.success();
     }

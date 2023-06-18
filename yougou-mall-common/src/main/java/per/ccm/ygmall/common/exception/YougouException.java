@@ -1,26 +1,26 @@
 package per.ccm.ygmall.common.exception;
 
-import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 
 public class YougouException extends RuntimeException {
 
-    private ResponseCode responseCode;
+    private ResponseCodeEnum responseCodeEnum;
 
-    public YougouException(String message, ResponseCode responseCode) {
+    public YougouException(String message, ResponseCodeEnum responseCodeEnum) {
         super(message);
-        this.responseCode = responseCode;
+        this.responseCodeEnum = responseCodeEnum;
     }
 
-    public YougouException(ResponseCode responseCode) {
-        super(responseCode.message());
-        this.responseCode = responseCode;
+    public YougouException(ResponseCodeEnum responseCodeEnum) {
+        super(responseCodeEnum.getMessage());
+        this.responseCodeEnum = responseCodeEnum;
     }
 
-    public ResponseCode getResponseCode() {
-        return responseCode;
+    public ResponseCodeEnum getResponseCode() {
+        return responseCodeEnum;
     }
 
-    public void responseCode(ResponseCode responseCode) {
-        this.responseCode = responseCode;
+    public void responseCode(ResponseCodeEnum responseCodeEnum) {
+        this.responseCodeEnum = responseCodeEnum;
     }
 }

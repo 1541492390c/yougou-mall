@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.CategoryDTO;
 import per.ccm.ygmall.product.entity.Category;
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         // 判断分类是否已存在
         if (this.isExist(queryWrapper, categoryDTO)) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B00001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B00001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.insert(category);
@@ -58,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         // 判断分类是否已存在
         if (this.isExist(queryWrapper, categoryDTO)) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B00001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B00001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.updateById(category);

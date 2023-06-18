@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.product.dto.AttrDTO;
 import per.ccm.ygmall.product.entity.Attr;
@@ -32,11 +32,11 @@ public class AttrServiceImpl implements AttrService {
 
         // 判断当前商品下是否存在该属性名称
         if (this.isExist(queryWrapper, attrDTO)) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B2001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B2001);
         }
         // 一个商品最多拥有5个属性
         if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B20002);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B20002);
         }
         Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
         attrMapper.insert(attr);
@@ -60,7 +60,7 @@ public class AttrServiceImpl implements AttrService {
 
         // 判断当前商品下是否存在该属性名称
         if (this.isExist(queryWrapper, attrDTO)) {
-            throw new YougouException(ResponseCode.PRODUCT_ERROR_B2001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B2001);
         }
         Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
         attrMapper.updateById(attr);

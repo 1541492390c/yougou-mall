@@ -1,9 +1,11 @@
 package per.ccm.ygmall.common.response;
 
-import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.common.exception.ServerException;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public enum ResponseCode {
+@Getter
+@AllArgsConstructor
+public enum ResponseCodeEnum {
 
     /**
      * 操作成功
@@ -117,27 +119,6 @@ public enum ResponseCode {
     PRODUCT_ERROR_B40001("B40001", "商品sku规格已存在");
 
     private final String value;
+
     private final String message;
-
-    ResponseCode(String value, String message) {
-        this.value = value;
-        this.message = message;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    public String message() {
-        return message;
-    }
-
-    public static ResponseCode responseCodeOf(String value) {
-        for (ResponseCode responseCode : ResponseCode.values()) {
-            if (ObjectUtils.nullSafeEquals(responseCode.value(), value)) {
-                return responseCode;
-            }
-        }
-        throw new ServerException("响应码不存在");
-    }
 }

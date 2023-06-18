@@ -13,10 +13,10 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.api.biz.feign.CaptchaFeign;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCode;
+import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.JSONUtils;
 import per.ccm.ygmall.security.config.RoleConfig;
-import per.ccm.ygmall.security.enums.UserType;
+import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.principal.AuthPrincipal;
 
 import java.util.ArrayList;
@@ -48,29 +48,28 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
         // 密码错误
         if (!passwordEncoder.matches(password, authPrincipal.getPassword())) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00002);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00002);
         }
         //判断登录类型是否为管理员登录
-        boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserType.ADMIN.getName())
+        boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.ADMIN.getName())
                 && (ObjectUtils.nullSafeEquals(role, (RoleConfig.SUPER_ADMIN))
                 || ObjectUtils.nullSafeEquals(role, (RoleConfig.COMMON_ADMIN)));
         //判断登录类型是否为用户登录
-        boolean isUser = ObjectUtils.nullSafeEquals(params.get("type"), UserType.USER.getName())
+        boolean isUser = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.USER.getName())
                 && ObjectUtils.nullSafeEquals(role, RoleConfig.USER);
 
         if (!isAdmin && !isUser) {
-            throw new YougouException(ResponseCode.USER_ERROR_A00005);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00005);
         }
 
         String ipAddress = params.get("ip_address");
         String code = params.get("code");
 
-        String responseCode = captchaFeign.validate(ipAddress, code).getCode();
-        if (ObjectUtils.nullSafeEquals(responseCode, ResponseCode.OK.value())) {
+        if (captchaFeign.validate(ipAddress, code).responseSuccess()) {
             Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
             // 判断验证码是否正确
             if (!validateResult) {
-                throw new YougouException(ResponseCode.USER_ERROR_A00010);
+                throw new YougouException(ResponseCodeEnum.USER_ERROR_A00010);
             }
             // 验证码正确,移除验证码缓存
             captchaFeign.removeCaptchaCache(ipAddress);

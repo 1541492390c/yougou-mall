@@ -37,15 +37,12 @@ public class CaptchaManager {
 
     public Boolean validate(String ipAddress, String code) {
         Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
-        if (ObjectUtils.isEmpty(cache)) {
-            return Boolean.FALSE;
-        }
-        if (ObjectUtils.isEmpty(cache.get(ipAddress, String.class))) {
+        if (ObjectUtils.isEmpty(cache) || ObjectUtils.isEmpty(cache.get(ipAddress, String.class))) {
             return Boolean.FALSE;
         }
         String validateCode = cache.get(ipAddress, String.class);
         if (!ObjectUtils.isEmpty(validateCode)) {
-            return ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code);
+            return ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code.toLowerCase());
         }
         return Boolean.FALSE;
     }

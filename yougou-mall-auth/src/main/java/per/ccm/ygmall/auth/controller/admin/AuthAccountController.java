@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.security.enums.UserType;
+import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.util.TokenUtils;
 import per.ccm.ygmall.security.vo.TokenVO;
 
@@ -24,7 +24,7 @@ public class AuthAccountController {
     @Autowired
     private AuthAccountService authAccountService;
 
-    private static final UserType ADMIN_TYPE = UserType.ADMIN;
+    private static final UserTypeEnum ADMIN_TYPE = UserTypeEnum.ADMIN;
 
     @PostMapping("/login")
     @Operation(summary = "登录", description = "传入账号、密码进行登录")
