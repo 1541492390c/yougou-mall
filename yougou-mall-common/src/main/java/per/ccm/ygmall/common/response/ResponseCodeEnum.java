@@ -116,7 +116,12 @@ public enum ResponseCodeEnum {
     /**
      * 商品sku规格已存在
      * */
-    PRODUCT_ERROR_B40001("B40001", "商品sku规格已存在");
+    PRODUCT_ERROR_B40001("B40001", "商品sku规格已存在"),
+
+    /**
+     * 用户已收藏该商品
+     * */
+    PRODUCT_ERROR_B50001("B50001", "用户已收藏该商品");
 
     private final String value;
 

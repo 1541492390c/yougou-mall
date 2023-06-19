@@ -29,7 +29,7 @@ public class SkuVO extends BaseVO {
     private Double price;
 
     @Schema(name = "sku描述")
-    private String skuDesc;
+    private String description;
 
     @Schema(name = "sku规格")
     private List<SkuSpecsVO> skuSpecs;

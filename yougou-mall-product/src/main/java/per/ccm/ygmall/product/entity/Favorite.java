@@ -14,14 +14,14 @@ import per.ccm.ygmall.database.entity.BaseEntity;
 @Getter
 @Setter
 @ToString
-@TableName("collection")
-public class Collection extends BaseEntity {
+@TableName("favorite")
+public class Favorite extends BaseEntity {
 
     /**
      * 主键ID
      * */
     @TableId(type = IdType.AUTO)
-    private Long collectionId;
+    private Long favoriteId;
 
     /**
      * 商品ID

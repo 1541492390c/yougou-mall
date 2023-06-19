@@ -6,7 +6,7 @@
         <result column="product_id" property="productId" jdbcType="BIGINT" />
         <result column="sku_stock" property="skuStock" jdbcType="INTEGER" />
         <result column="price" property="price" jdbcType="DECIMAL" />
-        <result column="sku_desc" property="skuDesc" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
         <collection property="skuSpecs" ofType="per.ccm.ygmall.product.vo.SkuSpecsVO" fetchType="eager">
             <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
             <result column="attr_value_name" property="attrValueName" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
         sku.`product_id`,
         sku.`sku_stock`,
         sku.`price`,
-        sku.`sku_desc`,
+        sku.`description`,
         sku_specs.`attr_name`,
         sku_specs.`attr_value_name`
     </sql>

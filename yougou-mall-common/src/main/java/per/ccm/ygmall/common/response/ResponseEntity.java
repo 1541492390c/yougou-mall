@@ -2,8 +2,14 @@ package per.ccm.ygmall.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.util.ObjectUtils;
 
+@Getter
+@Setter
+@ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ResponseEntity<T> {
 
@@ -47,29 +53,5 @@ public class ResponseEntity<T> {
 
     public Boolean responseSuccess() {
         return ObjectUtils.nullSafeEquals(this.code, ResponseCodeEnum.OK.getValue());
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 }

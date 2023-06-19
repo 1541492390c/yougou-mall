@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.biz.manager.ResourceManager;
-import per.ccm.ygmall.security.util.SecurityContextUtils;
-
-import java.util.List;
+import per.ccm.ygmall.common.response.ResponseEntity;
 
 @RestController
 @RequestMapping("biz/resource")
@@ -23,20 +20,14 @@ public class ResourceController {
     @Autowired
     private ResourceManager resourceManager;
 
-    @PostMapping("/upload_avatar")
-    @Operation(summary = "上传头像", description = "传入原头像名称以及新头像文件")
+    @PostMapping("/upload")
+    @Operation(summary = "上传文件", description = "上传文件")
     @Parameters({
-            @Parameter(name = "oldAvatarFileName", description = "原头像文件名称"),
-            @Parameter(name = "file", description = "新头像文件")
+            @Parameter(name = "resourceType", description = "资源类型"),
+            @Parameter(name = "file", description = "文件")
     })
-    public ResponseEntity<String> uploadAvatar(String oldAvatarFileName, MultipartFile file) throws Exception {
-        Long userId = SecurityContextUtils.getUserId();
-        String avatarFileName = resourceManager.uploadAvatar(userId, oldAvatarFileName, file);
+    public ResponseEntity<String> uploadAvatar(Integer resourceType, MultipartFile file) throws Exception {
+        String avatarFileName = resourceManager.upload(resourceType, file);
         return ResponseEntity.success(avatarFileName);
-    }
-
-    @PostMapping("/batch_upload")
-    public ResponseEntity<String> batchUpload(Integer resourceType, List<MultipartFile> file) throws Exception {
-        return null;
     }
 }

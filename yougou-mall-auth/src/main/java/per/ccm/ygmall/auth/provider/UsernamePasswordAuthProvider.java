@@ -62,9 +62,10 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A00005);
         }
 
+        // 登录ip地址
         String ipAddress = params.get("ip_address");
+        // 验证码
         String code = params.get("code");
-
         if (captchaFeign.validate(ipAddress, code).responseSuccess()) {
             Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
             // 判断验证码是否正确

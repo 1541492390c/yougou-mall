@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import per.ccm.ygmall.common.exception.ServerException;
 import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.response.ResponseEntity;
 
 @Slf4j
@@ -20,6 +19,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ServerException.class)
     public ResponseEntity<Void> handle(ServerException e) {
         log.error("{}", e.getMessage());
-        return ResponseEntity.fail(ResponseCodeEnum.SERVER_ERROR_000001);
+        return ResponseEntity.fail();
     }
 }
