@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.entity.User;
@@ -28,6 +29,7 @@ public class UserController {
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "保存用户(管理员)信息", description = "保存用户(管理员)信息")
     public ResponseEntity<Void> save(@RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
+        userRegisterDTO.setUserType(UserTypeEnum.ADMIN.getValue());
         userService.save(userRegisterDTO);
         return ResponseEntity.success();
     }

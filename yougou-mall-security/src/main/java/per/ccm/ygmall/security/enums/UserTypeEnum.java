@@ -10,12 +10,12 @@ public enum UserTypeEnum {
     /**
      * 管理员
      * */
-    ADMIN(0, "admin"),
+    ADMIN(1, "admin"),
 
     /**
      * 普通用户
      * */
-    USER(1, "user");
+    USER(2, "user");
 
     private final Integer value;
 
