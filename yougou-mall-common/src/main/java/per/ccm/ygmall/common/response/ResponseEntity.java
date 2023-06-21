@@ -39,8 +39,8 @@ public class ResponseEntity<T> {
 
     public static <T> ResponseEntity<T> fail() {
         ResponseEntity<T> responseEntity = new ResponseEntity<>();
-        responseEntity.setCode(ResponseCodeEnum.SERVER_ERROR_000001.getValue());
-        responseEntity.setMessage(ResponseCodeEnum.SERVER_ERROR_000001.getMessage());
+        responseEntity.setCode(ResponseCodeEnum.SERVER_ERROR_00001.getValue());
+        responseEntity.setMessage(ResponseCodeEnum.SERVER_ERROR_00001.getMessage());
         return responseEntity;
     }
 
