@@ -15,7 +15,7 @@ public class PermissionDeniedHandler extends OAuth2AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
-        String result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A00004));
+        String result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0004));
         response.getWriter().print(result);
     }
 }

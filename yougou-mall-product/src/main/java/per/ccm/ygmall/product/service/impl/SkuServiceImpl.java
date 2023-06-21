@@ -33,7 +33,7 @@ public class SkuServiceImpl implements SkuService {
         }
         // 判断sku规格是否存在
         if (skuSpecsService.isExist(skuDTO.getProductId(), skuDTO.getSkuSpecs())) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B40001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B4001);
         }
         Sku sku = ConvertUtils.convertProperties(skuDTO, Sku.class);
         skuMapper.insert(sku);

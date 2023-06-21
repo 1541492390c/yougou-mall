@@ -21,16 +21,16 @@ public class AuthenticationEntryPoint extends OAuth2AuthenticationEntryPoint {
         String result;
 
         if (ObjectUtils.isEmpty(request.getHeader("Authorization"))) {
-            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A00001));
+            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0001));
             response.getWriter().print(result);
             return;
         }
         if (authException instanceof UsernameNotFoundException || authException instanceof BadCredentialsException) {
-            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A00002));
+            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0002));
             response.getWriter().print(result);
             return;
         }
-        result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A00003));
+        result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0003));
         response.getWriter().print(result);
     }
 }

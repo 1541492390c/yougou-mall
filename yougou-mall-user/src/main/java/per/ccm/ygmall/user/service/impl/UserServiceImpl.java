@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         // 用户名已被使用
         if (userMapper.exists(queryWrapper.eq(User::getUsername, userRegisterDTO.getUsername()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00007);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0007);
         }
         User user = ConvertUtils.convertProperties(userRegisterDTO, User.class);
         userMapper.insert(user);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         authAccountBO.setUsername(user.getUsername());
         // 抛异常回滚
         if (!authAccountFeign.save(authAccountBO).responseSuccess()) {
-            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_000001);
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
             AuthAccountBO authAccountBO = ConvertUtils.convertProperties(userUpdateDTO, AuthAccountBO.class);
             // 抛异常回滚
             if (!authAccountFeign.update(authAccountBO).responseSuccess()) {
-                throw new YougouException(ResponseCodeEnum.SERVER_ERROR_000001);
+                throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
             }
         }
     }

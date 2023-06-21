@@ -26,7 +26,7 @@ public class FeedbackTypeServiceImpl implements FeedbackTypeService {
 
         // 判断用户反馈类型名称是否存在
         if (feedbackTypeMapper.exists(queryWrapper.eq(FeedbackType::getName, feedbackTypeDTO.getName()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A10001);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A1001);
         }
         FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.insert(feedbackType);
@@ -45,7 +45,7 @@ public class FeedbackTypeServiceImpl implements FeedbackTypeService {
 
         // 判断用户反馈类型名称是否存在
         if (feedbackTypeMapper.exists(queryWrapper.eq(FeedbackType::getName, feedbackTypeDTO.getName()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A10001);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A1001);
         }
         FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.updateById(feedbackType);

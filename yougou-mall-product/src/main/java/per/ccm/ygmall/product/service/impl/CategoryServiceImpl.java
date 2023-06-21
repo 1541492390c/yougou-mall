@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         // 判断分类是否已存在
         if (this.isExist(queryWrapper, categoryDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B00001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B0001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.insert(category);
@@ -58,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         // 判断分类是否已存在
         if (this.isExist(queryWrapper, categoryDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B00001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B0001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.updateById(category);

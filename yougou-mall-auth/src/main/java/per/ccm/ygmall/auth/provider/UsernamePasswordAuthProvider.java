@@ -48,7 +48,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
         // 密码错误
         if (!passwordEncoder.matches(password, authPrincipal.getPassword())) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00002);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0002);
         }
         //判断登录类型是否为管理员登录
         boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.ADMIN.getName())
@@ -59,7 +59,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
                 && ObjectUtils.nullSafeEquals(role, RoleConfig.USER);
 
         if (!isAdmin && !isUser) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00005);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0005);
         }
 
         // 登录ip地址
@@ -70,7 +70,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
             Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
             // 判断验证码是否正确
             if (!validateResult) {
-                throw new YougouException(ResponseCodeEnum.USER_ERROR_A00010);
+                throw new YougouException(ResponseCodeEnum.USER_ERROR_A0010);
             }
             // 验证码正确,移除验证码缓存
             captchaFeign.removeCaptchaCache(ipAddress);

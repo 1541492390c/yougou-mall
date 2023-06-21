@@ -36,7 +36,7 @@ public class AttrServiceImpl implements AttrService {
         }
         // 一个商品最多拥有5个属性
         if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B20002);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B2002);
         }
         Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
         attrMapper.insert(attr);

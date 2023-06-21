@@ -58,7 +58,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, username));
         // 用户不存在
         if (!authAccountMapper.exists(queryWrapper.eq(AuthAccount::getUsername, username))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00002);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0002);
         }
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(RoleConfig.ROLE_SUFFIX + authAccount.getRole()));
         return new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
@@ -70,7 +70,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 
         // 手机号已被使用
         if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMp, authAccountDTO.getMp()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00008);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0008);
         }
         AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);
         authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
@@ -106,7 +106,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
         //判断原密码与传入的密码是否一致
         if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A00006);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0006);
         }
 
         String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
@@ -126,7 +126,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         tokenStore.removeAccessToken(accessToken);
         // 删除用户信息缓存
         if (!userFeign.removerUserinfoCache(userId).responseSuccess()) {
-            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_000001);
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 }

@@ -10,7 +10,7 @@ public class CacheNames {
     /**
      * 商品分类缓存
      * */
-    public static final String PRODUCT_CATEGORY_CACHE_NAME = "product-category";
+    public static final String PRODUCT_CATEGORY_CACHE_NAME = "product_category";
 
     /**
      * 商品缓存

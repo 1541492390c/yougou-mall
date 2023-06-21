@@ -27,7 +27,7 @@ public class FavoriteServiceImpl implements FavoriteService {
         queryWrapper.eq(Favorite::getUserId, favoriteDTO.getUserId()).eq(Favorite::getProductId, favoriteDTO.getProductId());
         // 用户已收藏该商品
         if (favoriteMapper.exists(queryWrapper)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B50001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B5001);
         }
         Favorite favorite = ConvertUtils.convertProperties(favoriteDTO, Favorite.class);
         favoriteMapper.insert(favorite);
