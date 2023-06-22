@@ -3,6 +3,10 @@ package per.ccm.ygmall.cache.cache;
 public enum Cache {
 
     /**
+     * 认证token
+     * */
+    ACCESS_TOKEN(CacheNames.ACCESS_TOKEN_NAME, 14 * 24 * 60 * 60L),
+    /**
      * 用户信息
      * */
     USERINFO(CacheNames.USERINFO_CACHE_NAME, 7 * 24 * 60 * 60L),

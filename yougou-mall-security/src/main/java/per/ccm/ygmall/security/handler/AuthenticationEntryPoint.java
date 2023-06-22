@@ -3,7 +3,8 @@ package per.ccm.ygmall.security.handler;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
+//import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.response.ResponseEntity;
@@ -13,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AuthenticationEntryPoint extends OAuth2AuthenticationEntryPoint {
+@Component
+public class AuthenticationEntryPoint implements org.springframework.security.web.AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {

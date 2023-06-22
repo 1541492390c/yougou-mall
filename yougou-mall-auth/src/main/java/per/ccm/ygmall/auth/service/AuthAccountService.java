@@ -1,7 +1,6 @@
 package per.ccm.ygmall.auth.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
@@ -18,6 +17,16 @@ public interface AuthAccountService extends UserDetailsService {
      */
     void save(AuthAccountDTO authAccountDTO) throws Exception;
 
+//    /**
+//     * 获取token(用户名密码模式)
+//     *
+//     * @param ipAddress 登录者IP地址
+//     * @param username  用户名
+//     * @param password  密码
+//     * @return token
+//     */
+//    OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) throws Exception;
+
     /**
      * 获取token(用户名密码模式)
      *
@@ -26,7 +35,7 @@ public interface AuthAccountService extends UserDetailsService {
      * @param password  密码
      * @return token
      */
-    OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) throws Exception;
+    String getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) throws Exception;
 
     /**
      * 根据用户ID获取认证授权账号信息
@@ -55,7 +64,7 @@ public interface AuthAccountService extends UserDetailsService {
      * 移除token
      *
      * @param userId 用户ID
-     * @param token 认证token
+     * @param accessToken 认证token
      * */
-    void removeToken(Long userId, String token) throws Exception;
+    void removeToken(Long userId, String accessToken) throws Exception;
 }

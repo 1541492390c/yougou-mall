@@ -43,7 +43,7 @@
         <minio.version>8.4.3</minio.version>
         <okhttp.version>4.9.0</okhttp.version>
         <seata.version>1.6.1</seata.version>
-        <spring-security.version>2.2.5.RELEASE</spring-security.version>
+        <java-jwt.version>4.4.0</java-jwt.version>
         <spring-cloud.version>2020.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <openfeign.version>3.0.4</openfeign.version>
@@ -115,24 +115,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-security</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-oauth2</artifactId>
-                <version>${spring-security.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.security</groupId>
-                        <artifactId>spring-security-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
@@ -154,6 +136,18 @@
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>

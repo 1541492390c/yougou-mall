@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
+//import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
@@ -37,8 +37,8 @@ public class AuthAccountController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("code") String code) throws Exception {
-        OAuth2AccessToken token = authAccountService.getToken(request.getRemoteAddr(), username, password, code, ADMIN_TYPE);
-        return ResponseEntity.success(TokenUtils.getTokenVO(token));
+        String accessToken = authAccountService.getToken(request.getRemoteAddr(), username, password, code, ADMIN_TYPE);
+        return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
     }
 
     @GetMapping("/get_by_user_id")

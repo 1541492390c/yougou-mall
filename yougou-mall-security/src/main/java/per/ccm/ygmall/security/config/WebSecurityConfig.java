@@ -1,19 +1,37 @@
 package per.ccm.ygmall.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import per.ccm.ygmall.security.filter.JWTAuthenticationFilter;
+import per.ccm.ygmall.security.handler.AuthenticationEntryPoint;
+import per.ccm.ygmall.security.handler.PermissionDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class WebSecurityConfig implements WebMvcConfigurer {
+@Import({JWTAuthenticationFilter.class, AuthenticationEntryPoint.class, PermissionDeniedHandler.class})
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Lazy
+    @Autowired
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private PermissionDeniedHandler permissionDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -21,9 +39,40 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
-
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(jwtAuthenticationFilter)
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(permissionDeniedHandler)
+                .and()
+                .authorizeRequests()
+                // 放行接口
+                .antMatchers(
+                        // 文档
+                        "/v3/**",
+                        // 内部接口
+                        "/yougou-mall-feign/**",
+                        // 登录相关接口
+                        "/auth/login", "/admin/auth/login",
+                        // 用户注册接口
+                        "/user/register",
+                        // 商品相关接口
+                        "/product/*", "/product/category/*", "/product/attr/*", "/product/sku/*",
+                        // 平台接口
+                        "/platform/**",
+                        // 验证码接口
+                        "/biz/captcha/*").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .cors();
+    }
 }

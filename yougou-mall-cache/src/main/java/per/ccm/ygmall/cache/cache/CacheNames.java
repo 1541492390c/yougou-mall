@@ -3,6 +3,11 @@ package per.ccm.ygmall.cache.cache;
 public class CacheNames {
 
     /**
+     * 认证token缓存
+     * */
+    public static final String ACCESS_TOKEN_NAME = "access_token";
+
+    /**
      * 用户信息缓存
      * */
     public static final String USERINFO_CACHE_NAME = "userinfo";

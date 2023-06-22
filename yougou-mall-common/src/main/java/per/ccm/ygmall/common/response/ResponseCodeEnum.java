@@ -20,7 +20,7 @@ public enum ResponseCodeEnum {
     /**
      * 传输参数错误
      * */
-    PARAM_ERROR_00002("00002", "传输参数错误"),
+    SERVER_ERROR_00002("00002", "传输参数错误"),
 
     /**
      * 用户未登录或验证失败
@@ -73,6 +73,11 @@ public enum ResponseCodeEnum {
     USER_ERROR_A0010("A0010", "验证码错误"),
 
     /**
+     * token已过期,请重新登录
+     * */
+    USER_ERROR_A0011("A0011", "token已过期,请重新登录"),
+
+    /**
      * 用户反馈类型已存在
      * */
     USER_ERROR_A1001("A1001", "用户反馈类型已存在"),
@@ -91,7 +96,6 @@ public enum ResponseCodeEnum {
      * 商品属性已存在
      * */
     PRODUCT_ERROR_B2001("B2001", "商品属性已存在"),
-
 
     /**
      * 一个商品最多拥有5个属性

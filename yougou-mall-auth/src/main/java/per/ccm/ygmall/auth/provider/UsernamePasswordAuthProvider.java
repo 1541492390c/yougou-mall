@@ -2,6 +2,7 @@ package per.ccm.ygmall.auth.provider;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,7 @@ import java.util.Map;
 @Component
 public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
+    @Lazy
     @Autowired
     private AuthAccountService authAccountService;
 
@@ -66,15 +68,16 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         String ipAddress = params.get("ip_address");
         // 验证码
         String code = params.get("code");
-        if (captchaFeign.validate(ipAddress, code).responseSuccess()) {
-            Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
-            // 判断验证码是否正确
-            if (!validateResult) {
-                throw new YougouException(ResponseCodeEnum.USER_ERROR_A0010);
-            }
-            // 验证码正确,移除验证码缓存
-            captchaFeign.removeCaptchaCache(ipAddress);
+        if (!captchaFeign.validate(ipAddress, code).responseSuccess()) {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
+        Boolean validateResult = captchaFeign.validate(ipAddress, code).getData();
+        // 判断验证码是否正确
+        if (!validateResult) {
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0010);
+        }
+        // 验证码正确,移除验证码缓存
+        captchaFeign.removeCaptchaCache(ipAddress);
         return new UsernamePasswordAuthenticationToken(authPrincipal, null, authPrincipal.getAuthorities());
     }
 

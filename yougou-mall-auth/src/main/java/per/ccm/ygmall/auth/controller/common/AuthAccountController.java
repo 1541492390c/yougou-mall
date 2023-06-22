@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.service.AuthAccountService;
@@ -38,8 +37,8 @@ public class AuthAccountController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("code") String code) throws Exception {
-        OAuth2AccessToken token = authAccountService.getToken(request.getRemoteAddr(), username, password, code, USER_TYPE);
-        return ResponseEntity.success(TokenUtils.getTokenVO(token));
+        String accessToken = authAccountService.getToken(request.getRemoteAddr(), username, password, code, USER_TYPE);
+        return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
     }
 
     @PutMapping("/update_password")
@@ -56,8 +55,8 @@ public class AuthAccountController {
         Long userId = SecurityContextUtils.getUserId();
 
         String bearer = request.getHeader("Authorization");
-        String token = bearer.substring(bearer.lastIndexOf(' ') + 1);
-        authAccountService.removeToken(userId, token);
+        String accessToken = TokenUtils.readToken(bearer);
+        authAccountService.removeToken(userId, accessToken);
         return ResponseEntity.success();
     }
 }

@@ -2,15 +2,15 @@ package per.ccm.ygmall.auth.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.api.user.feign.UserFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
@@ -19,19 +19,16 @@ import per.ccm.ygmall.auth.entity.AuthAccount;
 import per.ccm.ygmall.auth.mapper.AuthAccountMapper;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
+import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.security.config.ClientConfig;
-import per.ccm.ygmall.security.enums.GrantTypeEnum;
 import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.principal.AuthPrincipal;
 import per.ccm.ygmall.security.config.RoleConfig;
+import per.ccm.ygmall.security.util.TokenUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class AuthAccountServiceImpl implements AuthAccountService {
@@ -40,10 +37,10 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     private AuthAccountMapper authAccountMapper;
 
     @Autowired
-    private TokenEndpoint tokenEndpoint;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenStore tokenStore;
+    private CacheManager cacheManager;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -60,7 +57,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         if (!authAccountMapper.exists(queryWrapper.eq(AuthAccount::getUsername, username))) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0002);
         }
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(RoleConfig.ROLE_SUFFIX + authAccount.getRole()));
+        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(RoleConfig.ROLE_SUFFIX + authAccount.getRole()));
         return new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
     }
 
@@ -78,18 +75,23 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     }
 
     @Override
-    public OAuth2AccessToken getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) throws Exception {
-        UserDetails userDetails = new User(ClientConfig.YOUGOU_MALL_CLIENT_ID, ClientConfig.YOUGOU_MALL_CLIENT_SECRET, new ArrayList<>());
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
-
+    public String getToken(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) {
+        // 添加附加信息
         Map<String, String> params = new HashMap<>();
         params.put("ip_address", ipAddress);
         params.put("username", username);
         params.put("password", password);
         params.put("code", code);
         params.put("type", userTypeEnum.getName());
-        params.put("grant_type", GrantTypeEnum.PASSWORD.getValue());
-        return tokenEndpoint.postAccessToken(token, params).getBody();
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
+        token.setDetails(params);
+        // 验证
+        Authentication authentication = authenticationManager.authenticate(token);
+        AuthPrincipal authPrincipal = (AuthPrincipal) authentication.getPrincipal();
+        // 将认证token存入redis中
+        String accessToken = TokenUtils.generateToken(authPrincipal.getAuthAccountId(), authPrincipal.getUserId(), authPrincipal.getUsername(), authPrincipal.getAuthorities().iterator().next().getAuthority());
+        Objects.requireNonNull(cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME)).put(authPrincipal.getUserId(), accessToken);
+        return accessToken;
     }
 
     @Override
@@ -121,12 +123,8 @@ public class AuthAccountServiceImpl implements AuthAccountService {
     }
 
     @Override
-    public void removeToken(Long userId, String token) throws Exception {
-        OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
-        tokenStore.removeAccessToken(accessToken);
-        // 删除用户信息缓存
-        if (!userFeign.removerUserinfoCache(userId).responseSuccess()) {
-            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
-        }
+    @CacheEvict(cacheNames = CacheNames.ACCESS_TOKEN_NAME, key = "#userId")
+    public void removeToken(Long userId, String accessToken) throws Exception {
+        userFeign.removerUserinfoCache(userId).responseSuccess();
     }
 }

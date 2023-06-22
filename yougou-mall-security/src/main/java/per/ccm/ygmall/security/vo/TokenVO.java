@@ -15,5 +15,5 @@ public class TokenVO extends BaseVO {
     private String accessToken;
 
     @Schema(description = "过期时间")
-    private Integer expiredIn;
+    private Long expiredIn;
 }
