@@ -13,15 +13,15 @@ import lombok.ToString;
 @ToString
 public class CategoryDTO {
 
-    @Schema(name = "主键ID")
+    @Schema(description = "主键ID")
     private Long categoryId;
 
-    @Schema(name = "上级分类ID")
+    @Schema(description = "上级分类ID")
     private Long parentId;
 
-    @Schema(name = "分类级别")
+    @Schema(description = "分类级别")
     private Integer level;
 
-    @Schema(name = "分类名称")
+    @Schema(description = "分类名称")
     private String name;
 }

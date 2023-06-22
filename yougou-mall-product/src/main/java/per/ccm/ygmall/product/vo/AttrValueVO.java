@@ -14,12 +14,12 @@ import per.ccm.ygmall.common.vo.BaseVO;
 @ToString
 public class AttrValueVO extends BaseVO {
 
-    @Schema(name = "商品属性值ID")
+    @Schema(description = "商品属性值ID")
     private Long attrValueId;
 
-    @Schema(name = "商品属性ID")
+    @Schema(description = "商品属性ID")
     private Long attrId;
 
-    @Schema(name = "商品属性值名称")
+    @Schema(description = "商品属性值名称")
     private String name;
 }

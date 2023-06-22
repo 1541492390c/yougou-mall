@@ -15,18 +15,18 @@ import java.util.List;
 @ToString
 public class SkuDTO {
 
-    @Schema(name = "主键ID")
+    @Schema(description = "主键ID")
     private Long skuId;
 
-    @Schema(name = "商品ID")
+    @Schema(description = "商品ID")
     private Long productId;
 
-    @Schema(name = "sku价格")
+    @Schema(description = "sku价格")
     private Double price;
 
-    @Schema(name = "sku描述")
+    @Schema(description = "sku描述")
     private String skuDesc;
 
-    @Schema(name = "商品规格")
+    @Schema(description = "商品规格")
     private List<SkuSpecsDTO> skuSpecs;
 }

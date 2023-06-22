@@ -14,18 +14,18 @@ import per.ccm.ygmall.common.vo.BaseVO;
 @ToString
 public class FavoriteVO extends BaseVO {
 
-    @Schema(name = "主键ID")
+    @Schema(description = "主键ID")
     private Long favoriteId;
 
-    @Schema(name = "用户ID")
+    @Schema(description = "用户ID")
     private Long userId;
 
-    @Schema(name = "商品ID")
+    @Schema(description = "商品ID")
     private Long productId;
 
-    @Schema(name = "商品名称")
+    @Schema(description = "商品名称")
     private String productName;
 
-    @Schema(name = "封面")
+    @Schema(description = "封面")
     private String cover;
 }

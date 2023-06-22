@@ -17,7 +17,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.cache.cache.Cache;
+import per.ccm.ygmall.cache.cache.CacheEnum;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -71,9 +71,9 @@ public class RedisConfig {
 
         Set<String> cacheNames = new HashSet<>();
         Map<String, RedisCacheConfiguration> configurationMap = new HashMap<>();
-        for (Cache cache : Cache.values()) {
-            cacheNames.add(cache.value());
-            configurationMap.put(cache.value(), configuration.entryTtl(Duration.ofSeconds(cache.expired())));
+        for (CacheEnum cacheEnum : CacheEnum.values()) {
+            cacheNames.add(cacheEnum.value());
+            configurationMap.put(cacheEnum.value(), configuration.entryTtl(Duration.ofSeconds(cacheEnum.expired())));
         }
         return RedisCacheManager
                 .builder(redisConnectionFactory())

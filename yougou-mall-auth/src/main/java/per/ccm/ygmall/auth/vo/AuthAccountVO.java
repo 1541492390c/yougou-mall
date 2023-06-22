@@ -26,12 +26,12 @@ public class AuthAccountVO extends BaseVO {
     @Schema(description = "账号(11位)")
     private String account;
 
-    @Schema(name = "电子邮箱")
+    @Schema(description = "电子邮箱")
     private String email;
 
-    @Schema(name = "手机号")
+    @Schema(description = "手机号")
     private String mp;
 
-    @Schema(name = "角色")
+    @Schema(description = "角色")
     private String role;
 }

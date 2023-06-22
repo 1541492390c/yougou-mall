@@ -24,6 +24,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/recommended_list")
+    @Operation(summary = "获取推荐商品列表", description = "获取推荐商品列表")
     public ResponseEntity<List<ProductVO>> getRecommendedList() throws Exception {
         List<ProductVO> recommendedList = productService.getRecommendedProductList();
         return ResponseEntity.success(recommendedList);
@@ -32,8 +33,8 @@ public class ProductController {
     @GetMapping("/pages")
     @Operation(summary = "根据分类路径分页获取商品信息列表", description = "根据分类路径分页获取商品信息列表")
     @Parameters({
-            @Parameter(name = "pageNum", description = "当前页"),
-            @Parameter(name = "pageSize", description = "页数"),
+            @Parameter(name = "page_num", description = "当前页"),
+            @Parameter(name = "page_size", description = "页数"),
             @Parameter(name = "categories", description = "分类路径")})
     public ResponseEntity<PageVO<ProductVO>> getByCategories(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
@@ -45,6 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "获取商品详情信息", description = "传入商品ID获取商品详情信息")
     public ResponseEntity<ProductVO> getProductByProductId(@PathVariable("id") Long productId) throws Exception {
         ProductVO productVO = productService.getProductByProductId(productId);
         return ResponseEntity.success(productVO);

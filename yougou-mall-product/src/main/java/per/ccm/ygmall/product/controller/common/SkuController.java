@@ -24,7 +24,7 @@ public class SkuController {
 
     @GetMapping("/list")
     @Operation(summary = "获取sku信息列表", description = "根据商品ID获取对应的sku列表")
-    @Parameter(name = "productId", description = "商品ID")
+    @Parameter(name = "product_id", description = "商品ID")
     public ResponseEntity<List<SkuVO>> getSkuList(@RequestParam("product_id") Long productId) throws Exception {
         List<SkuVO> skuList = skuService.getSkuListByProductId(productId);
         return ResponseEntity.success(skuList);

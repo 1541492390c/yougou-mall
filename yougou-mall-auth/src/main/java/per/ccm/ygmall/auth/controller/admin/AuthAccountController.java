@@ -43,7 +43,7 @@ public class AuthAccountController {
 
     @GetMapping("/get_by_user_id")
     @Operation(summary = "根据用户ID获取认证授权账号", description = "根据用户ID获取认证授权账号")
-    @Parameter(name = "userId", description = "用户ID")
+    @Parameter(name = "user_id", description = "用户ID")
     public ResponseEntity<AuthAccountVO> getAuthAccountByUserId(@RequestParam("user_id") Long userId) throws Exception {
         AuthAccountVO authAccountVO = authAccountService.getAuthAccountByUserId(userId);
         return ResponseEntity.success(authAccountVO);

@@ -13,12 +13,12 @@ import lombok.ToString;
 @ToString
 public class AttrDTO {
 
-    @Schema(name = "主键ID")
+    @Schema(description = "主键ID")
     private Long attrId;
 
-    @Schema(name = "商品ID")
+    @Schema(description = "商品ID")
     private Long productId;
 
-    @Schema(name = "商品属性名称")
+    @Schema(description = "商品属性名称")
     private String name;
 }

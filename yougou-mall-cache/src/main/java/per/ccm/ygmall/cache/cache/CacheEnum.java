@@ -1,6 +1,6 @@
 package per.ccm.ygmall.cache.cache;
 
-public enum Cache {
+public enum CacheEnum {
 
     /**
      * 认证token
@@ -29,7 +29,7 @@ public enum Cache {
     private final String value;
     private final Long expired;
 
-    Cache(String value, Long expired) {
+    CacheEnum(String value, Long expired) {
         this.value = value;
         this.expired = expired;
     }

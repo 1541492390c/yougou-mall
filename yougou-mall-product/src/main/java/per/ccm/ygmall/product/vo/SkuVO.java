@@ -16,21 +16,21 @@ import java.util.List;
 @ToString
 public class SkuVO extends BaseVO {
 
-    @Schema(name = "主键ID")
+    @Schema(description = "主键ID")
     private Long skuId;
 
-    @Schema(name = "商品ID")
+    @Schema(description = "商品ID")
     private Long productId;
 
-    @Schema(name = "商品库存")
+    @Schema(description = "商品库存")
     private Integer skuStock;
 
-    @Schema(name = "sku价格")
+    @Schema(description = "sku价格")
     private Double price;
 
-    @Schema(name = "sku描述")
+    @Schema(description = "sku描述")
     private String description;
 
-    @Schema(name = "sku规格")
+    @Schema(description = "sku规格")
     private List<SkuSpecsVO> skuSpecs;
 }

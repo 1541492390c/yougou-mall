@@ -24,7 +24,7 @@ public class AttrController {
 
     @GetMapping("/list")
     @Operation(summary = "获取商品属性列表", description = "传入商品商品ID获取该商品的商品属性值列表")
-    @Parameter(name = "productId", description = "商品ID")
+    @Parameter(name = "product_id", description = "商品ID")
     public ResponseEntity<List<AttrVO>> getAttrListBySpuId(@RequestParam("product_id") Long productId) throws Exception {
         List<AttrVO> attrList = attrService.getAttrListByProductId(productId);
         return ResponseEntity.success(attrList);

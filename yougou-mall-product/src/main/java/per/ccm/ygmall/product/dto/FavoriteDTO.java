@@ -13,12 +13,12 @@ import lombok.ToString;
 @ToString
 public class FavoriteDTO {
 
-    @Schema(name = "主键ID")
+    @Schema(description = "主键ID")
     private Long favoriteId;
 
-    @Schema(name = "用户ID")
+    @Schema(description = "用户ID")
     private Long userId;
 
-    @Schema(name = "商品ID")
+    @Schema(description = "商品ID")
     private Long productId;
 }

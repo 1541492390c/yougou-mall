@@ -3,7 +3,6 @@ package per.ccm.ygmall.security.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import per.ccm.ygmall.common.util.JSONUtils;
 import per.ccm.ygmall.security.vo.TokenVO;
 
 import java.nio.charset.StandardCharsets;
@@ -20,7 +19,7 @@ public class TokenUtils {
     public static TokenVO getTokenVO(String token) {
         TokenVO tokenVO = new TokenVO();
         tokenVO.setAccessToken(token);
-        tokenVO.setExpiredIn(EXPIRED);
+        tokenVO.setExpiredIn(new Date().getTime() + EXPIRED);
         return tokenVO;
     }
 
@@ -34,7 +33,7 @@ public class TokenUtils {
                 .withClaim("auth_account_id", authAccountId)
                 .withClaim("user_id", userId)
                 .withClaim("username", username)
-                .withClaim("authority", JSONUtils.writeValueAsString(authority))
+                .withClaim("authority", authority)
                 .withIssuer(ISSUER)
                 .withIssuedAt(currentDate)
                 .withExpiresAt(new Date(currentDate.getTime() + EXPIRED))

@@ -14,9 +14,9 @@ import per.ccm.ygmall.common.vo.BaseVO;
 @ToString
 public class SkuSpecsVO extends BaseVO {
 
-    @Schema(name = "属性名称")
+    @Schema(description = "属性名称")
     private String attrName;
 
-    @Schema(name = "属性值名称")
+    @Schema(description = "属性值名称")
     private String attrValueName;
 }

@@ -13,12 +13,12 @@ import lombok.ToString;
 @ToString
 public class SkuSpecsDTO {
 
-    @Schema(name = "skuID")
+    @Schema(description = "skuID")
     private Long skuId;
 
-    @Schema(name = "属性ID")
+    @Schema(description = "属性ID")
     private Long attrId;
 
-    @Schema(name = "属性值ID")
+    @Schema(description = "属性值ID")
     private Long attrValueId;
 }

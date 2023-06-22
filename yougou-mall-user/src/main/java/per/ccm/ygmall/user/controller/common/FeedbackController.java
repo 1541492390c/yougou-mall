@@ -2,6 +2,8 @@ package per.ccm.ygmall.user.controller.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,6 +35,9 @@ public class FeedbackController {
     @GetMapping("/pages")
     @PreAuthorize("hasRole(@roleConfig.USER)")
     @Operation(summary = "根据用户ID获取用户反馈信息分页列表", description = "根据用户ID获取用户反馈信息分页列表")
+    @Parameters({
+            @Parameter(name = "page_num", description = "当前页"),
+            @Parameter(name = "page_size", description = "页数")})
     public ResponseEntity<PageVO<FeedbackVO>> getFeedbackPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
