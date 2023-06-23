@@ -21,6 +21,12 @@ public class CaptchaManager {
     @Autowired
     private CacheManager cacheManager;
 
+    /**
+     * 生成验证码
+     *
+     * @param ipAddress ip地址
+     * @return 验证码
+     * */
     public ICaptcha createCaptcha(String ipAddress) {
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(110, 40);
         lineCaptcha.setGenerator(randomGenerator);
@@ -35,6 +41,13 @@ public class CaptchaManager {
         return lineCaptcha;
     }
 
+    /**
+     * 验证验证码
+     *
+     * @param ipAddress ip地址
+     * @param code 验证码
+     * @return 是否验证成功
+     * */
     public Boolean validate(String ipAddress, String code) {
         Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
         if (ObjectUtils.isEmpty(cache) || ObjectUtils.isEmpty(cache.get(ipAddress, String.class))) {
@@ -47,6 +60,11 @@ public class CaptchaManager {
         return Boolean.FALSE;
     }
 
+    /**
+     * 移除验证码缓存
+     *
+     * @param ipAddress ip地址
+     * */
     @CacheEvict(cacheNames = CacheNames.BIZ_VALIDATE_CODE_NAME, key = "#ipAddress")
     public void removeCaptchaCache(String ipAddress) {
     }

@@ -27,7 +27,7 @@ public class TokenUtils {
         return bearer.substring(bearer.lastIndexOf(' ') + 1);
     }
 
-    public static String generateToken(Long authAccountId, Long userId, String username, String authority) {
+    public static String createToken(Long authAccountId, Long userId, String username, String authority) {
         Date currentDate = new Date();
         return JWT.create()
                 .withClaim("auth_account_id", authAccountId)

@@ -89,7 +89,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
         Authentication authentication = authenticationManager.authenticate(token);
         AuthPrincipal authPrincipal = (AuthPrincipal) authentication.getPrincipal();
         // 将认证token存入redis中
-        String accessToken = TokenUtils.generateToken(authPrincipal.getAuthAccountId(), authPrincipal.getUserId(), authPrincipal.getUsername(), authPrincipal.getAuthorities().iterator().next().getAuthority());
+        String accessToken = TokenUtils.createToken(authPrincipal.getAuthAccountId(), authPrincipal.getUserId(), authPrincipal.getUsername(), authPrincipal.getAuthorities().iterator().next().getAuthority());
         Objects.requireNonNull(cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME)).put(authPrincipal.getUserId(), accessToken);
         return accessToken;
     }
