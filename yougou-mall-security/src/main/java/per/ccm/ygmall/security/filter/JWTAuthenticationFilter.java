@@ -66,7 +66,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             Long userId = decodedJWT.getClaim("user_id").asLong();
             // 从token中获取用户名
             String username = decodedJWT.getClaim("username").asString();
-            // 从token中获取授权范围
+            // 从token中获取用户角色
             String authority = decodedJWT.getClaim("authority").asString();
 
             Cache cache = cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME);
