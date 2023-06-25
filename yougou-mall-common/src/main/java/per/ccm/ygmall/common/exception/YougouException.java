@@ -4,7 +4,7 @@ import per.ccm.ygmall.common.response.ResponseCodeEnum;
 
 public class YougouException extends RuntimeException {
 
-    private ResponseCodeEnum responseCodeEnum;
+    private final ResponseCodeEnum responseCodeEnum;
 
     public YougouException(String message, ResponseCodeEnum responseCodeEnum) {
         super(message);
@@ -18,9 +18,5 @@ public class YougouException extends RuntimeException {
 
     public ResponseCodeEnum getResponseCode() {
         return responseCodeEnum;
-    }
-
-    public void responseCode(ResponseCodeEnum responseCodeEnum) {
-        this.responseCodeEnum = responseCodeEnum;
     }
 }

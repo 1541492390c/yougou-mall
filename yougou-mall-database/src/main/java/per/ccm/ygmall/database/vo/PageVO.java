@@ -1,10 +1,10 @@
 package per.ccm.ygmall.database.vo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import per.ccm.ygmall.common.vo.BaseVO;
 
 import java.util.List;
 
@@ -12,8 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class PageVO<T> {
+public class PageVO<T> extends BaseVO {
 
     private Long total;
 

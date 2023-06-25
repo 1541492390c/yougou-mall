@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.ccm.ygmall.user.mapper.CommentMapper">
+    <select id="selectRateStatistics" resultType="per.ccm.ygmall.user.vo.RateStatisticsVO">
+        SELECT
+        AVG(`rate`) AS average,
+        COUNT(`rate` = 5) AS fiveCount,
+        COUNT(`rate` = 4) AS fourCount,
+        COUNT(`rate` = 3) AS threeCount,
+        COUNT(`rate` = 2) AS twoCount,
+        COUNT(`rate` = 1) AS oneCount
+        FROM comment WHERE `product_id` = #{productId}
+    </select>
+</mapper>

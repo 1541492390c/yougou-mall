@@ -1,11 +1,17 @@
 package per.ccm.ygmall.cache.cache;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum CacheEnum {
 
     /**
      * 认证token
      * */
     ACCESS_TOKEN(CacheNames.ACCESS_TOKEN_NAME, 14 * 24 * 60 * 60L),
+
     /**
      * 用户信息
      * */
@@ -27,18 +33,6 @@ public enum CacheEnum {
     BIZ_VALIDATE_CODE(CacheNames.BIZ_VALIDATE_CODE_NAME, 5 * 60L);
 
     private final String value;
+
     private final Long expired;
-
-    CacheEnum(String value, Long expired) {
-        this.value = value;
-        this.expired = expired;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    public Long expired() {
-        return expired;
-    }
 }

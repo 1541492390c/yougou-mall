@@ -54,8 +54,8 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         }
         //判断登录类型是否为管理员登录
         boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.ADMIN.getName())
-                && (ObjectUtils.nullSafeEquals(role, (RoleConfig.SUPER_ADMIN))
-                || ObjectUtils.nullSafeEquals(role, (RoleConfig.COMMON_ADMIN)));
+                && (ObjectUtils.nullSafeEquals(role, RoleConfig.SUPER_ADMIN)
+                || ObjectUtils.nullSafeEquals(role, RoleConfig.COMMON_ADMIN));
         //判断登录类型是否为用户登录
         boolean isUser = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.USER.getName())
                 && ObjectUtils.nullSafeEquals(role, RoleConfig.USER);

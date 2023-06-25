@@ -24,6 +24,7 @@ public class FavoriteController {
     private FavoriteService favoriteService;
 
     @PostMapping("/save")
+    @Operation(summary = "保存收藏信息", description = "保存收藏信息")
     public ResponseEntity<Void> save(@RequestBody FavoriteDTO favoriteDTO) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
 

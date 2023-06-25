@@ -1,6 +1,7 @@
 package per.ccm.ygmall.platform.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,6 +35,7 @@ public class FeedbackTypeController {
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除用户反馈类型", description = "传入用户反馈类型ID删除反馈类型")
+    @Parameter(name = "feedback_type_id", description = "用户反馈类型ID")
     public ResponseEntity<Void> delete(@RequestParam("feedback_type_id") Long feedbackTypeId) throws Exception {
         feedbackTypeService.delete(feedbackTypeId);
         return ResponseEntity.success();

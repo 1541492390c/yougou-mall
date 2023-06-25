@@ -72,8 +72,8 @@ public class RedisConfig {
         Set<String> cacheNames = new HashSet<>();
         Map<String, RedisCacheConfiguration> configurationMap = new HashMap<>();
         for (CacheEnum cacheEnum : CacheEnum.values()) {
-            cacheNames.add(cacheEnum.value());
-            configurationMap.put(cacheEnum.value(), configuration.entryTtl(Duration.ofSeconds(cacheEnum.expired())));
+            cacheNames.add(cacheEnum.getValue());
+            configurationMap.put(cacheEnum.getValue(), configuration.entryTtl(Duration.ofSeconds(cacheEnum.getExpired())));
         }
         return RedisCacheManager
                 .builder(redisConnectionFactory())
