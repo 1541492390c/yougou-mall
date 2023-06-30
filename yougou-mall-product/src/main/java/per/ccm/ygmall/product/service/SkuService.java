@@ -1,5 +1,6 @@
 package per.ccm.ygmall.product.service;
 
+import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.vo.SkuVO;
 
@@ -20,4 +21,12 @@ public interface SkuService {
      * @return sku信息列表
      * */
     List<SkuVO> getSkuListByProductId(Long productId) throws Exception;
+
+    /**
+     * 获取sku内部传输数据列表
+     *
+     * @param skuIdList skuID列表
+     * @return sku内部传输数据列表
+     * */
+    List<SkuBO> getSkuBOList(List<Long> skuIdList) throws Exception;
 }

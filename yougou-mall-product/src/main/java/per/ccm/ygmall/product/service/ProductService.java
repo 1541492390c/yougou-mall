@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.dto.ProductDTO;
 import per.ccm.ygmall.product.entity.Product;
@@ -22,6 +23,14 @@ public interface ProductService {
      * @return 推荐商品商品信息列表
      * */
     List<ProductVO> getRecommendedProductList() throws Exception;
+
+    /**
+     * 获取商品内部传输数据列表
+     *
+     * @param skuIdList skuID列表
+     * @return 商品内部传输数据列表
+     * */
+    List<ProductBO> getProductBOList(List<Long> skuIdList) throws Exception;
 
     /**
      * 分页获取spu信息

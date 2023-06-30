@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.api.product.bo.ProductBO;
+import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
@@ -16,15 +18,21 @@ import per.ccm.ygmall.product.dto.ProductDTO;
 import per.ccm.ygmall.product.entity.Product;
 import per.ccm.ygmall.product.mapper.ProductMapper;
 import per.ccm.ygmall.product.service.ProductService;
+import per.ccm.ygmall.product.service.SkuService;
 import per.ccm.ygmall.product.vo.ProductVO;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private SkuService skuService;
 
     @Override
     public void save(ProductDTO productDTO) {
@@ -40,6 +48,28 @@ public class ProductServiceImpl implements ProductService {
     @Cacheable(cacheNames = CacheNames.PRODUCT_CACHE_NAME, key = "'recommended_list'", sync = true)
     public List<ProductVO> getRecommendedProductList() {
         return productMapper.selectRecommendedProductList();
+    }
+
+    @Override
+    public List<ProductBO> getProductBOList(List<Long> skuIdList) throws Exception {
+        List<SkuBO> skuBOList = skuService.getSkuBOList(skuIdList);
+
+        // 获取商品ID列表
+        List<Long> productIdList = skuBOList.stream().distinct().map(SkuBO::getProductId).collect(Collectors.toList());
+        // 获取商品列表
+        LambdaQueryWrapper<Product> queryWrapper = new LambdaQueryWrapper<>();
+        List<Product> productList = productMapper.selectList(queryWrapper.in(Product::getProductId, productIdList));
+        // 获取商品内部传输数据列表
+        List<ProductBO> productBOList = ConvertUtils.converList(productList, ProductBO.class);
+
+        // 根据商品ID分组
+        Map<Long, List<SkuBO>> map = skuBOList.stream().collect(Collectors.groupingBy(SkuBO::getProductId));
+        // 设置商品sku列表
+        for (ProductBO productBO : productBOList) {
+            List<SkuBO> skuBOS = map.get(productBO.getProductId());
+            productBO.setSkuBOList(skuBOS);
+        }
+        return productBOList;
     }
 
     @Override

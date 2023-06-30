@@ -5,12 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>per.ccm</groupId>
-        <artifactId>yougou-mall</artifactId>
+        <artifactId>yougou-mall-api</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <packaging>jar</packaging>
 
-    <artifactId>yougou-mall-rabbitmq</artifactId>
+    <artifactId>yougou-mall-api-product</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -26,8 +25,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 </project>

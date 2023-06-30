@@ -61,7 +61,7 @@ public class OrderItem extends BaseEntity {
     /**
      * 商品规格
      * */
-    private String skuSpecs;
+    private String specs;
 
     /**
      * 是否评价

@@ -29,11 +29,6 @@ public class OrderAddr extends BaseEntity {
     private Long orderId;
 
     /**
-     * 用户ID
-     * */
-    private Long userId;
-
-    /**
      * 收获地址ID
      * */
     private Long addrId;

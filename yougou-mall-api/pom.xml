@@ -13,6 +13,7 @@
         <module>yougou-mall-api-auth</module>
         <module>yougou-mall-api-user</module>
         <module>yougou-mall-api-biz</module>
+        <module>yougou-mall-api-product</module>
     </modules>
 
     <artifactId>yougou-mall-api</artifactId>

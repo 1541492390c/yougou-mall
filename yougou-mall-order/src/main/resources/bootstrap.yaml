@@ -18,7 +18,17 @@ spring:
         group: @nacos.group@
         file-extension: yaml
         shared-configs[0]:
-          data-id: yougou-mall-common-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          data-id: yougou-mall-database-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          namespace: @nacos.namespace@
+          group: @nacos.group@
+          refresh: true
+        shared-configs[1]:
+          data-id: yougou-mall-cache-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          namespace: @nacos.namespace@
+          group: @nacos.group@
+          refresh: true
+        shared-configs[2]:
+          data-id: yougou-mall-rabbitmq-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
           namespace: @nacos.namespace@
           group: @nacos.group@
           refresh: true

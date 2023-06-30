@@ -30,4 +30,11 @@
     <select id="selectSkuList" resultMap="skuVOMap">
         SELECT <include refid="sku_vo_column" /> <include refid="sku_left_join_sku_specs" /> WHERE sku.`product_id` = #{productId}
     </select>
+
+    <select id="selectSkuListBySkuIdList" resultMap="skuVOMap">
+        SELECT <include refid="sku_vo_column" /> <include refid="sku_left_join_sku_specs" /> WHERE sku.`sku_id` IN
+        <foreach collection="skuIdList" item="skuId" open="(" close=")" separator=",">
+            #{skuId}
+        </foreach>
+    </select>
 </mapper>

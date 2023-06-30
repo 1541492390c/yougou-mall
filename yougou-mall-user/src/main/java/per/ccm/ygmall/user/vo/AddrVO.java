@@ -6,6 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
+/**
+ * 收货地址信息
+ * */
 @Getter
 @Setter
 @ToString
@@ -34,4 +37,7 @@ public class AddrVO extends BaseVO {
 
     @Schema(description = "详细地址")
     private String detailedAddr;
+
+    @Schema(description = "是否默认地址")
+    private Boolean isDefault;
 }

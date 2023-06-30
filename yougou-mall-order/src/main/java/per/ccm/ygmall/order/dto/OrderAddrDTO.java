@@ -1,4 +1,4 @@
-package per.ccm.ygmall.user.dto;
+package per.ccm.ygmall.order.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -6,18 +6,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 收货地址传输数据
+ * 订单收货地址传输数据
  * */
 @Getter
 @Setter
 @ToString
-public class AddrDTO {
+public class OrderAddrDTO {
 
-    @Schema(description = "主键ID")
+    @Schema(description = "订单ID")
+    private Long orderId;
+
+    @Schema(description = "收获地址ID")
     private Long addrId;
-
-    @Schema(description = "用户ID")
-    private Long userId;
 
     @Schema(description = "收货人")
     private String consignee;
@@ -36,7 +36,4 @@ public class AddrDTO {
 
     @Schema(description = "详细地址")
     private String detailedAddr;
-
-    @Schema(description = "是否默认地址")
-    private Boolean isDefault;
 }

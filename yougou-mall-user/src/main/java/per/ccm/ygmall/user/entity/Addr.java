@@ -57,4 +57,9 @@ public class Addr extends BaseEntity {
      * 详细地址
      * */
     private String detailedAddr;
+
+    /**
+     * 是否默认地址
+     * */
+    private Boolean isDefault;
 }

@@ -10,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 @Getter
 @Setter
 @ToString
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseEntity<T> {
 
     @Schema(description = "响应信息")
