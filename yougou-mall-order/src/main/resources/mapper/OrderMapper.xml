@@ -1,4 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.order.mapper.OrderMapper">
+    <resultMap id="orderVOMap" type="per.ccm.ygmall.order.vo.OrderVO">
+        <id column="order_id" property="orderId" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="state" property="state" jdbcType="TINYINT" />
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+        <result column="is_pay" property="isPay" jdbcType="BIT" />
+        <result column="pay_time" property="payTime" jdbcType="DATE" />
+        <result column="delivery_time" property="deliveryTime" jdbcType="DATE" />
+        <result column="finish_time" property="finishTime" jdbcType="DATE" />
+        <association property="orderAddrVO" javaType="per.ccm.ygmall.order.vo.OrderAddrVO" fetchType="eager">
+            <id column="order_addr_id" property="orderAddrId" jdbcType="BIGINT" />
+            <result column="order_id" property="orderId" jdbcType="BIGINT" />
+            <result column="addr_id" property="addrId" jdbcType="BIGINT" />
+            <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+            <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+            <result column="province" property="province" jdbcType="VARCHAR" />
+            <result column="city" property="city" jdbcType="VARCHAR" />
+            <result column="district" property="district" jdbcType="VARCHAR" />
+            <result column="detailedAddr" property="detailedAddr" jdbcType="VARCHAR" />
+        </association>
+        <collection property="orderItemList" ofType="per.ccm.ygmall.order.vo.OrderItemVO" fetchType="eager">
+            <id column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+            <result column="order_id" property="orderId" jdbcType="BIGINT" />
+            <result column="product_id" property="productId" jdbcType="BIGINT" />
+            <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+            <result column="quantity" property="quantity" jdbcType="INTEGER" />
+            <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+            <result column="product_name" property="productName" jdbcType="VARCHAR" />
+            <result column="specs" property="specs" jdbcType="VARCHAR" />
+            <result column="img" property="img" jdbcType="VARCHAR" />
+            <result column="is_comment" property="isComment" jdbcType="BIT" />
+        </collection>
+    </resultMap>
+
+    <sql id="order_vo_column">
+        `order`.`order_id`, `order`..`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`is_pay`,
+        `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
+        order_addr.`order_item_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
+        order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailedAddr`,
+        order_item.`order_item_id`, order_item.`order_id`, order_item.`product_id`, order_item.`sku_id`, order_item.`quantity`,
+        order_item.`total_amount`, order_item.`product_name`, order_item.`specs`, order_item.`img`, order_item.`is_comment`,
+    </sql>
+
+    <sql id="order_left_join_order_item_and_order_addr">
+        FROM `order`
+        LEFT JOIN order_item ON `order`.`order_id` = order_item.`order_id`
+        LEFT JOIN order_addr ON `order`.`order_addr_id` = order_addr.`order_addr_id`
+    </sql>
+
+    <select id="selectOrderById" resultMap="orderVOMap">
+        SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
+        WHERE `order`.`order_id` = #{orderId}
+    </select>
 </mapper>

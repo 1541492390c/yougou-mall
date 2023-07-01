@@ -69,4 +69,10 @@ public class SkuServiceImpl implements SkuService {
         }
         return skuBOList;
     }
+
+    @Override
+    public void batchUpdate(List<SkuDTO> skuDTOList) {
+        List<Sku> skuList = ConvertUtils.converList(skuDTOList, Sku.class);
+        skuList.forEach(item -> skuMapper.updateById(item));
+    }
 }

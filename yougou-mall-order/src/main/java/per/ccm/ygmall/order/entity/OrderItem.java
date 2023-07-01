@@ -66,5 +66,5 @@ public class OrderItem extends BaseEntity {
     /**
      * 是否评价
      * */
-    private Boolean isEvaluate;
+    private Boolean isComment;
 }

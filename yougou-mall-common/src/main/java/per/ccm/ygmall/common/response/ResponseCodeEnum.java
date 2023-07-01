@@ -130,7 +130,12 @@ public enum ResponseCodeEnum {
     /**
      * 用户已收藏该商品
      * */
-    PRODUCT_ERROR_B5001("B5001", "用户已收藏该商品");
+    PRODUCT_ERROR_B5001("B5001", "用户已收藏该商品"),
+
+    /**
+     * 订单只能对应一个订单收货地址
+     * */
+    ORDER_ERROR_C0001("B0001", "订单只能对应一个订单收货地址");
 
     private final String value;
 

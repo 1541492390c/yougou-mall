@@ -29,4 +29,11 @@ public interface SkuService {
      * @return sku内部传输数据列表
      * */
     List<SkuBO> getSkuBOList(List<Long> skuIdList) throws Exception;
+
+    /**
+     * 批量更新sku信息
+     *
+     * @param skuDTOList sku传输数据列表
+     * */
+    void batchUpdate(List<SkuDTO> skuDTOList) throws Exception;
 }

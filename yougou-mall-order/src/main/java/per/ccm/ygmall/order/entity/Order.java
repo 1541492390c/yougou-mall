@@ -32,11 +32,6 @@ public class Order extends BaseEntity {
     private Long userId;
 
     /**
-     * 收货人ID
-     * */
-    private Long consigneeId;
-
-    /**
      * 订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成
      * */
     private Integer state;

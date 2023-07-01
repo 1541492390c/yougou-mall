@@ -13,7 +13,7 @@ public class RabbitmqConfig {
     /**
      * 普通直连交换机
      * */
-    public static final String COMMON_EXCHANGE = "common.exchange";
+    public static final String DIRECT_EXCHANGE = "direct.exchange";
 
     /**
      * 死信交换机
@@ -43,9 +43,9 @@ public class RabbitmqConfig {
     /**
      * 直连交换机
      * */
-    @Bean(COMMON_EXCHANGE)
-    public DirectExchange commonExchange() {
-        return new DirectExchange(COMMON_EXCHANGE);
+    @Bean(DIRECT_EXCHANGE)
+    public DirectExchange directExchange() {
+        return new DirectExchange(DIRECT_EXCHANGE);
     }
 
     /**
@@ -83,6 +83,6 @@ public class RabbitmqConfig {
 
     @Bean
     public Binding orderDelayQueueBindingDelayExchange() {
-        return BindingBuilder.bind(orderDelayQueue()).to(commonExchange()).with(ORDER_DELAY_ROUTING_KEY);
+        return BindingBuilder.bind(orderDelayQueue()).to(directExchange()).with(ORDER_DELAY_ROUTING_KEY);
     }
 }
