@@ -13,7 +13,7 @@ import per.ccm.ygmall.biz.manager.ResourceManager;
 import per.ccm.ygmall.common.response.ResponseEntity;
 
 @RestController
-@RequestMapping("biz/resource")
+@RequestMapping("/biz/resource")
 @Tag(name = "资源接口", description = "资源接口")
 public class ResourceController {
 
@@ -24,8 +24,7 @@ public class ResourceController {
     @Operation(summary = "上传文件", description = "上传文件")
     @Parameters({
             @Parameter(name = "resourceType", description = "资源类型"),
-            @Parameter(name = "file", description = "文件")
-    })
+            @Parameter(name = "file", description = "文件")})
     public ResponseEntity<String> uploadAvatar(Integer resourceType, MultipartFile file) throws Exception {
         String avatarFileName = resourceManager.upload(resourceType, file);
         return ResponseEntity.success(avatarFileName);

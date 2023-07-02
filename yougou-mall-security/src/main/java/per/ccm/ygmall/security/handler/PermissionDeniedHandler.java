@@ -1,7 +1,6 @@
 package per.ccm.ygmall.security.handler;
 
 import org.springframework.security.access.AccessDeniedException;
-//import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;

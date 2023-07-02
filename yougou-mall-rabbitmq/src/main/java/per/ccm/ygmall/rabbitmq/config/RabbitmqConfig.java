@@ -31,7 +31,7 @@ public class RabbitmqConfig {
     public static final String ORDER_DEAD_LETTER_QUEUE = "per.ccm.ygmall.order.dead.letter.queue";
 
     /**
-     * 订单延死信列路由
+     * 订单死信队列路由
      * */
     public static final String ORDER_DEAD_LETTER_ROUTING_KEY = "per.ccm.ygmall.order.dead.letter.routing.key";
 
