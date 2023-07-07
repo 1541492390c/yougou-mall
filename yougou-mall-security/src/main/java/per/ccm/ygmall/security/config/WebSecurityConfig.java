@@ -63,11 +63,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/yougou-mall-feign/**",
                         // 登录相关接口
                         "/auth/login", "/admin/auth/login",
-                        // 用户注册接口
-                        "/user/register",
+                        // 用户相关接口
+                        "/user/register", "/user/comment/rate_statistics",
                         // 商品相关接口
                         "/product/*", "/product/category/*", "/product/attr/*", "/product/sku/*",
-                        // 平台接口
+                        // 平台相关接口
                         "/platform/**",
                         // 验证码接口
                         "/biz/captcha/*").permitAll()

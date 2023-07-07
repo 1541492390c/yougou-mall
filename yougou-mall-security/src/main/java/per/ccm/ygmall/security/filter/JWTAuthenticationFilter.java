@@ -75,7 +75,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 throw new TokenExpiredException("token已过期", Instant.now());
             }
             // 与缓存中的token不一致,无效token
-            if (!ObjectUtils.nullSafeEquals(cache.get(userId, String.class), accessToken)) {
+            if (!ObjectUtils.nullSafeEquals(Objects.requireNonNull(cache).get(userId, String.class), accessToken)) {
                 throw new SignatureVerificationException(Algorithm.HMAC256(accessToken.getBytes(StandardCharsets.UTF_8)));
             }
 

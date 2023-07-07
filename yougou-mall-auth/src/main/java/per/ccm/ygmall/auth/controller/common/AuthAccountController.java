@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
+import per.ccm.ygmall.auth.manager.LoginManager;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.security.enums.UserTypeEnum;
@@ -24,6 +25,9 @@ public class AuthAccountController {
     @Autowired
     private AuthAccountService authAccountService;
 
+    @Autowired
+    private LoginManager loginManager;
+
     private static final UserTypeEnum USER_TYPE = UserTypeEnum.USER;
 
     @PostMapping("/login")
@@ -36,8 +40,8 @@ public class AuthAccountController {
             HttpServletRequest request,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
-            @RequestParam("code") String code) throws Exception {
-        String accessToken = authAccountService.getToken(request.getRemoteAddr(), username, password, code, USER_TYPE);
+            @RequestParam("code") String code) {
+        String accessToken = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, USER_TYPE);
         return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
     }
 

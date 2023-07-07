@@ -7,7 +7,6 @@ import cn.hutool.captcha.generator.RandomGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
@@ -55,17 +54,12 @@ public class CaptchaManager {
         }
         String validateCode = cache.get(ipAddress, String.class);
         if (!ObjectUtils.isEmpty(validateCode)) {
-            return ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code.toLowerCase());
+            // 验证成功,返回true并清除验证码缓存
+            if (ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code.toLowerCase())) {
+                cache.evict(ipAddress);
+                return Boolean.TRUE;
+            }
         }
         return Boolean.FALSE;
-    }
-
-    /**
-     * 移除验证码缓存
-     *
-     * @param ipAddress ip地址
-     * */
-    @CacheEvict(cacheNames = CacheNames.BIZ_VALIDATE_CODE_NAME, key = "#ipAddress")
-    public void removeCaptchaCache(String ipAddress) {
     }
 }
