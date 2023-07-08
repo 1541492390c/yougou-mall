@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import per.ccm.ygmall.api.product.bo.ProductBO;
-import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.common.config.FeignUrlConfig;
 import per.ccm.ygmall.common.response.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient("yougou-mall-product")
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/product")
@@ -24,8 +24,10 @@ public interface ProductFeign {
     ResponseEntity<List<ProductBO>> queryProductBOList(@RequestBody List<Long> skuIdList) throws Exception;
 
     /**
-     * 批量更新sku
+     * 更新sku库存
+     *
+     * @param skuStockMap skuID和库存
      * */
-    @PutMapping("/sku/batch_update")
-    ResponseEntity<Void> batchUpdateSku(@RequestBody List<SkuBO> skuBOList) throws Exception;
+    @PutMapping("/sku/update_sku_stock")
+    ResponseEntity<Void> updateSkuStock(@RequestBody Map<Long, Integer> skuStockMap) throws Exception;
 }

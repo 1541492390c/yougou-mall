@@ -32,6 +32,12 @@ public class OrderVO extends BaseVO {
     @Schema(description = "是否支付")
     private Boolean isPay;
 
+    @Schema(description = "备注")
+    private String remark;
+
+    @Schema(description = "取消时间")
+    private Date cancelTime;
+
     @Schema(description = "支付时间")
     private Date payTime;
 

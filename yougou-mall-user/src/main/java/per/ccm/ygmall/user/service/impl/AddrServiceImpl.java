@@ -1,8 +1,10 @@
 package per.ccm.ygmall.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
@@ -39,10 +41,18 @@ public class AddrServiceImpl implements AddrService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void update(AddrDTO addrDTO) {
-        LambdaQueryWrapper<Addr> queryWrapper = new LambdaQueryWrapper<>();
         Addr addr = ConvertUtils.convertProperties(addrDTO, Addr.class);
-        addrMapper.update(addr, queryWrapper.eq(Addr::getAddrId, addr.getAddrId()));
+
+        // 设置该收货地址设为默认,则取消用户其他默认收货地址
+        if (addr.getIsDefault()) {
+            LambdaQueryWrapper<Addr> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Addr::getUserId, addrDTO.getUserId()).eq(Addr::getIsDefault, Boolean.TRUE);
+            Addr defaultAddr = addrMapper.selectOne(queryWrapper);
+            addrMapper.update(defaultAddr, new LambdaUpdateWrapper<Addr>().set(Addr::getIsDefault, Boolean.FALSE));
+        }
+        addrMapper.updateById(addr);
     }
 
     @Override

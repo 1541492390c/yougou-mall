@@ -21,11 +21,23 @@ public class SkuDTO {
     @Schema(description = "商品ID")
     private Long productId;
 
+    @Schema(description = "sku库存")
+    private Integer skuStock;
+
     @Schema(description = "sku价格")
     private Double price;
 
+    @Schema(description = "折扣")
+    private Double discount;
+
+    @Schema(description = "折扣价格")
+    private Double discountPrice;
+
     @Schema(description = "sku描述")
-    private String skuDesc;
+    private String description;
+
+    @Schema(description = "是否折扣")
+    private Boolean isDiscount;
 
     @Schema(description = "商品规格")
     private List<SkuSpecsDTO> skuSpecs;

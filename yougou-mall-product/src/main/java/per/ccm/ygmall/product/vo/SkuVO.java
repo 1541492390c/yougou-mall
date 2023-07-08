@@ -28,8 +28,17 @@ public class SkuVO extends BaseVO {
     @Schema(description = "sku价格")
     private Double price;
 
+    @Schema(description = "折扣")
+    private Double discount;
+
+    @Schema(description = "折扣价格")
+    private Double discountPrice;
+
     @Schema(description = "sku描述")
     private String description;
+
+    @Schema(description = "是否折扣")
+    private Boolean isDiscount;
 
     @Schema(description = "sku规格")
     private List<SkuSpecsVO> skuSpecs;

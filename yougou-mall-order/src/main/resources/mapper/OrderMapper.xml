@@ -7,6 +7,8 @@
         <result column="state" property="state" jdbcType="TINYINT" />
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
         <result column="is_pay" property="isPay" jdbcType="BIT" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="cancel_time" property="cancelTime" jdbcType="DATE" />
         <result column="pay_time" property="payTime" jdbcType="DATE" />
         <result column="delivery_time" property="deliveryTime" jdbcType="DATE" />
         <result column="finish_time" property="finishTime" jdbcType="DATE" />
@@ -36,22 +38,29 @@
     </resultMap>
 
     <sql id="order_vo_column">
-        `order`.`order_id`, `order`..`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`is_pay`,
-        `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
-        order_addr.`order_item_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
-        order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailedAddr`,
+        `order`.`order_id`, `order`.`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`is_pay`, `order`.`remark`,
+        `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
+
+        order_addr.`order_addr_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
+        order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailed_addr`,
+
         order_item.`order_item_id`, order_item.`order_id`, order_item.`product_id`, order_item.`sku_id`, order_item.`quantity`,
-        order_item.`total_amount`, order_item.`product_name`, order_item.`specs`, order_item.`img`, order_item.`is_comment`,
+        order_item.`total_amount`, order_item.`product_name`, order_item.`specs`, order_item.`img`, order_item.`is_comment`
     </sql>
 
     <sql id="order_left_join_order_item_and_order_addr">
         FROM `order`
         LEFT JOIN order_item ON `order`.`order_id` = order_item.`order_id`
-        LEFT JOIN order_addr ON `order`.`order_addr_id` = order_addr.`order_addr_id`
+        LEFT JOIN order_addr ON `order`.`order_id` = order_addr.`order_id`
     </sql>
 
     <select id="selectOrderById" resultMap="orderVOMap">
         SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
         WHERE `order`.`order_id` = #{orderId}
+    </select>
+
+    <select id="selectOrderPages" resultMap="orderVOMap">
+        SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
+        WHERE `order`.`user_id` = #{userId}
     </select>
 </mapper>

@@ -25,6 +25,12 @@ public class OrderDTO {
     @Schema(description = "订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成")
     private Integer state;
 
+    @Schema(description = "备注")
+    private String remark;
+
+    @Schema(description = "取消时间")
+    private Date cancelTime;
+
     @Schema(description = "支付时间")
     private Date payTime;
 
@@ -35,8 +41,8 @@ public class OrderDTO {
     private Date finishTime;
 
     @Schema(description = "收货地址")
-    private OrderAddrDTO orderAddrDTO;
+    private OrderAddrDTO orderAddr;
 
     @Schema(description = "订单项列表")
-    private List<OrderItemDTO> orderItemDTOList;
+    private List<OrderItemDTO> orderItemList;
 }

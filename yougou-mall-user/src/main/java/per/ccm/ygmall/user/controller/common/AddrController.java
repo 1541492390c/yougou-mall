@@ -42,6 +42,9 @@ public class AddrController {
     @PutMapping("/update")
     @Operation(summary = "更新收货地址", description = "更新收货地址")
     public ResponseEntity<Void> update(@RequestBody AddrDTO addrDTO) throws Exception {
+        Long userId = SecurityContextUtils.getUserId();
+
+        addrDTO.setUserId(userId);
         addrService.update(addrDTO);
         return ResponseEntity.success();
     }

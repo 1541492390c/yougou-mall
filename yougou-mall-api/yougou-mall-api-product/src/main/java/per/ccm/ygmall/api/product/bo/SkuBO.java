@@ -32,6 +32,16 @@ public class SkuBO {
     private Double price;
 
     /**
+     * 折扣价格
+     * */
+    private Double discountPrice;
+
+    /**
+     * 是否折扣
+     * */
+    private Boolean isDiscount;
+
+    /**
      * sku规格内部传输数据列表
      * */
     private List<SkuSpecsBO> skuSpecsBOList;

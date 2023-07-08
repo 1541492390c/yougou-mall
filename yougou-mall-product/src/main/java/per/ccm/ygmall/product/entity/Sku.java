@@ -1,8 +1,6 @@
 package per.ccm.ygmall.product.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -37,4 +35,21 @@ public class Sku extends BaseEntity {
      * sku价格
      * */
     private Double price;
+
+    /**
+     * 折扣
+     * */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    private Double discount;
+
+    /**
+     * 折扣价格
+     * */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    private Double discountPrice;
+
+    /**
+     * 是否折扣
+     * */
+    private Boolean isDiscount;
 }

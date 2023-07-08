@@ -70,7 +70,7 @@ public class RabbitmqConfig {
     @Bean(ORDER_DELAY_QUEUE)
     public Queue orderDelayQueue() {
         Map<String, Object> params = new HashMap<>();
-        params.put("x-message-ttl", 5000); // 订单过期时间15分钟
+        params.put("x-message-ttl", 5 * 1000); // 订单过期时间15分钟
         params.put("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE);
         params.put("x-dead-letter-routing-key", ORDER_DEAD_LETTER_ROUTING_KEY);
         return new Queue(ORDER_DELAY_QUEUE, true, false, false, params);

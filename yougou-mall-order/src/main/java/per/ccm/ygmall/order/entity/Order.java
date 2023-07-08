@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName("order")
+@TableName("`order`")
 public class Order extends BaseEntity {
 
     /**
@@ -51,6 +51,16 @@ public class Order extends BaseEntity {
      * */
     @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
+
+    /**
+     * 备注
+     * */
+    private String remark;
+
+    /**
+     * 取消时间
+     * */
+    private Date cancelTime;
 
     /**
      * 支付时间

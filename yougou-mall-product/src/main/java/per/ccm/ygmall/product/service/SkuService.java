@@ -5,6 +5,7 @@ import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.vo.SkuVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SkuService {
     /**
@@ -31,9 +32,9 @@ public interface SkuService {
     List<SkuBO> getSkuBOList(List<Long> skuIdList) throws Exception;
 
     /**
-     * 批量更新sku信息
+     * 订单取消后,返还库存
      *
-     * @param skuDTOList sku传输数据列表
+     * @param skuStockMap 返还的库存和skuID
      * */
-    void batchUpdate(List<SkuDTO> skuDTOList) throws Exception;
+    void updateSkuStock(Map<Long, Integer> skuStockMap) throws Exception;
 }

@@ -18,6 +18,7 @@ import per.ccm.ygmall.product.vo.SkuVO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SkuServiceImpl implements SkuService {
@@ -61,7 +62,10 @@ public class SkuServiceImpl implements SkuService {
             SkuBO skuBO = new SkuBO();
             skuBO.setSkuId(skuVO.getSkuId());
             skuBO.setProductId(skuVO.getProductId());
+            skuBO.setSkuStock(skuVO.getSkuStock());
             skuBO.setPrice(skuVO.getPrice());
+            skuBO.setIsDiscount(skuVO.getIsDiscount());
+            skuBO.setDiscountPrice(skuVO.getDiscountPrice());
             // 设置sku规格列表
             List<SkuSpecsBO> skuSpecsBOList = ConvertUtils.converList(skuVO.getSkuSpecs(), SkuSpecsBO.class);
             skuBO.setSkuSpecsBOList(skuSpecsBOList);
@@ -71,8 +75,15 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public void batchUpdate(List<SkuDTO> skuDTOList) {
-        List<Sku> skuList = ConvertUtils.converList(skuDTOList, Sku.class);
-        skuList.forEach(item -> skuMapper.updateById(item));
+    public void updateSkuStock(Map<Long, Integer> map) {
+        for (Long skuId: map.keySet()) {
+            Sku sku = skuMapper.selectById(skuId);
+            sku.setSkuStock(sku.getSkuStock() + map.get(skuId));
+            // 库存不足
+            if (sku.getSkuStock() <= 0) {
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B4002);
+            }
+            skuMapper.updateById(sku);
+        }
     }
 }
