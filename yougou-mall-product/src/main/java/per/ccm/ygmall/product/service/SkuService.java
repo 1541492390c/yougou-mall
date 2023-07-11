@@ -1,13 +1,15 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.product.dto.SkuDTO;
+import per.ccm.ygmall.product.entity.Sku;
 import per.ccm.ygmall.product.vo.SkuVO;
 
 import java.util.List;
 import java.util.Map;
 
-public interface SkuService {
+public interface SkuService extends IService<Sku> {
     /**
      * 保存sku信息
      *

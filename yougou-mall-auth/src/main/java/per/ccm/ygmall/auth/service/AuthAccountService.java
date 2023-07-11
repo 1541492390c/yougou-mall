@@ -1,13 +1,15 @@
 package per.ccm.ygmall.auth.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
+import per.ccm.ygmall.auth.entity.AuthAccount;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 
 /**
  * 认证授权服务
  */
-public interface AuthAccountService {
+public interface AuthAccountService extends IService<AuthAccount> {
     /**
      * 保存认证账号信息
      *

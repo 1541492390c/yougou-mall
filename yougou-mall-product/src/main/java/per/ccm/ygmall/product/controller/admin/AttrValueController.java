@@ -29,8 +29,8 @@ public class AttrValueController {
 
     @DeleteMapping("/batch_delete")
     @Operation(summary = "批量删除商品属性值", description = "批量删除商品属性值")
-    public ResponseEntity<Void> batchDelete(@RequestBody List<Long> attrValueIdList) throws Exception {
-        attrValueService.batchDelete(attrValueIdList);
+    public ResponseEntity<Void> batchDelete(@RequestBody List<Long> attrValueIdList) {
+        attrValueService.removeBatchByIds(attrValueIdList);
         return ResponseEntity.success();
     }
 }

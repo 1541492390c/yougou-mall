@@ -1,12 +1,13 @@
 package per.ccm.ygmall.order.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.entity.Order;
 import per.ccm.ygmall.order.vo.OrderVO;
 
-public interface OrderService {
+public interface OrderService extends IService<Order> {
     /**
      * 保存订单信息
      *

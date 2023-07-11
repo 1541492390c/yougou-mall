@@ -1,5 +1,6 @@
 package per.ccm.ygmall.product.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class SkuServiceImpl implements SkuService {
+public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuService {
 
     @Autowired
     private SkuMapper skuMapper;

@@ -140,7 +140,12 @@ public enum ResponseCodeEnum {
     /**
      * 订单只能对应一个订单收货地址
      * */
-    ORDER_ERROR_C0001("B0001", "订单只能对应一个订单收货地址"),;
+    ORDER_ERROR_C0001("C0001", "订单只能对应一个订单收货地址"),
+
+    /**
+     * 订单提交失败,存在未支付订单
+     * */
+    ORDER_ERROR_C0002("C0002", "订单提交失败,存在未支付订单");
 
     private final String value;
 

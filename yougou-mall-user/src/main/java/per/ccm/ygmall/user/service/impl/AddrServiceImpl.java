@@ -2,6 +2,7 @@ package per.ccm.ygmall.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import per.ccm.ygmall.user.vo.AddrVO;
 import java.util.List;
 
 @Service
-public class AddrServiceImpl implements AddrService {
+public class AddrServiceImpl extends ServiceImpl<AddrMapper, Addr> implements AddrService {
 
     @Autowired
     private AddrMapper addrMapper;
@@ -44,7 +45,6 @@ public class AddrServiceImpl implements AddrService {
     @Transactional(rollbackFor = Exception.class)
     public void update(AddrDTO addrDTO) {
         Addr addr = ConvertUtils.convertProperties(addrDTO, Addr.class);
-
         // 设置该收货地址设为默认,则取消用户其他默认收货地址
         if (addr.getIsDefault()) {
             LambdaQueryWrapper<Addr> queryWrapper = new LambdaQueryWrapper<>();
@@ -53,10 +53,5 @@ public class AddrServiceImpl implements AddrService {
             addrMapper.update(defaultAddr, new LambdaUpdateWrapper<Addr>().set(Addr::getIsDefault, Boolean.FALSE));
         }
         addrMapper.updateById(addr);
-    }
-
-    @Override
-    public void delete(Long addrId) {
-        addrMapper.deleteById(addrId);
     }
 }

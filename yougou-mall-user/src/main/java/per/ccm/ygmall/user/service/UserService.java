@@ -1,6 +1,7 @@
 package per.ccm.ygmall.user.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
@@ -10,7 +11,7 @@ import per.ccm.ygmall.user.vo.UserVO;
 /**
  * 用户服务
  * */
-public interface UserService {
+public interface UserService extends IService<User> {
     /**
      * 保存用户信息
      *

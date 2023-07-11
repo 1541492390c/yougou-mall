@@ -3,6 +3,7 @@ package per.ccm.ygmall.platform.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -19,7 +20,7 @@ import per.ccm.ygmall.platform.vo.BannerVO;
 import java.util.List;
 
 @Service
-public class BannerServiceImpl implements BannerService {
+public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> implements BannerService {
 
     @Autowired
     private BannerMapper bannerMapper;

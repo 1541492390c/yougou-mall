@@ -1,10 +1,12 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.product.dto.SkuSpecsDTO;
+import per.ccm.ygmall.product.entity.SkuSpecs;
 
 import java.util.List;
 
-public interface SkuSpecsService {
+public interface SkuSpecsService extends IService<SkuSpecs> {
     /**
      * 判断sku规格是否存在
      *

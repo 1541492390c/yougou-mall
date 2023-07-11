@@ -1,12 +1,13 @@
 package per.ccm.ygmall.product.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.dto.FavoriteDTO;
 import per.ccm.ygmall.product.entity.Favorite;
 import per.ccm.ygmall.product.vo.FavoriteVO;
 
-public interface FavoriteService {
+public interface FavoriteService extends IService<Favorite> {
     /**
      * 保存收藏信息
      *
@@ -29,11 +30,4 @@ public interface FavoriteService {
      * @param productId 商品ID
      * */
     Boolean isFavorite(Long userId, Long productId) throws Exception;
-
-    /**
-     * 根据主键ID删除用户收藏信息
-     *
-     * @param favoriteId 收藏ID
-     * */
-    void delete(Long favoriteId) throws Exception;
 }

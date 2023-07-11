@@ -1,7 +1,9 @@
 package per.ccm.ygmall.platform.service;
 
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
+import per.ccm.ygmall.platform.entity.FeedbackType;
 import per.ccm.ygmall.platform.vo.FeedbackTypeVO;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 /**
  * 用户反馈类型服务
  * */
-public interface FeedbackTypeService {
+public interface FeedbackTypeService extends IService<FeedbackType> {
 
     /**
      * 保存用户反馈类型
@@ -29,11 +31,4 @@ public interface FeedbackTypeService {
      * @param feedbackTypeDTO 用户反馈类型传输数据
      * */
     void update(FeedbackTypeDTO feedbackTypeDTO) throws Exception;
-
-    /**
-     * 删除用户反馈类型
-     *
-     * @param feedbackTypeId 用户反馈类型ID
-     * */
-    void delete(Long feedbackTypeId) throws Exception;
 }

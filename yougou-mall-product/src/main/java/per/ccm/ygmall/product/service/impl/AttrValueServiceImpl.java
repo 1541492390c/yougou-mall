@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class AttrValueServiceImpl implements AttrValueService {
+public class AttrValueServiceImpl extends ServiceImpl<AttrValueMapper, AttrValue> implements AttrValueService {
 
     @Autowired
     private AttrValueMapper attrValueMapper;
@@ -48,11 +49,6 @@ public class AttrValueServiceImpl implements AttrValueService {
         LambdaQueryWrapper<AttrValue> queryWrapper = new LambdaQueryWrapper<>();
         List<AttrValue> attrValueList = attrValueMapper.selectList(queryWrapper.in(AttrValue::getAttrValueId, attrValueIdList));
         return ConvertUtils.converList(attrValueList, AttrValueVO.class);
-    }
-
-    @Override
-    public void batchDelete(List<Long> attrValueIdList) {
-        attrValueMapper.deleteBatchIds(attrValueIdList);
     }
 
     @Override

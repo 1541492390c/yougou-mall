@@ -1,6 +1,7 @@
 package per.ccm.ygmall.user.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
 import per.ccm.ygmall.user.entity.Feedback;
@@ -9,7 +10,7 @@ import per.ccm.ygmall.user.vo.FeedbackVO;
 /**
  * 用户反馈服务
  * */
-public interface FeedbackService {
+public interface FeedbackService extends IService<Feedback> {
     /**
      * 保存用户反馈信息
      *

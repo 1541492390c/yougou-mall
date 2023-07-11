@@ -1,6 +1,8 @@
 package per.ccm.ygmall.order.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -11,7 +13,6 @@ import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.api.product.bo.SkuSpecsBO;
 import per.ccm.ygmall.api.product.feign.ProductFeign;
-import per.ccm.ygmall.common.exception.ServerException;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
@@ -59,9 +60,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @GlobalTransactional(rollbackFor = Exception.class)
-    public void save(OrderDTO orderDTO) {
+    public void save(OrderDTO orderDTO) throws Exception {
         rLock.lock();
         try {
+            // 判断该用户是否存在未支付订单
+            if (this.isUnPayOrder(orderDTO.getUserId())) {
+                throw new YougouException(ResponseCodeEnum.ORDER_ERROR_C0002);
+            }
             // 获取skuID列表
             List<Long> skuIdList = orderDTO.getOrderItemList().stream().map(OrderItemDTO::getSkuId).collect(Collectors.toList());
             // 获取商品内部传输数据列表
@@ -127,9 +132,6 @@ public class OrderServiceImpl implements OrderService {
             }
             //将订单加入延时队列
             rabbitTemplate.convertAndSend(RabbitmqConfig.DIRECT_EXCHANGE, RabbitmqConfig.ORDER_DELAY_ROUTING_KEY, order.getOrderId());
-        } catch (Exception e) {
-            log.error("{}", e.getMessage());
-            throw new ServerException(ResponseCodeEnum.SERVER_ERROR_00001.getMessage());
         } finally {
             rLock.unlock();
         }
@@ -150,6 +152,18 @@ public class OrderServiceImpl implements OrderService {
     public void update(OrderDTO orderDTO) {
         Order order = ConvertUtils.convertProperties(orderDTO, Order.class);
         orderMapper.updateById(order);
+    }
+
+    /**
+     * 判断该用户是否存在未支付订单
+     *
+     * @param userId 用户ID
+     * @return 是否存在未支付订单
+     * */
+    private Boolean isUnPayOrder(Long userId) {
+        LambdaQueryWrapper<Order> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Order::getUserId, userId).eq(Order::getIsPay, Boolean.FALSE).eq(Order::getState, OrderStateEnum.WAIT_PAY.getValue());
+        return orderMapper.exists(queryWrapper);
     }
 
     /**

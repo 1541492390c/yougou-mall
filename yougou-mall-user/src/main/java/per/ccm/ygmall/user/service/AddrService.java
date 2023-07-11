@@ -1,11 +1,13 @@
 package per.ccm.ygmall.user.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.user.dto.AddrDTO;
+import per.ccm.ygmall.user.entity.Addr;
 import per.ccm.ygmall.user.vo.AddrVO;
 
 import java.util.List;
 
-public interface AddrService {
+public interface AddrService extends IService<Addr> {
     /**
      * 保存收货地址信息
      *
@@ -26,11 +28,4 @@ public interface AddrService {
      * @param addrDTO 收货地址传输数据
      * */
     void update(AddrDTO addrDTO) throws Exception;
-
-    /**
-     * 根据主键ID删除收货地址信息
-     *
-     * @param addrId 主键ID
-     * */
-    void delete(Long addrId) throws Exception;
 }

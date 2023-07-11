@@ -1,6 +1,7 @@
 package per.ccm.ygmall.platform.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
 import per.ccm.ygmall.platform.entity.Banner;
@@ -8,7 +9,7 @@ import per.ccm.ygmall.platform.vo.BannerVO;
 
 import java.util.List;
 
-public interface BannerService {
+public interface BannerService extends IService<Banner> {
     /**
      * 保存轮播图信息
      *

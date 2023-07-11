@@ -1,11 +1,13 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.product.dto.AttrValueDTO;
+import per.ccm.ygmall.product.entity.AttrValue;
 import per.ccm.ygmall.product.vo.AttrValueVO;
 
 import java.util.List;
 
-public interface AttrValueService {
+public interface AttrValueService extends IService<AttrValue> {
     /**
      * 批量保存属性值
      *
@@ -21,12 +23,12 @@ public interface AttrValueService {
      * */
     List<AttrValueVO> getAttrValueListByAttrValueIdList(List<Long> attrIdValueList) throws Exception;
 
-    /**
-     *根据商品属性值ID批量删除商品属性值
-     *
-     * @param attrValueIdList 商品属性值ID列表
-     * */
-    void batchDelete(List<Long> attrValueIdList) throws Exception;
+//    /**
+//     *根据商品属性值ID批量删除商品属性值
+//     *
+//     * @param attrValueIdList 商品属性值ID列表
+//     * */
+//    void batchDelete(List<Long> attrValueIdList) throws Exception;
 
     /**
      * 根据商品属性ID批量删除商品属性值

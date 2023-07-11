@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -66,7 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, allEntries = true)
-    public void batchDelete(List<Long> categoryIdList) {
+    public void batchRemove(List<Long> categoryIdList) {
         categoryMapper.deleteBatchIds(categoryIdList);
     }
 

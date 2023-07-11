@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import per.ccm.ygmall.product.vo.AttrVO;
 import java.util.List;
 
 @Service
-public class AttrServiceImpl implements AttrService {
+public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr> implements AttrService {
 
     @Autowired
     private AttrMapper attrMapper;
@@ -68,7 +69,7 @@ public class AttrServiceImpl implements AttrService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void batchDelete(List<Long> attrIdList) throws Exception {
+    public void batchRemove(List<Long> attrIdList) throws Exception {
         attrMapper.deleteBatchIds(attrIdList);
         // 删除对应的商品属性值
         attrValueService.batchDeleteByAttrIdList(attrIdList);

@@ -3,6 +3,7 @@ package per.ccm.ygmall.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.util.ConvertUtils;
@@ -16,7 +17,7 @@ import per.ccm.ygmall.user.vo.FeedbackVO;
 import java.util.List;
 
 @Service
-public class FeedbackServiceImpl implements FeedbackService {
+public class FeedbackServiceImpl extends ServiceImpl<FeedbackMapper, Feedback> implements FeedbackService {
 
     @Autowired
     private FeedbackMapper feedbackMapper;

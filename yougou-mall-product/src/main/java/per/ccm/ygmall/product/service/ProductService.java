@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.product.dto.ProductDTO;
@@ -9,7 +10,7 @@ import per.ccm.ygmall.product.vo.ProductVO;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductService extends IService<Product> {
     /**
      * 保存商品信息
      *

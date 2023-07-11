@@ -60,8 +60,8 @@ public class FavoriteController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除用户收藏", description = "根据主键ID删除用户删除")
     @Parameter(name = "favorite_id", description = "收藏ID")
-    public ResponseEntity<Void> delete(@RequestParam("favorite_id") Long favoriteId) throws Exception {
-        favoriteService.delete(favoriteId);
+    public ResponseEntity<Void> delete(@RequestParam("favorite_id") Long favoriteId) {
+        favoriteService.removeById(favoriteId);
         return ResponseEntity.success();
     }
 }

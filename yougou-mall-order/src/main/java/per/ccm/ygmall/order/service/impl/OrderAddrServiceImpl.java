@@ -1,6 +1,7 @@
 package per.ccm.ygmall.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
@@ -12,7 +13,7 @@ import per.ccm.ygmall.order.mapper.OrderAddrMapper;
 import per.ccm.ygmall.order.service.OrderAddrService;
 
 @Service
-public class OrderAddrServiceImpl implements OrderAddrService {
+public class OrderAddrServiceImpl extends ServiceImpl<OrderAddrMapper, OrderAddr> implements OrderAddrService {
 
     @Autowired
     private OrderAddrMapper orderAddrMapper;

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.api.biz.feign.BizFeign;
 import per.ccm.ygmall.auth.entity.AuthAccount;
-import per.ccm.ygmall.auth.mapper.AuthAccountMapper;
+import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.response.ResponseEntity;
@@ -32,7 +32,7 @@ import java.util.Map;
 public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
     @Autowired
-    private AuthAccountMapper authAccountMapper;
+    private AuthAccountService authAccountService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -45,18 +45,16 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         Map<String, String> params = JSONUtils.readValue(JSONUtils.writeValueAsString(authentication.getDetails()), new TypeReference<>() {
         });
 
+        // 根据用户名查询用户认证信息
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
-        AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUsername, authentication.getPrincipal()));
+        AuthAccount authAccount = authAccountService.getOne(queryWrapper.eq(AuthAccount::getUsername, authentication.getPrincipal()));
 
         // 设置用户角色
         String role = "ROLE_" + authAccount.getRole();
-        List<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(Collections.singleton(new SimpleGrantedAuthority(role)));
-        // 用户认证信息
-        AuthPrincipal authPrincipal = new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
-
+        // 获取输入的密码
         String password = String.valueOf(authentication.getCredentials());
         // 密码错误
-        if (!passwordEncoder.matches(password, authPrincipal.getPassword())) {
+        if (!passwordEncoder.matches(password, authAccount.getPassword())) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0002);
         }
         //判断登录类型是否为管理员登录
@@ -67,25 +65,27 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         boolean isUser = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.USER.getName())
                 && ObjectUtils.nullSafeEquals(role, RoleConfig.USER);
 
+        // 登录类型错误
         if (!isAdmin && !isUser) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0005);
         }
-
         // 登录ip地址
         String ipAddress = params.get("ip_address");
         // 验证码
         String code = params.get("code");
-
         // 获取响应结果
         ResponseEntity<Boolean> response = bizFeign.validateCaptcha(ipAddress, code);
         if (!response.responseSuccess()) {
             throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
-        Boolean validateResult = response.getData();
         // 判断验证码是否正确
-        if (!validateResult) {
+        if (!response.getData()) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0010);
         }
+        // 添加授权范围
+        List<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(Collections.singleton(new SimpleGrantedAuthority(role)));
+        // 用户认证信息
+        AuthPrincipal authPrincipal = new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
         return new UsernamePasswordAuthenticationToken(authPrincipal, null, authPrincipal.getAuthorities());
     }
 

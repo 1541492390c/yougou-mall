@@ -1,11 +1,13 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.product.dto.AttrDTO;
+import per.ccm.ygmall.product.entity.Attr;
 import per.ccm.ygmall.product.vo.AttrVO;
 
 import java.util.List;
 
-public interface AttrService {
+public interface AttrService extends IService<Attr> {
     /**
      * 保存商品属性信息
      *
@@ -41,5 +43,5 @@ public interface AttrService {
      *
      * @param attrIdList 商品属性ID列表
      * */
-    void batchDelete(List<Long> attrIdList) throws Exception;
+    void batchRemove(List<Long> attrIdList) throws Exception;
 }

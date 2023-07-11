@@ -1,6 +1,7 @@
 package per.ccm.ygmall.platform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
@@ -15,7 +16,7 @@ import per.ccm.ygmall.platform.vo.FeedbackTypeVO;
 import java.util.List;
 
 @Service
-public class FeedbackTypeServiceImpl implements FeedbackTypeService {
+public class FeedbackTypeServiceImpl extends ServiceImpl<FeedbackTypeMapper, FeedbackType> implements FeedbackTypeService {
 
     @Autowired
     private FeedbackTypeMapper feedbackTypeMapper;
@@ -49,11 +50,5 @@ public class FeedbackTypeServiceImpl implements FeedbackTypeService {
         }
         FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.updateById(feedbackType);
-    }
-
-    @Override
-    public void delete(Long feedbackTypeId) {
-        LambdaQueryWrapper<FeedbackType> queryWrapper = new LambdaQueryWrapper<>();
-        feedbackTypeMapper.delete(queryWrapper.eq(FeedbackType::getFeedbackTypeId, feedbackTypeId));
     }
 }

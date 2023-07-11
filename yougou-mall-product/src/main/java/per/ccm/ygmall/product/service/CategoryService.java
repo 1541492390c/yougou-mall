@@ -1,11 +1,13 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.product.dto.CategoryDTO;
+import per.ccm.ygmall.product.entity.Category;
 import per.ccm.ygmall.product.vo.CategoryVO;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface CategoryService extends IService<Category> {
     /**
      * 保存分类信息
      *
@@ -32,5 +34,5 @@ public interface CategoryService {
      *
      * @param categoryIdList 分类ID列表
      * */
-    void batchDelete(List<Long> categoryIdList) throws Exception;
+    void batchRemove(List<Long> categoryIdList) throws Exception;
 }

@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SkuSpecsServiceImpl implements SkuSpecsService {
+public class SkuSpecsServiceImpl extends ServiceImpl<SkuSpecsMapper, SkuSpecs> implements SkuSpecsService {
 
     @Autowired
     private SkuSpecsMapper skuSpecsMapper;
