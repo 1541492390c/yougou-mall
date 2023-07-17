@@ -49,7 +49,7 @@ public class AuthAccount extends BaseEntity {
     /**
      * 手机号
      * */
-    private String mp;
+    private String mobile;
 
     /**
      * 角色

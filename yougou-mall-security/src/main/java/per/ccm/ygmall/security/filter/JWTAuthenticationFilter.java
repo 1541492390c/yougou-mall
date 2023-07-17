@@ -52,8 +52,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         response.setContentType("application/json;charset=UTF-8");
         String bearer = request.getHeader("Authorization");
 
-        // 认证token为空,放行,交给其他过滤器
-        if(ObjectUtils.isEmpty(bearer)) {
+        // 认证token为空,放行交给其他过滤器
+        if (ObjectUtils.isEmpty(bearer)) {
             chain.doFilter(request, response);
             return;
         }
@@ -66,32 +66,38 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             Long userId = decodedJWT.getClaim("user_id").asLong();
             // 从token中获取用户名
             String username = decodedJWT.getClaim("username").asString();
+            // 从token中获取ip地址
+            String ipAddress = decodedJWT.getClaim("ip_address").asString();
             // 从token中获取用户角色
-            String authority = decodedJWT.getClaim("authority").asString();
+            String role = decodedJWT.getClaim("role").asString();
 
             Cache cache = cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME);
-            // 缓存中不存在token,token已删除
-            if (ObjectUtils.isEmpty(Objects.requireNonNull(cache).get(userId, String.class))) {
+
+            // 获取缓存中的token
+            String cacheAccessToken = Objects.requireNonNull(cache).get(TokenUtils.createTokenKey(userId, ipAddress), String.class);
+            // 缓存中不存在token,token已过期
+            if (ObjectUtils.isEmpty(cacheAccessToken)) {
                 throw new TokenExpiredException("token已过期", Instant.now());
             }
             // 与缓存中的token不一致,无效token
-            if (!ObjectUtils.nullSafeEquals(Objects.requireNonNull(cache).get(userId, String.class), accessToken)) {
+            if (!ObjectUtils.nullSafeEquals(cacheAccessToken, accessToken)) {
                 throw new SignatureVerificationException(Algorithm.HMAC256(accessToken.getBytes(StandardCharsets.UTF_8)));
             }
+            // 添加授权范围
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority(role)));
 
-            List<SimpleGrantedAuthority> authorities = new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority(authority)));
-            AuthPrincipal authPrincipal = new AuthPrincipal(authAccountId, userId, username, null, authorities);
+            AuthPrincipal authPrincipal = new AuthPrincipal(authAccountId, userId, username, ipAddress, authorities);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authPrincipal, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(token);
             // 放行
             chain.doFilter(request, response);
-        }catch(SignatureVerificationException | SignatureGenerationException | JWTDecodeException e) { // token验证失败
+        } catch (SignatureVerificationException | SignatureGenerationException | JWTDecodeException e) { // token验证失败
             String json = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0003));
             response.getWriter().print(json);
-        }catch(TokenExpiredException e) {  // token过期
+        } catch (TokenExpiredException e) {  // token过期
             String json = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0011));
             response.getWriter().print(json);
-        }catch(Exception e) { // 其他错误
+        } catch (Exception e) { // 其他错误
             log.error("{}", e.getMessage());
             String json = JSONUtils.writeValueAsString(ResponseCodeEnum.SERVER_ERROR_00001);
             response.getWriter().print(json);

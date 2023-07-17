@@ -3,6 +3,7 @@ package per.ccm.ygmall.security.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import per.ccm.ygmall.security.principal.AuthPrincipal;
 import per.ccm.ygmall.security.vo.TokenVO;
 
 import java.nio.charset.StandardCharsets;
@@ -16,9 +17,9 @@ public class TokenUtils {
 
     private static final Long EXPIRED = 14 * 24 * 60 * 60 * 1000L;
 
-    public static TokenVO getTokenVO(String token) {
+    public static TokenVO getTokenVO(String accessToken) {
         TokenVO tokenVO = new TokenVO();
-        tokenVO.setAccessToken(token);
+        tokenVO.setAccessToken(accessToken);
         tokenVO.setExpiredIn(new Date().getTime() + EXPIRED);
         return tokenVO;
     }
@@ -27,13 +28,18 @@ public class TokenUtils {
         return bearer.substring(bearer.lastIndexOf(' ') + 1);
     }
 
-    public static String createToken(Long authAccountId, Long userId, String username, String authority) {
+    public static String createTokenKey(Long userId, String ipAddress) {
+        return userId + ":" + ipAddress;
+    }
+
+    public static String createToken(AuthPrincipal authPrincipal) {
         Date currentDate = new Date();
         return JWT.create()
-                .withClaim("auth_account_id", authAccountId)
-                .withClaim("user_id", userId)
-                .withClaim("username", username)
-                .withClaim("authority", authority)
+                .withClaim("auth_account_id", authPrincipal.getAuthAccountId())
+                .withClaim("user_id", authPrincipal.getUserId())
+                .withClaim("username", authPrincipal.getUsername())
+                .withClaim("ip_address", authPrincipal.getIpAddress())
+                .withClaim("role", authPrincipal.getAuthorities().get(0).getAuthority())
                 .withIssuer(ISSUER)
                 .withIssuedAt(currentDate)
                 .withExpiresAt(new Date(currentDate.getTime() + EXPIRED))

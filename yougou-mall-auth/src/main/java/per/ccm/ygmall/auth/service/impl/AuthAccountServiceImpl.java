@@ -34,8 +34,12 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
     public void save(AuthAccountDTO authAccountDTO) {
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
 
+        // 用户名已被使用
+        if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getUsername, authAccountDTO.getUsername()))) {
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0007);
+        }
         // 手机号已被使用
-        if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMp, authAccountDTO.getMp()))) {
+        if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMobile, authAccountDTO.getMp()))) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0008);
         }
         AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);

@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -83,9 +82,9 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0010);
         }
         // 添加授权范围
-        List<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(Collections.singleton(new SimpleGrantedAuthority(role)));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority(role)));
         // 用户认证信息
-        AuthPrincipal authPrincipal = new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), authAccount.getPassword(), authorities);
+        AuthPrincipal authPrincipal = new AuthPrincipal(authAccount.getAuthAccountId(), authAccount.getUserId(), authAccount.getUsername(), ipAddress, authorities);
         return new UsernamePasswordAuthenticationToken(authPrincipal, null, authPrincipal.getAuthorities());
     }
 
