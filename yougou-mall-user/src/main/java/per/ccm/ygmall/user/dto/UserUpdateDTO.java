@@ -30,6 +30,9 @@ public class UserUpdateDTO {
     @Schema(description = "角色")
     private String role;
 
+    @Schema(description = "昵称")
+    private String nickname;
+
     @Schema(description = "生日")
     private Date birthday;
 }

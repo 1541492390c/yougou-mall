@@ -15,7 +15,7 @@ public class CacheNames {
     /**
      * 商品分类缓存
      * */
-    public static final String PRODUCT_CATEGORY_CACHE_NAME = "product_category";
+    public static final String PRODUCT_CATEGORY_CACHE_NAME = "category";
 
     /**
      * 商品缓存
@@ -26,4 +26,9 @@ public class CacheNames {
      * 验证码缓存
      * */
     public static final String BIZ_VALIDATE_CODE_NAME = "biz_validate_code";
+
+    /**
+     * 轮播图缓存
+     * */
+    public static final String BANNER_CACHE_NAME = "banner";
 }

@@ -5,7 +5,7 @@
         <id column="product_id" property="productId" jdbcType="BIGINT" />
         <result column="brand_id" property="brandId" jdbcType="BIGINT" />
         <result column="state" property="state" jdbcType="TINYINT" />
-        <result column="categories" property="categories" jdbcType="VARCHAR" />
+        <result column="category_node" property="categoryNode" jdbcType="VARCHAR" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="cover" property="cover" jdbcType="VARCHAR" />
         <result column="img_list" property="imgList" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
         product.`product_id`,
         product.`brand_id`,
         product.`state`,
-        product.`categories`,
+        product.`category_node`,
         product.`name`,
         product.`cover`,
         product.`img_list`,
@@ -34,7 +34,7 @@
     <select id="selectProductPages" resultMap="productVOMap">
         SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
             <where>
-                <if test="categories != null">product.`categories` = #{categories}</if>
+                <if test="categoryNode != null">product.`category_node` = #{categoryNode}</if>
             </where>
     </select>
 

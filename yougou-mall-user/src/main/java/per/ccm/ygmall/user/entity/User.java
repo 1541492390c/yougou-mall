@@ -32,19 +32,14 @@ public class User extends BaseEntity {
     private Integer gender;
 
     /**
-     * 用户角色 0-管理员 1-普通用户
-     * */
-    private Integer userType;
-
-    /**
      * 状态 0-禁用 1-正常
      * */
     private Integer state;
 
     /**
-     * 用户名
+     * 昵称
      * */
-    private String username;
+    private String nickname;
 
     /**
      * 头像地址
@@ -56,6 +51,9 @@ public class User extends BaseEntity {
      * */
     private Date birthday;
 
+    /**
+     * 是否启用
+     * */
     @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 }

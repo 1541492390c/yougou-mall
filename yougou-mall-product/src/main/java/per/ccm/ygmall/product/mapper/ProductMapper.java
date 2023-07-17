@@ -14,7 +14,7 @@ import java.util.List;
 public interface ProductMapper extends BaseMapper<Product> {
     List<ProductVO> selectRecommendedProductList();
 
-    IPage<ProductVO> selectProductPages(@Param("categories") String categories, Page<Product> page);
+    IPage<ProductVO> selectProductPages(@Param("categoryNode") String categoryNode, Page<Product> page);
 
     ProductVO selectProductByProductId(Long productId);
 }

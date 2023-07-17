@@ -35,9 +35,9 @@ public class Product extends BaseEntity {
     private Integer state;
 
     /**
-     * 分类列表
+     * 分类节点
      * */
-    private String categories;
+    private String categoryNode;
 
     /**
      * 商品名称

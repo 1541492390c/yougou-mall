@@ -30,4 +30,10 @@ public class CategoryController {
         List<CategoryVO> categoryList = categoryService.getCategoryList(parentId);
         return ResponseEntity.success(categoryList);
     }
+
+    @GetMapping("/by_node")
+    public ResponseEntity<CategoryVO> getCategoryByNode(@RequestParam("node") String node) throws Exception {
+        CategoryVO category = categoryService.getCategoryByNode(node);
+        return ResponseEntity.success(category);
+    }
 }

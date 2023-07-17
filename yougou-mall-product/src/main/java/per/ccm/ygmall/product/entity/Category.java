@@ -37,4 +37,9 @@ public class Category extends BaseEntity {
      * 分类名称
      * */
     private String name;
+
+    /**
+     * 分类节点
+     * */
+    private String node;
 }

@@ -23,6 +23,14 @@ public interface CategoryService extends IService<Category> {
     List<CategoryVO> getCategoryList(Long parentId) throws Exception;
 
     /**
+     * 根据分类节点获取分类信息
+     *
+     * @param node 分类节点
+     * @return 分类信息
+     * */
+    CategoryVO getCategoryByNode(String node) throws Exception;
+
+    /**
      * 更新商品分类信息
      *
      * @param categoryDTO 分类信息传输数据

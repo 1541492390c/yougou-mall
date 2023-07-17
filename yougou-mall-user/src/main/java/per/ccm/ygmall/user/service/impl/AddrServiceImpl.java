@@ -26,8 +26,8 @@ public class AddrServiceImpl extends ServiceImpl<AddrMapper, Addr> implements Ad
     @Override
     public void save(AddrDTO addrDTO) throws Exception {
         LambdaQueryWrapper<Addr> queryWrapper = new LambdaQueryWrapper<>();
-        // 一个用户最多添加5个收货地址
-        if (addrMapper.selectCount(queryWrapper.eq(Addr::getUserId, addrDTO.getUserId())) >= 5) {
+        // 一个用户最多添加6个收货地址
+        if (addrMapper.selectCount(queryWrapper.eq(Addr::getUserId, addrDTO.getUserId())) >= 6) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A2001);
         }
         Addr addr = ConvertUtils.convertProperties(addrDTO, Addr.class);

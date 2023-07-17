@@ -22,8 +22,8 @@ public class ProductDTO {
     @Schema(description = "商品状态 0-上架 1-已下架")
     private Integer state;
 
-    @Schema(description = "分类列表")
-    private String categories;
+    @Schema(description = "分类节点")
+    private String categoryNode;
 
     @Schema(description = "商品名称")
     private String name;

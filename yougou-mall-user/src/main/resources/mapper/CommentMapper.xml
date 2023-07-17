@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.user.mapper.CommentMapper">
+    <resultMap id="commentVOMap" type="per.ccm.ygmall.user.vo.CommentVO">
+        <id column="comment_id" property="commentId" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="product_id" property="productId" jdbcType="BIGINT" />
+        <result column="order_id" property="orderId" jdbcType="BIGINT" />
+        <result column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+        <result column="rate" property="rate" jdbcType="DECIMAL" />
+        <result column="text" property="text" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="comment_vo_column">
+        comment.`comment_id`, comment.`user_id`, comment.`product_id`, comment.`order_id`, comment.`order_item_id`, comment.`rate`, comment.`text`,
+        `user`.username, `user`.avatar
+    </sql>
+
+    <sql id="comment_left_join_user">
+        FROM comment LEFT JOIN `user` ON comment.`user_id` = `user`.`user_id`
+    </sql>
+
     <select id="selectRateStatistics" resultType="per.ccm.ygmall.user.vo.RateStatisticsVO">
         SELECT
         AVG(`rate`) AS average,
@@ -10,5 +31,13 @@
         COUNT(`rate` = 2) AS twoCount,
         COUNT(`rate` = 1) AS oneCount
         FROM comment WHERE `product_id` = #{productId}
+    </select>
+
+    <select id="selectCommentPages" resultMap="commentVOMap">
+        SELECT <include refid="comment_vo_column" /> <include refid="comment_left_join_user" />
+        <where>
+            <if test="userId != null">comment.`user_id` = #{userId}</if>
+            <if test="productId != null">comment.`product_id` = #{productId}</if>
+        </where>
     </select>
 </mapper>

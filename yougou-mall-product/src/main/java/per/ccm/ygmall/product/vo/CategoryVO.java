@@ -28,6 +28,9 @@ public class CategoryVO extends BaseVO {
     @Schema(description = "分类名称")
     private String name;
 
+    @Schema(description = "分类节点")
+    private String node;
+
     @Schema(description = "子分类")
     private List<CategoryVO> children;
 }

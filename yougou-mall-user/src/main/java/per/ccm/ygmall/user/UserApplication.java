@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"per.ccm.ygmall.api.auth"})
-@SpringBootApplication(scanBasePackages = {"per.ccm.ygmall"})
+@EnableFeignClients(basePackages = "per.ccm.ygmall.api.auth")
+@SpringBootApplication(scanBasePackages = "per.ccm.ygmall")
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);

@@ -1,5 +1,7 @@
 package per.ccm.ygmall.product.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +17,7 @@ import per.ccm.ygmall.common.vo.BaseVO;
 public class ProductVO extends BaseVO {
 
     @Schema(description = "主键ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long productId;
 
     @Schema(description = "品牌ID")
@@ -26,8 +29,8 @@ public class ProductVO extends BaseVO {
     @Schema(description = "sku最低价")
     private Double price;
 
-    @Schema(description = "分类列表")
-    private String categories;
+    @Schema(description = "分类节点")
+    private String categoryNode;
 
     @Schema(description = "商品名称")
     private String name;

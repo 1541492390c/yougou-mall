@@ -20,12 +20,17 @@ public enum CacheEnum {
     /**
      * 商品分类
      * */
-    CATEGORY(CacheNames.PRODUCT_CATEGORY_CACHE_NAME, 10 * 60L),
+    CATEGORY(CacheNames.PRODUCT_CATEGORY_CACHE_NAME, 7 * 24 * 60 * 60L),
 
     /**
-     * 商品spu
+     * 商品
      * */
-    PRODUCT(CacheNames.PRODUCT_CACHE_NAME, 10 * 60L),
+    PRODUCT(CacheNames.PRODUCT_CACHE_NAME, 7 * 24 * 60 * 60L),
+
+    /**
+     * 轮播图
+     * */
+    BANNER(CacheNames.BANNER_CACHE_NAME, 7 * 24 * 60 * 60L),
 
     /**
      * 验证码

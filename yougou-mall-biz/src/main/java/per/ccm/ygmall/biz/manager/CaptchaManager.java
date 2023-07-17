@@ -1,8 +1,8 @@
 package per.ccm.ygmall.biz.manager;
 
 import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.ICaptcha;
-import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.generator.RandomGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -10,6 +10,8 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
+
+import java.util.Objects;
 
 @Component
 public class CaptchaManager {
@@ -27,17 +29,14 @@ public class CaptchaManager {
      * @return 验证码
      * */
     public ICaptcha createCaptcha(String ipAddress) {
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(110, 40);
-        lineCaptcha.setGenerator(randomGenerator);
-        lineCaptcha.createCode();
+        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(110, 40);
+        circleCaptcha.setGenerator(randomGenerator);
+        circleCaptcha.createCode();
 
-        String code = lineCaptcha.getCode();
-        Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
-
-        if (!ObjectUtils.isEmpty(cache)) {
-            cache.put(ipAddress, code);
-        }
-        return lineCaptcha;
+        // 将验证码保存到缓存
+        String code = circleCaptcha.getCode();
+        Objects.requireNonNull(cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME)).put(ipAddress, code);
+        return circleCaptcha;
     }
 
     /**

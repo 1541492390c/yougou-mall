@@ -83,14 +83,24 @@ public enum ResponseCodeEnum {
     USER_ERROR_A1001("A1001", "用户反馈类型已存在"),
 
     /**
-     * 最多添加5个收货地址
+     * 最多添加6个收货地址
      * */
-    USER_ERROR_A2001("A2001", "最多添加5个收货地址"),
+    USER_ERROR_A2001("A2001", "最多添加6个收货地址"),
+
+    /**
+     * 该订单已经评价
+     * */
+    USER_ERROR_A3001("A3001", "该订单已经评价"),
 
     /**
      * 分类已存在
      * */
     PRODUCT_ERROR_B0001("B0001", "分类已存在"),
+
+    /**
+     * 当前分类节点不存在
+     * */
+    PRODUCT_ERROR_B0002("B0002", "当前分类节点不存在"),
 
     /**
      * 商品SPU已存在
@@ -145,7 +155,17 @@ public enum ResponseCodeEnum {
     /**
      * 订单提交失败,存在未支付订单
      * */
-    ORDER_ERROR_C0002("C0002", "订单提交失败,存在未支付订单");
+    ORDER_ERROR_C0002("C0002", "订单提交失败,存在未支付订单"),
+
+    /**
+     * 已领取该优惠券
+     * */
+    PAYMENT_ERROR_D0001("D0001", "已领取该优惠券"),
+
+    /**
+     * 优惠券已领取完
+     * */
+    PAYMENT_ERROR_D0002("D0001", "优惠券已领取完");
 
     private final String value;
 

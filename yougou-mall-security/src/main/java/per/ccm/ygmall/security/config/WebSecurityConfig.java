@@ -70,7 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         // 平台相关接口
                         "/platform/**",
                         // 验证码接口
-                        "/biz/captcha/*").permitAll()
+                        "/biz/captcha/*",
+                        // 支付接口
+                        "/payment/coupon/pages").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .cors();

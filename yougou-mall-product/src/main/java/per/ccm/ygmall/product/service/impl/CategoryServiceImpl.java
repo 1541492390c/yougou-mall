@@ -17,6 +17,7 @@ import per.ccm.ygmall.product.mapper.CategoryMapper;
 import per.ccm.ygmall.product.service.CategoryService;
 import per.ccm.ygmall.product.vo.CategoryVO;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,27 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         // 获取当前分类
         return categoryList.stream()
                 .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId))
-                .peek(item -> item.setChildren(setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
+                .peek(item -> item.setChildren(this.setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoryVO getCategoryByNode(String node) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 将节点转为分类ID列表
+        List<Long> categoryIdList = Arrays.stream(node.split("-")).map(Long::valueOf).collect(Collectors.toList());
+        // 获取分类列表
+        queryWrapper.in(Category::getCategoryId, categoryIdList);
+        List<CategoryVO> categoryList = ConvertUtils.converList(categoryMapper.selectList(queryWrapper), CategoryVO.class);
+        // 当前分类节点不存在
+        if (ObjectUtils.isEmpty(categoryList )) {
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B0002);
+        }
+        // 获取当前分类
+        List<CategoryVO> currentCategoryList = categoryList.stream()
+                .filter(item -> item.getParentId() == 0L)
+                .peek(item -> item.setChildren(this.setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
+        return currentCategoryList.get(0);
     }
 
     @Override

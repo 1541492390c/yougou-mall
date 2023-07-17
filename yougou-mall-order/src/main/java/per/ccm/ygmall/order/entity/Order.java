@@ -58,6 +58,11 @@ public class Order extends BaseEntity {
     private String remark;
 
     /**
+     * 下单时间
+     * */
+    private String submitTime;
+
+    /**
      * 取消时间
      * */
     private Date cancelTime;

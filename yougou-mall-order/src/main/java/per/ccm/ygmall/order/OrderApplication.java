@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "per.ccm.ygmall.api.product")
-@SpringBootApplication(scanBasePackages = {"per.ccm.ygmall"})
+@SpringBootApplication(scanBasePackages = "per.ccm.ygmall")
 public class OrderApplication {
     public static void main(String[] args) {
         SpringApplication.run(OrderApplication.class, args);

@@ -5,7 +5,7 @@
         <id column="favorite_id" property="favoriteId" jdbcType="BIGINT" />
         <result column="user_id" property="userId" jdbcType="BIGINT" />
         <result column="product_id" property="productId" jdbcType="BIGINT" />
-        <result column="product_name" property="productName" jdbcType="VARCHAR" />
+        <result column="name" property="productName" jdbcType="VARCHAR" />
         <result column="cover" property="cover" jdbcType="VARCHAR" />
     </resultMap>
 
@@ -13,7 +13,7 @@
         favorite.`favorite_id`,
         favorite.`user_id`,
         favorite.`product_id`,
-        product.`product_name`,
+        product.`name`,
         product.`cover`
     </sql>
 

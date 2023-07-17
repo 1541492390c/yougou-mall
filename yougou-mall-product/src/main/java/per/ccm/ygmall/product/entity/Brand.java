@@ -29,9 +29,9 @@ public class Brand extends BaseEntity {
     private String name;
 
     /**
-     * 分类
+     * 分类节点
      * */
-    private String categories;
+    private String categoryNode;
 
     /**
      * 品牌(logo)图片

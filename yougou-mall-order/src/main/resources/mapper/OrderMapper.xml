@@ -6,12 +6,13 @@
         <result column="user_id" property="userId" jdbcType="BIGINT" />
         <result column="state" property="state" jdbcType="TINYINT" />
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
-        <result column="is_pay" property="isPay" jdbcType="BIT" />
+        <result column="is_pay" property="isPay" jdbcType="BOOLEAN" />
         <result column="remark" property="remark" jdbcType="VARCHAR" />
-        <result column="cancel_time" property="cancelTime" jdbcType="DATE" />
-        <result column="pay_time" property="payTime" jdbcType="DATE" />
-        <result column="delivery_time" property="deliveryTime" jdbcType="DATE" />
-        <result column="finish_time" property="finishTime" jdbcType="DATE" />
+        <result column="submit_time" property="submitTime" jdbcType="DATETIMEOFFSET" />
+        <result column="cancel_time" property="cancelTime" jdbcType="DATETIMEOFFSET" />
+        <result column="pay_time" property="payTime" jdbcType="DATETIMEOFFSET" />
+        <result column="delivery_time" property="deliveryTime" jdbcType="DATETIMEOFFSET" />
+        <result column="finish_time" property="finishTime" jdbcType="DATETIMEOFFSET" />
         <association property="orderAddrVO" javaType="per.ccm.ygmall.order.vo.OrderAddrVO" fetchType="eager">
             <id column="order_addr_id" property="orderAddrId" jdbcType="BIGINT" />
             <result column="order_id" property="orderId" jdbcType="BIGINT" />
@@ -33,13 +34,13 @@
             <result column="product_name" property="productName" jdbcType="VARCHAR" />
             <result column="specs" property="specs" jdbcType="VARCHAR" />
             <result column="img" property="img" jdbcType="VARCHAR" />
-            <result column="is_comment" property="isComment" jdbcType="BIT" />
+            <result column="is_comment" property="isComment" jdbcType="BOOLEAN" />
         </collection>
     </resultMap>
 
     <sql id="order_vo_column">
         `order`.`order_id`, `order`.`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`is_pay`, `order`.`remark`,
-        `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
+        `order`.`submit_time`, `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
 
         order_addr.`order_addr_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
         order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailed_addr`,
@@ -61,6 +62,8 @@
 
     <select id="selectOrderPages" resultMap="orderVOMap">
         SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
-        WHERE `order`.`user_id` = #{userId}
+        <where>
+            <if test="userId != null">`order`.`user_id` = #{userId}</if>
+        </where>
     </select>
 </mapper>

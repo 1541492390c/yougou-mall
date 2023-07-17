@@ -8,7 +8,7 @@
         <result column="price" property="price" jdbcType="DECIMAL" />
         <result column="discount" property="discount" jdbcType="DECIMAL" />
         <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
-        <result column="is_discount" property="isDiscount" jdbcType="BIT" />
+        <result column="is_discount" property="isDiscount" jdbcType="BOOLEAN" />
         <result column="description" property="description" jdbcType="VARCHAR" />
         <collection property="skuSpecs" ofType="per.ccm.ygmall.product.vo.SkuSpecsVO" fetchType="eager">
             <result column="attr_name" property="attrName" jdbcType="VARCHAR" />

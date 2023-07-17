@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
@@ -26,6 +29,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     private BannerMapper bannerMapper;
 
     @Override
+    @CacheEvict(cacheNames = CacheNames.BANNER_CACHE_NAME, key = "#bannerDTO.type + ':' + #bannerDTO.page")
     public void save(BannerDTO bannerDTO) {
         LambdaQueryWrapper<Banner> queryWrapper = new LambdaQueryWrapper<>();
 
@@ -51,6 +55,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     }
 
     @Override
+    @Cacheable(value = CacheNames.BANNER_CACHE_NAME, key = "#type + ':' + #page", sync = true)
     public List<BannerVO> getBannerList(Integer type, String page) {
         LambdaQueryWrapper<Banner> queryWrapper = new LambdaQueryWrapper<>();
 
