@@ -3,7 +3,6 @@ package per.ccm.ygmall.common.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import per.ccm.ygmall.common.exception.ServerException;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseEntity;
 
@@ -16,8 +15,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.fail(e.getResponseCode());
     }
 
-    @ExceptionHandler(ServerException.class)
-    public ResponseEntity<Void> handle(ServerException e) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Void> handle(Exception e) {
         log.error("{}", e.getMessage());
         return ResponseEntity.fail();
     }

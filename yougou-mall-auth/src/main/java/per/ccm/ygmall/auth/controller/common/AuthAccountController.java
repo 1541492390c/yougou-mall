@@ -57,10 +57,12 @@ public class AuthAccountController {
     @Operation(summary = "退出登录", description = "退出登录")
     public ResponseEntity<Void> logout(HttpServletRequest request) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
-
+        // 读取认证token
         String bearer = request.getHeader("Authorization");
         String accessToken = TokenUtils.readToken(bearer);
-        authAccountService.removeToken(userId, accessToken);
+        // 读取ip地址
+        String ipAddress = request.getRemoteAddr();
+        authAccountService.removeToken(userId, ipAddress, accessToken);
         return ResponseEntity.success();
     }
 }

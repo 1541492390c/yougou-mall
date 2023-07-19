@@ -44,7 +44,8 @@ public interface AuthAccountService extends IService<AuthAccount> {
      * 移除token
      *
      * @param userId 用户ID
+     * @param ipAddress ip地址
      * @param accessToken 认证token
      * */
-    void removeToken(Long userId, String accessToken) throws Exception;
+    void removeToken(Long userId, String ipAddress, String accessToken) throws Exception;
 }

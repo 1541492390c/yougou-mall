@@ -76,8 +76,8 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheNames.ACCESS_TOKEN_NAME, key = "#userId")
-    public void removeToken(Long userId, String accessToken) throws Exception {
+    @CacheEvict(cacheNames = CacheNames.ACCESS_TOKEN_NAME, key = "#userId + ':' + #ipAddress")
+    public void removeToken(Long userId, String ipAddress, String accessToken) throws Exception {
         userFeign.removerUserinfoCache(userId).responseSuccess();
     }
 }
