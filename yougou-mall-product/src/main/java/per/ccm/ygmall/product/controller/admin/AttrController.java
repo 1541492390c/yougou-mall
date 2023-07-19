@@ -12,7 +12,7 @@ import per.ccm.ygmall.product.service.AttrService;
 import java.util.List;
 
 @RestController("adminAttrController")
-@RequestMapping(("/admin/product/attr"))
+@RequestMapping("/admin/product/attr")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
 @Tag(name = "商品属性接口(管理员)", description = "商品属性接口(管理员)")
 public class AttrController {

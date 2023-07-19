@@ -48,16 +48,12 @@ public class CaptchaManager {
      * */
     public Boolean validate(String ipAddress, String code) {
         Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
-        if (ObjectUtils.isEmpty(cache) || ObjectUtils.isEmpty(cache.get(ipAddress, String.class))) {
-            return Boolean.FALSE;
-        }
-        String validateCode = cache.get(ipAddress, String.class);
-        if (!ObjectUtils.isEmpty(validateCode)) {
-            // 验证成功,返回true并清除验证码缓存
-            if (ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code.toLowerCase())) {
-                cache.evict(ipAddress);
-                return Boolean.TRUE;
-            }
+        // 获取验证码
+        String validateCode = Objects.requireNonNull(cache).get(ipAddress, String.class);
+        if (!ObjectUtils.isEmpty(validateCode) && ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code.toLowerCase())) {
+            // 验证成功,则返回true并清除验证码缓存
+            cache.evict(ipAddress);
+            return Boolean.TRUE;
         }
         return Boolean.FALSE;
     }
