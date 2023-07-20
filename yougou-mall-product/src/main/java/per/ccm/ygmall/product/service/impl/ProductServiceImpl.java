@@ -74,8 +74,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     }
 
     @Override
-    public PageVO<ProductVO> getProductPages(String categoryNode, Page<Product> page) {
-        IPage<ProductVO> pageInfo = productMapper.selectProductPages(categoryNode, page);
+    public PageVO<ProductVO> getProductPages(String categoryNode, Boolean recommended, Page<Product> page) {
+        IPage<ProductVO> pageInfo = productMapper.selectProductPages(categoryNode, recommended, page);
         return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
     }
 

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.database.vo.PageVO;
@@ -25,6 +26,8 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole(@roleConfig.USER)")
+    @Operation(summary = "保存评论", description = "保存评论")
     public ResponseEntity<Void> save(@RequestBody CommentDTO commentDTO) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
 

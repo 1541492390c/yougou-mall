@@ -34,7 +34,7 @@
     </sql>
 
     <select id="selectSkuList" resultMap="skuVOMap">
-        SELECT <include refid="sku_vo_column" /> <include refid="sku_left_join_sku_specs" /> WHERE sku.`product_id` = #{productId}
+        SELECT <include refid="sku_vo_column" /> <include refid="sku_left_join_sku_specs" /> WHERE sku.`product_id` = #{productId} ORDER BY sku.`price`
     </select>
 
     <select id="selectSkuListBySkuIdList" resultMap="skuVOMap">

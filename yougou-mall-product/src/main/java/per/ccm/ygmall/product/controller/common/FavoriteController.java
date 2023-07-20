@@ -33,8 +33,8 @@ public class FavoriteController {
         return ResponseEntity.success();
     }
 
-    @GetMapping("/pages")
-    @Operation(summary = "获取收藏分页信息", description = "获取收藏分页信息")
+    @GetMapping("/my_favorite")
+    @Operation(summary = "获取用户收藏分页信息", description = "获取用户收藏分页信息")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
             @Parameter(name = "page_size", description = "页数")})
@@ -50,7 +50,7 @@ public class FavoriteController {
 
     @GetMapping("/is_favorite")
     @Operation(summary = "是否已收藏该商品", description = "传入商品ID判断是否已收藏该商品")
-    @Parameters(@Parameter(name = "product_d", description = "商品ID"))
+    @Parameters(@Parameter(name = "product_id", description = "商品ID"))
     public ResponseEntity<Boolean> isFavorite(@RequestParam("product_id") Long productId) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
         Boolean isFavorite = favoriteService.isFavorite(userId, productId);

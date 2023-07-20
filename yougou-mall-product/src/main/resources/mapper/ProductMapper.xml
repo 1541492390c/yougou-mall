@@ -35,6 +35,7 @@
         SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
             <where>
                 <if test="categoryNode != null">product.`category_node` = #{categoryNode}</if>
+                <if test="recommended != null">AND product.`recommended` = #{recommended}</if>
             </where>
     </select>
 

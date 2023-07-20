@@ -18,6 +18,7 @@ import per.ccm.ygmall.user.vo.FeedbackVO;
 
 @RestController
 @RequestMapping("/user/feedback")
+@PreAuthorize("hasRole(@roleConfig.USER)")
 @Tag(name = "用户反馈接口", description = "用户反馈接口")
 public class FeedbackController {
 
@@ -25,7 +26,6 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole(@roleConfig.USER)")
     @Operation(summary = "保存用户反馈信息", description = "保存用户反馈信息")
     public ResponseEntity<Void> save(@RequestBody FeedbackDTO feedbackDTO) throws Exception {
         feedbackService.save(feedbackDTO);
@@ -33,7 +33,6 @@ public class FeedbackController {
     }
 
     @GetMapping("/pages")
-    @PreAuthorize("hasRole(@roleConfig.USER)")
     @Operation(summary = "根据用户ID获取用户反馈信息分页列表", description = "根据用户ID获取用户反馈信息分页列表")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
@@ -46,5 +45,12 @@ public class FeedbackController {
         Page<Feedback> page = new Page<>(pageNum, pageSize);
         PageVO<FeedbackVO> pageVO = feedbackService.getFeedbackPages(userId, page);
         return ResponseEntity.success(pageVO);
+    }
+
+    @DeleteMapping("/delete")
+    @Parameter(name = "feedback_id", description = "用户反馈ID")
+    public ResponseEntity<Void> delete(@RequestParam("feedback_id") Long feedbackId) {
+        feedbackService.removeById(feedbackId);
+        return ResponseEntity.success();
     }
 }
