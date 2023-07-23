@@ -22,9 +22,6 @@ public class FeedbackDTO {
     @Schema(description = "反馈类型")
     private Long feedbackTypeId;
 
-    @Schema(description = "评分")
-    private Double rate;
-
     @Schema(description = "用户反馈类型名称")
     private String feedbackTypeName;
 

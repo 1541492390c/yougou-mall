@@ -34,11 +34,6 @@ public class Feedback extends BaseEntity {
     private Long feedbackTypeId;
 
     /**
-     * 评分
-     * */
-    private Double rate;
-
-    /**
      * 用户反馈类型名称
      * */
     private String feedbackTypeName;

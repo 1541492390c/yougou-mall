@@ -13,7 +13,7 @@ import per.ccm.ygmall.platform.vo.FeedbackTypeVO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user/feedback_type")
+@RequestMapping("/platform/feedback_type")
 @Tag(name = "用户反馈类型接口", description = "用户反馈类型接口")
 public class FeedbackTypeController {
 

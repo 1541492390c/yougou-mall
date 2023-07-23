@@ -26,9 +26,6 @@ public class FeedbackVO extends BaseVO {
     @Schema(description = "反馈类型ID")
     private Long feedbackTypeId;
 
-    @Schema(description = "用户评分")
-    private Double rate;
-
     @Schema(description = "反馈类型名称")
     private String feedbackTypeName;
 
