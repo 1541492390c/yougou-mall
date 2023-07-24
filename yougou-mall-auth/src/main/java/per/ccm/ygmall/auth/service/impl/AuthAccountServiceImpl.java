@@ -36,7 +36,7 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
 
         // 用户名已被使用
         if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getUsername, authAccountDTO.getUsername()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0007);
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0007);
         }
         // 手机号已被使用
         if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMobile, authAccountDTO.getMp()))) {
@@ -61,7 +61,7 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
         //判断原密码与传入的密码是否一致
         if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0006);
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0006);
         }
 
         String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
@@ -79,5 +79,11 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
     @CacheEvict(cacheNames = CacheNames.ACCESS_TOKEN_NAME, key = "#userId + ':' + #ipAddress")
     public void removeToken(Long userId, String ipAddress, String accessToken) throws Exception {
         userFeign.removerUserinfoCache(userId).responseSuccess();
+    }
+
+    @Override
+    public AuthAccountVO getAuthAccountInfo(Long authAccountId) {
+        AuthAccount authAccount = authAccountMapper.selectById(authAccountId);
+        return ConvertUtils.convertProperties(authAccount, AuthAccountVO.class);
     }
 }

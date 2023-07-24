@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.manager.LoginManager;
 import per.ccm.ygmall.auth.service.AuthAccountService;
+import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.security.enums.UserTypeEnum;
 import per.ccm.ygmall.security.util.SecurityContextUtils;
@@ -64,5 +65,13 @@ public class AuthAccountController {
         String ipAddress = request.getRemoteAddr();
         authAccountService.removeToken(userId, ipAddress, accessToken);
         return ResponseEntity.success();
+    }
+
+    @GetMapping("/info")
+    @Operation(summary = "获取认证授权账号信息", description = "获取认证授权账号信息")
+    public ResponseEntity<AuthAccountVO> getAuthAccountInfo() throws Exception {
+        Long authAccountId = SecurityContextUtils.getAuthAccountId();
+        AuthAccountVO authAccountVO = authAccountService.getAuthAccountInfo(authAccountId);
+        return ResponseEntity.success(authAccountVO);
     }
 }

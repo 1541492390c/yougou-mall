@@ -48,4 +48,12 @@ public interface AuthAccountService extends IService<AuthAccount> {
      * @param accessToken 认证token
      * */
     void removeToken(Long userId, String ipAddress, String accessToken) throws Exception;
+
+    /**
+     * 根据主键ID获取认证账号信息
+     *
+     * @param authAccountId 主键ID
+     * @return 认证授权账号信息
+     * */
+    AuthAccountVO getAuthAccountInfo(Long authAccountId) throws Exception;
 }
