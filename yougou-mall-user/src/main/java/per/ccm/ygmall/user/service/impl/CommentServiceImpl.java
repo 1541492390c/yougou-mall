@@ -28,7 +28,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         // 判断该订单是否已经评价
         queryWrapper.eq(Comment::getOrderId, commentDTO.getOrderId()).eq(Comment::getOrderItemId, commentDTO.getOrderItemId());
         if (commentMapper.exists(queryWrapper)) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A3001);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_B3001);
         }
         Comment comment = ConvertUtils.convertProperties(commentDTO, Comment.class);
         commentMapper.insert(comment);

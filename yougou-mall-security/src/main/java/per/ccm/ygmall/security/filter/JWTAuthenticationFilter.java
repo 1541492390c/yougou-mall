@@ -92,10 +92,10 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             // 放行
             chain.doFilter(request, response);
         } catch (SignatureVerificationException | SignatureGenerationException | JWTDecodeException e) { // token验证失败
-            String json = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0003));
+            String json = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.AUTH_ERROR_A0003));
             response.getWriter().print(json);
         } catch (TokenExpiredException e) {  // token过期
-            String json = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0011));
+            String json = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.AUTH_ERROR_A0011));
             response.getWriter().print(json);
         } catch (Exception e) { // 其他错误
             log.error("{}", e.getMessage());

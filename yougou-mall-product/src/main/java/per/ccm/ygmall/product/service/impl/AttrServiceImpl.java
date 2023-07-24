@@ -33,11 +33,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr> implements At
 
         // 判断当前商品下是否存在该属性名称
         if (this.isExist(queryWrapper, attrDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B2001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2001);
         }
         // 一个商品最多拥有5个属性
         if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B2002);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2002);
         }
         Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
         attrMapper.insert(attr);
@@ -61,7 +61,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr> implements At
 
         // 判断当前商品下是否存在该属性名称
         if (this.isExist(queryWrapper, attrDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B2001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2001);
         }
         Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
         attrMapper.updateById(attr);

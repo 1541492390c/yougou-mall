@@ -54,7 +54,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         String password = String.valueOf(authentication.getCredentials());
         // 密码错误
         if (!passwordEncoder.matches(password, authAccount.getPassword())) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0002);
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0002);
         }
         //判断登录类型是否为管理员登录
         boolean isAdmin = ObjectUtils.nullSafeEquals(params.get("type"), UserTypeEnum.ADMIN.getName())
@@ -66,7 +66,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
         // 登录类型错误
         if (!isAdmin && !isUser) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0005);
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0005);
         }
         // 登录ip地址
         String ipAddress = params.get("ip_address");
@@ -79,7 +79,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         }
         // 判断验证码是否正确
         if (!response.getData()) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0010);
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0010);
         }
         // 添加授权范围
         List<SimpleGrantedAuthority> authorities = new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority(role)));

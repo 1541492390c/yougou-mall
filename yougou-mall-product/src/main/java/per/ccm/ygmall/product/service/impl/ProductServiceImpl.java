@@ -39,7 +39,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void save(ProductDTO productDTO) {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B1001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C1001);
         }
         Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.insert(product);
@@ -89,7 +89,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void update(ProductDTO productDTO) {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B1001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C1001);
         }
         Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.updateById(product);

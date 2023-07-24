@@ -3,7 +3,6 @@ package per.ccm.ygmall.common.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import per.ccm.ygmall.common.exception.ServerException;
 
 public class JSONUtils {
 
@@ -17,7 +16,7 @@ public class JSONUtils {
         try {
             return objectMapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            throw new ServerException("JSONUtils readValue Exception -> " + e.getMessage());
+            throw new RuntimeException("JSONUtils readValue Exception -> " + e.getMessage());
         }
     }
 
@@ -25,7 +24,7 @@ public class JSONUtils {
         try {
             return objectMapper.readValue(json, valueTypeRef);
         } catch (JsonProcessingException e) {
-            throw new ServerException("JSONUtils readValue Exception -> " + e.getMessage());
+            throw new RuntimeException("JSONUtils readValue Exception -> " + e.getMessage());
         }
     }
 
@@ -33,7 +32,7 @@ public class JSONUtils {
         try {
             return objectMapper.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new ServerException("JSONUtils writeValueAsString Exception -> " + e.getMessage());
+            throw new RuntimeException("JSONUtils writeValueAsString Exception -> " + e.getMessage());
         }
     }
 }

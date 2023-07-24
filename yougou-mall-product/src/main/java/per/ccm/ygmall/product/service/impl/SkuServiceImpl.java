@@ -38,7 +38,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
         }
         // 判断sku规格是否存在
         if (skuSpecsService.isExist(skuDTO.getProductId(), skuDTO.getSkuSpecs())) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B4001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4001);
         }
         Sku sku = ConvertUtils.convertProperties(skuDTO, Sku.class);
         skuMapper.insert(sku);
@@ -82,7 +82,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
             sku.setSkuStock(sku.getSkuStock() + map.get(skuId));
             // 库存不足
             if (sku.getSkuStock() <= 0) {
-                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B4002);
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4002);
             }
             skuMapper.updateById(sku);
         }

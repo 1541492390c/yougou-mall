@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
@@ -28,16 +29,25 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     private CategoryMapper categoryMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, allEntries = true)
     public void save(CategoryDTO categoryDTO) {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
 
         // 判断分类是否已存在
         if (this.isExist(queryWrapper, categoryDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B0001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.insert(category);
+        // 插入后获取主键ID,插入分类节点
+        if (category.getLevel() == 0) { // 顶级分类
+            category.setNode(String.valueOf(category.getCategoryId()));
+        } else { // 其他分类
+            Category parentCategory = categoryMapper.selectOne(queryWrapper.eq(Category::getParentId, category.getParentId()));
+            category.setNode(parentCategory.getNode() + "-" + category.getCategoryId());
+        }
+        categoryMapper.updateById(category);
     }
 
     @Override
@@ -64,7 +74,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<CategoryVO> categoryList = ConvertUtils.converList(categoryMapper.selectList(queryWrapper), CategoryVO.class);
         // 当前分类节点不存在
         if (ObjectUtils.isEmpty(categoryList )) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B0002);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0002);
         }
         // 获取当前分类
         List<CategoryVO> currentCategoryList = categoryList.stream()
@@ -80,7 +90,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
         // 判断分类是否已存在
         if (this.isExist(queryWrapper, categoryDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B0001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.updateById(category);

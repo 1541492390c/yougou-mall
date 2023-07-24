@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
-import per.ccm.ygmall.common.exception.ServerException;
 import per.ccm.ygmall.biz.enums.ResourceTypeEnum;
 import per.ccm.ygmall.common.util.RandomUtils;
 
@@ -35,7 +34,7 @@ public class ResourceManager {
         String originalFilename = file.getOriginalFilename();
         // 文件名为空抛异常
         if (ObjectUtils.isEmpty(originalFilename)) {
-            throw new ServerException("MinioHandler-->upload error, originFilename is empty");
+            throw new RuntimeException("MinioHandler-->upload error, originFilename is empty");
         }
         // 获取文件扩展名
         String fileSuffix = originalFilename.substring(file.getOriginalFilename().indexOf('.'));

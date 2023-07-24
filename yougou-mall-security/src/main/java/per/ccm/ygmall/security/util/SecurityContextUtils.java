@@ -8,4 +8,8 @@ public class SecurityContextUtils {
     public static Long getUserId() {
         return ((AuthPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId();
     }
+
+    public static Long getAuthAccountId() {
+        return ((AuthPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAuthAccountId();
+    }
 }

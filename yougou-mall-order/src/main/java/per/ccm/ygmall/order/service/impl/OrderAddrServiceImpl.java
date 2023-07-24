@@ -23,7 +23,7 @@ public class OrderAddrServiceImpl extends ServiceImpl<OrderAddrMapper, OrderAddr
         LambdaQueryWrapper<OrderAddr> queryWrapper = new LambdaQueryWrapper<>();
         // 订单只能对应一个订单收货地址
         if (orderAddrMapper.exists(queryWrapper.eq(OrderAddr::getOrderId, orderAddrDTO.getOrderId()))) {
-            throw new YougouException(ResponseCodeEnum.ORDER_ERROR_C0001);
+            throw new YougouException(ResponseCodeEnum.ORDER_ERROR_D0001);
         }
         OrderAddr orderAddr = ConvertUtils.convertProperties(orderAddrDTO, OrderAddr.class);
         orderAddrMapper.insert(orderAddr);

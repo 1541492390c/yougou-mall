@@ -2,7 +2,6 @@ package per.ccm.ygmall.common.util;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.common.exception.ServerException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class ConvertUtils {
             }
             return targetList;
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new ServerException("ConvertUtils is Exception -> " + e.getMessage());
+            throw new RuntimeException("ConvertUtils is Exception -> " + e.getMessage());
         }
     }
 
@@ -38,14 +37,14 @@ public class ConvertUtils {
     public static <T> T convertProperties(Object source, Class<T> target) {
         try {
             if (ObjectUtils.isEmpty(source)) {
-                throw new ServerException("ConvertUtils is Exception -> source is empty");
+                throw new RuntimeException("ConvertUtils is Exception -> source is empty");
             }
             T targetObject = target.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(source, targetObject);
 
             return targetObject;
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new ServerException("ConvertUtils is Exception -> " + e.getMessage());
+            throw new RuntimeException("ConvertUtils is Exception -> " + e.getMessage());
         }
     }
 }

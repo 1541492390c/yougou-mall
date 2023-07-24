@@ -55,9 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(permissionDeniedHandler)
                 .and()
                 .authorizeRequests()
-                // 放行接口
+                // 接口白名单
                 .antMatchers(
-                        // 文档
+                        // swagger文档
                         "/v3/**",
                         // 内部接口
                         "/yougou-mall-feign/**",
@@ -69,12 +69,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/product/*", "/product/category/*", "/product/attr/*", "/product/sku/*",
                         // 平台相关接口
                         "/platform/**",
-                        // 验证码接口
+                        // 业务相关接口
                         "/biz/captcha/*",
-                        // 支付接口
+                        // 支付相关接口
                         "/payment/coupon/pages").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors();
+                .anyRequest().authenticated();
     }
 }

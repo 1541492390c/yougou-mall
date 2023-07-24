@@ -3,7 +3,6 @@ package per.ccm.ygmall.biz.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.common.exception.ServerException;
 
 @Getter
 @AllArgsConstructor
@@ -12,7 +11,12 @@ public enum ResourceTypeEnum {
     /**
      * 头像资源
      * */
-    AVATAR(1, "/avatar/");
+    AVATAR(1, "/avatar/"),
+
+    /**
+     * 用户反馈资源
+     * */
+    FEEDBACK(2, "/feedback/");
 
     private final Integer value;
 
@@ -24,6 +28,6 @@ public enum ResourceTypeEnum {
                 return resourceTypeEnum;
             }
         }
-        throw new ServerException("ResourceTypeEnum is error --> value is not exist");
+        throw new RuntimeException("ResourceTypeEnum is error --> value is not exist");
     }
 }

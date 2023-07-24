@@ -34,7 +34,7 @@ public class AttrValueServiceImpl extends ServiceImpl<AttrValueMapper, AttrValue
         // 判断传输的属性值名称是否重复
         Set<String> attrValueDTORepeatSet = attrValueList.stream().map(AttrValue::getName).collect(Collectors.toSet());
         if (attrValueDTORepeatSet.size() < attrValueDTOList.size()) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B3001);
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C3001);
         }
 
         List<Long> attrIdList = attrValueList.stream().distinct().map(AttrValue::getAttrId).collect(Collectors.toList());
@@ -73,11 +73,11 @@ public class AttrValueServiceImpl extends ServiceImpl<AttrValueMapper, AttrValue
         Map<Long, List<AttrValue>> map = attrValueMergerList.stream().collect(Collectors.groupingBy(AttrValue::getAttrId));
         for (List<AttrValue> values : map.values()) {
             if (values.size() >= 10) {
-                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B3003);
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C3003);
             }
             Set<String> valueSet = values.stream().map(AttrValue::getName).collect(Collectors.toSet());
             if (valueSet.size() < values.size()) {
-                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_B3002);
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C3002);
             }
         }
     }

@@ -28,7 +28,7 @@ public class AddrServiceImpl extends ServiceImpl<AddrMapper, Addr> implements Ad
         LambdaQueryWrapper<Addr> queryWrapper = new LambdaQueryWrapper<>();
         // 一个用户最多添加6个收货地址
         if (addrMapper.selectCount(queryWrapper.eq(Addr::getUserId, addrDTO.getUserId())) >= 6) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A2001);
+            throw new YougouException(ResponseCodeEnum.USER_ERROR_B2001);
         }
         Addr addr = ConvertUtils.convertProperties(addrDTO, Addr.class);
         addrMapper.insert(addr);

@@ -65,7 +65,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         try {
             // 判断该用户是否存在未支付订单
             if (this.isUnPayOrder(orderDTO.getUserId())) {
-                throw new YougouException(ResponseCodeEnum.ORDER_ERROR_C0002);
+                throw new YougouException(ResponseCodeEnum.ORDER_ERROR_D0002);
             }
             // 获取skuID列表
             List<Long> skuIdList = orderDTO.getOrderItemList().stream().map(OrderItemDTO::getSkuId).collect(Collectors.toList());

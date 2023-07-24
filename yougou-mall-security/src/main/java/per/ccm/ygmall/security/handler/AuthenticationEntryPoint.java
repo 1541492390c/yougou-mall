@@ -22,16 +22,16 @@ public class AuthenticationEntryPoint implements org.springframework.security.we
         String result;
 
         if (ObjectUtils.isEmpty(request.getHeader("Authorization"))) {
-            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0001));
+            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.AUTH_ERROR_A0001));
             response.getWriter().print(result);
             return;
         }
         if (authException instanceof UsernameNotFoundException || authException instanceof BadCredentialsException) {
-            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0002));
+            result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.AUTH_ERROR_A0002));
             response.getWriter().print(result);
             return;
         }
-        result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.USER_ERROR_A0003));
+        result = JSONUtils.writeValueAsString(ResponseEntity.fail(ResponseCodeEnum.AUTH_ERROR_A0003));
         response.getWriter().print(result);
     }
 }
