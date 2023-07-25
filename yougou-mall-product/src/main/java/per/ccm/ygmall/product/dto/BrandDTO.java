@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 品牌传输数据
+ * */
 @Getter
 @Setter
 @ToString

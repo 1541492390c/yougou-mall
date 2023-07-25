@@ -36,7 +36,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
         queryWrapper.eq(Banner::getPage, bannerDTO.getPage()).eq(Banner::getType, bannerDTO.getType());
         //同一个平台的同一个页面最多只能有5个轮播图
         if (bannerMapper.selectCount(queryWrapper) >= 5) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0004);
+            throw new YougouException(ResponseCodeEnum.PLATFORM_ERROR_F0001);
         }
         Banner banner = ConvertUtils.convertProperties(bannerDTO, Banner.class);
         bannerMapper.insert(banner);
