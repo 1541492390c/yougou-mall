@@ -34,4 +34,7 @@ public class FeedbackVO extends BaseVO {
 
     @Schema(description = "联系方式 (手机/电话/邮箱)")
     private String contactWay;
+
+    @Schema(description = "图片列表")
+    private String imgList;
 }

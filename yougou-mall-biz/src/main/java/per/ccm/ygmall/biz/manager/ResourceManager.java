@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
+import per.ccm.ygmall.biz.config.MinioConfig;
 import per.ccm.ygmall.biz.enums.ResourceTypeEnum;
 import per.ccm.ygmall.common.util.RandomUtils;
 
@@ -48,7 +49,7 @@ public class ResourceManager {
                 .build();
         minioClient.putObject(args);
         // 上传成功后返回文件地址
-        return endpoint + objectName;
+        return endpoint + "/" + MinioConfig.URL_PREFIX + "/" + objectName;
     }
 
     /**

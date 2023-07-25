@@ -27,7 +27,7 @@ public class FeedbackTypeServiceImpl extends ServiceImpl<FeedbackTypeMapper, Fee
 
         // 判断用户反馈类型名称是否存在
         if (feedbackTypeMapper.exists(queryWrapper.eq(FeedbackType::getName, feedbackTypeDTO.getName()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_B1001);
+            throw new YougouException(ResponseCodeEnum.PLATFORM_ERROR_F1001);
         }
         FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.insert(feedbackType);
@@ -46,7 +46,7 @@ public class FeedbackTypeServiceImpl extends ServiceImpl<FeedbackTypeMapper, Fee
 
         // 判断用户反馈类型名称是否存在
         if (feedbackTypeMapper.exists(queryWrapper.eq(FeedbackType::getName, feedbackTypeDTO.getName()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_B1001);
+            throw new YougouException(ResponseCodeEnum.PLATFORM_ERROR_F1001);
         }
         FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.updateById(feedbackType);

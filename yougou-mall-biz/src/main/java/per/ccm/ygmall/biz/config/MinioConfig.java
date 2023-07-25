@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MinioConfig {
 
+    public static final String URL_PREFIX = "yougou-mall-resource";
+
     @Value("${minio.endpoint}")
     private String endpoint;
 

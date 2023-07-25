@@ -83,9 +83,9 @@ public enum ResponseCodeEnum {
     USER_ERROR_B0001("B0001", "用户不存在"),
 
     /**
-     * 用户反馈类型已存在
+     * 同一个反馈最多拥有6张图片
      * */
-    USER_ERROR_B1001("B1001", "用户反馈类型已存在"),
+    USER_ERROR_B1001("B1001", "同一个反馈最多拥有6张图片"),
 
     /**
      * 最多添加6个收货地址
@@ -170,7 +170,18 @@ public enum ResponseCodeEnum {
     /**
      * 优惠券已领取完
      * */
-    PAYMENT_ERROR_E0002("E0001", "优惠券已领取完");
+    PAYMENT_ERROR_E0002("E0001", "优惠券已领取完"),
+
+    /**
+     * 同一个页面只能拥有5个轮播图
+     * */
+    PLATFORM_ERROR_F0001("F0001,", "同一个页面只能拥有5个轮播图"),
+
+    /**
+     * 用户反馈类型已存在
+     * */
+    PLATFORM_ERROR_F1001("F1001", "用户反馈类型已存在")
+    ;
 
     private final String value;
 

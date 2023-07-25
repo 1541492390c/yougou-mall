@@ -47,4 +47,9 @@ public class Feedback extends BaseEntity {
      * 联系方式 (手机/电话/邮箱)
      * */
     private String contactWay;
+
+    /**
+     * 图片列表
+     * */
+    private String imgList;
 }
