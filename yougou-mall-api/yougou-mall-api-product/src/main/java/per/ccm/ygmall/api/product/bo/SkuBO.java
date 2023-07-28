@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -29,17 +30,12 @@ public class SkuBO {
     /**
      * 单价
      * */
-    private Double price;
+    private BigDecimal price;
 
     /**
      * 折扣价格
      * */
-    private Double discountPrice;
-
-    /**
-     * 是否折扣
-     * */
-    private Boolean isDiscount;
+    private BigDecimal discountPrice;
 
     /**
      * sku规格内部传输数据列表

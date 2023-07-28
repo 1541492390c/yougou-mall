@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 商品Sku
  * */
@@ -34,22 +36,11 @@ public class Sku extends BaseEntity {
     /**
      * sku价格
      * */
-    private Double price;
-
-    /**
-     * 折扣
-     * */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
-    private Double discount;
+    private BigDecimal price;
 
     /**
      * 折扣价格
      * */
     @TableField(updateStrategy = FieldStrategy.IGNORED)
-    private Double discountPrice;
-
-    /**
-     * 是否折扣
-     * */
-    private Boolean isDiscount;
+    private BigDecimal discountPrice;
 }

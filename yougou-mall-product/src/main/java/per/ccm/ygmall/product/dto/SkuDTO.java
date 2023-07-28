@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,19 +26,13 @@ public class SkuDTO {
     private Integer skuStock;
 
     @Schema(description = "sku价格")
-    private Double price;
-
-    @Schema(description = "折扣")
-    private Double discount;
+    private BigDecimal price;
 
     @Schema(description = "折扣价格")
-    private Double discountPrice;
+    private BigDecimal discountPrice;
 
     @Schema(description = "sku描述")
     private String description;
-
-    @Schema(description = "是否折扣")
-    private Boolean isDiscount;
 
     @Schema(description = "商品规格")
     private List<SkuSpecsDTO> skuSpecs;

@@ -9,6 +9,7 @@ import org.redisson.api.RLock;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.api.product.bo.SkuSpecsBO;
@@ -30,6 +31,7 @@ import per.ccm.ygmall.order.service.OrderService;
 import per.ccm.ygmall.order.vo.OrderVO;
 import per.ccm.ygmall.rabbitmq.config.RabbitmqConfig;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,22 +80,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             List<OrderItemDTO> saveOrderItemDTOList = new ArrayList<>();
             // 设置更新的sku库存与skuID
             Map<Long, Integer> skuStockMap = new HashMap<>();
-            double orderTotalAmount = 0;
+            // 当前订单项总额初始值
+            BigDecimal orderTotalAmount = new BigDecimal(0);
             for (ProductBO productBO : productBOList) {
                 for (SkuBO skuBO : productBO.getSkuBOList()) {
                     List<OrderItemDTO> orderItemDTOList = map.get(skuBO.getSkuId());
                     // 计算购买数量
-                    Integer quantity = orderItemDTOList.stream().mapToInt(OrderItemDTO::getQuantity).sum();
-                    // 计算订单项总价值
-                    double totalAmount = 0;
-                    // 判断该sku是否有折扣
-                    if (skuBO.getIsDiscount()) {
-                        totalAmount += skuBO.getDiscountPrice() * quantity;
-                    } else {
-                        totalAmount += skuBO.getPrice() * quantity;
-                    }
+                    int quantity = orderItemDTOList.stream().mapToInt(OrderItemDTO::getQuantity).sum();
+                    // 计算当前订单项总价值
+                    BigDecimal currentItemTotalAmount = this.getCurrentItemTotalAmount(skuBO, quantity);
                     // 计算订单总额
-                    orderTotalAmount += totalAmount;
+                    orderTotalAmount = orderTotalAmount.add(currentItemTotalAmount);
                     // 转换sku规格格式
                     String specs = this.transformSkuSpecs(skuBO.getSkuSpecsBOList());
                     // 新建订单项
@@ -107,7 +104,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     orderItemDTO.setSpecs(specs);
                     // 设置订单项属性
                     orderItemDTO.setQuantity(quantity);
-                    orderItemDTO.setTotalAmount(totalAmount);
+                    orderItemDTO.setTotalAmount(currentItemTotalAmount);
                     saveOrderItemDTOList.add(orderItemDTO);
                     // 设置需要更新的skuID与库存
                     skuStockMap.put(skuBO.getSkuId(), (-quantity));
@@ -178,5 +175,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             skuSpecsMap.put(skuSpecsBO.getAttrName(), skuSpecsBO.getAttrValueName());
         }
         return JSONUtils.writeValueAsString(skuSpecsMap);
+    }
+
+    /**
+     * 计算当前订单项总额
+     *
+     * @param skuBO sku内部传输数据
+     * @param quantity 数量
+     * @return 前订单项总额
+     * */
+    private BigDecimal getCurrentItemTotalAmount(SkuBO skuBO, int quantity) {
+        BigDecimal currentItemTotalAmount = new BigDecimal(0);
+        // 判断该sku是否有折扣价格
+        if (!ObjectUtils.isEmpty(skuBO.getDiscountPrice())) {
+            currentItemTotalAmount = currentItemTotalAmount.add(skuBO.getDiscountPrice().multiply(new BigDecimal(quantity)));
+        } else {
+            currentItemTotalAmount = currentItemTotalAmount.add(skuBO.getPrice().multiply(new BigDecimal(quantity)));
+        }
+        return currentItemTotalAmount;
     }
 }

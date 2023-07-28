@@ -65,7 +65,6 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
             skuBO.setProductId(skuVO.getProductId());
             skuBO.setSkuStock(skuVO.getSkuStock());
             skuBO.setPrice(skuVO.getPrice());
-            skuBO.setIsDiscount(skuVO.getIsDiscount());
             skuBO.setDiscountPrice(skuVO.getDiscountPrice());
             // 设置sku规格列表
             List<SkuSpecsBO> skuSpecsBOList = ConvertUtils.converList(skuVO.getSkuSpecs(), SkuSpecsBO.class);

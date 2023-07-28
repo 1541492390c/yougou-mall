@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class OrderVO extends BaseVO {
     private Integer state;
 
     @Schema(description = "总金额")
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
     @Schema(description = "是否支付")
     private Boolean isPay;

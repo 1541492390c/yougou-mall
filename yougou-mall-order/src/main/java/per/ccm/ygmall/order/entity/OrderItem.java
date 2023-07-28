@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 订单项
  * */
@@ -46,7 +48,7 @@ public class OrderItem extends BaseEntity {
     /**
      * 总金额
      * */
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
     /**
      * 商品名称

@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
+import java.math.BigDecimal;
+
 /**
  * 订单项信息
  * */
@@ -34,7 +36,7 @@ public class OrderItemVO extends BaseVO {
     private Integer quantity;
 
     @Schema(description = "总金额")
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
     @Schema(description = "商品名称")
     private String productName;

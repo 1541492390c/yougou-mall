@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 /**
  * 订单项传输数据
  * */
@@ -26,7 +28,7 @@ public class OrderItemDTO {
     private Integer quantity;
 
     @Schema(description = "总金额")
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
     @Schema(description = "商品名称")
     private String productName;
