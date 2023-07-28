@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.ccm.ygmall.payment.mapper.CouponUserMapper">
+    <resultMap id="couponUserMap" type="per.ccm.ygmall.payment.vo.CouponUserVO">
+        <id column="coupon_user_id" property="couponUserId" jdbcType="BIGINT" />
+        <result column="coupon_id" property="couponId" jdbcType="BIGINT" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="expired_time" property="expiredTime" jdbcType="DATETIMEOFFSET" />
+        <association property="coupon" javaType="per.ccm.ygmall.payment.vo.CouponVO" fetchType="eager">
+            <id column="coupon_id" property="couponId" jdbcType="BIGINT" />
+            <result column="quota" property="quota" jdbcType="INTEGER" />
+            <result column="expired" property="expired" jdbcType="INTEGER" />
+            <result column="take_count" property="takeCount" jdbcType="DECIMAL" />
+            <result column="used_amount" property="usedAmount" jdbcType="DECIMAL" />
+            <result column="category_node" property="categoryNode" jdbcType="VARCHAR" />
+            <result column="description" property="description" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <sql id="coupon_user_vo_column">
+        coupon_user.`coupon_user_id`, coupon_user.`coupon_id`, coupon_user.`state`, coupon_user.`expired_time`,
+        coupon.`coupon_id`, coupon.`quota`, coupon.`expired`, coupon.`take_count`, coupon.`used_amount`, coupon.`category_node`, coupon.`description`
+    </sql>
+
+    <sql id="coupon_user_left_join_coupon">
+        FROM coupon_user LEFT JOIN coupon ON coupon_user.`coupon_id` = coupon.`coupon_id`
+    </sql>
+
+    <select id="selectCouponUserListByUserId" resultMap="couponUserMap">
+        SELECT <include refid="coupon_user_vo_column" /> <include refid="coupon_user_left_join_coupon" /> WHERE coupon_user.`user_id` = #{userId}
+    </select>
+</mapper>
