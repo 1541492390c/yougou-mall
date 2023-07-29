@@ -2,6 +2,7 @@ package per.ccm.ygmall.order.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import per.ccm.ygmall.api.order.bo.OrderBO;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.entity.Order;
@@ -9,11 +10,19 @@ import per.ccm.ygmall.order.vo.OrderVO;
 
 public interface OrderService extends IService<Order> {
     /**
-     * 保存订单信息
+     * 保存订单信息,返回订单号
      *
      * @param orderDTO 订单传输数据
      * */
-    void save(OrderDTO orderDTO) throws Exception;
+    Long save(OrderDTO orderDTO) throws Exception;
+
+    /**
+     * 根据主键ID获取订单内部传输数据
+     *
+     * @param orderId 主键ID
+     * @return 订单内部传输数据
+     * */
+    OrderBO getOrderBOById(Long orderId) throws Exception;
 
     /**
      * 根据主键ID获取订单信息

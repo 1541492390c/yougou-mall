@@ -54,6 +54,11 @@ public class Order extends BaseEntity {
     private Boolean enabled;
 
     /**
+     * 订单号
+     * */
+    private String orderNo;
+
+    /**
      * 备注
      * */
     private String remark;

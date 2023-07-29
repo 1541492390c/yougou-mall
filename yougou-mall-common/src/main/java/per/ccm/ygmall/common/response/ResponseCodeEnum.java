@@ -2,6 +2,7 @@ package per.ccm.ygmall.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.util.ObjectUtils;
 
 @Getter
 @AllArgsConstructor
@@ -21,6 +22,11 @@ public enum ResponseCodeEnum {
      * 传输参数错误
      * */
     SERVER_ERROR_00002("00002", "传输参数错误"),
+
+    /**
+     * 第三方接口错误
+     * */
+    SERVER_ERROR_00003("00003", "第三方接口错误"),
 
     /**
      * 用户未登录,请先登录
@@ -186,4 +192,13 @@ public enum ResponseCodeEnum {
     private final String value;
 
     private final String message;
+
+    public static ResponseCodeEnum getValueOf(String value) {
+        for (ResponseCodeEnum responseCodeEnum : ResponseCodeEnum.values()) {
+            if (ObjectUtils.nullSafeEquals(responseCodeEnum.getValue(), value)) {
+                return responseCodeEnum;
+            }
+        }
+        throw new RuntimeException("ResourceTypeEnum is error --> value is not exist");
+    }
 }

@@ -29,7 +29,7 @@ public class OrderItemVO extends BaseVO {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long productId;
 
-    @Schema(description = "SkuID")
+    @Schema(description = "skuID")
     private Long skuId;
 
     @Schema(description = "数量")

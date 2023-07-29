@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         // 业务相关接口
                         "/biz/captcha/*",
                         // 支付相关接口
-                        "/payment/coupon/pages").permitAll()
+                        "/payment/coupon/pages", "/payment/alipay_notify").permitAll()
                 .anyRequest().authenticated();
     }
 }

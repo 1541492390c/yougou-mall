@@ -80,7 +80,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
             Sku sku = skuMapper.selectById(skuId);
             sku.setSkuStock(sku.getSkuStock() + map.get(skuId));
             // 库存不足
-            if (sku.getSkuStock() <= 0) {
+            if (sku.getSkuStock() < 0) {
                 throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4002);
             }
             skuMapper.updateById(sku);

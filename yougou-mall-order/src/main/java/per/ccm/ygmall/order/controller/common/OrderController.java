@@ -25,12 +25,20 @@ public class OrderController {
 
     @PostMapping("/submit")
     @Operation(summary = "提交订单", description = "提交订单")
-    public ResponseEntity<Void> submit(@RequestBody OrderDTO orderDTO) throws Exception {
+        public ResponseEntity<String> submit(@RequestBody OrderDTO orderDTO) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
 
         orderDTO.setUserId(userId);
-        orderService.save(orderDTO);
-        return ResponseEntity.success();
+        Long orderId = orderService.save(orderDTO);
+        // 需要将Long转为String,否则前端数据会丢失精度
+        return ResponseEntity.success(String.valueOf(orderId));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "根据ID获取订单信息", description = "根据ID获取订单信息")
+    public ResponseEntity<OrderVO> getOrderById(@PathVariable("id") Long orderId) throws Exception {
+        OrderVO orderVO = orderService.getOrderById(orderId);
+        return ResponseEntity.success(orderVO);
     }
 
     @GetMapping("/pages")

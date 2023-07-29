@@ -38,6 +38,9 @@ public class OrderVO extends BaseVO {
     @Schema(description = "是否支付")
     private Boolean isPay;
 
+    @Schema(description = "订单号")
+    private String orderNo;
+
     @Schema(description = "备注")
     private String remark;
 

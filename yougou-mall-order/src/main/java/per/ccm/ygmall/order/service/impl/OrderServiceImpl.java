@@ -1,6 +1,7 @@
 package per.ccm.ygmall.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -10,12 +11,15 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.api.order.bo.OrderBO;
+import per.ccm.ygmall.api.order.bo.OrderItemBO;
 import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.api.product.bo.SkuBO;
 import per.ccm.ygmall.api.product.bo.SkuSpecsBO;
 import per.ccm.ygmall.api.product.feign.ProductFeign;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
+import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.util.ConvertUtils;
 import per.ccm.ygmall.common.util.JSONUtils;
 import per.ccm.ygmall.database.vo.PageVO;
@@ -62,7 +66,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     @GlobalTransactional(rollbackFor = Exception.class)
-    public void save(OrderDTO orderDTO) throws Exception {
+    public Long save(OrderDTO orderDTO) throws Exception {
         rLock.lock();
         try {
             // 判断该用户是否存在未支付订单
@@ -111,8 +115,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                 }
             }
             Order order = new Order();
+            // 设置订单号
+            order.setOrderNo("YG" + (new DefaultIdentifierGenerator().nextId(order)));
+            // 设置用户ID
             order.setUserId(orderDTO.getUserId());
+            // 设置订单状态
             order.setState(OrderStateEnum.WAIT_PAY.getValue());
+            // 设置订单总金额
             order.setTotalAmount(orderTotalAmount);
             // 保存订单
             orderMapper.insert(order);
@@ -124,14 +133,28 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             // 保存订单项
             orderItemService.batchSave(saveOrderItemDTOList);
             // 减少商品库存,如果失败,则抛异常回滚
-            if (!productFeign.updateSkuStock(skuStockMap).responseSuccess()) {
-                throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
+            ResponseEntity<Void> response = productFeign.updateSkuStock(skuStockMap);
+            if (!response.responseSuccess()) {
+                throw new YougouException(ResponseCodeEnum.getValueOf(response.getCode()));
             }
             //将订单加入延时队列
             rabbitTemplate.convertAndSend(RabbitmqConfig.DIRECT_EXCHANGE, RabbitmqConfig.ORDER_DELAY_ROUTING_KEY, order.getOrderId());
+            // 返回订单号
+            return order.getOrderId();
         } finally {
             rLock.unlock();
         }
+    }
+
+    @Override
+    public OrderBO getOrderBOById(Long orderId) {
+        OrderVO orderVO = orderMapper.selectOrderById(orderId);
+        // 创建订单内部传输数据
+        OrderBO orderBO = ConvertUtils.convertProperties(orderVO, OrderBO.class);
+        // 创建订单项内部传输数据
+        List<OrderItemBO> orderItemBOList = ConvertUtils.converList(orderVO.getOrderItemList(), OrderItemBO.class);
+        orderBO.setOrderItemBOList(orderItemBOList);
+        return orderBO;
     }
 
     @Override
