@@ -5,21 +5,27 @@
         <id column="product_id" property="productId" jdbcType="BIGINT" />
         <result column="brand_id" property="brandId" jdbcType="BIGINT" />
         <result column="state" property="state" jdbcType="TINYINT" />
+        <result column="discount" property="discount" jdbcType="INTEGER" />
         <result column="category_node" property="categoryNode" jdbcType="VARCHAR" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="cover" property="cover" jdbcType="VARCHAR" />
         <result column="img_list" property="imgList" jdbcType="VARCHAR" />
         <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="is_discount" property="isDiscount" jdbcType="BOOLEAN" />
+        <result column="recommended" property="recommended" jdbcType="BOOLEAN" />
     </resultMap>
 
     <sql id="product_vo_column">
         product.`product_id`,
         product.`brand_id`,
         product.`state`,
+        product.`discount`,
         product.`category_node`,
         product.`name`,
         product.`cover`,
         product.`img_list`,
+        product.`is_discount`,
+        product.`recommended`,
         (SELECT MIN(sku.`price`) FROM sku WHERE sku.`product_id` = product.`product_id`) AS `price`
     </sql>
 

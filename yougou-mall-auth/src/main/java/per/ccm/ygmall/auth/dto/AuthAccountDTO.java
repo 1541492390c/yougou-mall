@@ -29,7 +29,7 @@ public class AuthAccountDTO {
     private String email;
 
     @Schema(description = "手机号")
-    private String mp;
+    private String mobile;
 
     @Schema(description = "角色")
     private String role;

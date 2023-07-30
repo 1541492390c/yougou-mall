@@ -95,11 +95,13 @@ public class AliPayManager {
             paymentLog.setTotalAmount(new BigDecimal(params.get("buyer_pay_amount")));
             paymentLogService.save(paymentLog);
             // 更新订单为已支付
-            orderFeign.paySuccess(params.get("out_trade_no"));
+            ResponseEntity<Void> response = orderFeign.paySuccess(params.get("out_trade_no"));
             // 抛异常回滚
-            if (!orderFeign.paySuccess(params.get("out_trade_no")).responseSuccess()) {
+            if (!response.responseSuccess()) {
                 throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
             }
+        } else {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00003);
         }
     }
 

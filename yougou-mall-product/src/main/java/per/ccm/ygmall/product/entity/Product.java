@@ -35,6 +35,11 @@ public class Product extends BaseEntity {
     private Integer state;
 
     /**
+     * 折扣
+     * */
+    private Integer discount;
+
+    /**
      * 分类节点
      * */
     private String categoryNode;
@@ -53,6 +58,11 @@ public class Product extends BaseEntity {
      * 商品列表
      * */
     private String imgList;
+
+    /**
+     * 是否折扣
+     * */
+    private Boolean isDiscount;
 
     /**
      * 是否推荐

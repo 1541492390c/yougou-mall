@@ -39,7 +39,7 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
             throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0007);
         }
         // 手机号已被使用
-        if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMobile, authAccountDTO.getMp()))) {
+        if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMobile, authAccountDTO.getMobile()))) {
             throw new YougouException(ResponseCodeEnum.USER_ERROR_A0008);
         }
         AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);

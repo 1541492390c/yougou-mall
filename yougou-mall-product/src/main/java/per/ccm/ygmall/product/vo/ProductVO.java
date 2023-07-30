@@ -26,6 +26,9 @@ public class ProductVO extends BaseVO {
     @Schema(description = "商品状态 0-上架 1-已下架")
     private Integer state;
 
+    @Schema(description = "折扣")
+    private Integer discount;
+
     @Schema(description = "sku最低价")
     private Double price;
 
@@ -40,4 +43,10 @@ public class ProductVO extends BaseVO {
 
     @Schema(description = "商品图片列表")
     private String imgList;
+
+    @Schema(description = "是否折扣")
+    private Boolean isDiscount;
+
+    @Schema(description = "是否推荐")
+    private Boolean recommended;
 }
