@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
+import java.math.BigDecimal;
+
 /**
  * 商品信息
  * */
@@ -30,7 +32,10 @@ public class ProductVO extends BaseVO {
     private Integer discount;
 
     @Schema(description = "sku最低价")
-    private Double price;
+    private BigDecimal price;
+
+    @Schema(description = "sku最低折扣价")
+    private BigDecimal discountPrice;
 
     @Schema(description = "分类节点")
     private String categoryNode;

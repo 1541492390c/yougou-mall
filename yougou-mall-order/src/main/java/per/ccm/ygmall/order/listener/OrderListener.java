@@ -34,7 +34,7 @@ public class OrderListener {
     @GlobalTransactional(rollbackFor = Exception.class)
     public void cancelOrder(Long orderId) throws Exception {
         OrderVO orderVO = orderService.getOrderById(orderId);
-        if (!orderVO.getIsPay() && ObjectUtils.nullSafeEquals(orderVO.getState(), OrderStateEnum.WAIT_PAY.getValue())) {
+        if (!ObjectUtils.isEmpty(orderVO) && !orderVO.getIsPay() && ObjectUtils.nullSafeEquals(orderVO.getState(), OrderStateEnum.WAIT_PAY.getValue())) {
             // 更新订单
             OrderDTO orderDTO = ConvertUtils.convertProperties(orderVO, OrderDTO.class);
             orderDTO.setCancelTime(new Date());

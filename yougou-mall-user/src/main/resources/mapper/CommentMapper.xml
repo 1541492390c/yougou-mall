@@ -8,14 +8,17 @@
         <result column="order_id" property="orderId" jdbcType="BIGINT" />
         <result column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
         <result column="rate" property="rate" jdbcType="DECIMAL" />
-        <result column="text" property="text" jdbcType="VARCHAR" />
-        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="img_list" property="imgList" jdbcType="VARCHAR" />
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
         <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="DATETIMEOFFSET" />
     </resultMap>
 
     <sql id="comment_vo_column">
-        comment.`comment_id`, comment.`user_id`, comment.`product_id`, comment.`order_id`, comment.`order_item_id`, comment.`rate`, comment.`text`,
-        `user`.username, `user`.avatar
+        comment.`comment_id`, comment.`user_id`, comment.`product_id`, comment.`order_id`,
+        comment.`order_item_id`, comment.`rate`, comment.`content`, comment.`img_list`, comment.`create_time`,
+        `user`.nickname, `user`.avatar
     </sql>
 
     <sql id="comment_left_join_user">
@@ -25,11 +28,11 @@
     <select id="selectRateStatistics" resultType="per.ccm.ygmall.user.vo.RateStatisticsVO">
         SELECT
         AVG(`rate`) AS average,
-        COUNT(`rate` = 5) AS fiveCount,
-        COUNT(`rate` = 4) AS fourCount,
-        COUNT(`rate` = 3) AS threeCount,
-        COUNT(`rate` = 2) AS twoCount,
-        COUNT(`rate` = 1) AS oneCount
+        SUM(`rate` = 5) AS fiveCount,
+        SUM(`rate` = 4) AS fourCount,
+        SUM(`rate` = 3) AS threeCount,
+        SUM(`rate` = 2) AS twoCount,
+        SUM(`rate` = 1) AS oneCount
         FROM comment WHERE `product_id` = #{productId}
     </select>
 
@@ -37,7 +40,7 @@
         SELECT <include refid="comment_vo_column" /> <include refid="comment_left_join_user" />
         <where>
             <if test="userId != null">comment.`user_id` = #{userId}</if>
-            <if test="productId != null">comment.`product_id` = #{productId}</if>
+            <if test="productId != null">AND comment.`product_id` = #{productId}</if>
         </where>
     </select>
 </mapper>

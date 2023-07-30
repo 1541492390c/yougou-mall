@@ -16,7 +16,12 @@ public enum ResourceTypeEnum {
     /**
      * 用户反馈资源
      * */
-    FEEDBACK(2, "/feedback/");
+    FEEDBACK(2, "/feedback/"),
+
+    /**
+     * 用户评论资源
+     * */
+    COMMENT(3, "/comment/");
 
     private final Integer value;
 

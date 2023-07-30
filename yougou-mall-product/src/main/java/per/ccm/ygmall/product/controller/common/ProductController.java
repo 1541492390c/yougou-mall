@@ -35,15 +35,17 @@ public class ProductController {
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
             @Parameter(name = "page_size", description = "页数"),
+            @Parameter(name = "is_discount", description = "是否折扣"),
             @Parameter(name = "recommended", description = "是否推荐"),
             @Parameter(name = "category_node", description = "分类节点")})
     public ResponseEntity<PageVO<ProductVO>> getByCategories(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "is_discount", required = false) Boolean isDiscount,
             @RequestParam(value = "recommended", required = false) Boolean recommended,
             @RequestParam(value = "category_node", required = false) String categoryNode) throws Exception {
         Page<Product> page = new Page<>(pageNum, pageSize);
-        PageVO<ProductVO> pageVO = productService.getProductPages(categoryNode, recommended, page);
+        PageVO<ProductVO> pageVO = productService.getProductPages(categoryNode, isDiscount, recommended, page);
         return ResponseEntity.success(pageVO);
     }
 

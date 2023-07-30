@@ -31,6 +31,9 @@ public class CommentDTO {
     @Schema(description = "评分")
     private Double rate;
 
+    @Schema(description = "图片列表")
+    private String imgList;
+
     @Schema(description = "评价内容")
-    private String text;
+    private String content;
 }

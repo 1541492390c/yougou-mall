@@ -49,7 +49,12 @@ public class Comment extends BaseEntity {
     private Double rate;
 
     /**
+     * 图片列表
+     * */
+    private String imgList;
+
+    /**
      * 评价内容
      * */
-    private String text;
+    private String content;
 }

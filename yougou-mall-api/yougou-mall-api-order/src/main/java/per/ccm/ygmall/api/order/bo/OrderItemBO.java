@@ -45,4 +45,9 @@ public class OrderItemBO {
      * 商品名称
      * */
     private String productName;
+
+    /**
+     * 是否评论
+     * */
+    private Boolean isComment;
 }

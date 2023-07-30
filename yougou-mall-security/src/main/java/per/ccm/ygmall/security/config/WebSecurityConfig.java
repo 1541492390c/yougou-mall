@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         // 登录相关接口
                         "/auth/login", "/admin/auth/login",
                         // 用户相关接口
-                        "/user/register", "/user/comment/rate_statistics",
+                        "/user/register", "/user/comment/rate_statistics", "/user/comment/pages",
                         // 商品相关接口
                         "/product/*", "/product/category/*", "/product/attr/*", "/product/sku/*",
                         // 平台相关接口

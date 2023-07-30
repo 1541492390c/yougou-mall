@@ -139,7 +139,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             }
             //将订单加入延时队列
             rabbitTemplate.convertAndSend(RabbitmqConfig.DIRECT_EXCHANGE, RabbitmqConfig.ORDER_DELAY_ROUTING_KEY, order.getOrderId());
-            // 返回订单号
+            // 返回订单ID
             return order.getOrderId();
         } finally {
             rLock.unlock();

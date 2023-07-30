@@ -26,7 +26,8 @@
         product.`img_list`,
         product.`is_discount`,
         product.`recommended`,
-        (SELECT MIN(sku.`price`) FROM sku WHERE sku.`product_id` = product.`product_id`) AS `price`
+        (SELECT MIN(sku.`price`) FROM sku WHERE sku.`product_id` = product.`product_id`) AS `price`,
+        (SELECT MIN(sku.`discount_price`) FROM sku WHERE sku.`product_id` = product.`product_id`) AS `discount_price`
     </sql>
 
     <sql id="product_left_join_sku">
@@ -41,6 +42,7 @@
         SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
             <where>
                 <if test="categoryNode != null">product.`category_node` = #{categoryNode}</if>
+                <if test="isDiscount != null">product.`is_discount` = #{isDiscount}</if>
                 <if test="recommended != null">AND product.`recommended` = #{recommended}</if>
             </where>
     </select>

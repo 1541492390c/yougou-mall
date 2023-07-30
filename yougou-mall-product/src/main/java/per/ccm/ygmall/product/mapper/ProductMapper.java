@@ -13,7 +13,8 @@ import java.util.List;
 public interface ProductMapper extends BaseMapper<Product> {
     List<ProductVO> selectRecommendedProductList();
 
-    Page<ProductVO> selectProductPages(@Param("categoryNode") String categoryNode, @Param("recommended") Boolean recommended, Page<Product> page);
+    Page<ProductVO> selectProductPages(@Param("categoryNode") String categoryNode, @Param("isDiscount") Boolean isDiscount,
+            @Param("recommended") Boolean recommended, Page<Product> page);
 
     ProductVO selectProductByProductId(Long productId);
 }
