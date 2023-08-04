@@ -12,12 +12,12 @@
         <result column="img_list" property="imgList" jdbcType="VARCHAR" />
         <result column="nickname" property="nickname" jdbcType="VARCHAR" />
         <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="DATETIMEOFFSET" />
+        <result column="comment_time" property="commentTime" jdbcType="DATETIMEOFFSET" />
     </resultMap>
 
     <sql id="comment_vo_column">
         comment.`comment_id`, comment.`user_id`, comment.`product_id`, comment.`order_id`,
-        comment.`order_item_id`, comment.`rate`, comment.`content`, comment.`img_list`, comment.`create_time`,
+        comment.`order_item_id`, comment.`rate`, comment.`content`, comment.`img_list`, comment.`comment_time`,
         `user`.nickname, `user`.avatar
     </sql>
 

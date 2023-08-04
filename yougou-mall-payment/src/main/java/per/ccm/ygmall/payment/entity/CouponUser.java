@@ -41,6 +41,11 @@ public class CouponUser extends BaseEntity {
     private Integer state;
 
     /**
+     * 领取时间
+     * */
+    private Date receiveTime;
+
+    /**
      * 过期时间
      * */
     private Date expiredTime;

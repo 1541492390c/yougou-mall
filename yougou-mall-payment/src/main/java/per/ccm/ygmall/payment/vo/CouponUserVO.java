@@ -29,8 +29,12 @@ public class CouponUserVO extends BaseVO {
     @Schema(description = "优惠券状态 0-已使用 1-已过期 2-待使用")
     private Integer state;
 
+    @Schema(description = "领取时间")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date receiveTime;
+
     @Schema(description = "过期时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date expiredTime;
 
     @Schema(description = "优惠券信息")

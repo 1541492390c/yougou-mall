@@ -52,7 +52,7 @@ public class CommentVO extends BaseVO {
     @Schema(description = "图片列表")
     private String imgList;
 
-    @Schema(description = "创建时间")
+    @Schema(description = "评价时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-    private Date createTime;
+    private Date commentTime;
 }

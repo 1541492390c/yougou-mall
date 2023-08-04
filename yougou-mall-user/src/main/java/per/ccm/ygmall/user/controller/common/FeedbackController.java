@@ -28,6 +28,9 @@ public class FeedbackController {
     @PostMapping("/save")
     @Operation(summary = "保存用户反馈信息", description = "保存用户反馈信息")
     public ResponseEntity<Void> save(@RequestBody FeedbackDTO feedbackDTO) throws Exception {
+        Long userId = SecurityContextUtils.getUserId();
+
+        feedbackDTO.setUserId(userId);
         feedbackService.save(feedbackDTO);
         return ResponseEntity.success();
     }

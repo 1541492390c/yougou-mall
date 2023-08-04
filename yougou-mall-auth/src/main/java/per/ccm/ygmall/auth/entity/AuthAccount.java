@@ -44,6 +44,7 @@ public class AuthAccount extends BaseEntity {
     /**
      * 电子邮箱
      * */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String email;
 
     /**

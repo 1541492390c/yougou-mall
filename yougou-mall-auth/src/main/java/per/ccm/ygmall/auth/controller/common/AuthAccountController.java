@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
 import per.ccm.ygmall.auth.manager.LoginManager;
 import per.ccm.ygmall.auth.service.AuthAccountService;
@@ -45,6 +46,17 @@ public class AuthAccountController {
         String accessToken = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, USER_TYPE);
         return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
     }
+
+    @PutMapping("/update")
+    @Operation(summary = "更新认证账号信息", description = "更新认证账号信息")
+    public ResponseEntity<Void> update(@RequestBody AuthAccountDTO authAccountDTO) throws Exception {
+        Long authAccountId = SecurityContextUtils.getAuthAccountId();
+
+        authAccountDTO.setAuthAccountId(authAccountId);
+        authAccountService.update(authAccountDTO);
+        return ResponseEntity.success();
+    }
+
 
     @PutMapping("/update_password")
     @Operation(summary = "更新密码", description = "更新密码")

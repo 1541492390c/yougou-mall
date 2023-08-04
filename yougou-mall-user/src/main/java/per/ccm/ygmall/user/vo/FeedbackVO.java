@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
+import java.util.Date;
+
 /**
  * 用户反馈信息
  * */
@@ -37,4 +39,7 @@ public class FeedbackVO extends BaseVO {
 
     @Schema(description = "图片列表")
     private String imgList;
+
+    @Schema(description = "反馈时间")
+    private Date feedbackTime;
 }

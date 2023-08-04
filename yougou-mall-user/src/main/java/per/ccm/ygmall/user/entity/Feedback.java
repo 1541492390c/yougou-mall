@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
+import java.util.Date;
+
 /**
  * 用户反馈
  * */
@@ -52,4 +54,9 @@ public class Feedback extends BaseEntity {
      * 图片列表
      * */
     private String imgList;
+
+    /**
+     * 反馈时间
+     * */
+    private Date feedbackTime;
 }

@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.database.entity.BaseEntity;
 
+import java.util.Date;
+
 /**
  * 评价
  * */
@@ -57,4 +59,9 @@ public class Comment extends BaseEntity {
      * 评价内容
      * */
     private String content;
+
+    /**
+     * 评价时间
+     * */
+    private Date feedbackTime;
 }
