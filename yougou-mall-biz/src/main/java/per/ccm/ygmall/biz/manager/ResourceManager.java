@@ -55,12 +55,16 @@ public class ResourceManager {
     /**
      * 删除文件
      *
-     * @param objectName 删除的文件地址
+     * @param resourceType 资源文件类型
+     * @param fileName 删除的文件名称
      * */
-    public void delete(String objectName) throws Exception {
+    public void delete(Integer resourceType, String fileName) throws Exception {
+        // 文件路径
+        String path = ResourceTypeEnum.getValueOf(resourceType).getPath();
+        System.out.println(fileName);
         RemoveObjectArgs args = RemoveObjectArgs.builder()
                 .bucket(bucket)
-                .object(objectName)
+                .object(path + fileName)
                 .build();
         minioClient.removeObject(args);
     }

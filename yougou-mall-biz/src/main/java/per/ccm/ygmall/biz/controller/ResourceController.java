@@ -5,9 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import per.ccm.ygmall.biz.manager.ResourceManager;
 import per.ccm.ygmall.common.response.ResponseEntity;
@@ -24,9 +22,16 @@ public class ResourceController {
     @Operation(summary = "上传文件", description = "上传文件")
     @Parameters({
             @Parameter(name = "resourceType", description = "资源类型"),
-            @Parameter(name = "file", description = "文件")})
-    public ResponseEntity<String> uploadAvatar(Integer resourceType, MultipartFile file) throws Exception {
+            @Parameter(name = "file", description = "文件")
+    })
+    public ResponseEntity<String> upload(Integer resourceType, MultipartFile file) throws Exception {
         String avatarFileName = resourceManager.upload(resourceType, file);
         return ResponseEntity.success(avatarFileName);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestParam("resource_type") Integer resourceType, @RequestParam("file_name") String fileName) throws Exception {
+        resourceManager.delete(resourceType, fileName);
+        return ResponseEntity.success();
     }
 }

@@ -1,10 +1,10 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -36,6 +36,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private SkuService skuService;
 
     @Override
+    @CacheEvict(cacheNames = CacheNames.PRODUCT_CACHE_NAME, allEntries = true)
     public void save(ProductDTO productDTO) {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {
@@ -75,7 +76,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Override
     public PageVO<ProductVO> getProductPages(String categoryNode, Boolean isDiscount, Boolean recommended, Page<Product> page) {
-        IPage<ProductVO> pageInfo = productMapper.selectProductPages(categoryNode, isDiscount, recommended, page);
+        Page<ProductVO> pageInfo = productMapper.selectProductPages(categoryNode, isDiscount, recommended, page);
         return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
     }
 

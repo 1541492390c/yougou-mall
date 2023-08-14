@@ -15,6 +15,8 @@ import per.ccm.ygmall.order.enums.OrderStateEnum;
 import per.ccm.ygmall.order.service.OrderItemService;
 import per.ccm.ygmall.order.service.OrderService;
 
+import java.util.Date;
+
 @Hidden
 @RestController
 public class OrderFeignController implements OrderFeign {
@@ -34,10 +36,12 @@ public class OrderFeignController implements OrderFeign {
     @Override
     public ResponseEntity<Void> paySuccess(String orderNo) {
         Order order = orderService.getOne(new LambdaQueryWrapper<Order>().eq(Order::getOrderNo, orderNo));
-        // 修改订单为已支付
+        // 更新订单为已支付
         order.setIsPay(Boolean.TRUE);
-        // 修改订单状态为待发货
+        // 更新订单状态为待发货
         order.setState(OrderStateEnum.WAIT_DELIVERY.getValue());
+        // 更新订单支付时间
+        order.setPayTime(new Date());
         orderService.updateById(order);
         return ResponseEntity.success();
     }

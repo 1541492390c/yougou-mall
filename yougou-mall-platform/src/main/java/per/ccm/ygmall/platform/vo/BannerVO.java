@@ -17,6 +17,9 @@ public class BannerVO extends BaseVO {
     @Schema(description = "主键ID")
     private Long bannerId;
 
+    @Schema(description = "所属页面")
+    private String page;
+
     @Schema(description = "简介")
     private String description;
 

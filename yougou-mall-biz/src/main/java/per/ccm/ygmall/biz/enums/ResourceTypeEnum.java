@@ -21,7 +21,12 @@ public enum ResourceTypeEnum {
     /**
      * 用户评论资源
      * */
-    COMMENT(3, "/comment/");
+    COMMENT(3, "/comment/"),
+
+    /**
+     * 商品资源
+     * */
+    PRODUCT(4, "/product/");
 
     private final Integer value;
 

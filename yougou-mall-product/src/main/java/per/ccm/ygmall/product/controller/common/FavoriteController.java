@@ -37,7 +37,8 @@ public class FavoriteController {
     @Operation(summary = "获取用户收藏分页信息", description = "获取用户收藏分页信息")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
-            @Parameter(name = "page_size", description = "页数")})
+            @Parameter(name = "page_size", description = "页数")
+    })
     public ResponseEntity<PageVO<FavoriteVO>> getFavoritePages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {

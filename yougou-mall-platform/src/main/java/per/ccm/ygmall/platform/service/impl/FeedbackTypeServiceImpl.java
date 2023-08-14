@@ -1,12 +1,14 @@
 package per.ccm.ygmall.platform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
 import per.ccm.ygmall.platform.entity.FeedbackType;
 import per.ccm.ygmall.platform.mapper.FeedbackTypeMapper;
@@ -31,6 +33,13 @@ public class FeedbackTypeServiceImpl extends ServiceImpl<FeedbackTypeMapper, Fee
         }
         FeedbackType feedbackType = ConvertUtils.convertProperties(feedbackTypeDTO, FeedbackType.class);
         feedbackTypeMapper.insert(feedbackType);
+    }
+
+    @Override
+    public PageVO<FeedbackTypeVO> getFeedbackTypePages(Page<FeedbackType> page) {
+        Page<FeedbackType> pageInfo = feedbackTypeMapper.selectPage(page, new LambdaQueryWrapper<>());
+        List<FeedbackTypeVO> feedbackTypeList = ConvertUtils.converList(pageInfo.getRecords(), FeedbackTypeVO.class);
+        return new PageVO<>(pageInfo.getTotal(), feedbackTypeList);
     }
 
     @Override

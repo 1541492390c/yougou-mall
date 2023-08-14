@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -48,6 +49,9 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
         AuthAccount authAccount = authAccountService.getOne(queryWrapper.eq(AuthAccount::getUsername, authentication.getPrincipal()));
 
+        if (ObjectUtils.isEmpty(authAccount)) {
+            throw new UsernameNotFoundException("用户不存在");
+        }
         // 设置用户角色
         String role = "ROLE_" + authAccount.getRole();
         // 获取输入的密码

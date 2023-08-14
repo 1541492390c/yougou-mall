@@ -1,7 +1,9 @@
 package per.ccm.ygmall.platform.service;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
 import per.ccm.ygmall.platform.entity.FeedbackType;
 import per.ccm.ygmall.platform.vo.FeedbackTypeVO;
@@ -19,6 +21,14 @@ public interface FeedbackTypeService extends IService<FeedbackType> {
      * @param feedbackTypeDTO 用户反馈类型传输数据
      * */
     void save(FeedbackTypeDTO feedbackTypeDTO) throws Exception;
+
+    /**
+     * 分页获取反馈类型图信息
+     *
+     * @param page 分页信息
+     * @return 反馈类型分页信息
+     * */
+    PageVO<FeedbackTypeVO> getFeedbackTypePages(Page<FeedbackType> page) throws Exception;
 
     /**
      * 获取所有用户反馈分类信息

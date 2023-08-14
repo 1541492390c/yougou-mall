@@ -1,7 +1,6 @@
 package per.ccm.ygmall.platform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
         if (!ObjectUtils.isEmpty(type)) {
             queryWrapper.eq(Banner::getType, type);
         }
-        IPage<Banner> pageInfo = bannerMapper.selectPage(page, queryWrapper);
+        Page<Banner> pageInfo = bannerMapper.selectPage(page, queryWrapper);
         List<BannerVO> bannerList = ConvertUtils.converList(pageInfo.getRecords(), BannerVO.class);
         return new PageVO<>(pageInfo.getTotal(), bannerList);
     }

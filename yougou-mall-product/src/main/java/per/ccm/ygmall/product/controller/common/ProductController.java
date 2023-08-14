@@ -37,7 +37,8 @@ public class ProductController {
             @Parameter(name = "page_size", description = "页数"),
             @Parameter(name = "is_discount", description = "是否折扣"),
             @Parameter(name = "recommended", description = "是否推荐"),
-            @Parameter(name = "category_node", description = "分类节点")})
+            @Parameter(name = "category_node", description = "分类节点")
+    })
     public ResponseEntity<PageVO<ProductVO>> getByCategories(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,

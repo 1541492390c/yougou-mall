@@ -30,7 +30,8 @@ public class PaymentController {
     @Operation(summary = "支付", description = "支付")
     @Parameters({
             @Parameter(name = "order_id", description = "订单ID"),
-            @Parameter(name = "payment_type", description = "支付类型")})
+            @Parameter(name = "payment_type", description = "支付类型")
+    })
     public ResponseEntity<?> pay(@RequestParam("order_id") Long orderId, @RequestParam("payment_type") Integer paymentType) throws Exception {
         // 支付宝支付
         if (ObjectUtils.nullSafeEquals(paymentType, PaymentTypeEnum.ALI_PAY.getValue())) {

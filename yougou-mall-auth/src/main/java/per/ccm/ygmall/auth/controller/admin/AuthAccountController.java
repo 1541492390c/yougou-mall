@@ -35,7 +35,8 @@ public class AuthAccountController {
     @Parameters({
             @Parameter(name = "username", description = "用户名", required = true),
             @Parameter(name = "password", description = "密码", required = true),
-            @Parameter(name = "code", description = "验证码", required = true)})
+            @Parameter(name = "code", description = "验证码", required = true)
+    })
     public ResponseEntity<TokenVO> login(
             HttpServletRequest request,
             @RequestParam("username") String username,

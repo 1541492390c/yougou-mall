@@ -16,7 +16,7 @@ import per.ccm.ygmall.platform.service.BannerService;
 import per.ccm.ygmall.platform.vo.BannerVO;
 
 @RestController("adminBannerController")
-@RequestMapping("/admin/banner")
+@RequestMapping("/admin/platform/banner")
 @PreAuthorize("hasAnyRole(@roleConfig.SUPER_ADMIN, @roleConfig.COMMON_ADMIN)")
 @Tag(name = "轮播图接口(管理员)", description = "轮播图接口(管理员)")
 public class BannerController {
@@ -36,7 +36,8 @@ public class BannerController {
     @Parameters({
             @Parameter(name = "pageNum", description = "当前页"),
             @Parameter(name = "pageSize", description = "页数"),
-            @Parameter(name = "type", description = "类型")})
+            @Parameter(name = "type", description = "类型")
+    })
     public ResponseEntity<PageVO<BannerVO>> getBannerPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,

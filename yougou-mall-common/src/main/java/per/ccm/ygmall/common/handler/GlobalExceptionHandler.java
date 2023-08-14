@@ -14,10 +14,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Void> handle(YougouException e) {
         return ResponseEntity.fail(e.getResponseCode());
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Void> handle(Exception e) {
-        log.error("{}", e.getMessage());
-        return ResponseEntity.fail();
-    }
 }
