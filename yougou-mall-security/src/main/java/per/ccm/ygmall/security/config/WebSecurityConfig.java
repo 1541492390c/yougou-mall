@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         // 平台相关接口
                         "/platform/**",
                         // 业务相关接口
-                        "/biz/captcha/*",
+                        "/biz/captcha/*", "/biz/sms/*",
                         // 支付相关接口
                         "/payment/coupon/pages", "/payment/alipay_notify").permitAll()
                 .anyRequest().authenticated();

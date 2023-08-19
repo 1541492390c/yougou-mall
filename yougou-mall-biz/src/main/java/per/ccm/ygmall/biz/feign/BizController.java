@@ -9,7 +9,7 @@ import per.ccm.ygmall.common.response.ResponseEntity;
 
 @Hidden
 @RestController
-public class CaptchaFeignController implements BizFeign {
+public class BizController implements BizFeign {
 
     @Autowired
     private CaptchaManager captchaManager;

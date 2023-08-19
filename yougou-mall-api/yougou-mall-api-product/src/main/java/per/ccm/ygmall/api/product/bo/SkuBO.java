@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Getter
 @Setter
@@ -38,7 +37,7 @@ public class SkuBO {
     private BigDecimal discountPrice;
 
     /**
-     * sku规格内部传输数据列表
+     * sku规格
      * */
-    private List<SkuSpecsBO> skuSpecsBOList;
+    private String specs;
 }

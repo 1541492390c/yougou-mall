@@ -66,7 +66,7 @@ public enum ResponseCodeEnum {
     /**
      * 手机号已绑定
      * */
-    USER_ERROR_A0008("A0008", "手机号已绑定"),
+    AUTH_ERROR_A0008("A0008", "手机号已绑定"),
 
     /**
      * 用户不存在
@@ -82,6 +82,11 @@ public enum ResponseCodeEnum {
      * token已过期,请重新登录
      * */
     AUTH_ERROR_A0011("A0011", "token已过期,请重新登录"),
+
+    /**
+     * 非绑定的手机号
+     * */
+    AUTH_ERROR_A0012("A0012", "非绑定的手机号"),
 
     /**
      * 用户不存在

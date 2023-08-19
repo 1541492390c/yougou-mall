@@ -43,4 +43,9 @@ public class Sku extends BaseEntity {
      * */
     @TableField(updateStrategy = FieldStrategy.IGNORED)
     private BigDecimal discountPrice;
+
+    /**
+     * sku规格
+     * */
+    private String specs;
 }

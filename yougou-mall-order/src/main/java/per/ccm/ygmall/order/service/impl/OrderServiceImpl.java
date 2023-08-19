@@ -15,13 +15,11 @@ import per.ccm.ygmall.api.order.bo.OrderBO;
 import per.ccm.ygmall.api.order.bo.OrderItemBO;
 import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.api.product.bo.SkuBO;
-import per.ccm.ygmall.api.product.bo.SkuSpecsBO;
 import per.ccm.ygmall.api.product.feign.ProductFeign;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.common.util.JSONUtils;
 import per.ccm.ygmall.database.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderAddrDTO;
 import per.ccm.ygmall.order.dto.OrderDTO;
@@ -95,8 +93,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     BigDecimal currentItemTotalAmount = this.getCurrentItemTotalAmount(skuBO, quantity);
                     // 计算订单总额
                     orderTotalAmount = orderTotalAmount.add(currentItemTotalAmount);
-                    // 转换sku规格格式
-                    String specs = this.transformSkuSpecs(skuBO.getSkuSpecsBOList());
                     // 新建订单项
                     OrderItemDTO orderItemDTO = new OrderItemDTO();
                     // 设置商品的属性
@@ -105,7 +101,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     orderItemDTO.setImg(productBO.getCover());
                     // 设置sku的属性
                     orderItemDTO.setSkuId(skuBO.getSkuId());
-                    orderItemDTO.setSpecs(specs);
+                    orderItemDTO.setSpecs(skuBO.getSpecs());
                     // 设置订单项属性
                     orderItemDTO.setQuantity(quantity);
                     orderItemDTO.setTotalAmount(currentItemTotalAmount);
@@ -184,20 +180,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         LambdaQueryWrapper<Order> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Order::getUserId, userId).eq(Order::getIsPay, Boolean.FALSE).eq(Order::getState, OrderStateEnum.WAIT_PAY.getValue());
         return orderMapper.exists(queryWrapper);
-    }
-
-    /**
-     * 转换sku规格
-     *
-     * @param skuSpecsBOList sku规格内部传输数据
-     * @return sku规格
-     */
-    private String transformSkuSpecs(List<SkuSpecsBO> skuSpecsBOList) {
-        Map<String, String> skuSpecsMap = new HashMap<>();
-        for (SkuSpecsBO skuSpecsBO : skuSpecsBOList) {
-            skuSpecsMap.put(skuSpecsBO.getAttrName(), skuSpecsBO.getAttrValueName());
-        }
-        return JSONUtils.writeValueAsString(skuSpecsMap);
     }
 
     /**

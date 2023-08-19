@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * sku传输数据
@@ -34,6 +33,6 @@ public class SkuDTO {
     @Schema(description = "sku描述")
     private String description;
 
-    @Schema(description = "商品规格")
-    private List<SkuSpecsDTO> skuSpecs;
+    @Schema(description = "sku规格")
+    private String specs;
 }

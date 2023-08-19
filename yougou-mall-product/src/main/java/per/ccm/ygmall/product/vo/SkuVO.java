@@ -9,7 +9,6 @@ import lombok.ToString;
 import per.ccm.ygmall.common.vo.BaseVO;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * 商品sku信息
@@ -39,5 +38,5 @@ public class SkuVO extends BaseVO {
     private String description;
 
     @Schema(description = "sku规格")
-    private List<SkuSpecsVO> skuSpecs;
+    private String specs;
 }
