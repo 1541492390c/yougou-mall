@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.api.user.feign.UserFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
@@ -40,7 +41,7 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
         }
         // 手机号已被使用
         if (authAccountMapper.exists(queryWrapper.eq(AuthAccount::getMobile, authAccountDTO.getMobile()))) {
-            throw new YougouException(ResponseCodeEnum.USER_ERROR_A0008);
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0008);
         }
         AuthAccount authAccount = ConvertUtils.convertProperties(authAccountDTO, AuthAccount.class);
         authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
@@ -59,9 +60,9 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
 
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
-        //判断原密码与传入的密码是否一致
-        if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
-            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0006);
+        // 判断是否为绑定的手机号
+        if (!ObjectUtils.nullSafeEquals(authAccount.getMobile(), updatePasswordDTO.getMobile())) {
+            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0012);
         }
 
         String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
