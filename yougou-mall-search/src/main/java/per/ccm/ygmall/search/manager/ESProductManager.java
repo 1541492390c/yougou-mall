@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.search.enums.IndexEnum;
 import per.ccm.ygmall.search.vo.ESBrandVO;
 import per.ccm.ygmall.search.vo.ESCategoryVO;
-import per.ccm.ygmall.search.vo.ESPageVO;
 import per.ccm.ygmall.search.vo.ESProductVO;
 import per.ccm.ygmall.search.vo.base.ESBaseVO;
 import per.ccm.ygmall.search.vo.result.ESProductResultVO;
@@ -47,7 +47,7 @@ public class ESProductManager {
      * */
     public ESProductResultVO keywordSearch(String keyword, String sort, String order, String categoryNode, Long brandId, Integer pageNum, Integer pageSize) throws Exception {
         // 商品分页搜索结果
-        ESPageVO<ESProductVO> esPageVO = this.searchProduct(keyword, sort, order, categoryNode, brandId, pageNum, pageSize);
+        PageVO<ESProductVO> esPageVO = this.searchProduct(keyword, sort, order, categoryNode, brandId, pageNum, pageSize);
         // 分类搜索结果
         List<ESCategoryVO> esCategoryList = this.searchCategory(keyword, categoryNode);
         // 品牌搜索结果
@@ -65,7 +65,7 @@ public class ESProductManager {
      * @param pageSize 页数
      * @return 商品搜索分页
      * */
-    private ESPageVO<ESProductVO> searchProduct(String keyword, String sort, String order, String categoryNode, Long brandId, Integer pageNum, Integer pageSize) throws IOException {
+    private PageVO<ESProductVO> searchProduct(String keyword, String sort, String order, String categoryNode, Long brandId, Integer pageNum, Integer pageSize) throws IOException {
         List<Query> queryList = new ArrayList<>();
         // 根据关键词搜索
         if (!ObjectUtils.isEmpty(keyword)) {
@@ -107,7 +107,7 @@ public class ESProductManager {
         }
         SearchResponse<Object> searchResponse = elasticsearchClient.search(request -> request.index(IndexEnum.CATEGORY_INDEX.getValue())
                 .query(query -> query.bool(bool -> bool.must(queryList))), Object.class);
-        ESPageVO<ESCategoryVO> pageVO = this.createResult(searchResponse.hits(), ESCategoryVO.class);
+        PageVO<ESCategoryVO> pageVO = this.createResult(searchResponse.hits(), ESCategoryVO.class);
         return pageVO.getList();
     }
 
@@ -132,7 +132,7 @@ public class ESProductManager {
         }
         SearchResponse<Object> searchResponse = elasticsearchClient.search(request -> request.index(IndexEnum.BRAND_INDEX.getValue())
                 .query(query -> query.bool(bool -> bool.must(queryList))), Object.class);
-        ESPageVO<ESBrandVO> pageVO = this.createResult(searchResponse.hits(), ESBrandVO.class);
+        PageVO<ESBrandVO> pageVO = this.createResult(searchResponse.hits(), ESBrandVO.class);
         return pageVO.getList();
     }
 
@@ -141,7 +141,7 @@ public class ESProductManager {
      * @param hits 搜索结果
      * @param clazz 类型
      * */
-    private <E extends ESBaseVO> ESPageVO<E> createResult(HitsMetadata<Object> hits, Class<E> clazz) throws JsonProcessingException {
+    private <E extends ESBaseVO> PageVO<E> createResult(HitsMetadata<Object> hits, Class<E> clazz) throws JsonProcessingException {
         List<E> esList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         for (Hit<Object> hit : hits.hits()) {
@@ -153,7 +153,7 @@ public class ESProductManager {
             esList.add(es);
         }
         if (!ObjectUtils.isEmpty(hits.total())) {
-            return new ESPageVO<>(hits.total().value(), esList);
+            return new PageVO<>(hits.total().value(), esList);
         }
         throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
     }

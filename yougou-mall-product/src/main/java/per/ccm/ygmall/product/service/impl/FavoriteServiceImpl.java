@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.FavoriteDTO;
 import per.ccm.ygmall.product.entity.Favorite;
 import per.ccm.ygmall.product.mapper.FavoriteMapper;

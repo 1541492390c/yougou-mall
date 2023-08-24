@@ -11,7 +11,7 @@ import per.ccm.ygmall.api.order.feign.OrderFeign;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.dto.CommentDTO;
 import per.ccm.ygmall.user.entity.Comment;
 import per.ccm.ygmall.user.mapper.CommentMapper;

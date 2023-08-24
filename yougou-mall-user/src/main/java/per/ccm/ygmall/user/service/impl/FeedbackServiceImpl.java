@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
 import per.ccm.ygmall.user.entity.Feedback;
 import per.ccm.ygmall.user.mapper.FeedbackMapper;

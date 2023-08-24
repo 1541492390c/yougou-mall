@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.platform.dto.FeedbackTypeDTO;
 import per.ccm.ygmall.platform.entity.FeedbackType;
 import per.ccm.ygmall.platform.service.FeedbackTypeService;

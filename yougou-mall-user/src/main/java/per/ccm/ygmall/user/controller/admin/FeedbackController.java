@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.user.entity.Feedback;
 import per.ccm.ygmall.user.service.FeedbackService;
 import per.ccm.ygmall.user.vo.FeedbackVO;

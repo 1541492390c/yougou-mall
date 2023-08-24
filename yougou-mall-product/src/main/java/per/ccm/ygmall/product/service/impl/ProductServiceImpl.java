@@ -14,7 +14,7 @@ import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.dto.ProductDTO;
 import per.ccm.ygmall.product.entity.Product;
 import per.ccm.ygmall.product.mapper.ProductMapper;

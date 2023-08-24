@@ -12,7 +12,7 @@ import per.ccm.ygmall.cache.cache.CacheNames;
 import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.platform.dto.BannerDTO;
 import per.ccm.ygmall.platform.entity.Banner;
 import per.ccm.ygmall.platform.mapper.BannerMapper;

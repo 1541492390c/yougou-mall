@@ -12,7 +12,7 @@
     <modules>
         <module>yougou-mall-api-auth</module>
         <module>yougou-mall-api-user</module>
-        <module>yougou-mall-api-biz</module>
+        <module>yougou-mall-api-extra</module>
         <module>yougou-mall-api-product</module>
         <module>yougou-mall-api-order</module>
     </modules>

@@ -2,7 +2,7 @@ package per.ccm.ygmall.product.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.product.entity.Brand;
 import per.ccm.ygmall.product.vo.BrandVO;
 

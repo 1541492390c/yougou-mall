@@ -10,7 +10,7 @@
     </parent>
     <packaging>pom</packaging>
     <modules>
-        <module>yougou-mall-common-base</module>
+        <module>yougou-mall-common-basic</module>
         <module>yougou-mall-common-cache</module>
         <module>yougou-mall-common-database</module>
         <module>yougou-mall-common-rabbitmq</module>

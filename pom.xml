@@ -19,7 +19,7 @@
         <module>yougou-mall-payment</module>
         <module>yougou-mall-platform</module>
         <module>yougou-mall-search</module>
-        <module>yougou-mall-biz</module>
+        <module>yougou-mall-extra</module>
     </modules>
 
     <properties>

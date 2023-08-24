@@ -20,7 +20,7 @@ import per.ccm.ygmall.common.exception.YougouException;
 import per.ccm.ygmall.common.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.response.ResponseEntity;
 import per.ccm.ygmall.common.util.ConvertUtils;
-import per.ccm.ygmall.database.vo.PageVO;
+import per.ccm.ygmall.common.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderAddrDTO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.dto.OrderItemDTO;
