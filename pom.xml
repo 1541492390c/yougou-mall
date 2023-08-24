@@ -47,6 +47,8 @@
         <java-jwt.version>4.4.0</java-jwt.version>
         <alipay.version>4.34.0.ALL</alipay.version>
         <sms.version>2.0.24</sms.version>
+        <elasticsearch.version>7.17.2</elasticsearch.version>
+        <rest-high-level-client.version>7.16.3</rest-high-level-client.version>
         <spring-cloud.version>2020.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <openfeign.version>3.0.4</openfeign.version>
@@ -190,6 +192,24 @@
             </dependency>
 
             <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${rest-high-level-client.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
@@ -291,7 +311,7 @@
             <properties>
                 <profile.active>dev</profile.active>
                 <nacos.group>DEV_GROUP</nacos.group>
-                <nacos.namespace>606b4378-3f6c-4982-837e-2cbbbe41e99b</nacos.namespace>
+                <nacos.namespace>b261b20d-67b4-4e33-83ef-17ebae6d68b8</nacos.namespace>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
