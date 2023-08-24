@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>per.ccm</groupId>
-        <artifactId>yougou-mall</artifactId>
+        <artifactId>yougou-mall-common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
 
-    <artifactId>yougou-mall-security</artifactId>
+    <artifactId>yougou-mall-common-security</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>per.ccm</groupId>
-            <artifactId>yougou-mall-cache</artifactId>
+            <artifactId>yougou-mall-common-base</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -33,6 +33,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>per.ccm</groupId>
+            <artifactId>yougou-mall-common-cache</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

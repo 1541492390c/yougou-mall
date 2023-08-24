@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>yougou-mall-common</module>
-        <module>yougou-mall-security</module>
         <module>yougou-mall-auth</module>
         <module>yougou-mall-user</module>
         <module>yougou-mall-gateway</module>
@@ -21,9 +20,6 @@
         <module>yougou-mall-platform</module>
         <module>yougou-mall-search</module>
         <module>yougou-mall-biz</module>
-        <module>yougou-mall-database</module>
-        <module>yougou-mall-cache</module>
-        <module>yougou-mall-rabbitmq</module>
     </modules>
 
     <properties>
