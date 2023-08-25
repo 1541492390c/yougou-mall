@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.api.extra.feign.ExtraFeign;
+import per.ccm.ygmall.feign.extra.feign.ExtraFeign;
 import per.ccm.ygmall.auth.entity.AuthAccount;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.basic.exception.YougouException;

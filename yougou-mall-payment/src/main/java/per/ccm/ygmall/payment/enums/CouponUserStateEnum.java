@@ -8,9 +8,9 @@ import lombok.Getter;
 public enum CouponUserStateEnum {
 
     /**
-     * 已过期
+     * 已使用
      * */
-    EXPIRED(0, "已过期"),
+    USED(0, "已使用"),
 
     /**
      * 待使用
@@ -18,9 +18,9 @@ public enum CouponUserStateEnum {
     WAIT_USE(1, "待使用"),
 
     /**
-     * 已使用
+     * 已过期
      * */
-    USED(2, "已使用");
+    EXPIRED(2, "已过期");
 
     private final Integer value;
 

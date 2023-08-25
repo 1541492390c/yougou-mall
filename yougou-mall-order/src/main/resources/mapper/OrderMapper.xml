@@ -6,6 +6,7 @@
         <result column="user_id" property="userId" jdbcType="BIGINT" />
         <result column="state" property="state" jdbcType="TINYINT" />
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+        <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
         <result column="is_pay" property="isPay" jdbcType="BOOLEAN" />
         <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
         <result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -40,8 +41,8 @@
     </resultMap>
 
     <sql id="order_vo_column">
-        `order`.`order_id`, `order`.`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`is_pay`, `order`.`order_no`, `order`.`remark`,
-        `order`.`submit_time`, `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
+        `order`.`order_id`, `order`.`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`pay_amount`, `order`.`is_pay`,
+        `order`.`order_no`, `order`.`remark`, `order`.`submit_time`, `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
 
         order_addr.`order_addr_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
         order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailed_addr`,

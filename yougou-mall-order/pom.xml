@@ -39,13 +39,19 @@
 
         <dependency>
             <groupId>per.ccm</groupId>
-            <artifactId>yougou-mall-api-product</artifactId>
+            <artifactId>yougou-mall-feign-product</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>per.ccm</groupId>
-            <artifactId>yougou-mall-api-order</artifactId>
+            <artifactId>yougou-mall-feign-payment</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>per.ccm</groupId>
+            <artifactId>yougou-mall-feign-order</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

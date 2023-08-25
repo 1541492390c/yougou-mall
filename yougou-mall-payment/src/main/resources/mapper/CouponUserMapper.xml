@@ -30,6 +30,10 @@
     </sql>
 
     <select id="selectCouponUserListByUserId" resultMap="couponUserMap">
-        SELECT <include refid="coupon_user_vo_column" /> <include refid="coupon_user_left_join_coupon" /> WHERE coupon_user.`user_id` = #{userId}
+        SELECT <include refid="coupon_user_vo_column" /> <include refid="coupon_user_left_join_coupon" /> WHERE coupon_user.`user_id` = #{userId} AND coupon_user.`state` != 0
+    </select>
+
+    <select id="selectCouponUserListByCouponUserId" resultMap="couponUserMap">
+        SELECT <include refid="coupon_user_vo_column" /> <include refid="coupon_user_left_join_coupon" /> WHERE coupon_user.`coupon_user_id` = #{couponUserId}
     </select>
 </mapper>

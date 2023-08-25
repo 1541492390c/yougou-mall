@@ -33,13 +33,13 @@
 
         <dependency>
             <groupId>per.ccm</groupId>
-            <artifactId>yougou-mall-api-user</artifactId>
+            <artifactId>yougou-mall-feign-user</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>per.ccm</groupId>
-            <artifactId>yougou-mall-api-extra</artifactId>
+            <artifactId>yougou-mall-feign-extra</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

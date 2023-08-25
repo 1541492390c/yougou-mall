@@ -33,6 +33,11 @@ public class Order extends BaseEntity {
     private Long userId;
 
     /**
+     * 用户优惠券ID
+     * */
+    private Long couponUserId;
+
+    /**
      * 订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成
      * */
     private Integer state;
@@ -41,6 +46,11 @@ public class Order extends BaseEntity {
      * 订单总额
      * */
     private BigDecimal totalAmount;
+
+    /**
+     * 实付金额
+     * */
+    private BigDecimal payAmount;
 
     /**
      * 是否支付

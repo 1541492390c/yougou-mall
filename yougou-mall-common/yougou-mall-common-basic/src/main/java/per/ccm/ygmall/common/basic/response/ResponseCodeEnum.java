@@ -184,6 +184,11 @@ public enum ResponseCodeEnum {
     PAYMENT_ERROR_E0002("E0001", "优惠券已领取完"),
 
     /**
+     * 优惠券已过期
+     * */
+    PAYMENT_ERROR_E0003("E0003", "优惠券已过期"),
+
+    /**
      * 同一个页面只能拥有5个轮播图
      * */
     PLATFORM_ERROR_F0001("F0001,", "同一个页面只能拥有5个轮播图"),

@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.basic.vo.BaseVO;
 
+import java.math.BigDecimal;
+
 /**
  * 优惠券信息
  * */
@@ -30,10 +32,10 @@ public class CouponVO extends BaseVO {
     private Integer expired;
 
     @Schema(description = "使用金额")
-    private Double usedAmount;
+    private BigDecimal usedAmount;
 
     @Schema(description = "折扣金额")
-    private Double discountAmount;
+    private BigDecimal discountAmount;
 
     @Schema(description = "可用分类节点，为0则为通用优惠券")
     private String categoryNode;

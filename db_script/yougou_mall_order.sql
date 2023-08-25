@@ -11,8 +11,10 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `order_id` bigint NOT NULL COMMENT '主键ID',
   `user_id` bigint NOT NULL COMMENT '用户ID',
+  `coupon_user_od` bigint DEFAULT NULL COMMENT '用户优惠券ID',
   `state` tinyint NOT NULL COMMENT '订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成',
-  `total_amount` decimal(10,2) DEFAULT NULL COMMENT '总金额',
+  `total_amount` decimal(10,2) DEFAULT NULL COMMENT '订单总额',
+  `pay_amount` decimal(10,2) DEFAULT NULL COMMENT '实付金额',
   `is_pay` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否支付',
   `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否启用',
   `order_no` varchar(50) DEFAULT NULL COMMENT '订单号',

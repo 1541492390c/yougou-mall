@@ -13,7 +13,7 @@
         <module>yougou-mall-auth</module>
         <module>yougou-mall-user</module>
         <module>yougou-mall-gateway</module>
-        <module>yougou-mall-api</module>
+        <module>yougou-mall-feign</module>
         <module>yougou-mall-product</module>
         <module>yougou-mall-order</module>
         <module>yougou-mall-payment</module>

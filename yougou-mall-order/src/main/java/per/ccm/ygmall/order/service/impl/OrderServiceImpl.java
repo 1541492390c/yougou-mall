@@ -11,11 +11,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.api.order.bo.OrderBO;
-import per.ccm.ygmall.api.order.bo.OrderItemBO;
-import per.ccm.ygmall.api.product.bo.ProductBO;
-import per.ccm.ygmall.api.product.bo.SkuBO;
-import per.ccm.ygmall.api.product.feign.ProductFeign;
+import per.ccm.ygmall.feign.order.bo.OrderBO;
+import per.ccm.ygmall.feign.order.bo.OrderItemBO;
+import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
+import per.ccm.ygmall.feign.payment.bo.CouponUserLogBO;
+import per.ccm.ygmall.feign.payment.feign.PaymentFeign;
+import per.ccm.ygmall.feign.product.bo.ProductBO;
+import per.ccm.ygmall.feign.product.bo.SkuBO;
+import per.ccm.ygmall.feign.product.feign.ProductFeign;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
@@ -58,6 +61,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private ProductFeign productFeign;
+
+    @Autowired
+    private PaymentFeign paymentFeign;
 
     @Autowired
     private RLock rLock;
@@ -110,15 +116,51 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     skuStockMap.put(skuBO.getSkuId(), (-quantity));
                 }
             }
+
+            // 新建订单实体
             Order order = new Order();
             // 设置订单号
             order.setOrderNo("YG" + (new DefaultIdentifierGenerator().nextId(order)));
+            // 实付金额
+            BigDecimal payAmount = orderTotalAmount;
+            // 用户使用了优惠券
+            if (!ObjectUtils.isEmpty(orderDTO.getCouponUserId())) {
+                ResponseEntity<CouponUserBO> response = paymentFeign.getCouponUserById(orderDTO.getCouponUserId());
+
+                // 抛异常回滚
+                if (!response.responseSuccess()) {
+                    throw new YougouException(ResponseCodeEnum.getValueOf(response.getCode()));
+                }
+                CouponUserBO couponUserBO = response.getData();
+                // 设置用户优惠券ID
+                order.setCouponUserId(couponUserBO.getCouponUserId());
+
+                BigDecimal discountAmount = couponUserBO.getCouponBO().getDiscountAmount();
+                // 减去优惠券优惠金额
+                payAmount = payAmount.subtract(discountAmount);
+                // 设置订单备注
+                order.setRemark("使用了" + couponUserBO.getCouponBO().getDescription() + ",节省了" + couponUserBO.getCouponBO().getDiscountAmount());
+                // 设置用户优惠券ID
+                order.setCouponUserId(couponUserBO.getCouponUserId());
+
+                // 创建用户优惠券使用记录
+                CouponUserLogBO couponUserLogBO = this.createCouponUserLogBO(couponUserBO, order);
+                // 保存用户优惠券使用记录
+                ResponseEntity<Void> saveCouponUserLogResponse = paymentFeign.saveCouponUserLog(couponUserLogBO);
+                // 抛异常回滚
+                if (!saveCouponUserLogResponse.responseSuccess()) {
+                    throw new YougouException(ResponseCodeEnum.getValueOf(saveCouponUserLogResponse.getCode()));
+                }
+            }
+
             // 设置用户ID
             order.setUserId(orderDTO.getUserId());
             // 设置订单状态
             order.setState(OrderStateEnum.WAIT_PAY.getValue());
             // 设置订单总金额
             order.setTotalAmount(orderTotalAmount);
+            // 设置订单实付金额
+            order.setPayAmount(payAmount);
             // 保存订单
             orderMapper.insert(order);
             // 保存订单后,为订单项和订单收货地址插入订单ID
@@ -198,5 +240,25 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             currentItemTotalAmount = currentItemTotalAmount.add(skuBO.getPrice().multiply(new BigDecimal(quantity)));
         }
         return currentItemTotalAmount;
+    }
+
+    /**
+     * 创建用户优惠券使用记录
+     *
+     * @param couponUserBO 用户优惠券内部传输数据
+     * @param order 订单实体
+     * @return 用户优惠券使用记录
+     * */
+    private CouponUserLogBO createCouponUserLogBO(CouponUserBO couponUserBO, Order order) {
+        CouponUserLogBO couponUserLogBO = new CouponUserLogBO();
+        // 设置优惠券ID
+        couponUserLogBO.setCouponId(couponUserBO.getCouponId());
+        // 设置用户优惠券ID
+        couponUserLogBO.setCouponUserId(couponUserBO.getCouponUserId());
+        // 设置订单号
+        couponUserLogBO.setOrderNo(order.getOrderNo());
+        // 设置折扣金额
+        couponUserLogBO.setDiscountAmount(couponUserBO.getCouponBO().getDiscountAmount());
+        return couponUserLogBO;
     }
 }

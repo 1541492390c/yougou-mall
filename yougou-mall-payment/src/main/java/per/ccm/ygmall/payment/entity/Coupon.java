@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import per.ccm.ygmall.common.database.entity.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 优惠券
  * */
@@ -41,12 +43,12 @@ public class Coupon extends BaseEntity {
     /**
      * 使用金额
      * */
-    private Double usedAmount;
+    private BigDecimal usedAmount;
 
     /**
      * 折扣金额
      * */
-    private Double discountAmount;
+    private BigDecimal discountAmount;
 
     /**
      * 可用分类节点，为0则为通用优惠券

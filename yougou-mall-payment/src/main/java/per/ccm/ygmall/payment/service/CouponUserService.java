@@ -1,6 +1,8 @@
 package per.ccm.ygmall.payment.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
+import per.ccm.ygmall.payment.dto.QueryAvailableCouponDTO;
 import per.ccm.ygmall.payment.entity.CouponUser;
 import per.ccm.ygmall.payment.vo.CouponUserVO;
 
@@ -23,4 +25,19 @@ public interface CouponUserService extends IService<CouponUser> {
      * @return 是否已经领取当前优惠券
      * */
     Boolean isReceive(Long couponId, Long userId) throws Exception;
+
+    /**
+     * 查询可用优惠券
+     *
+     * @param queryAvailableCouponDTO 查询可用优惠券传输数据
+     * */
+    List<CouponUserVO> getAvailableCoupon(QueryAvailableCouponDTO queryAvailableCouponDTO) throws Exception;
+
+    /**
+     * 获取用户优惠券内部传输数据
+     *
+     * @param couponUserId 用户优惠券ID
+     * @return 用户优惠券内部传输数据
+     * */
+    CouponUserBO getCouponUserBOById(Long couponUserId) throws Exception;
 }

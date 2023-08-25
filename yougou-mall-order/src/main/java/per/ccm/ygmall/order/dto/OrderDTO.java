@@ -22,6 +22,9 @@ public class OrderDTO {
     @Schema(description = "用户ID")
     private Long userId;
 
+    @Schema(description = "用户优惠券ID")
+    private Long couponUserId;
+
     @Schema(description = "订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成")
     private Integer state;
 

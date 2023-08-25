@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface CouponUserMapper extends BaseMapper<CouponUser> {
     List<CouponUserVO> selectCouponUserListByUserId(Long userId);
+
+    CouponUserVO selectCouponUserListByCouponUserId(Long couponUserId);
 }

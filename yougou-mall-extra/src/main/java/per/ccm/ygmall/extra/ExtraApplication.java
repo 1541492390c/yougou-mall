@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "per.ccm.ygmall.api.user")
+@EnableFeignClients(basePackages = "per.ccm.ygmall.feign.user")
 @SpringBootApplication(scanBasePackages = "per.ccm.ygmall")
 public class ExtraApplication {
     public static void main(String[] args) {

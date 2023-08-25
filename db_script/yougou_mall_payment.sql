@@ -32,7 +32,7 @@ CREATE TABLE `coupon_user` (
   `coupon_user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `coupon_id` bigint NOT NULL COMMENT '优惠券ID',
   `user_id` bigint NOT NULL COMMENT '用户ID',
-  `state` tinyint DEFAULT NULL COMMENT '优惠券状态 0-已使用 1-已过期 2-待使用',
+  `state` tinyint DEFAULT NULL COMMENT '优惠券状态 0-已使用 1-待使用 2-已过期',
   `receive_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',
   `expired_time` datetime DEFAULT NULL COMMENT '过期时间',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -50,12 +50,30 @@ CREATE TABLE `payment_log` (
   `payment_log_id` bigint NOT NULL COMMENT '主键ID',
   `total_amount` decimal(10,2) DEFAULT NULL COMMENT '支付总金额',
   `state` tinyint DEFAULT NULL COMMENT '支付状态 0-支付失败 1-支付成功',
-  `order_no` varchar(255) DEFAULT NULL COMMENT '订单ID',
+  `order_no` varchar(255) DEFAULT NULL COMMENT '订单号',
   `message` varchar(255) DEFAULT NULL COMMENT '支付信息',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`payment_log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='支付记录';
+
+--
+-- Table structure for table `coupon_user_log`
+--
+
+DROP TABLE IF EXISTS `coupon_user_log`;
+
+CREATE TABLE `coupon_user_log` (
+  `coupon_user_log_id` bigint NOT NULL COMMENT '主键ID',
+  `coupon_id` bigint NOT NULL COMMENT '优惠券ID',
+  `coupon_user_id` bigint NOT NULL COMMENT '用户优惠券ID',
+  `discount_amount` decimal(10,2) DEFAULT NULL COMMENT '折扣金额',
+  `order_no` varchar(255) NOT NULL COMMENT '订单号',
+  `is_pay` varchar(255) DEFAULT b'0' COMMENT '是否实际支付',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`coupon_user_log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户优惠券使用记录';
 
 --
 -- Table structure for table `undo_log`

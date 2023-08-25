@@ -6,18 +6,25 @@ import com.alipay.api.domain.GoodsDetail;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import per.ccm.ygmall.api.order.bo.OrderBO;
-import per.ccm.ygmall.api.order.bo.OrderItemBO;
-import per.ccm.ygmall.api.order.feign.OrderFeign;
+import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.feign.order.bo.OrderBO;
+import per.ccm.ygmall.feign.order.bo.OrderItemBO;
+import per.ccm.ygmall.feign.order.feign.OrderFeign;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.payment.entity.CouponUser;
+import per.ccm.ygmall.payment.entity.CouponUserLog;
 import per.ccm.ygmall.payment.entity.PaymentLog;
+import per.ccm.ygmall.payment.enums.CouponUserStateEnum;
 import per.ccm.ygmall.payment.enums.PaymentStateEnum;
+import per.ccm.ygmall.payment.service.CouponUserLogService;
+import per.ccm.ygmall.payment.service.CouponUserService;
 import per.ccm.ygmall.payment.service.PaymentLogService;
 
 import java.math.BigDecimal;
@@ -36,6 +43,12 @@ public class AliPayManager {
 
     @Autowired
     private PaymentLogService paymentLogService;
+
+    @Autowired
+    private CouponUserLogService couponUserLogService;
+
+    @Autowired
+    private CouponUserService couponUserService;
 
     @Value("${alipay.alipay-public-key}")
     private String aliPayPublicKey;
@@ -66,7 +79,7 @@ public class AliPayManager {
         // 请求参数
         AlipayTradePagePayModel bizModel = new AlipayTradePagePayModel();
         bizModel.setOutTradeNo(orderBO.getOrderNo());
-        bizModel.setTotalAmount(orderBO.getTotalAmount().toString());
+        bizModel.setTotalAmount(orderBO.getPayAmount().toString());
         bizModel.setSubject("优购商城");
         bizModel.setProductCode("FAST_INSTANT_TRADE_PAY");
         // 商品详情列表
@@ -94,6 +107,22 @@ public class AliPayManager {
             paymentLog.setOrderNo(params.get("out_trade_no"));
             paymentLog.setTotalAmount(new BigDecimal(params.get("buyer_pay_amount")));
             paymentLogService.save(paymentLog);
+
+            // 查看该订单是否使用优惠券
+            LambdaQueryWrapper<CouponUserLog> couponUserLogQueryWrapper = new LambdaQueryWrapper<>();
+            couponUserLogQueryWrapper.eq(CouponUserLog::getIsPay, Boolean.FALSE).eq(CouponUserLog::getOrderNo, params.get("out_trade_no"));
+            CouponUserLog couponUserLog = couponUserLogService.getOne(couponUserLogQueryWrapper);
+            // 使用了优惠券,更新用户优惠券状态和用户优惠券使用记录
+            if (!ObjectUtils.isEmpty(couponUserLog)) {
+                couponUserLog.setIsPay(Boolean.TRUE);
+                couponUserLogService.updateById(couponUserLog);
+
+                // 更新用户优惠券
+                CouponUser couponUser = couponUserService.getById(couponUserLog.getCouponUserId());
+                couponUser.setState(CouponUserStateEnum.USED.getValue());
+                couponUserService.updateById(couponUser);
+            }
+
             // 更新订单为已支付
             ResponseEntity<Void> response = orderFeign.paySuccess(params.get("out_trade_no"));
             // 抛异常回滚

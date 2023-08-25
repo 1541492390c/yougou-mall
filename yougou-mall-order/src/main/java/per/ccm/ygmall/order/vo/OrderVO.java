@@ -32,8 +32,11 @@ public class OrderVO extends BaseVO {
     @Schema(description = "订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成")
     private Integer state;
 
-    @Schema(description = "总金额")
+    @Schema(description = "订单总额")
     private BigDecimal totalAmount;
+
+    @Schema(description = "实付金额")
+    private BigDecimal payAmount;
 
     @Schema(description = "是否支付")
     private Boolean isPay;
