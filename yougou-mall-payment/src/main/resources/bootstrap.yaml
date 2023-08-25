@@ -18,12 +18,12 @@ spring:
         group: @nacos.group@
         file-extension: yaml
         shared-configs[0]:
-          data-id: yougou-mall-database-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          data-id: yougou-mall-common-database-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
           namespace: @nacos.namespace@
           group: @nacos.group@
           refresh: true
         shared-configs[1]:
-          data-id: yougou-mall-cache-${profile.active}.${spring.cloud.nacos.config.file-extension}
+          data-id: yougou-mall-common-cache-${profile.active}.${spring.cloud.nacos.config.file-extension}
           namespace: @nacos.namespace@
           group: @nacos.group@
           refresh: true
