@@ -5,10 +5,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.feign.product.feign.ProductFeign;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
+import per.ccm.ygmall.feign.product.feign.SkuFeign;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.enums.OrderStateEnum;
 import per.ccm.ygmall.order.service.OrderService;
@@ -25,7 +25,7 @@ public class OrderListener {
     private OrderService orderService;
 
     @Autowired
-    private ProductFeign productFeign;
+    private SkuFeign skuFeign;
 
     /**
      * 订单15分钟未支付自动取消
@@ -48,7 +48,7 @@ public class OrderListener {
                 skuStockMap.put(orderItemVO.getSkuId(), orderItemVO.getQuantity());
             }
             // 抛异常回滚
-            if (!productFeign.updateSkuStock(skuStockMap).responseSuccess()) {
+            if (!skuFeign.update(skuStockMap).responseSuccess()) {
                 throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
             }
         }

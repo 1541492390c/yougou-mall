@@ -7,14 +7,14 @@ import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
 import per.ccm.ygmall.feign.payment.bo.CouponUserLogBO;
-import per.ccm.ygmall.feign.payment.feign.PaymentFeign;
+import per.ccm.ygmall.feign.payment.feign.CouponUserFeign;
 import per.ccm.ygmall.payment.entity.CouponUserLog;
 import per.ccm.ygmall.payment.service.CouponUserLogService;
 import per.ccm.ygmall.payment.service.CouponUserService;
 
 @Hidden
 @RestController
-public class PaymentFeignController implements PaymentFeign {
+public class PaymentFeignController implements CouponUserFeign {
 
     @Autowired
     private CouponUserService couponUserService;
@@ -29,7 +29,7 @@ public class PaymentFeignController implements PaymentFeign {
     }
 
     @Override
-    public ResponseEntity<Void> saveCouponUserLog(CouponUserLogBO couponUserLogBO) {
+    public ResponseEntity<Void> save(CouponUserLogBO couponUserLogBO) {
         CouponUserLog couponUserLog = ConvertUtils.convertProperties(couponUserLogBO, CouponUserLog.class);
         couponUserLogService.save(couponUserLog);
         return ResponseEntity.success();

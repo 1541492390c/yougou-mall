@@ -3,11 +3,10 @@ package per.ccm.ygmall.feign.order.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.feign.order.bo.OrderBO;
-import per.ccm.ygmall.feign.order.bo.OrderItemBO;
 import per.ccm.ygmall.common.basic.config.FeignUrlConfig;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
-@FeignClient("yougou-mall-order")
+@FeignClient(value = "yougou-mall-order", contextId = "order")
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/order")
 public interface OrderFeign {
     /**
@@ -23,12 +22,4 @@ public interface OrderFeign {
      * */
     @PutMapping("/pay_success")
     ResponseEntity<Void> paySuccess(@RequestParam("order_no") String orderNO) throws Exception;
-
-    /**
-     * 更新订单项
-     *
-     * @param orderItemBO 订单项内部传输数据
-     * */
-    @PutMapping("/order_item/update")
-    ResponseEntity<Void> updateOrderItem(@RequestBody OrderItemBO orderItemBO) throws Exception;
 }

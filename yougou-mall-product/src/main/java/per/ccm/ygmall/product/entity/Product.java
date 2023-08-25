@@ -2,7 +2,6 @@ package per.ccm.ygmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -72,6 +71,5 @@ public class Product extends BaseEntity {
     /**
      * 是否启用
      * */
-    @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 }

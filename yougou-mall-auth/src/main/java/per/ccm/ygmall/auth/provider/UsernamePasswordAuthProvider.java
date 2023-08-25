@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.feign.extra.feign.ExtraFeign;
+import per.ccm.ygmall.feign.extra.feign.CaptchaFeign;
 import per.ccm.ygmall.auth.entity.AuthAccount;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.common.basic.exception.YougouException;
@@ -38,7 +38,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private ExtraFeign extraFeign;
+    private CaptchaFeign captchaFeign;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -77,7 +77,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         // 验证码
         String code = params.get("code");
         // 获取响应结果
-        ResponseEntity<Boolean> response = extraFeign.validateCaptcha(ipAddress, code);
+        ResponseEntity<Boolean> response = captchaFeign.validateCaptcha(ipAddress, code);
         if (!response.responseSuccess()) {
             throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }

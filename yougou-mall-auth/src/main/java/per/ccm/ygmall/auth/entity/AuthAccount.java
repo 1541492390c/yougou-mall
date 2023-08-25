@@ -60,6 +60,5 @@ public class AuthAccount extends BaseEntity {
     /**
      * 是否启用
      * */
-    @TableLogic(value = "1", delval = "0")
     private Boolean enabled;
 }

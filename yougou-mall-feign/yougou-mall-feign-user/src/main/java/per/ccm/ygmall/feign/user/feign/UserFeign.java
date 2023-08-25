@@ -6,7 +6,7 @@ import per.ccm.ygmall.feign.user.bo.UserBO;
 import per.ccm.ygmall.common.basic.config.FeignUrlConfig;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
-@FeignClient("yougou-mall-user")
+@FeignClient(value = "yougou-mall-user", contextId = "user")
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/user")
 public interface UserFeign {
     /**

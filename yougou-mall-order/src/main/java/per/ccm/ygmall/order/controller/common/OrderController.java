@@ -56,4 +56,12 @@ public class OrderController {
         PageVO<OrderVO> pageInfo = orderService.getOrderPages(userId, page);
         return ResponseEntity.success(pageInfo);
     }
+
+    @DeleteMapping("/delete")
+    @Operation(summary = "删除订单", description = "删除订单")
+    @Parameter(name = "order_id", description = "订单ID")
+    public ResponseEntity<Void> delete(@RequestParam("order_id") Long orderId) {
+        orderService.removeById(orderId);
+        return ResponseEntity.success();
+    }
 }

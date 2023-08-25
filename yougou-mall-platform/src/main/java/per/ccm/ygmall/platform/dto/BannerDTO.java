@@ -30,7 +30,4 @@ public class BannerDTO {
 
     @Schema(description = "所属页面")
     private String page;
-
-    @Schema(description = "是否启用")
-    private Boolean enabled;
 }

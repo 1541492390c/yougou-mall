@@ -3,13 +3,13 @@ package per.ccm.ygmall.extra.feign;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.feign.extra.feign.ExtraFeign;
+import per.ccm.ygmall.feign.extra.feign.CaptchaFeign;
 import per.ccm.ygmall.extra.manager.CaptchaManager;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
 @Hidden
 @RestController
-public class ExtraController implements ExtraFeign {
+public class ExtraController implements CaptchaFeign {
 
     @Autowired
     private CaptchaManager captchaManager;

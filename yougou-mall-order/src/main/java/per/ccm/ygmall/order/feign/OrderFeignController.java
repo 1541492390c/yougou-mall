@@ -5,14 +5,10 @@ import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.feign.order.bo.OrderBO;
-import per.ccm.ygmall.feign.order.bo.OrderItemBO;
 import per.ccm.ygmall.feign.order.feign.OrderFeign;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
-import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.order.entity.Order;
-import per.ccm.ygmall.order.entity.OrderItem;
 import per.ccm.ygmall.order.enums.OrderStateEnum;
-import per.ccm.ygmall.order.service.OrderItemService;
 import per.ccm.ygmall.order.service.OrderService;
 
 import java.util.Date;
@@ -23,9 +19,6 @@ public class OrderFeignController implements OrderFeign {
 
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    private OrderItemService orderItemService;
 
     @Override
     public ResponseEntity<OrderBO> getOrderBOById(Long orderId) throws Exception {
@@ -43,13 +36,6 @@ public class OrderFeignController implements OrderFeign {
         // 更新订单支付时间
         order.setPayTime(new Date());
         orderService.updateById(order);
-        return ResponseEntity.success();
-    }
-
-    @Override
-    public ResponseEntity<Void> updateOrderItem(OrderItemBO orderItemBO) {
-        OrderItem orderItem = ConvertUtils.convertProperties(orderItemBO, OrderItem.class);
-        orderItemService.updateById(orderItem);
         return ResponseEntity.success();
     }
 }

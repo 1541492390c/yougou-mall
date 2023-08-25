@@ -9,7 +9,7 @@ import per.ccm.ygmall.feign.auth.bo.AuthAccountBO;
 import per.ccm.ygmall.common.basic.config.FeignUrlConfig;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
-@FeignClient("yougou-mall-auth")
+@FeignClient(value = "yougou-mall-auth", contextId = "auth")
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/auth")
 public interface AuthAccountFeign {
     /**

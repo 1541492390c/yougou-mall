@@ -15,7 +15,7 @@ import per.ccm.ygmall.feign.order.bo.OrderBO;
 import per.ccm.ygmall.feign.order.bo.OrderItemBO;
 import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
 import per.ccm.ygmall.feign.payment.bo.CouponUserLogBO;
-import per.ccm.ygmall.feign.payment.feign.PaymentFeign;
+import per.ccm.ygmall.feign.payment.feign.CouponUserFeign;
 import per.ccm.ygmall.feign.product.bo.ProductBO;
 import per.ccm.ygmall.feign.product.bo.SkuBO;
 import per.ccm.ygmall.feign.product.feign.ProductFeign;
@@ -24,6 +24,7 @@ import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.feign.product.feign.SkuFeign;
 import per.ccm.ygmall.order.dto.OrderAddrDTO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.dto.OrderItemDTO;
@@ -63,7 +64,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private ProductFeign productFeign;
 
     @Autowired
-    private PaymentFeign paymentFeign;
+    private SkuFeign skuFeign;
+
+    @Autowired
+    private CouponUserFeign couponUserFeign;
 
     @Autowired
     private RLock rLock;
@@ -125,7 +129,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             BigDecimal payAmount = orderTotalAmount;
             // 用户使用了优惠券
             if (!ObjectUtils.isEmpty(orderDTO.getCouponUserId())) {
-                ResponseEntity<CouponUserBO> response = paymentFeign.getCouponUserById(orderDTO.getCouponUserId());
+                ResponseEntity<CouponUserBO> response = couponUserFeign.getCouponUserById(orderDTO.getCouponUserId());
 
                 // 抛异常回滚
                 if (!response.responseSuccess()) {
@@ -146,7 +150,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                 // 创建用户优惠券使用记录
                 CouponUserLogBO couponUserLogBO = this.createCouponUserLogBO(couponUserBO, order);
                 // 保存用户优惠券使用记录
-                ResponseEntity<Void> saveCouponUserLogResponse = paymentFeign.saveCouponUserLog(couponUserLogBO);
+                ResponseEntity<Void> saveCouponUserLogResponse = couponUserFeign.save(couponUserLogBO);
                 // 抛异常回滚
                 if (!saveCouponUserLogResponse.responseSuccess()) {
                     throw new YougouException(ResponseCodeEnum.getValueOf(saveCouponUserLogResponse.getCode()));
@@ -171,7 +175,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             // 保存订单项
             orderItemService.batchSave(saveOrderItemDTOList);
             // 减少商品库存,如果失败,则抛异常回滚
-            ResponseEntity<Void> response = productFeign.updateSkuStock(skuStockMap);
+            ResponseEntity<Void> response = skuFeign.update(skuStockMap);
             if (!response.responseSuccess()) {
                 throw new YougouException(ResponseCodeEnum.getValueOf(response.getCode()));
             }

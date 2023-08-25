@@ -7,11 +7,11 @@ import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.feign.order.bo.OrderItemBO;
-import per.ccm.ygmall.feign.order.feign.OrderFeign;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.feign.order.feign.OrderItemFeign;
 import per.ccm.ygmall.user.dto.CommentDTO;
 import per.ccm.ygmall.user.entity.Comment;
 import per.ccm.ygmall.user.mapper.CommentMapper;
@@ -26,7 +26,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private CommentMapper commentMapper;
 
     @Autowired
-    private OrderFeign orderFeign;
+    private OrderItemFeign orderItemFeign;
 
     @Override
     @GlobalTransactional(rollbackFor = Exception.class)
@@ -44,7 +44,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         orderItemBO.setOrderItemId(commentDTO.getOrderItemId());
         orderItemBO.setIsComment(Boolean.TRUE);
         // 抛异常回滚
-        if (!orderFeign.updateOrderItem(orderItemBO).responseSuccess()) {
+        if (!orderItemFeign.updateOrderItem(orderItemBO).responseSuccess()) {
             throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }

@@ -66,6 +66,7 @@
         SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
         <where>
             <if test="userId != null">`order`.`user_id` = #{userId}</if>
+            AND `order`.`enabled` = TRUE
         </where>
     </select>
 </mapper>
