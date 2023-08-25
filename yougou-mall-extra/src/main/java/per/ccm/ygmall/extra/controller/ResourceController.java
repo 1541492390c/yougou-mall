@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import per.ccm.ygmall.extra.manager.ResourceManager;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
 @RestController
-@RequestMapping("/biz/resource")
+@RequestMapping("/extra/resource")
 @Tag(name = "资源接口", description = "资源接口")
 public class ResourceController {
 

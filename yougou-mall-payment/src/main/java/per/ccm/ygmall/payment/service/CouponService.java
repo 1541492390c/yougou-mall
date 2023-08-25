@@ -2,7 +2,7 @@ package per.ccm.ygmall.payment.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import per.ccm.ygmall.common.vo.PageVO;
+import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.payment.entity.Coupon;
 import per.ccm.ygmall.payment.vo.CouponUserVO;
 import per.ccm.ygmall.payment.vo.CouponVO;

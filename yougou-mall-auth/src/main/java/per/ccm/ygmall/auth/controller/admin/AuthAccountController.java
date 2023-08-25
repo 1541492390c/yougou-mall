@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.manager.LoginManager;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
-import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.security.enums.UserTypeEnum;
-import per.ccm.ygmall.security.util.TokenUtils;
-import per.ccm.ygmall.security.vo.TokenVO;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.common.security.enums.UserTypeEnum;
+import per.ccm.ygmall.common.security.util.TokenUtils;
+import per.ccm.ygmall.common.security.vo.TokenVO;
 
 import javax.servlet.http.HttpServletRequest;
 

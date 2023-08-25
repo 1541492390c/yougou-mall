@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import per.ccm.ygmall.common.vo.BaseVO;
+import per.ccm.ygmall.common.basic.vo.BaseVO;
 
 /**
  * 收货地址信息

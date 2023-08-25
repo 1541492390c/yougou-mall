@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.payment.enums.PaymentTypeEnum;
 import per.ccm.ygmall.payment.manager.AliPayManager;
 

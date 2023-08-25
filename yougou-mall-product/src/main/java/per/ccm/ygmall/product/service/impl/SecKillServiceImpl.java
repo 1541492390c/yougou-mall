@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.product.entity.SecKill;
 import per.ccm.ygmall.product.mapper.SecKillMapper;
 import per.ccm.ygmall.product.service.SecKillService;

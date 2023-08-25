@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.service.SkuService;
 

@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.api.user.bo.UserBO;
 import per.ccm.ygmall.api.user.feign.UserFeign;
-import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.service.UserService;
 

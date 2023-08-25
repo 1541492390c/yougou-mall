@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import per.ccm.ygmall.database.entity.BaseEntity;
+import per.ccm.ygmall.common.database.entity.BaseEntity;
 
 /**
  * 用户反馈类型

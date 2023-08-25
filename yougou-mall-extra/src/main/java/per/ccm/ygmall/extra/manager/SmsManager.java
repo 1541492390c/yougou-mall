@@ -11,11 +11,11 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.cache.cache.CacheNames;
-import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCodeEnum;
-import per.ccm.ygmall.common.util.JSONUtils;
-import per.ccm.ygmall.common.util.RandomUtils;
+import per.ccm.ygmall.common.cache.cache.CacheNames;
+import per.ccm.ygmall.common.basic.exception.YougouException;
+import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
+import per.ccm.ygmall.common.basic.util.JSONUtils;
+import per.ccm.ygmall.common.basic.util.RandomUtils;
 
 import java.util.HashMap;
 import java.util.Map;

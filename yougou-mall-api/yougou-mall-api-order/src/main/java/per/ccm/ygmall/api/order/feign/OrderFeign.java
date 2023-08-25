@@ -4,8 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.api.order.bo.OrderBO;
 import per.ccm.ygmall.api.order.bo.OrderItemBO;
-import per.ccm.ygmall.common.config.FeignUrlConfig;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.config.FeignUrlConfig;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
 @FeignClient("yougou-mall-order")
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/order")

@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.api.product.feign.ProductFeign;
-import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCodeEnum;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.common.basic.exception.YougouException;
+import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
+import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.enums.OrderStateEnum;
 import per.ccm.ygmall.order.service.OrderService;
 import per.ccm.ygmall.order.vo.OrderItemVO;
 import per.ccm.ygmall.order.vo.OrderVO;
-import per.ccm.ygmall.rabbitmq.config.RabbitmqConfig;
+import per.ccm.ygmall.common.rabbitmq.config.RabbitmqConfig;
 
 import java.util.*;
 

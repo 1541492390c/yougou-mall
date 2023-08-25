@@ -6,10 +6,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import per.ccm.ygmall.cache.cache.CacheNames;
-import per.ccm.ygmall.security.enums.UserTypeEnum;
-import per.ccm.ygmall.security.principal.AuthPrincipal;
-import per.ccm.ygmall.security.util.TokenUtils;
+import per.ccm.ygmall.common.cache.cache.CacheNames;
+import per.ccm.ygmall.common.security.enums.UserTypeEnum;
+import per.ccm.ygmall.common.security.principal.AuthPrincipal;
+import per.ccm.ygmall.common.security.util.TokenUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

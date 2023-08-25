@@ -9,7 +9,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.cache.cache.CacheNames;
+import per.ccm.ygmall.common.cache.cache.CacheNames;
 
 import java.util.Objects;
 

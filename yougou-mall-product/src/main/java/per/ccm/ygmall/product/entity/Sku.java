@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import per.ccm.ygmall.database.entity.BaseEntity;
+import per.ccm.ygmall.common.database.entity.BaseEntity;
 
 import java.math.BigDecimal;
 

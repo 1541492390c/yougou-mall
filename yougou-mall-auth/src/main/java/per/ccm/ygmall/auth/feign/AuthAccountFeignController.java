@@ -7,8 +7,8 @@ import per.ccm.ygmall.api.auth.bo.AuthAccountBO;
 import per.ccm.ygmall.api.auth.feign.AuthAccountFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.service.AuthAccountService;
-import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.util.ConvertUtils;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.util.ConvertUtils;
 
 @Hidden
 @RestController

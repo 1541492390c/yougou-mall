@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.api.product.bo.ProductBO;
 import per.ccm.ygmall.api.product.feign.ProductFeign;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.product.service.ProductService;
 import per.ccm.ygmall.product.service.SkuService;
 

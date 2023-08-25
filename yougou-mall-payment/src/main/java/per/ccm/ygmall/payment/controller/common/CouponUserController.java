@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.payment.service.CouponUserService;
 import per.ccm.ygmall.payment.vo.CouponUserVO;
-import per.ccm.ygmall.security.util.SecurityContextUtils;
+import per.ccm.ygmall.common.security.util.SecurityContextUtils;
 
 import java.util.List;
 

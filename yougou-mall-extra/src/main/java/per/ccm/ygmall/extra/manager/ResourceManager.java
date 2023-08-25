@@ -10,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import per.ccm.ygmall.extra.config.MinioConfig;
 import per.ccm.ygmall.extra.enums.ResourceTypeEnum;
-import per.ccm.ygmall.common.util.RandomUtils;
+import per.ccm.ygmall.common.basic.util.RandomUtils;
 
 @Component
 public class ResourceManager {

@@ -7,13 +7,13 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.vo.PageVO;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.payment.entity.Coupon;
 import per.ccm.ygmall.payment.service.CouponService;
 import per.ccm.ygmall.payment.vo.CouponUserVO;
 import per.ccm.ygmall.payment.vo.CouponVO;
-import per.ccm.ygmall.security.util.SecurityContextUtils;
+import per.ccm.ygmall.common.security.util.SecurityContextUtils;
 
 @RestController
 @RequestMapping("/payment/coupon")

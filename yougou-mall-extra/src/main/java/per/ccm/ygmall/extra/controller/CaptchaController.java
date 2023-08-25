@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/biz/captcha")
+@RequestMapping("/extra/captcha")
 @Tag(name = "验证码接口", description = "验证码接口")
 public class CaptchaController {
 

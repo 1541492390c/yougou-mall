@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import per.ccm.ygmall.api.product.bo.ProductBO;
-import per.ccm.ygmall.common.config.FeignUrlConfig;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.config.FeignUrlConfig;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;

@@ -3,8 +3,8 @@ package per.ccm.ygmall.api.user.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.api.user.bo.UserBO;
-import per.ccm.ygmall.common.config.FeignUrlConfig;
-import per.ccm.ygmall.common.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.config.FeignUrlConfig;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 
 @FeignClient("yougou-mall-user")
 @RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/user")

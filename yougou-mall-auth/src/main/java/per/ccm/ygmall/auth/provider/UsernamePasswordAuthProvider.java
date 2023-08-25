@@ -12,16 +12,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import per.ccm.ygmall.api.extra.feign.BizFeign;
+import per.ccm.ygmall.api.extra.feign.ExtraFeign;
 import per.ccm.ygmall.auth.entity.AuthAccount;
 import per.ccm.ygmall.auth.service.AuthAccountService;
-import per.ccm.ygmall.common.exception.YougouException;
-import per.ccm.ygmall.common.response.ResponseCodeEnum;
-import per.ccm.ygmall.common.response.ResponseEntity;
-import per.ccm.ygmall.common.util.JSONUtils;
-import per.ccm.ygmall.security.config.RoleConfig;
-import per.ccm.ygmall.security.enums.UserTypeEnum;
-import per.ccm.ygmall.security.principal.AuthPrincipal;
+import per.ccm.ygmall.common.basic.exception.YougouException;
+import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.common.basic.util.JSONUtils;
+import per.ccm.ygmall.common.security.config.RoleConfig;
+import per.ccm.ygmall.common.security.enums.UserTypeEnum;
+import per.ccm.ygmall.common.security.principal.AuthPrincipal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private BizFeign bizFeign;
+    private ExtraFeign extraFeign;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -77,7 +77,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         // 验证码
         String code = params.get("code");
         // 获取响应结果
-        ResponseEntity<Boolean> response = bizFeign.validateCaptcha(ipAddress, code);
+        ResponseEntity<Boolean> response = extraFeign.validateCaptcha(ipAddress, code);
         if (!response.responseSuccess()) {
             throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
