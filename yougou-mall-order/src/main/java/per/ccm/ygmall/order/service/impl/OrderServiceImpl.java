@@ -78,7 +78,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         rLock.lock();
         try {
             // 判断该用户是否存在未支付订单
-            if (this.isUnPayOrder(orderDTO.getUserId())) {
+            if (this.hasUnPayOrder(orderDTO.getUserId())) {
                 throw new YougouException(ResponseCodeEnum.ORDER_ERROR_D0002);
             }
             // 获取skuID列表
@@ -222,7 +222,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @param userId 用户ID
      * @return 是否存在未支付订单
      * */
-    private Boolean isUnPayOrder(Long userId) {
+    private Boolean hasUnPayOrder(Long userId) {
         LambdaQueryWrapper<Order> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Order::getUserId, userId).eq(Order::getIsPay, Boolean.FALSE).eq(Order::getState, OrderStateEnum.WAIT_PAY.getValue());
         return orderMapper.exists(queryWrapper);
