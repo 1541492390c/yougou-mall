@@ -3,7 +3,11 @@ package per.ccm.ygmall.common.basic.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import per.ccm.ygmall.common.basic.exception.YougouException;
+import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 
+@Slf4j
 public class JSONUtils {
 
     private static final ObjectMapper objectMapper;
@@ -16,7 +20,8 @@ public class JSONUtils {
         try {
             return objectMapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("JSONUtils readValue Exception -> " + e.getMessage());
+            log.error("JSONUtils readValue Exception -> " + e.getMessage());
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 
@@ -24,7 +29,8 @@ public class JSONUtils {
         try {
             return objectMapper.readValue(json, valueTypeRef);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("JSONUtils readValue Exception -> " + e.getMessage());
+            log.error("JSONUtils readValue Exception -> " + e.getMessage());
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 
@@ -32,7 +38,8 @@ public class JSONUtils {
         try {
             return objectMapper.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("JSONUtils writeValueAsString Exception -> " + e.getMessage());
+            log.error("JSONUtils writeValueAsString Exception -> " + e.getMessage());
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 }

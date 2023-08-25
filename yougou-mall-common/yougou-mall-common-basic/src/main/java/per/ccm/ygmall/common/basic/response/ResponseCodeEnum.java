@@ -2,8 +2,11 @@ package per.ccm.ygmall.common.basic.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.common.basic.exception.YougouException;
 
+@Slf4j
 @Getter
 @AllArgsConstructor
 public enum ResponseCodeEnum {
@@ -209,6 +212,7 @@ public enum ResponseCodeEnum {
                 return responseCodeEnum;
             }
         }
-        throw new RuntimeException("ResourceTypeEnum is error --> value is not exist");
+        log.error("ResourceTypeEnum is error --> value is not exist");
+        throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
     }
 }

@@ -1,13 +1,17 @@
 package per.ccm.ygmall.common.basic.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.common.basic.exception.YougouException;
+import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Slf4j
 public class ConvertUtils {
 
     /**
@@ -27,7 +31,8 @@ public class ConvertUtils {
             }
             return targetList;
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException("ConvertUtils is Exception -> " + e.getMessage());
+            log.error("ConvertUtils is Exception -> " + e.getMessage());
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 
@@ -37,14 +42,16 @@ public class ConvertUtils {
     public static <T> T convertProperties(Object source, Class<T> target) {
         try {
             if (ObjectUtils.isEmpty(source)) {
-                throw new RuntimeException("ConvertUtils is Exception -> source is empty");
+                log.error("ConvertUtils is Exception -> source is empty");
+                throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
             }
             T targetObject = target.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(source, targetObject);
 
             return targetObject;
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("ConvertUtils is Exception -> " + e.getMessage());
+            log.error("ConvertUtils is Exception -> " + e.getMessage());
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 }
