@@ -61,6 +61,7 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
         couponUserList = couponUserList
                 .stream()
                 .filter(item -> {
+                    // 通用优惠券
                     if (ObjectUtils.nullSafeEquals(item.getCoupon().getCategoryNode(), "0")) {
                         return Boolean.TRUE;
                     }
@@ -74,6 +75,7 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
     public CouponUserBO getCouponUserBOById(Long couponUserId) {
         CouponUserVO couponUserVO = couponUserMapper.selectCouponUserListByCouponUserId(couponUserId);
 
+        // 优惠券已过期
         if (couponUserVO.getExpiredTime().getTime() <= new Date().getTime()) {
             throw new YougouException(ResponseCodeEnum.PAYMENT_ERROR_E0003);
         }

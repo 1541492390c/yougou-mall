@@ -109,9 +109,7 @@ public class AliPayManager {
             paymentLogService.save(paymentLog);
 
             // 查看该订单是否使用优惠券
-            LambdaQueryWrapper<CouponUserLog> couponUserLogQueryWrapper = new LambdaQueryWrapper<>();
-            couponUserLogQueryWrapper.eq(CouponUserLog::getIsPay, Boolean.FALSE).eq(CouponUserLog::getOrderNo, params.get("out_trade_no"));
-            CouponUserLog couponUserLog = couponUserLogService.getOne(couponUserLogQueryWrapper);
+            CouponUserLog couponUserLog = couponUserLogService.getOne(new LambdaQueryWrapper<CouponUserLog>().eq(CouponUserLog::getIsPay, Boolean.FALSE).eq(CouponUserLog::getOrderNo, params.get("out_trade_no")));
             // 使用了优惠券,更新用户优惠券状态和用户优惠券使用记录
             if (!ObjectUtils.isEmpty(couponUserLog)) {
                 couponUserLog.setIsPay(Boolean.TRUE);
