@@ -3,31 +3,6 @@ CREATE SCHEMA IF NOT EXISTS yougou_mall_user DEFAULT CHARACTER SET utf8mb4 COLLA
 USE yougou_mall_user;
 
 --
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
-    `user_id` bigint NOT NULL COMMENT '主键ID',
-    `gender` tinyint NOT NULL DEFAULT '0' COMMENT '性别 0-未填写 1-男 2-女',
-    `user_type` tinyint NOT NULL DEFAULT '2' COMMENT '用户类型 1-管理员 2-普通用户',
-    `state` int DEFAULT '1' COMMENT '用户状态 0-禁用 1-正常',
-    `nickname` varchar(255) NOT NULL COMMENT '昵称',
-    `avatar` varchar(255) COMMENT '头像',
-    `birthday` timestamp NULL DEFAULT NULL COMMENT '生日',
-    `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否启用',
-    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`user_id`),
-    UNIQUE KEY `username` (`nickname`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
-
-LOCK TABLES `user` WRITE;
-INSERT INTO `user` VALUES (1,0,1,1,'admin',NULL,NULL,b'1',CURRENT_TIMESTAMP,NULL);
-UNLOCK TABLES;
-
---
 -- Table structure for table `addr`
 --
 
@@ -46,8 +21,7 @@ CREATE TABLE `addr` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`addr_id`),
-  KEY `addr_user_user_id_fk` (`user_id`),
-  CONSTRAINT `addr_user_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+  KEY `addr_index` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='收货地址';
 
 --
@@ -69,8 +43,7 @@ CREATE TABLE `comment` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`comment_id`),
-  KEY `comment_user_user_id_fk` (`user_id`),
-  CONSTRAINT `comment_user_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+  KEY `comment_index` (`user_id`,`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='评价';
 
 --
@@ -91,8 +64,7 @@ CREATE TABLE `feedback` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`feedback_id`),
-  KEY `feedback_user_user_id_fk` (`user_id`),
-  CONSTRAINT `feedback_user_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+  KEY `feedback_index` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户反馈';
 
 --
@@ -113,3 +85,27 @@ CREATE TABLE `undo_log` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COMMENT='AT transaction mode undo table';
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `user_id` bigint NOT NULL COMMENT '主键ID',
+  `gender` tinyint NOT NULL DEFAULT '0' COMMENT '性别 0-未填写 1-男 2-女',
+  `user_type` tinyint NOT NULL DEFAULT '2' COMMENT '用户类型 1-管理员 2-普通用户',
+  `state` int DEFAULT '1' COMMENT '用户状态 0-禁用 1-正常',
+  `nickname` varchar(255) NOT NULL COMMENT '昵称',
+  `avatar` varchar(255) COMMENT '头像',
+  `birthday` timestamp NULL DEFAULT NULL COMMENT '生日',
+  `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否启用',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
+
+LOCK TABLES `user` WRITE;
+INSERT INTO `user` VALUES (1,0,1,1,'admin',NULL,NULL,b'1',CURRENT_TIMESTAMP,NULL);
+UNLOCK TABLES;

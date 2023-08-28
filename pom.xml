@@ -36,7 +36,7 @@
         <hutool-captcha.version>5.8.3</hutool-captcha.version>
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
         <redisson.version>3.17.4</redisson.version>
-        <springdoc.version>4.1.0</springdoc.version>
+        <knife4j.version>4.1.0</knife4j.version>
         <minio.version>8.4.3</minio.version>
         <okhttp.version>4.9.0</okhttp.version>
         <seata.version>1.6.1</seata.version>
@@ -112,13 +112,13 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
-                <version>${springdoc.version}</version>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
-                <version>${springdoc.version}</version>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <dependency>

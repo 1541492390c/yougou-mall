@@ -11,10 +11,10 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `order_id` bigint NOT NULL COMMENT '主键ID',
   `user_id` bigint NOT NULL COMMENT '用户ID',
-  `coupon_user_od` bigint DEFAULT NULL COMMENT '用户优惠券ID',
+  `coupon_user_id` bigint DEFAULT NULL COMMENT '用户优惠券ID(可空,为空时,用户未使用优惠券)',
   `state` tinyint NOT NULL COMMENT '订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成',
-  `total_amount` decimal(10,2) DEFAULT NULL COMMENT '订单总额',
-  `pay_amount` decimal(10,2) DEFAULT NULL COMMENT '实付金额',
+  `total_amount` decimal(10,2) DEFAULT NULL COMMENT '总金额',
+  `pay_amount` decimal(10,2) NOT NULL COMMENT '实付金额',
   `is_pay` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否支付',
   `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否启用',
   `order_no` varchar(50) DEFAULT NULL COMMENT '订单号',
@@ -26,7 +26,8 @@ CREATE TABLE `order` (
   `cancel_time` datetime DEFAULT NULL COMMENT '取消时间',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`order_id`)
+  PRIMARY KEY (`order_id`),
+  KEY `order_index` (`order_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单';
 
 --
@@ -48,9 +49,8 @@ CREATE TABLE `order_addr` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`order_addr_id`),
-  KEY `order_addr_order_order_id_fk` (`order_id`),
-  CONSTRAINT `order_addr_order_order_id_fk` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单收获地址';
+  KEY `order_addr_fk` (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='订单收获地址';
 
 --
 -- Table structure for table `order_item`
@@ -72,9 +72,8 @@ CREATE TABLE `order_item` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`order_item_id`),
-  KEY `order_item_order_order_id_fk` (`order_id`),
-  CONSTRAINT `order_item_order_order_id_fk` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `order_item_index` (`order_id`,`product_id`,`sku_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Table structure for table `undo_log`
@@ -92,4 +91,3 @@ CREATE TABLE `undo_log` (
   `log_modified` datetime(6) NOT NULL COMMENT 'modify datetime',
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-

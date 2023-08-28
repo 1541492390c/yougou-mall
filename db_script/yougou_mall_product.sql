@@ -15,8 +15,7 @@ CREATE TABLE `attr` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`attr_id`),
-  KEY `attr_product_product_id_fk` (`product_id`),
-  CONSTRAINT `attr_product_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+  KEY `attr_index` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品属性值';
 
 --
@@ -32,8 +31,7 @@ CREATE TABLE `attr_value` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`attr_value_id`),
-  KEY `attr_value_product_attr_attr_id_fk` (`attr_id`),
-  CONSTRAINT `attr_value_product_attr_attr_id_fk` FOREIGN KEY (`attr_id`) REFERENCES `attr` (`attr_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `attr_value_index` (`attr_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品属性值';
 
 --
@@ -83,9 +81,8 @@ CREATE TABLE `favorite` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`favorite_id`),
-  KEY `favorite_product_product_id_fk` (`product_id`),
-  CONSTRAINT `favorite_product_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品收藏';
+  KEY `favorite_index` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品收藏';
 
 --
 -- Table structure for table `product`
@@ -96,10 +93,10 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `brand_id` bigint DEFAULT NULL COMMENT '品牌id',
-  `category_node` varchar(10) NOT NULL COMMENT '分类节点 格式: 一级分类-二级分类-三级分类 如: (0-1-2)',
+  `category_node` varchar(10) DEFAULT NULL COMMENT '分类节点 格式: 一级分类-二级分类-三级分类 如: (0-1-2)',
   `state` tinyint NOT NULL DEFAULT '1' COMMENT '商品状态 0-已下架 1-上架',
   `discount` int DEFAULT NULL COMMENT '折扣',
-  `name` varchar(255) NOT NULL COMMENT '商品名称',
+  `name` varchar(255) DEFAULT NULL COMMENT '商品名称',
   `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   `img_list` text COMMENT '图片列表',
   `is_discount` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否折扣',
@@ -135,7 +132,7 @@ DROP TABLE IF EXISTS `sku`;
 CREATE TABLE `sku` (
   `sku_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `product_id` bigint NOT NULL COMMENT '商品 ID',
-  `price` decimal(10,2) NOT NULL COMMENT '价格',
+  `price` decimal(10,2) DEFAULT NULL COMMENT '价格',
   `discount_price` decimal(10,2) DEFAULT NULL COMMENT '折扣价格',
   `description` varchar(255) DEFAULT NULL COMMENT 'SKU简介',
   `specs` varchar(255) NOT NULL COMMENT 'sku规格',
@@ -143,8 +140,7 @@ CREATE TABLE `sku` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`sku_id`),
-  KEY `sku_product_product_id_fk` (`product_id`),
-  CONSTRAINT `sku_product_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+  KEY `sku_index` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品SKU';
 
 --
@@ -164,4 +160,4 @@ CREATE TABLE `undo_log` (
   `log_modified` datetime(6) NOT NULL COMMENT 'modify datetime',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb3 COMMENT='AT transaction mode undo table';
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb3 COMMENT='AT transaction mode undo table';
