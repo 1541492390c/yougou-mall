@@ -2,6 +2,7 @@
 <div align='center'>
     <img src='https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/yougou.png' alt='logo'>
 </div>
+
 ## 项目简介
 
 毕业设计，一个基于 SpringCloud Alibaba、Nacos、Seata、MyBatis-Plus、RabbitMQ、Elasticsearch、MySql、Redis、Minio  的分布式微服务商城系统，此外还引用了阿里云 SMS 短信服务，以及支付宝支付, 系统包括了商城前端和后台管理平台，商城前端包含了完整的购物流程，后台管理平台包括了商品管理、订单管理、用户管理、轮播图管理、活动管理、优惠券管理、规格管理。
