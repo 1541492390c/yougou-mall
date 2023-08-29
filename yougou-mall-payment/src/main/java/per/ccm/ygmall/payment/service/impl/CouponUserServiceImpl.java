@@ -34,7 +34,9 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
     @Override
     public Boolean isReceive(Long couponId, Long userId) {
         LambdaQueryWrapper<CouponUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(CouponUser::getCouponId, couponId).eq(CouponUser::getUserId, userId);
+        queryWrapper.eq(CouponUser::getCouponId, couponId).eq(CouponUser::getUserId, userId)
+                .ne(CouponUser::getState, CouponUserStateEnum.USED.getValue())
+                .ne(CouponUser::getState, CouponUserStateEnum.EXPIRED.getValue());
         return couponUserMapper.exists(queryWrapper);
     }
 

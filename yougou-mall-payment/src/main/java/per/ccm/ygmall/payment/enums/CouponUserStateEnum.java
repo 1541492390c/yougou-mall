@@ -25,4 +25,6 @@ public enum CouponUserStateEnum {
     private final Integer value;
 
     private final String message;
+
+
 }
