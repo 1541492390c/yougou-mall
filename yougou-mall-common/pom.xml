@@ -16,12 +16,5 @@
         <module>yougou-mall-common-rabbitmq</module>
         <module>yougou-mall-common-security</module>
     </modules>
-
     <artifactId>yougou-mall-common</artifactId>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 </project>

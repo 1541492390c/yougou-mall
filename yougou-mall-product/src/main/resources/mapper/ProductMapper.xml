@@ -44,7 +44,7 @@
             <where>
                 <if test="categoryNode != null">product.`category_node` = #{categoryNode}</if>
                 <if test="isDiscount != null">product.`is_discount` = #{isDiscount}</if>
-                <if test="recommended != null">AND product.`recommended` = #{recommended}</if>
+                <if test="recommended != null">product.`recommended` = #{recommended}</if>
                 AND product.`enabled` = TRUE
             </where>
     </select>
