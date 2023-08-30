@@ -45,9 +45,12 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
         // 查询用户所有优惠券
         List<CouponUserVO> couponUserList = couponUserMapper.selectCouponUserListByUserId(queryAvailableCouponDTO.getUserId());
 
+        // 结果为空,则直接返回
+        if (ObjectUtils.isEmpty(couponUserList)) {
+            return couponUserList;
+        }
         // 过滤出状态为待使用和通用优惠券
-        couponUserList = couponUserList
-                .stream()
+        couponUserList = couponUserList.stream()
                 .filter(item -> ObjectUtils.nullSafeEquals(item.getState(), CouponUserStateEnum.WAIT_USE.getValue())
                         && queryAvailableCouponDTO.getTotalAmount().compareTo(item.getCoupon().getUsedAmount()) >= 0)
                 .collect(Collectors.toList());
@@ -60,8 +63,7 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
         }
 
         // 过滤出对应分类的优惠券
-        couponUserList = couponUserList
-                .stream()
+        couponUserList = couponUserList.stream()
                 .filter(item -> {
                     // 通用优惠券
                     if (ObjectUtils.nullSafeEquals(item.getCoupon().getCategoryNode(), "0")) {

@@ -36,14 +36,14 @@ public class ProductDTO {
     @Schema(description = "商品封面")
     private String cover;
 
+    @Schema(description = "图片列表")
+    private String imgList;
+
     @Schema(description = "是否折扣")
     private Boolean isDiscount;
 
     @Schema(description = "是否推荐")
     private Boolean recommended;
-
-    @Schema(description = "图片列表")
-    private List<String> imgList;
 
     @Schema(description = "属性列表")
     private List<AttrDTO> attrList;

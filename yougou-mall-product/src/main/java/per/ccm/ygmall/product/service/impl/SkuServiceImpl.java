@@ -31,7 +31,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
 
         for (SkuDTO skuDTO : skuDTOList) {
             // 判断sku规格是否存在
-            if (skuMapper.exists(queryWrapper.eq(Sku::getSpecs, skuDTO.getSpecs()))) {
+            if (skuMapper.exists(queryWrapper.eq(Sku::getProductId, skuDTO.getProductId()).eq(Sku::getSpecs, skuDTO.getSpecs()))) {
                 throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4001);
             }
             // 将sku传输数据转为实体
