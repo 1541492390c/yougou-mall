@@ -28,6 +28,11 @@ public enum CacheEnum {
     PRODUCT(CacheNames.PRODUCT_CACHE_NAME, 7 * 24 * 60 * 60L),
 
     /**
+     * 属性
+     * */
+    ATTR(CacheNames.PRODUCT_ATTR_CACHE_NAME, 7 * 24 * 60 * 60L),
+
+    /**
      * 轮播图
      * */
     BANNER(CacheNames.BANNER_CACHE_NAME, 7 * 24 * 60 * 60L),

@@ -37,22 +37,22 @@ yougou-mall
 
 ## 技术选型
 
-|        技术         |      说明       |  版本号  |
-| :-----------------: | :-------------: | :------: |
-|     SpringCloud     |   微服务框架    | 2020.0.0 |
-| SpringCloud Alibaba |   微服务框架    |  2021.1  |
-|       Gateway       |      网关       |  3.0.4   |
-|    LoadBalancer     |    负载均衡     |  3.0.4   |
-|      OpenFeign      |    服务调用     |  3.0.4   |
-|        Minio        |  本地对象存储   |    X     |
-|     SpringBoot      |    核心框架     |  2.4.6   |
-|   SpringSecurity    |    安全框架     |  2.4.6   |
-|    MyBaits-Plus     |     ORM框架     |  3.5.3   |
-|        Druid        |  数据库连接池   |  1.2.6   |
-|        Seata        |   分布式事务    |  1.6.1   |
-|       Knife4j       | Api文档生成工具 |  4.1.0   |
-|    Elasticsearch    |    搜索引擎     |  7.17.2  |
-|      Logstash       | 数据库同步工具  |  7.17.2  |
+|        技术         |      说明       |                             官网                             |
+| :-----------------: | :-------------: | :----------------------------------------------------------: |
+|     SpringCloud     |   微服务框架    | [https://spring.io/projects/spring-cloud](https://gitee.com/link?target=https%3A%2F%2Fspring.io%2Fprojects%2Fspring-cloud%2F) |
+| SpringCloud Alibaba |   微服务框架    |       https://spring.io/projects/spring-cloud-alibaba        |
+|       Gateway       |      网关       |       https://spring.io/projects/spring-cloud-gateway        |
+|    LoadBalancer     |    负载均衡     |    https://spring.io/guides/gs/spring-cloud-loadbalancer     |
+|      OpenFeign      |    服务调用     |      https://spring.io/projects/spring-cloud-openfeign       |
+|        Minio        |  本地对象存储   |                     http://minio.org.cn                      |
+|     SpringBoot      |    核心框架     | [https://spring.io/projects/spring-boot](https://gitee.com/link?target=https%3A%2F%2Fspring.io%2Fprojects%2Fspring-boot) |
+|   SpringSecurity    |    安全框架     | [https://spring.io/projects/spring-security](https://gitee.com/link?target=https%3A%2F%2Fspring.io%2Fprojects%2Fspring-security) |
+|    MyBaits-Plus     |     ORM框架     | [https://mp.baomidou.com](https://gitee.com/link?target=https%3A%2F%2Fmp.baomidou.com%2F) |
+|        Druid        |  数据库连接池   | [https://github.com/alibaba/druid](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Falibaba%2Fdruid) |
+|        Seata        |   分布式事务    |                    https://seata.io/zh-cn                    |
+|       Knife4j       | Api文档生成工具 |                  https://doc.xiaominfo.com                   |
+|    Elasticsearch    |    搜索引擎     |           https://www.elastic.co/cn/elasticsearch            |
+|      Logstash       | 数据库同步工具  |              https://www.elastic.co/cn/logstash              |
 
 ## 环境搭建
 
@@ -60,7 +60,7 @@ yougou-mall
 
 |   工具   |            说明            | 版本号 |
 | :------: | :------------------------: | :----: |
-|  JDK11   |            JDK             |   11   |
+|   JDK    |            JDK             |   11   |
 |  Maven   |           MAVEN            | 3.8.6  |
 |  Nacos   | 服务注册发现中心和配置中心 | 2.0.3  |
 | RabbitMQ |          消息队列          | 3.9.11 |
@@ -69,10 +69,10 @@ yougou-mall
 
 ### 开发工具
 
-| 工具          | 说明          | 下载地址                                                     |
-| ------------- | ------------- | ------------------------------------------------------------ |
-| IntelliJ IDEA | JAVA开发IDE   | [https://www.jetbrains.com/idea/download](https://gitee.com/link?target=https%3A%2F%2Fwww.jetbrains.com%2Fidea%2Fdownload) |
-| DataGrip      | 数据库开发IDE | https://www.jetbrains.com/datagrip/download/                 |
+|     工具      |     说明      |                           下载地址                           |
+| :-----------: | :-----------: | :----------------------------------------------------------: |
+| IntelliJ IDEA |  JAVA开发IDE  | [https://www.jetbrains.com/idea/download](https://gitee.com/link?target=https%3A%2F%2Fwww.jetbrains.com%2Fidea%2Fdownload) |
+|   DataGrip    | 数据库开发IDE |         https://www.jetbrains.com/datagrip/download/         |
 
 ## 运行截图
 

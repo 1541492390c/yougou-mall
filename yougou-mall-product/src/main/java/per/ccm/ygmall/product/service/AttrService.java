@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface AttrService extends IService<Attr> {
     /**
-     * 保存商品属性信息
+     * 批量保存
      *
-     * @param attrDTO 商品属性传输数据
+     * @param attrList 属性传输数据列表
      * */
-    void save(AttrDTO attrDTO) throws Exception;
+    void batchSave(List<AttrDTO> attrList) throws Exception;
 
     /**
      * 根据spuID获取商品属性列表
@@ -22,14 +22,6 @@ public interface AttrService extends IService<Attr> {
      * @return 商品属性列表
      * */
     List<AttrVO> getAttrListByProductId(Long productId) throws Exception;
-
-    /**
-     * 根据属性ID列表获取商品属性列表
-     *
-     * @param attrIdList 属性ID列表
-     * @return 商品属性列表
-     * */
-    List<AttrVO> getAttrListByAttrIdList(List<Long> attrIdList) throws Exception;
 
     /**
      * 更新商品属性信息
@@ -43,5 +35,5 @@ public interface AttrService extends IService<Attr> {
      *
      * @param attrIdList 商品属性ID列表
      * */
-    void batchRemove(List<Long> attrIdList) throws Exception;
+    void batchDelete(List<Long> attrIdList) throws Exception;
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import per.ccm.ygmall.common.basic.exception.YougouException;
+import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.extra.manager.CaptchaManager;
 
 import javax.servlet.ServletOutputStream;
@@ -32,9 +34,12 @@ public class CaptchaController {
 
         ICaptcha captcha = captchaManager.createCaptcha(request.getRemoteAddr());
         ServletOutputStream outputStream = response.getOutputStream();
-        try (outputStream) {
+        // 写入验证码图片
+        try {
             captcha.write(outputStream);
             outputStream.flush();
+        } catch (Exception e) {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
     }
 }

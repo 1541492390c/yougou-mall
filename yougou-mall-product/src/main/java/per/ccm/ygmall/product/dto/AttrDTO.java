@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * 商品属性传输数据
  * */
@@ -21,4 +23,7 @@ public class AttrDTO {
 
     @Schema(description = "商品属性名称")
     private String name;
+
+    @Schema(description = "属性值列表")
+    private List<AttrValueDTO> attrValueList;
 }

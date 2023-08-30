@@ -3,13 +3,16 @@ package per.ccm.ygmall.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
+import per.ccm.ygmall.common.cache.cache.CacheNames;
 import per.ccm.ygmall.product.dto.AttrDTO;
+import per.ccm.ygmall.product.dto.AttrValueDTO;
 import per.ccm.ygmall.product.entity.Attr;
 import per.ccm.ygmall.product.mapper.AttrMapper;
 import per.ccm.ygmall.product.service.AttrService;
@@ -28,39 +31,39 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr> implements At
     private AttrValueService attrValueService;
 
     @Override
-    public void save(AttrDTO attrDTO) {
+    public void batchSave(List<AttrDTO> attrDTOList) throws Exception {
         LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
 
-        // 判断当前商品下是否存在该属性名称
-        if (this.isExist(queryWrapper, attrDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2001);
+        for (AttrDTO attrDTO : attrDTOList) {
+            // 判断当前商品下是否存在该属性名称
+            if (this.isExist(attrDTO)) {
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2001);
+            }
+            // 一个商品最多拥有5个属性
+            if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2002);
+            }
+            // 将属性DTO转为实体
+            Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
+            attrMapper.insert(attr);
+            // 写入属性的主键ID
+            List<AttrValueDTO> attrValueDTOList = attrDTO.getAttrValueList();
+            attrValueDTOList.forEach(item -> item.setAttrId(attr.getAttrId()));
+            // 批量保存属性值
+            attrValueService.batchSave(attrValueDTOList);
         }
-        // 一个商品最多拥有5个属性
-        if (attrMapper.selectCount(queryWrapper.eq(Attr::getProductId, attrDTO.getProductId())) >= 5) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2002);
-        }
-        Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
-        attrMapper.insert(attr);
     }
 
     @Override
+    @Cacheable(cacheNames = CacheNames.PRODUCT_ATTR_CACHE_NAME, key = "#productId", sync = true)
     public List<AttrVO> getAttrListByProductId(Long productId) {
         return attrMapper.selectAttrList(productId);
     }
 
     @Override
-    public List<AttrVO> getAttrListByAttrIdList(List<Long> attrIdList) {
-        LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
-        List<Attr> attrList = attrMapper.selectList(queryWrapper.in(Attr::getAttrId, attrIdList));
-        return ConvertUtils.converList(attrList, AttrVO.class);
-    }
-
-    @Override
     public void update(AttrDTO attrDTO) {
-        LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
-
         // 判断当前商品下是否存在该属性名称
-        if (this.isExist(queryWrapper, attrDTO)) {
+        if (this.isExist(attrDTO)) {
             throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C2001);
         }
         Attr attr = ConvertUtils.convertProperties(attrDTO, Attr.class);
@@ -69,7 +72,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr> implements At
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void batchRemove(List<Long> attrIdList) throws Exception {
+    public void batchDelete(List<Long> attrIdList) throws Exception {
         attrMapper.deleteBatchIds(attrIdList);
         // 删除对应的商品属性值
         attrValueService.batchDeleteByAttrIdList(attrIdList);
@@ -78,11 +81,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr> implements At
     /**
      * 判断当前spu下是否存在该属性名称
      *
-     * @param queryWrapper 查询
      * @param attrDTO 属性传输数据
      * @return 是否存在该属性名称
      * */
-    private Boolean isExist(LambdaQueryWrapper<Attr> queryWrapper, AttrDTO attrDTO) {
+    private Boolean isExist(AttrDTO attrDTO) {
+        LambdaQueryWrapper<Attr> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Attr::getProductId, attrDTO.getProductId()).eq(Attr::getName, attrDTO.getName());
         Attr attrExist = attrMapper.selectOne(queryWrapper);
         return !ObjectUtils.isEmpty(attrExist);

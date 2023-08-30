@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * 商品传输数据
  * */
@@ -39,4 +41,13 @@ public class ProductDTO {
 
     @Schema(description = "是否推荐")
     private Boolean recommended;
+
+    @Schema(description = "图片列表")
+    private List<String> imgList;
+
+    @Schema(description = "属性列表")
+    private List<AttrDTO> attrList;
+
+    @Schema(description = "sku列表")
+    private List<SkuDTO> skuList;
 }

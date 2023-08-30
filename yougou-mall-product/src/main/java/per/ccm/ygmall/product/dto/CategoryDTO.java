@@ -16,6 +16,9 @@ public class CategoryDTO {
     @Schema(description = "主键ID")
     private Long categoryId;
 
+    @Schema(description = "父分类ID")
+    private Long parentId;
+
     @Schema(description = "分类级别")
     private Integer level;
 

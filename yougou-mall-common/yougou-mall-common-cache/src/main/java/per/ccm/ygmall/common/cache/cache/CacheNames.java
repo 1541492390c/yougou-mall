@@ -23,6 +23,11 @@ public class CacheNames {
     public static final String PRODUCT_CACHE_NAME = "product";
 
     /**
+     * 属性缓存
+     * */
+    public static final String PRODUCT_ATTR_CACHE_NAME = "attr";
+
+    /**
      * 验证码缓存
      * */
     public static final String BIZ_VALIDATE_CODE_NAME = "biz_validate_code";

@@ -11,11 +11,11 @@ import java.util.Map;
 
 public interface SkuService extends IService<Sku> {
     /**
-     * 保存sku信息
+     * 批量保存sku列表
      *
-     * @param skuDTO sku传输数据
+     * @param skuDTOList sku传输数据列表
      * */
-    void save(SkuDTO skuDTO) throws Exception;
+    void batchSave(List<SkuDTO> skuDTOList) throws Exception;
 
     /**
      * 根据商品ID获取sku信息列表
@@ -32,6 +32,13 @@ public interface SkuService extends IService<Sku> {
      * @return sku内部传输数据列表
      * */
     List<SkuBO> getSkuBOList(List<Long> skuIdList) throws Exception;
+
+    /**
+     * 更新商品信息
+     *
+     * @param skuDTO sku传输数据
+     * */
+    void update(SkuDTO skuDTO) throws Exception;
 
     /**
      * 订单取消后,返还库存

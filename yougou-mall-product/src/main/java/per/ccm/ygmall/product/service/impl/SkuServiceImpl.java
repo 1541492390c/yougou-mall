@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.feign.product.bo.SkuBO;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
@@ -26,15 +26,19 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
     private SkuMapper skuMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void save(SkuDTO skuDTO) throws Exception {
+    public void batchSave(List<SkuDTO> skuDTOList) {
         LambdaQueryWrapper<Sku> queryWrapper = new LambdaQueryWrapper<>();
-        // 判断sku规格是否存在
-        if (skuMapper.exists(queryWrapper.eq(Sku::getSpecs, skuDTO.getSpecs()))) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4001);
+
+        for (SkuDTO skuDTO : skuDTOList) {
+            // 判断sku规格是否存在
+            if (skuMapper.exists(queryWrapper.eq(Sku::getSpecs, skuDTO.getSpecs()))) {
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4001);
+            }
+            // 将sku传输数据转为实体
+            Sku sku = ConvertUtils.convertProperties(skuDTO, Sku.class);
+            // 保存sku
+            skuMapper.insert(sku);
         }
-        Sku sku = ConvertUtils.convertProperties(skuDTO, Sku.class);
-        skuMapper.insert(sku);
     }
 
     @Override
@@ -60,6 +64,16 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
             skuBOList.add(skuBO);
         }
         return skuBOList;
+    }
+
+    @Override
+    public void update(SkuDTO skuDTO) throws Exception {
+        // skuID为空
+        if (ObjectUtils.isEmpty(skuDTO.getSkuId())) {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00002);
+        }
+        Sku sku = ConvertUtils.convertProperties(skuDTO, Sku.class);
+        skuMapper.updateById(sku);
     }
 
     @Override

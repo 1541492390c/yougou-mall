@@ -32,22 +32,27 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, allEntries = true)
     public void save(CategoryDTO categoryDTO) {
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-
         // 判断分类是否已存在
-        if (this.isExist(queryWrapper, categoryDTO)) {
+        if (this.isExist(categoryDTO)) {
             throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
         categoryMapper.insert(category);
         // 插入后获取主键ID,插入分类节点
-        if (category.getLevel() == 0) { // 顶级分类
+        if (category.getLevel() == 1) { // 顶级分类
             category.setNode(String.valueOf(category.getCategoryId()));
-        } else { // 其他分类
-            Category parentCategory = categoryMapper.selectOne(queryWrapper.eq(Category::getParentId, category.getParentId()));
+        } else if (category.getLevel() == 2 || category.getLevel() == 3) { // 其他分类
+            LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+            Category parentCategory = categoryMapper.selectOne(queryWrapper.eq(Category::getCategoryId, category.getParentId()));
+            // 父分类不存在
+            if (ObjectUtils.isEmpty(parentCategory)) {
+                throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0003);
+            }
+            // 设置分类节点
             category.setNode(parentCategory.getNode() + "-" + category.getCategoryId());
+            // 更新分类
+            categoryMapper.updateById(category);
         }
-        categoryMapper.updateById(category);
     }
 
     @Override
@@ -58,8 +63,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         // 获取所有分类
         List<CategoryVO> categoryList = ConvertUtils.converList(categoryMapper.selectList(queryWrapper), CategoryVO.class);
         // 获取当前分类
-        return categoryList.stream()
-                .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId))
+        return categoryList.stream().filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentId))
                 .peek(item -> item.setChildren(this.setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
     }
 
@@ -77,8 +81,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0002);
         }
         // 获取当前分类
-        List<CategoryVO> currentCategoryList = categoryList.stream()
-                .filter(item -> item.getParentId() == 0L)
+        List<CategoryVO> currentCategoryList = categoryList.stream().filter(item -> item.getParentId() == 0L)
                 .peek(item -> item.setChildren(this.setChildrenCategoryList(item, categoryList))).collect(Collectors.toList());
         return currentCategoryList.get(0);
     }
@@ -86,10 +89,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, allEntries = true)
     public void update(CategoryDTO categoryDTO) {
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-
         // 判断分类是否已存在
-        if (this.isExist(queryWrapper, categoryDTO)) {
+        if (this.isExist(categoryDTO)) {
             throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0001);
         }
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
@@ -105,11 +106,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     /**
      * 判断当该分类名称是否存在
      *
-     * @param queryWrapper 查询
      * @param categoryDTO  分类传输数据
      * @return 是否存在该分类名称
      */
-    private Boolean isExist(LambdaQueryWrapper<Category> queryWrapper, CategoryDTO categoryDTO) {
+    private Boolean isExist(CategoryDTO categoryDTO) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         Category categoryExist = categoryMapper.selectOne(queryWrapper.eq(Category::getName, categoryDTO.getName()));
         return !ObjectUtils.isEmpty(categoryExist);
     }

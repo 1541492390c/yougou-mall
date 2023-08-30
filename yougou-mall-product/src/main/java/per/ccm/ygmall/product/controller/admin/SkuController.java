@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.service.SkuService;
@@ -21,10 +18,10 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
-    @PostMapping("/save")
-    @Operation(summary = "保存sku信息", description = "保存sku信息")
-    public ResponseEntity<Void> save(@RequestBody SkuDTO skuDTO) throws Exception {
-        skuService.save(skuDTO);
+    @PutMapping("/update")
+    @Operation(summary = "更新sku", description = "更新sku")
+    public ResponseEntity<Void> update(@RequestBody SkuDTO skuDTO) throws Exception {
+        skuService.update(skuDTO);
         return ResponseEntity.success();
     }
 }

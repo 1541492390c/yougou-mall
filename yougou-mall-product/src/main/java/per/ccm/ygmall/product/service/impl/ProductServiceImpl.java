@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.feign.product.bo.ProductBO;
 import per.ccm.ygmall.feign.product.bo.SkuBO;
@@ -15,9 +16,12 @@ import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.product.dto.AttrDTO;
 import per.ccm.ygmall.product.dto.ProductDTO;
+import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.entity.Product;
 import per.ccm.ygmall.product.mapper.ProductMapper;
+import per.ccm.ygmall.product.service.AttrService;
 import per.ccm.ygmall.product.service.ProductService;
 import per.ccm.ygmall.product.service.SkuService;
 import per.ccm.ygmall.product.vo.ProductVO;
@@ -33,17 +37,39 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private ProductMapper productMapper;
 
     @Autowired
+    private AttrService attrService;
+
+    @Autowired
     private SkuService skuService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CACHE_NAME, allEntries = true)
-    public void save(ProductDTO productDTO) {
+    public void save(ProductDTO productDTO) throws Exception {
         // 判断商品名称是否存在
         if (this.isExist(productDTO)) {
             throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C1001);
         }
+
+        // 属性值列表或sku列表为空
+        if (ObjectUtils.isEmpty(productDTO.getAttrList()) || ObjectUtils.isEmpty(productDTO.getSkuList())) {
+            throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00002);
+        }
+
+        // 保存商品
         Product product = ConvertUtils.convertProperties(productDTO, Product.class);
         productMapper.insert(product);
+        // 属性列表写入商品主键ID
+        List<AttrDTO> attrDTOList = productDTO.getAttrList();
+        attrDTOList.forEach(item -> item.setProductId(product.getProductId()));
+        // 批量保存属性
+        attrService.batchSave(attrDTOList);
+
+        // sku列表写入商品主键ID
+        List<SkuDTO> skuDTOList = productDTO.getSkuList();
+        skuDTOList.forEach(item -> item.setProductId(product.getProductId()));
+        // 批量保存sku
+        skuService.batchSave(skuDTOList);
     }
 
     @Override

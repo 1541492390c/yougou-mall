@@ -122,9 +122,14 @@ public enum ResponseCodeEnum {
     PRODUCT_ERROR_C0002("C0002", "当前分类节点不存在"),
 
     /**
-     * 商品SPU已存在
+     * 父分类不存在
      * */
-    PRODUCT_ERROR_C1001("C1001", "商品SPU已存在"),
+    PRODUCT_ERROR_C0003("C0003", "父分类不存在"),
+
+    /**
+     * 商品已存在
+     * */
+    PRODUCT_ERROR_C1001("C1001", "商品已存在"),
 
     /**
      * 商品属性已存在

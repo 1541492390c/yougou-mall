@@ -48,4 +48,9 @@ public class Sku extends BaseEntity {
      * sku规格
      * */
     private String specs;
+
+    /**
+     * SKU简介
+     * */
+    private String description;
 }
