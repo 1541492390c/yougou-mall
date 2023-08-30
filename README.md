@@ -95,3 +95,8 @@ yougou-mall
 ![购物车结算](readme/img/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97.png)
 - 登录页面
 ![输入图片说明](readme/img/%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png)
+
+## 项目链接
+
+- Java后端链接：https://gitee.com/chi-congmin/yougou-mall
+- 商城Web端链接：https://gitee.com/chi-congmin/yougou-mall-web
