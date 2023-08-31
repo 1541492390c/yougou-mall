@@ -47,9 +47,7 @@ public class OrderController {
             @Parameter(name = "page_num", description = "当前页"),
             @Parameter(name = "page_size", description = "页数")
     })
-    public ResponseEntity<PageVO<OrderVO>> getOrderPages(
-            @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
+    public ResponseEntity<PageVO<OrderVO>> getOrderPages(@RequestParam(value = "page_num", defaultValue = "1") Integer pageNum, @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
 
         Page<Order> page = new Page<>(pageNum, pageSize);

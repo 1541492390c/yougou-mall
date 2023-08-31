@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.order.mapper.OrderItemMapper">
+    <resultMap id="orderItemMap" type="per.ccm.ygmall.order.vo.OrderItemVO">
+        <id column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+        <result column="order_id" property="orderId" jdbcType="BIGINT" />
+        <result column="product_id" property="productId" jdbcType="BIGINT" />
+        <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+        <result column="quantity" property="quantity" jdbcType="INTEGER" />
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+        <result column="product_name" property="productName" jdbcType="VARCHAR" />
+        <result column="specs" property="specs" jdbcType="VARCHAR" />
+        <result column="img" property="img" jdbcType="VARCHAR" />
+        <result column="is_comment" property="isComment" jdbcType="BOOLEAN" />
+    </resultMap>
+
+    <sql id="order_item_vo_column">
+        `order_item_id`, `order_id`, `product_id`, `sku_id`, `quantity`, `total_amount`, `product_name`, `specs`, `img`, `is_comment`
+    </sql>
+
+    <select id="selectOrderItemListByOrderId" resultMap="orderItemMap">
+        SELECT <include refid="order_item_vo_column" /> FROM order_item WHERE order_item.`order_id` = #{orderId}
+    </select>
 </mapper>

@@ -26,17 +26,8 @@
             <result column="district" property="district" jdbcType="VARCHAR" />
             <result column="detailedAddr" property="detailedAddr" jdbcType="VARCHAR" />
         </association>
-        <collection property="orderItemList" ofType="per.ccm.ygmall.order.vo.OrderItemVO" fetchType="eager">
-            <id column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
-            <result column="order_id" property="orderId" jdbcType="BIGINT" />
-            <result column="product_id" property="productId" jdbcType="BIGINT" />
-            <result column="sku_id" property="skuId" jdbcType="BIGINT" />
-            <result column="quantity" property="quantity" jdbcType="INTEGER" />
-            <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
-            <result column="product_name" property="productName" jdbcType="VARCHAR" />
-            <result column="specs" property="specs" jdbcType="VARCHAR" />
-            <result column="img" property="img" jdbcType="VARCHAR" />
-            <result column="is_comment" property="isComment" jdbcType="BOOLEAN" />
+        <collection property="orderItemList" ofType="per.ccm.ygmall.order.vo.OrderItemVO"  fetchType="eager" column="{orderId = order_id}"
+                    select="per.ccm.ygmall.order.mapper.OrderItemMapper.selectOrderItemListByOrderId">
         </collection>
     </resultMap>
 
@@ -45,15 +36,11 @@
         `order`.`order_no`, `order`.`remark`, `order`.`submit_time`, `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
 
         order_addr.`order_addr_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
-        order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailed_addr`,
-
-        order_item.`order_item_id`, order_item.`order_id`, order_item.`product_id`, order_item.`sku_id`, order_item.`quantity`,
-        order_item.`total_amount`, order_item.`product_name`, order_item.`specs`, order_item.`img`, order_item.`is_comment`
+        order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailed_addr`
     </sql>
 
     <sql id="order_left_join_order_item_and_order_addr">
         FROM `order`
-        LEFT JOIN order_item ON `order`.`order_id` = order_item.`order_id`
         LEFT JOIN order_addr ON `order`.`order_id` = order_addr.`order_id`
     </sql>
 

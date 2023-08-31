@@ -65,7 +65,7 @@ public class ESProductManager {
      * @param pageSize 页数
      * @return 商品搜索分页
      * */
-    private PageVO<ESProductVO> searchProduct(String keyword, String sort, String order, String categoryNode, Long brandId, Integer pageNum, Integer pageSize) throws IOException {
+    public PageVO<ESProductVO> searchProduct(String keyword, String sort, String order, String categoryNode, Long brandId, Integer pageNum, Integer pageSize) throws IOException {
         List<Query> queryList = new ArrayList<>();
         // 根据关键词搜索
         if (!ObjectUtils.isEmpty(keyword)) {
@@ -95,7 +95,7 @@ public class ESProductManager {
      * @param keyword 关键词
      * @return 分类搜索列表
      * */
-    private List<ESCategoryVO> searchCategory(String keyword, String categoryNode) throws IOException {
+    public List<ESCategoryVO> searchCategory(String keyword, String categoryNode) throws IOException {
         List<Query> queryList = new ArrayList<>();
         if (!ObjectUtils.isEmpty(keyword)) {
             MatchPhraseQuery matchPhraseQuery = QueryBuilders.matchPhrase().field("name").query(keyword).slop(5).build();
@@ -126,6 +126,7 @@ public class ESProductManager {
             TermQuery termQuery = QueryBuilders.term().field("category_node.keyword").value(categoryNode).build();
             queryList.add(termQuery._toQuery());
         }
+        // 根据品牌ID搜索
         if (!ObjectUtils.isEmpty(brandId)) {
             TermQuery termQuery = QueryBuilders.term().field("brand_id").value(brandId).build();
             queryList.add(termQuery._toQuery());
