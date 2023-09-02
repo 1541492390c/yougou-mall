@@ -16,11 +16,11 @@ public class BannerDTO {
     @Schema(description = "主键ID")
     private Long bannerId;
 
-    @Schema(description = "简介")
-    private String description;
-
     @Schema(description = "轮播图类型 1-PC端 2-移动端 3-小程序端")
     private Integer type;
+
+    @Schema(description = "简介")
+    private String description;
 
     @Schema(description = "轮播图链接")
     private String link;

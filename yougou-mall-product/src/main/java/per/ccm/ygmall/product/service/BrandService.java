@@ -3,6 +3,7 @@ package per.ccm.ygmall.product.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.product.dto.BrandDTO;
 import per.ccm.ygmall.product.entity.Brand;
 import per.ccm.ygmall.product.vo.BrandVO;
 
@@ -24,4 +25,11 @@ public interface BrandService extends IService<Brand> {
      * @return 品牌列表
      * */
     List<BrandVO> getBrandList(String categoryNode) throws Exception;
+
+    /**
+     * 更新品牌信息
+     *
+     * @param brandDTO 品牌传输数据
+     * */
+    void update(BrandDTO brandDTO) throws Exception;
 }

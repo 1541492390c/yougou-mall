@@ -1,8 +1,6 @@
 package per.ccm.ygmall.platform.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,11 +29,13 @@ public class Banner extends BaseEntity {
     /**
      * 简介
      * */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String description;
 
     /**
      * 轮播图链接
      * */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String link;
 
     /**

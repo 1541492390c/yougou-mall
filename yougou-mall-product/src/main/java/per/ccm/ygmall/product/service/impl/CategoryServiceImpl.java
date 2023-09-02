@@ -32,11 +32,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, allEntries = true)
     public void save(CategoryDTO categoryDTO) {
+        // 最多拥有9个一级分类
+        if (categoryDTO.getLevel() == 1 && categoryMapper.selectCount(new LambdaQueryWrapper<Category>().eq(Category::getLevel, 1)) >= 9) {
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0004);
+        }
         // 判断分类是否已存在
         if (this.isExist(categoryDTO)) {
             throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C0001);
         }
+        // 将数据传输数据转为实体
         Category category = ConvertUtils.convertProperties(categoryDTO, Category.class);
+        // 保存分类
         categoryMapper.insert(category);
         // 插入后获取主键ID,插入分类节点
         if (category.getLevel() == 1) { // 顶级分类
@@ -50,9 +56,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             }
             // 设置分类节点
             category.setNode(parentCategory.getNode() + "-" + category.getCategoryId());
-            // 更新分类
-            categoryMapper.updateById(category);
         }
+        // 更新分类
+        categoryMapper.updateById(category);
     }
 
     @Override
@@ -99,8 +105,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     @CacheEvict(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, allEntries = true)
-    public void batchRemove(List<Long> categoryIdList) {
-        categoryMapper.deleteBatchIds(categoryIdList);
+    public void delete(Long categoryId) {
+        categoryMapper.deleteById(categoryId);
     }
 
     /**

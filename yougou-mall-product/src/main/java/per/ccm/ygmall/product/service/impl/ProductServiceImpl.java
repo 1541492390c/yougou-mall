@@ -113,13 +113,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     }
 
     @Override
-    public void update(ProductDTO productDTO) {
-        // 判断商品名称是否存在
-        if (this.isExist(productDTO)) {
-            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C1001);
-        }
+    @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(cacheNames = CacheNames.PRODUCT_CACHE_NAME, allEntries = true)
+    public void update(ProductDTO productDTO) throws Exception {
         Product product = ConvertUtils.convertProperties(productDTO, Product.class);
+        // 更新商品信息
         productMapper.updateById(product);
+        // 更新sku信息
+        skuService.updateDiscountPrice(product.getProductId(), productDTO.getDiscount());
     }
 
     /**

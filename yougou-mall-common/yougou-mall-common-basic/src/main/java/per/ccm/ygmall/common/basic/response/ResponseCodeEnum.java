@@ -127,6 +127,11 @@ public enum ResponseCodeEnum {
     PRODUCT_ERROR_C0003("C0003", "父分类不存在"),
 
     /**
+     * 最多拥有9个一级分类
+     * */
+    PRODUCT_ERROR_C0004("C0004", "最多拥有9个一级分类"),
+
+    /**
      * 商品已存在
      * */
     PRODUCT_ERROR_C1001("C1001", "商品已存在"),

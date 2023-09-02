@@ -26,6 +26,11 @@ public class User extends BaseEntity {
     private Long userId;
 
     /**
+     * 用户类型(1-管理员 2-普通用户)
+     * */
+    private Integer userType;
+
+    /**
      * 性别 0-未知 1-男 2-女
      * */
     private Integer gender;

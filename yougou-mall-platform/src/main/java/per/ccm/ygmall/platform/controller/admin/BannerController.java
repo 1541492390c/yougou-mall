@@ -46,4 +46,18 @@ public class BannerController {
         PageVO<BannerVO> pageVO = bannerService.getBannerPages(type, page);
         return ResponseEntity.success(pageVO);
     }
+
+    @PutMapping("/update")
+    @Operation(summary = "更新轮播图信息", description = "更新轮播图信息")
+    public ResponseEntity<Void> update(@RequestBody BannerDTO bannerDTO) throws Exception {
+        bannerService.update(bannerDTO);
+        return ResponseEntity.success();
+    }
+
+    @DeleteMapping("/delete")
+    @Operation(summary = "删除轮播图", description = "传入轮播图ID删除轮播图")
+    public ResponseEntity<Void> delete(@RequestParam("banner_id") Long bannerId) {
+        bannerService.removeById(bannerId);
+        return ResponseEntity.success();
+    }
 }

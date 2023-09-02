@@ -17,6 +17,9 @@ public class BannerVO extends BaseVO {
     @Schema(description = "主键ID")
     private Long bannerId;
 
+    @Schema(description = "轮播图类型 1-PC端 2-移动端 3-小程序端")
+    private Integer type;
+
     @Schema(description = "所属页面")
     private String page;
 

@@ -30,7 +30,8 @@ public class FeedbackController {
     @Operation(summary = "获取用户反馈信息分页列表", description = "获取用户反馈信息分页列表")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
-            @Parameter(name = "page_size", description = "页数")})
+            @Parameter(name = "page_size", description = "页数")
+    })
     public ResponseEntity<PageVO<FeedbackVO>> getFeedbackPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {

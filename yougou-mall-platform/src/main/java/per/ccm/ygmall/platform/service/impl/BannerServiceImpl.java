@@ -45,6 +45,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     public PageVO<BannerVO> getBannerPages(Integer type, Page<Banner> page) {
         LambdaQueryWrapper<Banner> queryWrapper = new LambdaQueryWrapper<>();
 
+        // 类型不为空
         if (!ObjectUtils.isEmpty(type)) {
             queryWrapper.eq(Banner::getType, type);
         }
@@ -61,5 +62,11 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
         queryWrapper.eq(Banner::getType, type).eq(Banner::getPage, page);
         List<Banner> bannerList = bannerMapper.selectList(queryWrapper);
         return ConvertUtils.converList(bannerList, BannerVO.class);
+    }
+
+    @Override
+    public void update(BannerDTO bannerDTO) {
+        Banner banner = ConvertUtils.convertProperties(bannerDTO, Banner.class);
+        bannerMapper.updateById(banner);
     }
 }

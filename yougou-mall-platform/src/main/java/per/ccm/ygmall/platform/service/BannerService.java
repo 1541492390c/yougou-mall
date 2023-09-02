@@ -34,4 +34,11 @@ public interface BannerService extends IService<Banner> {
      * @return 轮播图列表
      * */
     List<BannerVO> getBannerList(Integer type, String page) throws Exception;
+
+    /**
+     * 更新轮播图信息
+     *
+     * @param bannerDTO 轮播图传输数据
+     * */
+    void update(BannerDTO bannerDTO) throws Exception;
 }

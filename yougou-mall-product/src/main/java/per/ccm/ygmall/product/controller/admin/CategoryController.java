@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.CategoryDTO;
 import per.ccm.ygmall.product.service.CategoryService;
-
-import java.util.List;
 
 @RestController("adminCategoryController")
 @RequestMapping("/admin/product/category")
@@ -34,10 +33,12 @@ public class CategoryController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/batch_delete")
-    @Operation(summary = "批量删除商品分类", description = "根据商品分类ID批量删除商品分类")
-    public ResponseEntity<Void> batchDelete(@RequestBody List<Long> categoryIdList) throws Exception {
-        categoryService.batchRemove(categoryIdList);
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
+    @Operation(summary = "删除分类", description = "传入分类ID删除分类")
+    @Parameter(name = "category_id", description = "分类ID", required = true)
+    public ResponseEntity<Void> delete(@RequestParam("category_id") Long categoryId) throws Exception {
+        categoryService.delete(categoryId);
         return ResponseEntity.success();
     }
 }

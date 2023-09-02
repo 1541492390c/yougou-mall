@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.product.dto.BrandDTO;
 import per.ccm.ygmall.product.entity.Brand;
 import per.ccm.ygmall.product.mapper.BrandMapper;
 import per.ccm.ygmall.product.service.BrandService;
@@ -32,5 +33,11 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
         LambdaQueryWrapper<Brand> queryWrapper = new LambdaQueryWrapper<>();
         List<Brand> brandList = brandMapper.selectList(queryWrapper.eq(Brand::getCategoryNode, categoryNode));
         return ConvertUtils.converList(brandList, BrandVO.class);
+    }
+
+    @Override
+    public void update(BrandDTO brandDTO) throws Exception {
+        Brand brand = ConvertUtils.convertProperties(brandDTO, Brand.class);
+        brandMapper.updateById(brand);
     }
 }

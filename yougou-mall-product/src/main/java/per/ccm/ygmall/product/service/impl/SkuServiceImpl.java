@@ -1,6 +1,7 @@
 package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,11 @@ import per.ccm.ygmall.product.mapper.SkuMapper;
 import per.ccm.ygmall.product.service.SkuService;
 import per.ccm.ygmall.product.vo.SkuVO;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuService {
@@ -86,6 +89,22 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
                 throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C4002);
             }
             skuMapper.updateById(sku);
+        }
+    }
+
+    @Override
+    public void updateDiscountPrice(Long productId, Integer discount) {
+        List<Sku> skuList = skuMapper.selectList(new LambdaQueryWrapper<Sku>().eq(Sku::getProductId, productId));
+        // 更新sku折扣价格
+        if (!ObjectUtils.isEmpty(discount)) {
+            skuList.forEach(item -> item.setDiscountPrice(item.getPrice().multiply(new BigDecimal(discount * 0.1))));
+            skuList.forEach(item -> skuMapper.updateById(item));
+        } else { // 折扣为空,将折扣价格同样设为空
+            List<Long> skuIdList = skuList.stream().map(Sku::getSkuId).collect(Collectors.toList());
+
+            LambdaUpdateWrapper<Sku> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.set(Sku::getDiscountPrice, null).in(Sku::getSkuId, skuIdList);
+            skuList.forEach(item -> skuMapper.update(item, updateWrapper));
         }
     }
 }

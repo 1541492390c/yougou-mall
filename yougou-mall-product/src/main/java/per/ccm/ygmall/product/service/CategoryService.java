@@ -38,9 +38,9 @@ public interface CategoryService extends IService<Category> {
     void update(CategoryDTO categoryDTO) throws Exception;
 
     /**
-     * 根据商品分类ID批量删除商品分类
+     * 删除分类
      *
-     * @param categoryIdList 分类ID列表
+     * @param categoryId 分类ID
      * */
-    void batchRemove(List<Long> categoryIdList) throws Exception;
+    void delete(Long categoryId) throws Exception;
 }

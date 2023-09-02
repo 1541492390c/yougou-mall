@@ -24,7 +24,4 @@ public class CategoryDTO {
 
     @Schema(description = "分类名称")
     private String name;
-
-    @Schema(description = "分类节点")
-    private String node;
 }

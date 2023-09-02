@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.user.dto.FeedbackDTO;
@@ -29,7 +30,12 @@ public class FeedbackServiceImpl extends ServiceImpl<FeedbackMapper, Feedback> i
 
     @Override
     public PageVO<FeedbackVO> getFeedbackPages(Long userId, Page<Feedback> page) {
-        Page<Feedback> pageInfo = feedbackMapper.selectPage(page, new LambdaQueryWrapper<Feedback>().eq(Feedback::getUserId, userId));
+        LambdaQueryWrapper<Feedback> queryWrapper = new LambdaQueryWrapper<>();
+        // 用户ID
+        if (!ObjectUtils.isEmpty(userId)) {
+            queryWrapper.eq(Feedback::getUserId, userId);
+        }
+        Page<Feedback> pageInfo = feedbackMapper.selectPage(page, queryWrapper);
         List<FeedbackVO> feedbackList = ConvertUtils.converList(pageInfo.getRecords(), FeedbackVO.class);
         return new PageVO<>(pageInfo.getTotal(), feedbackList);
     }

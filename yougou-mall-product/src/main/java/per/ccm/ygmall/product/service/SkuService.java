@@ -46,4 +46,12 @@ public interface SkuService extends IService<Sku> {
      * @param skuStockMap 返还的库存和skuID
      * */
     void updateSkuStock(Map<Long, Integer> skuStockMap) throws Exception;
+
+    /**
+     * 更新折扣价格
+     *
+     * @param productId 商品ID
+     * @param discount 折扣率
+     * */
+    void updateDiscountPrice(Long productId, Integer discount) throws Exception;
 }

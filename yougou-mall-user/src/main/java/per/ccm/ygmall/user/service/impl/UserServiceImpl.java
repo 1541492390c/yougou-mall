@@ -1,5 +1,7 @@
 package per.ccm.ygmall.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.feign.auth.bo.AuthAccountBO;
 import per.ccm.ygmall.feign.auth.feign.AuthAccountFeign;
 import per.ccm.ygmall.common.cache.cache.CacheNames;
@@ -19,6 +22,8 @@ import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.mapper.UserMapper;
 import per.ccm.ygmall.user.service.UserService;
 import per.ccm.ygmall.user.vo.UserVO;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -41,6 +46,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!authAccountFeign.save(authAccountBO).responseSuccess()) {
             throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
         }
+    }
+
+    @Override
+    public PageVO<UserVO> getUserPages(Integer userType, Page<User> page) {
+        Page<User> pageInfo = userMapper.selectPage(page, new LambdaQueryWrapper<User>().eq(User::getUserType, userType));
+        List<UserVO> userList = ConvertUtils.converList(pageInfo.getRecords(), UserVO.class);
+        return new PageVO<>(pageInfo.getTotal(), userList);
     }
 
     @Override

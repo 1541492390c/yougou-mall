@@ -1,6 +1,8 @@
 package per.ccm.ygmall.user.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
@@ -16,6 +18,15 @@ public interface UserService extends IService<User> {
      * @param userRegisterDTO 用户注册信息传输数据
      * */
     void save(UserRegisterDTO userRegisterDTO) throws Exception;
+
+    /**
+     * 获取用户分页信息
+     *
+     * @param userType 用户类型
+     * @param page 分页
+     * @return 用户分页信息
+     * */
+    PageVO<UserVO> getUserPages(Integer userType, Page<User> page) throws Exception;
 
     /**
      * 根据用户id获取用户信息
