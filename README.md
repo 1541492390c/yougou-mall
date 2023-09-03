@@ -96,6 +96,9 @@ yougou-mall
 - 登录页面
 ![输入图片说明](readme/img/%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png)
 
+## 视频演示
+- b站链接：https://www.bilibili.com/video/BV1Zu411A7MX/
+
 ## 项目链接
 
 - Java后端链接：https://gitee.com/chi-congmin/yougou-mall
