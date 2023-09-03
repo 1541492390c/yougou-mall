@@ -42,7 +42,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        Map<String, String> params = JSONUtils.readValue(JSONUtils.writeValueAsString(authentication.getDetails()), new TypeReference<>() {
+        Map<String, String> params = JSONUtils.readValue(JSONUtils.writeValueAsString(authentication.getDetails()), new TypeReference<Map<String, String>>() {
         });
 
         // 根据用户名查询用户认证信息
