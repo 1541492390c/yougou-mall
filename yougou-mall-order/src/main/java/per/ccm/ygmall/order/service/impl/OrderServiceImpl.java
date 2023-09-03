@@ -190,7 +190,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public OrderBO getOrderBOById(Long orderId) {
-        OrderVO orderVO = orderMapper.selectOrderById(orderId);
+        OrderVO orderVO = this.getOrderById(orderId);
         // 创建订单内部传输数据
         OrderBO orderBO = ConvertUtils.convertProperties(orderVO, OrderBO.class);
         // 创建订单项内部传输数据
