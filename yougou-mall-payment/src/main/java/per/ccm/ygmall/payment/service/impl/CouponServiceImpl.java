@@ -10,6 +10,7 @@ import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.payment.dto.CouponDTO;
 import per.ccm.ygmall.payment.entity.Coupon;
 import per.ccm.ygmall.payment.entity.CouponUser;
 import per.ccm.ygmall.payment.enums.CouponUserStateEnum;
@@ -78,5 +79,11 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
         } finally {
             rLock.unlock();
         }
+    }
+
+    @Override
+    public void update(CouponDTO couponDTO) {
+        Coupon coupon = ConvertUtils.convertProperties(couponDTO, Coupon.class);
+        couponMapper.updateById(coupon);
     }
 }

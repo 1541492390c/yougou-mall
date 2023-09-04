@@ -3,6 +3,7 @@ package per.ccm.ygmall.payment.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.payment.dto.CouponDTO;
 import per.ccm.ygmall.payment.entity.Coupon;
 import per.ccm.ygmall.payment.vo.CouponUserVO;
 import per.ccm.ygmall.payment.vo.CouponVO;
@@ -24,4 +25,11 @@ public interface CouponService extends IService<Coupon> {
      * @return 优惠券用户关联信息
      * */
     CouponUserVO receive(Long couponId, Long userId) throws Exception;
+
+    /**
+     * 更新优惠券信息
+     *
+     * @param couponDTO 优惠券传输数据
+     * */
+    void update(CouponDTO couponDTO) throws Exception;
 }

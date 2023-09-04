@@ -18,6 +18,9 @@ public class UserUpdateDTO {
     @Schema(name = "用户ID")
     private Long userId;
 
+    @Schema(name = "状态 0-禁用 1-正常")
+    private Integer state;
+
     @Schema(description = "性别 1-男 2-女")
     private Integer gender;
 

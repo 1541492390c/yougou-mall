@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.product.dto.BrandDTO;
 import per.ccm.ygmall.product.service.BrandService;
@@ -25,6 +22,14 @@ public class BrandController {
     @Operation(summary = "更新品牌信息", description = "更新品牌信息")
     public ResponseEntity<Void> update(@RequestBody BrandDTO brandDTO) throws Exception {
         brandService.update(brandDTO);
+        return ResponseEntity.success();
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
+    @Operation(summary = "删除品牌", description = "传入品牌ID删除相关品牌")
+    public ResponseEntity<Void> delete(@RequestParam("brand_id") Long brandId) {
+        brandService.removeById(brandId);
         return ResponseEntity.success();
     }
 }

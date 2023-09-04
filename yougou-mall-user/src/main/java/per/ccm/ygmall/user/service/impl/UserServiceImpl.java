@@ -69,7 +69,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = ConvertUtils.convertProperties(userUpdateDTO, User.class);
         userMapper.updateById(user);
 
-        if (ObjectUtils.isEmpty(userUpdateDTO.getEmail()) || ObjectUtils.isEmpty(userUpdateDTO.getRole())) {
+        if (!ObjectUtils.isEmpty(userUpdateDTO.getEmail()) || !ObjectUtils.isEmpty(userUpdateDTO.getState())) {
             AuthAccountBO authAccountBO = ConvertUtils.convertProperties(userUpdateDTO, AuthAccountBO.class);
             // 抛异常回滚
             if (!authAccountFeign.update(authAccountBO).responseSuccess()) {
