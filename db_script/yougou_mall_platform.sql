@@ -28,10 +28,11 @@ CREATE TABLE `banner` (
 DROP TABLE IF EXISTS `feedback_type`;
 
 CREATE TABLE `feedback_type` (
-  `feedback_type_id` bigint DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL
+  `feedback_type_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `name` varchar(255) DEFAULT NULL COMMENT '反馈类型名称',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`feedback_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
