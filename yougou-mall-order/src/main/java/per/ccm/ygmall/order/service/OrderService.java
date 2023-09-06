@@ -42,7 +42,9 @@ public interface OrderService extends IService<Order> {
     PageVO<OrderVO> getOrderPages(Long userId, Page<Order> page) throws Exception;
 
     /**
-     * 更新订单状态
+     * 更新订单
+     *
+     * @param orderDTO 订单传输数据
      * */
     void update(OrderDTO orderDTO) throws Exception;
 }

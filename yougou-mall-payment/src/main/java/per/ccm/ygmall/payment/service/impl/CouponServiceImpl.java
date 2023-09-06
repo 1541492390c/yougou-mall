@@ -63,6 +63,8 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
             couponUser.setUserId(userId);
             // 设置当前状态
             couponUser.setState(CouponUserStateEnum.WAIT_USE.getValue());
+            // 设置领取时间
+            couponUser.setReceiveTime(new Date());
             // 设置过期时间
             couponUser.setExpiredTime(new Date(new Date().getTime() + coupon.getExpired() * 24 * 60 * 60 * 1000));
             couponUserService.save(couponUser);

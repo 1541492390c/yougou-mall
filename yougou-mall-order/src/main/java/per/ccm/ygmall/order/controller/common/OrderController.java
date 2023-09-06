@@ -11,6 +11,7 @@ import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.entity.Order;
+import per.ccm.ygmall.order.enums.OrderStateEnum;
 import per.ccm.ygmall.order.service.OrderService;
 import per.ccm.ygmall.order.vo.OrderVO;
 import per.ccm.ygmall.common.security.util.SecurityContextUtils;
@@ -53,6 +54,20 @@ public class OrderController {
         Page<Order> page = new Page<>(pageNum, pageSize);
         PageVO<OrderVO> pageInfo = orderService.getOrderPages(userId, page);
         return ResponseEntity.success(pageInfo);
+    }
+
+    @PutMapping("/confirm")
+    @Operation(summary = "确认收货", description = "确认收货")
+    @Parameter(name = "order_id", description = "订单ID")
+    public ResponseEntity<Void> confirm(@RequestParam("order_id") Long orderId) throws Exception {
+        OrderDTO orderDTO = new OrderDTO();
+        // 设置订单ID
+        orderDTO.setOrderId(orderId);
+        // 设置订单状态
+        orderDTO.setState(OrderStateEnum.FINISHED.getValue());
+        // 更新订单
+        orderService.update(orderDTO);
+        return ResponseEntity.success();
     }
 
     @DeleteMapping("/delete")

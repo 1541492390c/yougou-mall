@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuService {
@@ -81,7 +80,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
 
     @Override
     public void updateSkuStock(Map<Long, Integer> map) {
-        for (Long skuId: map.keySet()) {
+        for (Long skuId : map.keySet()) {
             Sku sku = skuMapper.selectById(skuId);
             sku.setSkuStock(sku.getSkuStock() + map.get(skuId));
             // 库存不足
@@ -99,12 +98,8 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
         if (!ObjectUtils.isEmpty(discount)) {
             skuList.forEach(item -> item.setDiscountPrice(item.getPrice().multiply(new BigDecimal(discount * 0.1))));
             skuList.forEach(item -> skuMapper.updateById(item));
-        } else { // 折扣为空,将折扣价格同样设为空
-            List<Long> skuIdList = skuList.stream().map(Sku::getSkuId).collect(Collectors.toList());
-
-            LambdaUpdateWrapper<Sku> updateWrapper = new LambdaUpdateWrapper<>();
-            updateWrapper.set(Sku::getDiscountPrice, null).in(Sku::getSkuId, skuIdList);
-            skuList.forEach(item -> skuMapper.update(item, updateWrapper));
+        } else { // 折扣为空,将该商品的sku折扣价格同样设为空
+            skuMapper.update(null, new LambdaUpdateWrapper<Sku>().eq(Sku::getProductId, productId).set(Sku::getDiscountPrice, null));
         }
     }
 }
