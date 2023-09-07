@@ -8,7 +8,6 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,10 +70,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             // 从token中获取用户角色
             String role = decodedJWT.getClaim("role").asString();
 
-            Cache cache = cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME);
-
             // 获取缓存中的token
-            String cacheAccessToken = Objects.requireNonNull(cache).get(TokenUtils.createTokenKey(userId, ipAddress), String.class);
+            String cacheAccessToken = Objects.requireNonNull(cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME)).get(TokenUtils.createTokenKey(userId, ipAddress), String.class);
             // 缓存中不存在token,token已过期
             if (ObjectUtils.isEmpty(cacheAccessToken)) {
                 throw new TokenExpiredException("token已过期", Instant.now());
@@ -99,7 +96,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             response.getWriter().print(json);
         } catch (Exception e) { // 其他错误
             log.error("{}", e.getMessage());
-            String json = JSONUtils.writeValueAsString(ResponseCodeEnum.SERVER_ERROR_00001);
+            String json = JSONUtils.writeValueAsString(ResponseEntity.fail());
             response.getWriter().print(json);
         }
     }

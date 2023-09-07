@@ -40,8 +40,6 @@ public class LoginManager {
         // 添加附加信息
         Map<String, String> params = new HashMap<>();
         params.put("ip_address", ipAddress);
-        params.put("username", username);
-        params.put("password", password);
         params.put("code", code);
         params.put("type", userTypeEnum.getName());
         token.setDetails(params);
