@@ -10,13 +10,13 @@ import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import java.util.Map;
 
 @FeignClient(value = "yougou-mall-product", contextId = "sku")
-@RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/product")
+@RequestMapping(FeignUrlConfig.FEIGN_INNER_URL + "/product/sku")
 public interface SkuFeign {
     /**
      * 更新sku库存
      *
      * @param skuStockMap skuID和库存
      * */
-    @PutMapping("/update")
-    ResponseEntity<Void> update(@RequestBody Map<Long, Integer> skuStockMap) throws Exception;
+    @PutMapping("/update_sku_stock")
+    ResponseEntity<Void> updateSkuStock(@RequestBody Map<Long, Integer> skuStockMap) throws Exception;
 }

@@ -34,10 +34,10 @@ public interface CouponUserService extends IService<CouponUser> {
     List<CouponUserVO> getAvailableCoupon(QueryAvailableCouponDTO queryAvailableCouponDTO) throws Exception;
 
     /**
-     * 获取用户优惠券内部传输数据
+     * 使用优惠券,记录优惠券使用记录,并返回用户优惠券内部传输数据
      *
      * @param couponUserId 用户优惠券ID
-     * @return 用户优惠券内部传输数据
+     * @param orderNo 订单号
      * */
-    CouponUserBO getCouponUserBOById(Long couponUserId) throws Exception;
+    CouponUserBO useCoupon(Long couponUserId, String orderNo) throws Exception;
 }

@@ -14,7 +14,6 @@ import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.feign.order.bo.OrderBO;
 import per.ccm.ygmall.feign.order.bo.OrderItemBO;
 import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
-import per.ccm.ygmall.feign.payment.bo.CouponUserLogBO;
 import per.ccm.ygmall.feign.payment.feign.CouponUserFeign;
 import per.ccm.ygmall.feign.product.bo.ProductBO;
 import per.ccm.ygmall.feign.product.bo.SkuBO;
@@ -129,7 +128,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             BigDecimal payAmount = orderTotalAmount;
             // 用户使用了优惠券
             if (!ObjectUtils.isEmpty(orderDTO.getCouponUserId())) {
-                ResponseEntity<CouponUserBO> response = couponUserFeign.getCouponUserById(orderDTO.getCouponUserId());
+                ResponseEntity<CouponUserBO> response = couponUserFeign.useCoupon(orderDTO.getCouponUserId(), order.getOrderNo());
 
                 // 抛异常回滚
                 if (!response.responseSuccess()) {
@@ -146,15 +145,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                 order.setRemark("使用了" + couponUserBO.getCouponBO().getDescription() + ",节省了" + couponUserBO.getCouponBO().getDiscountAmount());
                 // 设置用户优惠券ID
                 order.setCouponUserId(couponUserBO.getCouponUserId());
-
-                // 创建用户优惠券使用记录
-                CouponUserLogBO couponUserLogBO = this.createCouponUserLogBO(couponUserBO, order);
-                // 保存用户优惠券使用记录
-                ResponseEntity<Void> saveCouponUserLogResponse = couponUserFeign.save(couponUserLogBO);
-                // 抛异常回滚
-                if (!saveCouponUserLogResponse.responseSuccess()) {
-                    throw new YougouException(ResponseCodeEnum.getValueOf(saveCouponUserLogResponse.getCode()));
-                }
             }
 
             // 设置用户ID
@@ -175,7 +165,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             // 保存订单项
             orderItemService.batchSave(saveOrderItemDTOList);
             // 减少商品库存,如果失败,则抛异常回滚
-            ResponseEntity<Void> response = skuFeign.update(skuStockMap);
+            ResponseEntity<Void> response = skuFeign.updateSkuStock(skuStockMap);
             if (!response.responseSuccess()) {
                 throw new YougouException(ResponseCodeEnum.getValueOf(response.getCode()));
             }
@@ -244,25 +234,5 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             currentItemTotalAmount = currentItemTotalAmount.add(skuBO.getPrice().multiply(new BigDecimal(quantity)));
         }
         return currentItemTotalAmount;
-    }
-
-    /**
-     * 创建用户优惠券使用记录
-     *
-     * @param couponUserBO 用户优惠券内部传输数据
-     * @param order 订单实体
-     * @return 用户优惠券使用记录
-     * */
-    private CouponUserLogBO createCouponUserLogBO(CouponUserBO couponUserBO, Order order) {
-        CouponUserLogBO couponUserLogBO = new CouponUserLogBO();
-        // 设置优惠券ID
-        couponUserLogBO.setCouponId(couponUserBO.getCouponId());
-        // 设置用户优惠券ID
-        couponUserLogBO.setCouponUserId(couponUserBO.getCouponUserId());
-        // 设置订单号
-        couponUserLogBO.setOrderNo(order.getOrderNo());
-        // 设置折扣金额
-        couponUserLogBO.setDiscountAmount(couponUserBO.getCouponBO().getDiscountAmount());
-        return couponUserLogBO;
     }
 }

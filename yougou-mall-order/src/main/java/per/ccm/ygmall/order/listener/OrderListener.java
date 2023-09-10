@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
+import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.feign.product.feign.SkuFeign;
 import per.ccm.ygmall.order.dto.OrderDTO;
@@ -47,9 +48,10 @@ public class OrderListener {
             for (OrderItemVO orderItemVO : orderItemList) {
                 skuStockMap.put(orderItemVO.getSkuId(), orderItemVO.getQuantity());
             }
-            // 抛异常回滚
-            if (!skuFeign.update(skuStockMap).responseSuccess()) {
-                throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00001);
+            // 恢复商品库存,失败则抛异常回滚
+            ResponseEntity<Void> response = skuFeign.updateSkuStock(skuStockMap);
+            if (!response.responseSuccess()) {
+                throw new YougouException(ResponseCodeEnum.getValueOf(response.getCode()));
             }
         }
     }

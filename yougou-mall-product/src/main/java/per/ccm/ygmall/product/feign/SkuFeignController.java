@@ -17,7 +17,7 @@ public class SkuFeignController implements SkuFeign {
     private SkuService skuService;
 
     @Override
-    public ResponseEntity<Void> update(Map<Long, Integer> skuStockMap) throws Exception {
+    public ResponseEntity<Void> updateSkuStock(Map<Long, Integer> skuStockMap) throws Exception {
         skuService.updateSkuStock(skuStockMap);
         return ResponseEntity.success();
     }

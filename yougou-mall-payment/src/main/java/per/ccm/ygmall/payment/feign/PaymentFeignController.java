@@ -4,12 +4,8 @@ import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
-import per.ccm.ygmall.common.basic.util.ConvertUtils;
 import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
-import per.ccm.ygmall.feign.payment.bo.CouponUserLogBO;
 import per.ccm.ygmall.feign.payment.feign.CouponUserFeign;
-import per.ccm.ygmall.payment.entity.CouponUserLog;
-import per.ccm.ygmall.payment.service.CouponUserLogService;
 import per.ccm.ygmall.payment.service.CouponUserService;
 
 @Hidden
@@ -19,19 +15,9 @@ public class PaymentFeignController implements CouponUserFeign {
     @Autowired
     private CouponUserService couponUserService;
 
-    @Autowired
-    private CouponUserLogService couponUserLogService;
-
     @Override
-    public ResponseEntity<CouponUserBO> getCouponUserById(Long couponId) throws Exception {
-        CouponUserBO couponUserBO = couponUserService.getCouponUserBOById(couponId);
+    public ResponseEntity<CouponUserBO> useCoupon(Long couponUserId, String orderNo) throws Exception {
+        CouponUserBO couponUserBO = couponUserService.useCoupon(couponUserId, orderNo);
         return ResponseEntity.success(couponUserBO);
-    }
-
-    @Override
-    public ResponseEntity<Void> save(CouponUserLogBO couponUserLogBO) {
-        CouponUserLog couponUserLog = ConvertUtils.convertProperties(couponUserLogBO, CouponUserLog.class);
-        couponUserLogService.save(couponUserLog);
-        return ResponseEntity.success();
     }
 }

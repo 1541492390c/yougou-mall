@@ -12,8 +12,10 @@ import per.ccm.ygmall.feign.payment.bo.CouponBO;
 import per.ccm.ygmall.feign.payment.bo.CouponUserBO;
 import per.ccm.ygmall.payment.dto.QueryAvailableCouponDTO;
 import per.ccm.ygmall.payment.entity.CouponUser;
+import per.ccm.ygmall.payment.entity.CouponUserLog;
 import per.ccm.ygmall.payment.enums.CouponUserStateEnum;
 import per.ccm.ygmall.payment.mapper.CouponUserMapper;
+import per.ccm.ygmall.payment.service.CouponUserLogService;
 import per.ccm.ygmall.payment.service.CouponUserService;
 import per.ccm.ygmall.payment.vo.CouponUserVO;
 
@@ -25,6 +27,9 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
 
     @Autowired
     private CouponUserMapper couponUserMapper;
+
+    @Autowired
+    private CouponUserLogService couponUserLogService;
 
     @Override
     public List<CouponUserVO> getCouponUserListByUserId(Long userId) {
@@ -76,20 +81,42 @@ public class CouponUserServiceImpl extends ServiceImpl<CouponUserMapper, CouponU
     }
 
     @Override
-    public CouponUserBO getCouponUserBOById(Long couponUserId) {
+    public CouponUserBO useCoupon(Long couponUserId, String orderNo) {
         CouponUserVO couponUserVO = couponUserMapper.selectCouponUserListByCouponUserId(couponUserId);
 
         // 优惠券已过期
         if (couponUserVO.getExpiredTime().getTime() <= new Date().getTime()) {
             throw new YougouException(ResponseCodeEnum.PAYMENT_ERROR_E0003);
         }
-
         // 转换为用户优惠券内部传输数据
         CouponUserBO couponUserBO = ConvertUtils.convertProperties(couponUserVO, CouponUserBO.class);
         // 转换为优惠券内部传输数据
         CouponBO couponBO = ConvertUtils.convertProperties(couponUserVO.getCoupon(), CouponBO.class);
         // 设置优惠券信息
         couponUserBO.setCouponBO(couponBO);
+
+        // 保存优惠券使用记录
+        couponUserLogService.save(this.createCouponUserLog(couponUserBO, orderNo));
         return couponUserBO;
+    }
+
+    /**
+     * 创建用户优惠券使用记录
+     *
+     * @param couponUserBO 用户优惠券内部传输数据
+     * @param orderNo 订单号
+     * @return 用户优惠券使用记录
+     * */
+    private CouponUserLog createCouponUserLog(CouponUserBO couponUserBO, String orderNo) {
+        CouponUserLog couponUserLog = new CouponUserLog();
+        // 设置优惠券ID
+        couponUserLog.setCouponId(couponUserBO.getCouponId());
+        // 设置用户优惠券ID
+        couponUserLog.setCouponUserId(couponUserBO.getCouponUserId());
+        // 设置折扣金额
+        couponUserLog.setDiscountAmount(couponUserBO.getCouponBO().getDiscountAmount());
+        // 设置订单号
+        couponUserLog.setOrderNo(orderNo);
+        return couponUserLog;
     }
 }
