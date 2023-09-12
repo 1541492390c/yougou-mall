@@ -41,7 +41,6 @@ public class Sku extends BaseEntity {
     /**
      * 折扣价格
      * */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private BigDecimal discountPrice;
 
     /**

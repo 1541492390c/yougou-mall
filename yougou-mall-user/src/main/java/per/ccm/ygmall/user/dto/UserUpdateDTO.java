@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Date;
 
 /**
- * 用户更新传输数据
+ * 用户通用更新传输数据
  * */
 @Getter
 @Setter

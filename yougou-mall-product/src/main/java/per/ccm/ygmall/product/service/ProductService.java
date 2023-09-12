@@ -34,7 +34,7 @@ public interface ProductService extends IService<Product> {
     List<ProductBO> getProductBOList(List<Long> skuIdList) throws Exception;
 
     /**
-     * 分页获取spu信息
+     * 分页获取商品信息
      *
      * @param categoryNode 分类节点
      * @param isDiscount 是否折扣

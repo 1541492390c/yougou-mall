@@ -3,7 +3,6 @@ package per.ccm.ygmall.common.cache.config;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.config.Config;
-import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,7 +15,6 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.cache.cache.CacheEnum;
 
 import java.time.Duration;
@@ -42,30 +40,15 @@ public class RedisConfig {
     @Value("${r-lock-key}")
     private String rLockKey;
 
-    private static Config config;
-
-    private Config getConfig() {
-        if (ObjectUtils.isEmpty(config)) {
-            config = new Config();
-            config.useSingleServer().setAddress("redis://" + host + ":" + port).setPassword(password);
-        }
-        return config;
-    }
-
     @Bean
     public RLock rLock() {
-        Config config = this.getConfig();
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://" + host + ":" + port).setPassword(password);
         return Redisson.create(config).getLock(rLockKey);
     }
 
     @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        Config config = this.getConfig();
-        return new RedissonConnectionFactory(config);
-    }
-
-    @Bean
-    public CacheManager cacheManager() {
+    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
         configuration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
@@ -76,7 +59,7 @@ public class RedisConfig {
             configurationMap.put(cacheEnum.getValue(), configuration.entryTtl(Duration.ofSeconds(cacheEnum.getExpired())));
         }
         return RedisCacheManager
-                .builder(redisConnectionFactory())
+                .builder(redisConnectionFactory)
                 .initialCacheNames(cacheNames)
                 .withInitialCacheConfigurations(configurationMap)
                 .build();

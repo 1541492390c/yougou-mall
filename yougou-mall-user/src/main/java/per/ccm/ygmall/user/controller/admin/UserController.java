@@ -12,6 +12,7 @@ import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.common.security.enums.UserTypeEnum;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
+import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.service.UserService;
 import per.ccm.ygmall.user.vo.UserVO;
@@ -48,5 +49,23 @@ public class UserController {
         Page<User> page = new Page<>(pageNum, pageSize);
         PageVO<UserVO> pageVO = userService.getUserPages(userType, page);
         return ResponseEntity.success(pageVO);
+    }
+
+    @PutMapping("/update_state")
+    @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
+    @Operation(summary = "更新用户状态", description = "更新用户状态(0-禁用 1-正常)")
+    @Parameters({
+            @Parameter(name = "user_id", description = "用户ID"),
+            @Parameter(name = "state", description = "状态(0-禁用 1-正常)")
+    })
+    public ResponseEntity<Void> updateState(@RequestParam("user_id") Long userId, @RequestParam("state") Integer state) throws Exception {
+        UserUpdateDTO userUpdateDTO = new UserUpdateDTO();
+        // 设置用户ID
+        userUpdateDTO.setUserId(userId);
+        // 设置状态
+        userUpdateDTO.setState(state);
+        // 更新用户信息
+        userService.update(userUpdateDTO);
+        return ResponseEntity.success();
     }
 }

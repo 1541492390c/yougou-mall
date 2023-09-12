@@ -2,10 +2,12 @@ package per.ccm.ygmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.feign.product.bo.SkuBO;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
@@ -41,6 +43,13 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
             // 保存sku
             skuMapper.insert(sku);
         }
+    }
+
+    @Override
+    public PageVO<SkuVO> getSkuPages(Long productId, Page<Sku> page) {
+        Page<Sku> pageInfo = skuMapper.selectPage(page, new LambdaQueryWrapper<Sku>().eq(Sku::getProductId, productId));
+        List<SkuVO> skuList = ConvertUtils.converList(pageInfo.getRecords(), SkuVO.class);
+        return new PageVO<>(pageInfo.getTotal(), skuList);
     }
 
     @Override

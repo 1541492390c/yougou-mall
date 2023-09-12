@@ -1,6 +1,8 @@
 package per.ccm.ygmall.product.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.feign.product.bo.SkuBO;
 import per.ccm.ygmall.product.dto.SkuDTO;
 import per.ccm.ygmall.product.entity.Sku;
@@ -16,6 +18,14 @@ public interface SkuService extends IService<Sku> {
      * @param skuDTOList sku传输数据列表
      * */
     void batchSave(List<SkuDTO> skuDTOList) throws Exception;
+
+    /**
+     * 分页获取sku信息
+     *
+     * @param page 分页信息
+     * @return 商品信息分页列表
+     * */
+    PageVO<SkuVO> getSkuPages(Long productId, Page<Sku> page) throws Exception;
 
     /**
      * 根据商品ID获取sku信息列表

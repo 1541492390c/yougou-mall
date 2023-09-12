@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.vo.PageVO;
+import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.entity.Order;
 import per.ccm.ygmall.order.service.OrderService;
 import per.ccm.ygmall.order.vo.OrderVO;
@@ -35,5 +36,21 @@ public class OrderController {
         Page<Order> page = new Page<>(pageNum, pageSize);
         PageVO<OrderVO> pageVO = orderService.getOrderPages(null, page);
         return ResponseEntity.success(pageVO);
+    }
+
+    @PutMapping("/delivery")
+    @Operation(summary = "发货", description = "发货,将订单状态改为发货状态")
+    @Parameters({
+            @Parameter(name = "order_id", description = "订单ID"),
+            @Parameter(name = "state", description = "订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成")
+    })
+    public ResponseEntity<Void> delivery(@RequestParam("order_id") Long orderId, @RequestParam("state") Integer state) throws Exception {
+        OrderDTO orderDTO = new OrderDTO();
+        // 设置订单ID
+        orderDTO.setOrderId(orderId);
+        // 设置订单状态
+        orderDTO.setState(state);
+        orderService.update(orderDTO);
+        return ResponseEntity.success();
     }
 }
