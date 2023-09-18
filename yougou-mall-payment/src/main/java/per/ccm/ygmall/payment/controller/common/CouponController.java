@@ -39,7 +39,7 @@ public class CouponController {
 
     @PostMapping("/receive")
     @Operation(summary = "领取优惠券", description = "领取优惠券")
-    @Parameter(name = "coupon_id", description = "优惠券ID")
+    @Parameter(name = "coupon_id", description = "优惠券ID", required = true)
     public ResponseEntity<CouponUserVO> receive(@RequestParam("coupon_id") Long couponId) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
         CouponUserVO couponUserVO = couponService.receive(couponId, userId);

@@ -36,7 +36,7 @@ public class ProductController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "根据主键ID删除商品", description = "根据主键ID删除商品")
-    @Parameter(name = "product_id", description = "主键ID")
+    @Parameter(name = "product_id", description = "主键ID", required = true)
     public ResponseEntity<Void> delete(@RequestParam("product_id") Long productId) {
         productService.removeById(productId);
         return ResponseEntity.success();

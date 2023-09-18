@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping("/pages")
-    @Operation(summary = "根据分类路径分页获取商品信息列表", description = "根据分类路径分页获取商品信息列表")
+    @Operation(summary = "获取商品分页信息列表", description = "获取商品分页信息列表")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
             @Parameter(name = "page_size", description = "页数"),

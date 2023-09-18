@@ -51,7 +51,7 @@ public class FavoriteController {
 
     @GetMapping("/is_favorite")
     @Operation(summary = "是否已收藏该商品", description = "传入商品ID判断是否已收藏该商品")
-    @Parameters(@Parameter(name = "product_id", description = "商品ID"))
+    @Parameter(name = "product_id", description = "商品ID", required = true)
     public ResponseEntity<Boolean> isFavorite(@RequestParam("product_id") Long productId) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
         Boolean isFavorite = favoriteService.isFavorite(userId, productId);
@@ -60,7 +60,7 @@ public class FavoriteController {
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除用户收藏", description = "根据主键ID删除用户删除")
-    @Parameter(name = "favorite_id", description = "收藏ID")
+    @Parameter(name = "favorite_id", description = "收藏ID", required = true)
     public ResponseEntity<Void> delete(@RequestParam("favorite_id") Long favoriteId) {
         favoriteService.removeById(favoriteId);
         return ResponseEntity.success();

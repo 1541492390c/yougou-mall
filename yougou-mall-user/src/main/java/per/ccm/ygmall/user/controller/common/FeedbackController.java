@@ -51,7 +51,8 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/delete")
-    @Parameter(name = "feedback_id", description = "用户反馈ID")
+    @Operation(summary = "删除反馈", description = "传入用户反馈ID,删除反馈")
+    @Parameter(name = "feedback_id", description = "用户反馈ID", required = true)
     public ResponseEntity<Void> delete(@RequestParam("feedback_id") Long feedbackId) {
         feedbackService.removeById(feedbackId);
         return ResponseEntity.success();

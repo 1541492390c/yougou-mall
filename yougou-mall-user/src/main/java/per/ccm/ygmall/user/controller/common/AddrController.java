@@ -51,7 +51,7 @@ public class AddrController {
 
     @DeleteMapping("/delete")
     @Operation(summary = "根据主键ID删除收货地址信息", description = "根据主键ID删除收货地址信息")
-    @Parameter(name = "addr_id", description = "主键ID")
+    @Parameter(name = "addr_id", description = "主键ID", required = true)
     public ResponseEntity<Void> delete(@RequestParam("addr_id") Long addrId) {
         addrService.removeById(addrId);
         return ResponseEntity.success();

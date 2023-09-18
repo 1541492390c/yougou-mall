@@ -32,6 +32,8 @@ public class CategoryController {
     }
 
     @GetMapping("/by_node")
+    @Operation(summary = "根据分类节点获取分类", description = "根据分类节点获取分类")
+    @Parameter(name = "node", description = "分类节点", required = true)
     public ResponseEntity<CategoryVO> getCategoryByNode(@RequestParam("node") String node) throws Exception {
         CategoryVO category = categoryService.getCategoryByNode(node);
         return ResponseEntity.success(category);

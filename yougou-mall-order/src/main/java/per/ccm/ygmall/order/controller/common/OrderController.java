@@ -58,7 +58,7 @@ public class OrderController {
 
     @PutMapping("/confirm")
     @Operation(summary = "确认收货", description = "确认收货")
-    @Parameter(name = "order_id", description = "订单ID")
+    @Parameter(name = "order_id", description = "订单ID", required = true)
     public ResponseEntity<Void> confirm(@RequestParam("order_id") Long orderId) throws Exception {
         OrderDTO orderDTO = new OrderDTO();
         // 设置订单ID

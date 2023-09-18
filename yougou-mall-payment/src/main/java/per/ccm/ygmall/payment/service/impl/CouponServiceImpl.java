@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.util.ConvertUtils;
@@ -36,6 +38,12 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     private RLock rLock;
 
     @Override
+    public void save(CouponDTO couponDTO) {
+        Coupon coupon = ConvertUtils.convertProperties(couponDTO, Coupon.class);
+        couponMapper.insert(coupon);
+    }
+
+    @Override
     public PageVO<CouponVO> getCouponPages(Page<Coupon> page) {
         Page<Coupon> pageInfo = couponMapper.selectPage(page, new LambdaQueryWrapper<>());
         List<CouponVO> couponList = ConvertUtils.converList(pageInfo.getRecords(), CouponVO.class);
@@ -43,6 +51,28 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     }
 
     @Override
+    public PageVO<CouponVO> getCouponPages(Integer quota, Integer expired, String categoryNode, Page<Coupon> page) {
+        LambdaQueryWrapper<Coupon> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 配额
+        if (!ObjectUtils.isEmpty(quota)) {
+            queryWrapper.eq(Coupon::getQuota, quota);
+        }
+        // 过期时间
+        if (!ObjectUtils.isEmpty(expired)) {
+            queryWrapper.eq(Coupon::getExpired, expired);
+        }
+        // 分类节点
+        if (!ObjectUtils.isEmpty(categoryNode)) {
+            queryWrapper.eq(Coupon::getCategoryNode, categoryNode);
+        }
+        Page<Coupon> pageInfo = couponMapper.selectPage(page, queryWrapper);
+        List<CouponVO> couponList = ConvertUtils.converList(pageInfo.getRecords(), CouponVO.class);
+        return new PageVO<>(pageInfo.getTotal(), couponList);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public CouponUserVO receive(Long couponId, Long userId) throws Exception {
         rLock.lock();
         try {

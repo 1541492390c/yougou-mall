@@ -55,8 +55,8 @@ public class UserController {
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "更新用户状态", description = "更新用户状态(0-禁用 1-正常)")
     @Parameters({
-            @Parameter(name = "user_id", description = "用户ID"),
-            @Parameter(name = "state", description = "状态(0-禁用 1-正常)")
+            @Parameter(name = "user_id", description = "用户ID", required = true),
+            @Parameter(name = "state", description = "状态(0-禁用 1-正常)", required = true)
     })
     public ResponseEntity<Void> updateState(@RequestParam("user_id") Long userId, @RequestParam("state") Integer state) throws Exception {
         UserUpdateDTO userUpdateDTO = new UserUpdateDTO();

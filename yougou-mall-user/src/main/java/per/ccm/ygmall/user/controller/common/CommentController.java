@@ -38,7 +38,7 @@ public class CommentController {
 
     @GetMapping("/rate_statistics")
     @Operation(summary = "获取商品评分统计信息", description = "获取商品评分统计信息")
-    @Parameter(name = "product_id", description = "商品ID")
+    @Parameter(name = "product_id", description = "商品ID", required = true)
     public ResponseEntity<RateStatisticsVO> getRateStatistics(@RequestParam("product_id") Long productId) throws Exception {
         RateStatisticsVO rateStatistics = commentService.getRateStatistics(productId);
         return ResponseEntity.success(rateStatistics);
@@ -50,7 +50,8 @@ public class CommentController {
             @Parameter(name = "page_num", description = "当前页"),
             @Parameter(name = "page_size", description = "页数"),
             @Parameter(name = "user_id", description = "用户ID"),
-            @Parameter(name = "product_id", description = "商品ID")})
+            @Parameter(name = "product_id", description = "商品ID")
+    })
     public ResponseEntity<PageVO<CommentVO>> getCommentPages(
             @RequestParam(name = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(name = "page_size", defaultValue = "10") Integer pageSize,

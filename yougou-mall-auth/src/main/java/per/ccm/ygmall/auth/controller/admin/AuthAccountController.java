@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.auth.manager.LoginManager;
 import per.ccm.ygmall.auth.service.AuthAccountService;
@@ -48,7 +47,7 @@ public class AuthAccountController {
 
     @GetMapping("/get_by_user_id")
     @Operation(summary = "根据用户ID获取认证授权账号", description = "根据用户ID获取认证授权账号")
-    @Parameter(name = "user_id", description = "用户ID")
+    @Parameter(name = "user_id", description = "用户ID", required = true)
     public ResponseEntity<AuthAccountVO> getAuthAccountByUserId(@RequestParam("user_id") Long userId) throws Exception {
         AuthAccountVO authAccountVO = authAccountService.getAuthAccountByUserId(userId);
         return ResponseEntity.success(authAccountVO);
