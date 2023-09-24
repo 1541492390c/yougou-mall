@@ -36,13 +36,14 @@ public interface ProductService extends IService<Product> {
     /**
      * 分页获取商品信息
      *
+     * @param name 商品名称
      * @param categoryNode 分类节点
      * @param isDiscount 是否折扣
      * @param recommended 是否推荐
      * @param page 分页信息
      * @return 商品信息分页列表
      * */
-    PageVO<ProductVO> getProductPages(String categoryNode, Boolean isDiscount, Boolean recommended, Page<Product> page) throws Exception;
+    PageVO<ProductVO> getProductPages(String name, String categoryNode, Boolean isDiscount, Boolean recommended, Page<Product> page) throws Exception;
 
     /**
      * 根据商品ID获取商品信息

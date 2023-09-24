@@ -49,8 +49,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public PageVO<UserVO> getUserPages(Integer userType, Page<User> page) {
-        Page<User> pageInfo = userMapper.selectPage(page, new LambdaQueryWrapper<User>().eq(User::getUserType, userType));
+    public PageVO<UserVO> getUserPages(Integer userType, Integer gender, Integer state, String nickname, Page<User> page) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 用户类型
+        if (!ObjectUtils.isEmpty(userType)) {
+            queryWrapper.eq(User::getUserType, userType);
+        }
+        // 性别
+        if (!ObjectUtils.isEmpty(gender)) {
+            queryWrapper.eq(User::getGender, gender);
+        }
+        // 用户状态
+        if (!ObjectUtils.isEmpty(state)) {
+            queryWrapper.eq(User::getState, state);
+        }
+        // 昵称
+        if (!ObjectUtils.isEmpty(nickname)) {
+            queryWrapper.like(User::getNickname, nickname);
+        }
+        Page<User> pageInfo = userMapper.selectPage(page, queryWrapper);
         List<UserVO> userList = ConvertUtils.converList(pageInfo.getRecords(), UserVO.class);
         return new PageVO<>(pageInfo.getTotal(), userList);
     }

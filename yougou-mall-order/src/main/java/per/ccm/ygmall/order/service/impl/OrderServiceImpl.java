@@ -201,6 +201,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
+    public PageVO<OrderVO> getOrderPages(Integer state, String orderNo, Page<Order> page) {
+        Page<OrderVO> pageInfo = orderMapper.searchOrderPages(state, orderNo, page);
+        return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
+    }
+
+    @Override
     public void update(OrderDTO orderDTO) {
         Order order = ConvertUtils.convertProperties(orderDTO, Order.class);
         orderMapper.updateById(order);

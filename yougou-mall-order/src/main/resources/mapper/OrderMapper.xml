@@ -56,4 +56,13 @@
             AND `order`.`enabled` = TRUE
         </where>
     </select>
+
+    <select id="searchOrderPages" resultMap="orderVOMap">
+        SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
+        <where>
+            <if test="state != null">`order`.`state` = #{state}</if>
+            <if test="orderNo != '' and orderNo != null">`order`.`order_no` = #{orderNo}</if>
+            AND `order`.`enabled` = TRUE
+        </where>
+    </select>
 </mapper>

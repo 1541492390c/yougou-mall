@@ -41,9 +41,11 @@ public class BannerController {
     public ResponseEntity<PageVO<BannerVO>> getBannerPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
-            @RequestParam(value = "type", required = false) Integer type) throws Exception {
-        Page<Banner> page = new Page<>(pageNum, pageSize);
-        PageVO<BannerVO> pageVO = bannerService.getBannerPages(type, page);
+            @RequestParam(value = "type", required = false) Integer type,
+            @RequestParam(value = "page", required = false) String page,
+            @RequestParam(value = "link", required = false) String link) throws Exception {
+        Page<Banner> bPage = new Page<>(pageNum, pageSize);
+        PageVO<BannerVO> pageVO = bannerService.getBannerPages(type, page, link, bPage);
         return ResponseEntity.success(pageVO);
     }
 

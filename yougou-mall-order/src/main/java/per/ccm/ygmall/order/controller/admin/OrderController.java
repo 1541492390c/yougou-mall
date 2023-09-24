@@ -28,13 +28,17 @@ public class OrderController {
     @Operation(summary = "获取订单分页信息", description = "获取订单分页信息")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
-            @Parameter(name = "page_size", description = "页数")
+            @Parameter(name = "page_size", description = "页数"),
+            @Parameter(name = "state", description = "订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成"),
+            @Parameter(name = "order_no", description = "订单号")
     })
     public ResponseEntity<PageVO<OrderVO>> getOrderPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize) throws Exception {
+            @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "state", required = false) Integer state,
+            @RequestParam(value = "order_no", required = false) String orderNo) throws Exception {
         Page<Order> page = new Page<>(pageNum, pageSize);
-        PageVO<OrderVO> pageVO = orderService.getOrderPages(null, page);
+        PageVO<OrderVO> pageVO = orderService.getOrderPages(state, orderNo, page);
         return ResponseEntity.success(pageVO);
     }
 

@@ -72,6 +72,7 @@ public class AttrValueServiceImpl extends ServiceImpl<AttrValueMapper, AttrValue
 
         Map<Long, List<AttrValue>> map = attrValueMergerList.stream().collect(Collectors.groupingBy(AttrValue::getAttrId));
         for (List<AttrValue> values : map.values()) {
+            // 商品属性最多拥有10个属性值
             if (values.size() >= 10) {
                 throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C3003);
             }

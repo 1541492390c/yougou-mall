@@ -30,7 +30,12 @@ public enum ResourceTypeEnum {
     /**
      * 商品资源
      * */
-    PRODUCT(4, "/product/");
+    PRODUCT(4, "/product/"),
+
+    /**
+     * 品牌资源
+     * */
+    BRAND(5, "/brand/");
 
     private final Integer value;
 

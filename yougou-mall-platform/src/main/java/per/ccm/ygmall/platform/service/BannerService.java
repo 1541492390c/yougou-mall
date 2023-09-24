@@ -21,10 +21,11 @@ public interface BannerService extends IService<Banner> {
      * 分页获取轮播图信息
      *
      * @param type 轮播图类型
-     * @param page 分页信息
+     * @param page 所属页面
+     * @param bPage 分页信息
      * @return 轮播图分页信息
      * */
-    PageVO<BannerVO> getBannerPages(Integer type, Page<Banner> page) throws Exception;
+    PageVO<BannerVO> getBannerPages(Integer type, String page, String link, Page<Banner> bPage) throws Exception;
 
     /**
      * 获取轮播图信息列表

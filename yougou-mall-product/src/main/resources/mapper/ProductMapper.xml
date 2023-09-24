@@ -42,7 +42,8 @@
     <select id="selectProductPages" resultMap="productVOMap">
         SELECT DISTINCT <include refid="product_vo_column" /> <include refid="product_left_join_sku" />
             <where>
-                <if test="categoryNode != null">product.`category_node` = #{categoryNode}</if>
+                <if test="name != '' and name != null">product.`name` LIKE CONCAT('%',#{name},'%')</if>
+                <if test="categoryNode != '' and categoryNode != null">AND product.`category_node` = #{categoryNode}</if>
                 <if test="isDiscount != null">AND product.`is_discount` = #{isDiscount}</if>
                 <if test="recommended != null">AND product.`recommended` = #{recommended}</if>
                 AND product.`enabled` = TRUE

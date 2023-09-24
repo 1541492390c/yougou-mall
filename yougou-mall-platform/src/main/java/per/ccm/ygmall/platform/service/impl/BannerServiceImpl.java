@@ -42,14 +42,22 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     }
 
     @Override
-    public PageVO<BannerVO> getBannerPages(Integer type, Page<Banner> page) {
+    public PageVO<BannerVO> getBannerPages(Integer type, String page, String link, Page<Banner> bPage) {
         LambdaQueryWrapper<Banner> queryWrapper = new LambdaQueryWrapper<>();
 
         // 类型不为空
         if (!ObjectUtils.isEmpty(type)) {
             queryWrapper.eq(Banner::getType, type);
         }
-        Page<Banner> pageInfo = bannerMapper.selectPage(page, queryWrapper);
+        // 所属页面不为空
+        if (!ObjectUtils.isEmpty(page)) {
+            queryWrapper.eq(Banner::getPage, page);
+        }
+        // 轮播图链接不为空
+        if (!ObjectUtils.isEmpty(link)) {
+            queryWrapper.eq(Banner::getLink, link);
+        }
+        Page<Banner> pageInfo = bannerMapper.selectPage(bPage, queryWrapper);
         List<BannerVO> bannerList = ConvertUtils.converList(pageInfo.getRecords(), BannerVO.class);
         return new PageVO<>(pageInfo.getTotal(), bannerList);
     }

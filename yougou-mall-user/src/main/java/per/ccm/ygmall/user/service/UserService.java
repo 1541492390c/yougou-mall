@@ -23,10 +23,13 @@ public interface UserService extends IService<User> {
      * 获取用户分页信息
      *
      * @param userType 用户类型
+     * @param gender 性别
+     * @param state 用户状态
+     * @param nickname 昵称
      * @param page 分页
      * @return 用户分页信息
      * */
-    PageVO<UserVO> getUserPages(Integer userType, Page<User> page) throws Exception;
+    PageVO<UserVO> getUserPages(Integer userType, Integer gender, Integer state, String nickname, Page<User> page) throws Exception;
 
     /**
      * 根据用户id获取用户信息

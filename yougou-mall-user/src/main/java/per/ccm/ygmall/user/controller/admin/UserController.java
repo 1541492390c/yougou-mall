@@ -40,14 +40,20 @@ public class UserController {
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),
             @Parameter(name = "page_size", description = "页数"),
-            @Parameter(name = "user_type", description = "用户类型")
+            @Parameter(name = "user_type", description = "用户类型 1-管理员 2-普通用户"),
+            @Parameter(name = "gender", description = "性别 0-保密 1-男 2-女"),
+            @Parameter(name = "state", description = "状态 0-禁用 1-正常"),
+            @Parameter(name = "nickname", description = "昵称")
     })
     public ResponseEntity<PageVO<UserVO>> getUserPages(
             @RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
-            @RequestParam(value = "user_type", defaultValue = "2") Integer userType) throws Exception {
+            @RequestParam(value = "user_type", defaultValue = "2") Integer userType,
+            @RequestParam(value = "gender", required = false) Integer gender,
+            @RequestParam(value = "state", required = false) Integer state,
+            @RequestParam(value = "nickname", required = false) String nickname) throws Exception {
         Page<User> page = new Page<>(pageNum, pageSize);
-        PageVO<UserVO> pageVO = userService.getUserPages(userType, page);
+        PageVO<UserVO> pageVO = userService.getUserPages(userType, gender, state, nickname, page);
         return ResponseEntity.success(pageVO);
     }
 

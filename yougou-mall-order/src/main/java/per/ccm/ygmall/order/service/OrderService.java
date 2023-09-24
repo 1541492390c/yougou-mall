@@ -42,6 +42,16 @@ public interface OrderService extends IService<Order> {
     PageVO<OrderVO> getOrderPages(Long userId, Page<Order> page) throws Exception;
 
     /**
+     * 获取订单分页信息
+     *
+     * @param state 订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成
+     * @param orderNo 订单号
+     * @param page 分页信息
+     * @return 订单分页信息
+     * */
+    PageVO<OrderVO> getOrderPages(Integer state, String orderNo, Page<Order> page) throws Exception;
+
+    /**
      * 更新订单
      *
      * @param orderDTO 订单传输数据

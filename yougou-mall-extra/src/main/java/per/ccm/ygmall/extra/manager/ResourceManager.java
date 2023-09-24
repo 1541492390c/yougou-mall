@@ -61,7 +61,6 @@ public class ResourceManager {
     public void delete(Integer resourceType, String fileName) throws Exception {
         // 文件路径
         String path = ResourceTypeEnum.getValueOf(resourceType).getPath();
-        System.out.println(fileName);
         RemoveObjectArgs args = RemoveObjectArgs.builder()
                 .bucket(bucket)
                 .object(path + fileName)
