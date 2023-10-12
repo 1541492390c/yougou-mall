@@ -78,23 +78,22 @@ yougou-mall
 
 - ### 商城Web端运行截图
 - 首页
-![首页1](readme/img/%E9%A6%96%E9%A1%B51.png)
-![首页2](readme/img/%E9%A6%96%E9%A1%B52.png)
+![首页1](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E9%A6%96%E9%A1%B51.png)
+![首页2](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E9%A6%96%E9%A1%B52.png)
 - 品牌中心
-![品牌中心](readme/img/%E5%93%81%E7%89%8C%E4%B8%AD%E5%BF%83.png)
+![品牌中心](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E5%93%81%E7%89%8C%E4%B8%AD%E5%BF%83.png)
 - 商品详情
-![输入图片说明](readme/img/%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85.png)
+![商品详情](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85.png)
 - 商品搜索
-![品牌中心](readme/img/%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2.png)
+![商品搜索](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2.png)
 - 个人中心
-![个人中心1](readme/img/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%831.png)
-![个人中心2](readme/img/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%832.png)
-
-![个人中心3](readme/img/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%833.png)
+![个人中心1](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%831.png)
+![个人中心2](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%832.png)
+![个人中心3](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%833.png)
 - 购物车结算
-![购物车结算](readme/img/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97.png)
+![购物车结算](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%BB%93%E7%AE%97.png)
 - 登录页面
-![输入图片说明](readme/img/%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png)
+![登录页面](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png)
 
 ## 视频演示
 - b站链接：https://www.bilibili.com/video/BV1Zu411A7MX/
