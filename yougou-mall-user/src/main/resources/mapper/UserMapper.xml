@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.user.mapper.UserMapper">
+    <select id="selectUserStatistics" resultType="per.ccm.ygmall.user.vo.UserStatisticsVO">
+        SELECT
+            COUNT(*) AS `total`,
+            DATE_FORMAT(create_time, '%y') AS `year`,
+            DATE_FORMAT(create_time, '%m') AS `month`
+        FROM user WHERE year(create_time) = year(NOW()) AND `state` != 0 AND `user_type` = 2 GROUP BY `month`
+    </select>
 </mapper>

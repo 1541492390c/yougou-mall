@@ -33,6 +33,7 @@ import per.ccm.ygmall.order.mapper.OrderMapper;
 import per.ccm.ygmall.order.service.OrderAddrService;
 import per.ccm.ygmall.order.service.OrderItemService;
 import per.ccm.ygmall.order.service.OrderService;
+import per.ccm.ygmall.order.vo.OrderStatisticsVO;
 import per.ccm.ygmall.order.vo.OrderVO;
 import per.ccm.ygmall.common.rabbitmq.config.RabbitmqConfig;
 
@@ -207,9 +208,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
+    public List<OrderStatisticsVO> getOrderStatistics() {
+        return orderMapper.selectOrderStatistics();
+    }
+
+    @Override
     public void update(OrderDTO orderDTO) {
         Order order = ConvertUtils.convertProperties(orderDTO, Order.class);
         orderMapper.updateById(order);
+    }
+
+    @Override
+    public void delete(Long orderId) {
+        Order order = orderMapper.selectById(orderId);
+        if (!ObjectUtils.nullSafeEquals(order.getState(), OrderStateEnum.CANCEL)) {
+            throw new YougouException(ResponseCodeEnum.ORDER_ERROR_D0003);
+        }
     }
 
     /**

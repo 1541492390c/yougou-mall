@@ -38,7 +38,7 @@ public class AuthAccountController {
             @Parameter(name = "username", description = "用户名", required = true),
             @Parameter(name = "password", description = "密码", required = true),
             @Parameter(name = "code", description = "验证码", required = true)
-    })
+            })
     public ResponseEntity<TokenVO> login(
             HttpServletRequest request,
             @RequestParam("username") String username,
@@ -46,25 +46,6 @@ public class AuthAccountController {
             @RequestParam("code") String code) {
         String accessToken = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, USER_TYPE);
         return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
-    }
-
-    @PutMapping("/update")
-    @Operation(summary = "更新认证账号信息", description = "更新认证账号信息")
-    public ResponseEntity<Void> update(@RequestBody AuthAccountDTO authAccountDTO) throws Exception {
-        Long authAccountId = SecurityContextUtils.getAuthAccountId();
-
-        authAccountDTO.setAuthAccountId(authAccountId);
-        authAccountService.update(authAccountDTO);
-        return ResponseEntity.success();
-    }
-
-
-    @PutMapping("/update_password")
-    @Operation(summary = "更新密码", description = "更新密码")
-    public ResponseEntity<Void> updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO) throws Exception {
-        Long userId = SecurityContextUtils.getUserId();
-        authAccountService.updatePassword(userId, updatePasswordDTO);
-        return ResponseEntity.success();
     }
 
     @GetMapping("/logout")
@@ -86,5 +67,23 @@ public class AuthAccountController {
         Long authAccountId = SecurityContextUtils.getAuthAccountId();
         AuthAccountVO authAccountVO = authAccountService.getAuthAccountInfo(authAccountId);
         return ResponseEntity.success(authAccountVO);
+    }
+
+    @PutMapping("/update")
+    @Operation(summary = "更新认证账号信息", description = "更新认证账号信息")
+    public ResponseEntity<Void> update(@RequestBody AuthAccountDTO authAccountDTO) throws Exception {
+        Long authAccountId = SecurityContextUtils.getAuthAccountId();
+
+        authAccountDTO.setAuthAccountId(authAccountId);
+        authAccountService.update(authAccountDTO);
+        return ResponseEntity.success();
+    }
+
+    @PutMapping("/update_password")
+    @Operation(summary = "更新密码", description = "更新密码")
+    public ResponseEntity<Void> updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO) throws Exception {
+        Long userId = SecurityContextUtils.getUserId();
+        authAccountService.updatePassword(userId, updatePasswordDTO);
+        return ResponseEntity.success();
     }
 }

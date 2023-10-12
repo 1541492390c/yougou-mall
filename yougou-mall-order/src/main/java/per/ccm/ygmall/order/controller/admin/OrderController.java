@@ -13,7 +13,10 @@ import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.entity.Order;
 import per.ccm.ygmall.order.service.OrderService;
+import per.ccm.ygmall.order.vo.OrderStatisticsVO;
 import per.ccm.ygmall.order.vo.OrderVO;
+
+import java.util.List;
 
 @RestController("adminOrderController")
 @RequestMapping("/admin/order")
@@ -42,8 +45,20 @@ public class OrderController {
         return ResponseEntity.success(pageVO);
     }
 
+    @GetMapping("/count")
+    @Operation(summary = "统计订单数量", description = "统计订单数量")
+    public ResponseEntity<Long> getOrderCount() {
+        return ResponseEntity.success(orderService.count());
+    }
+
+    @GetMapping("/statistics")
+    @Operation(summary = "获取订单统计数据信息", description = "获取订单统计数据信息")
+    public ResponseEntity<List<OrderStatisticsVO>> getOrderStatics() throws Exception {
+        return ResponseEntity.success(orderService.getOrderStatistics());
+    }
+
     @PutMapping("/delivery")
-    @Operation(summary = "发货", description = "发货,将订单状态改为发货状态")
+    @Operation(summary = "订单发货", description = "订单发货,将订单状态改为发货状态")
     @Parameters({
             @Parameter(name = "order_id", description = "订单ID", required = true),
             @Parameter(name = "state", description = "订单状态 0-已取消 1-待付款 2-待发货 3-配送中 4-已完成", required = true)

@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import per.ccm.ygmall.auth.enums.UpdatePassTypeEnum;
 import per.ccm.ygmall.feign.user.feign.UserFeign;
 import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.dto.UpdatePasswordDTO;
@@ -60,14 +61,29 @@ public class AuthAccountServiceImpl extends ServiceImpl<AuthAccountMapper, AuthA
         LambdaQueryWrapper<AuthAccount> queryWrapper = new LambdaQueryWrapper<>();
 
         AuthAccount authAccount = authAccountMapper.selectOne(queryWrapper.eq(AuthAccount::getUserId, userId));
-        // 判断是否为绑定的手机号
-        if (!ObjectUtils.nullSafeEquals(authAccount.getMobile(), updatePasswordDTO.getMobile())) {
-            throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0012);
-        }
 
-        String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
-        authAccount.setPassword(newPassword);
-        authAccountMapper.updateById(authAccount);
+        // 忘记密码
+        if (ObjectUtils.nullSafeEquals(updatePasswordDTO.getUpdatePassType(), UpdatePassTypeEnum.FORGET.getValue())) {
+            // 判断是否为绑定的手机号
+            if (!ObjectUtils.nullSafeEquals(authAccount.getMobile(), updatePasswordDTO.getMobile())) {
+                throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0012);
+            }
+
+            String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
+            authAccount.setPassword(newPassword);
+            authAccountMapper.updateById(authAccount);
+        }
+        // 修改密码
+        if (ObjectUtils.nullSafeEquals(updatePasswordDTO.getUpdatePassType(), UpdatePassTypeEnum.UPDATE.getValue())) {
+            // 原密码是否一致
+            if (!passwordEncoder.matches(updatePasswordDTO.getPassword(), authAccount.getPassword())) {
+                throw new YougouException(ResponseCodeEnum.AUTH_ERROR_A0013);
+            }
+
+            String newPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
+            authAccount.setPassword(newPassword);
+            authAccountMapper.updateById(authAccount);
+        }
     }
 
     @Override

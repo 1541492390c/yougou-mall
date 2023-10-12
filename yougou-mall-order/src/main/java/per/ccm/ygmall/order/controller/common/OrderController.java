@@ -73,8 +73,8 @@ public class OrderController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除订单", description = "删除订单")
     @Parameter(name = "order_id", description = "订单ID")
-    public ResponseEntity<Void> delete(@RequestParam("order_id") Long orderId) {
-        orderService.removeById(orderId);
+    public ResponseEntity<Void> delete(@RequestParam("order_id") Long orderId) throws Exception {
+        orderService.delete(orderId);
         return ResponseEntity.success();
     }
 }

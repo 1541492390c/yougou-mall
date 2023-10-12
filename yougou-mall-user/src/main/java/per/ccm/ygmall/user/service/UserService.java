@@ -6,7 +6,10 @@ import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
+import per.ccm.ygmall.user.vo.UserStatisticsVO;
 import per.ccm.ygmall.user.vo.UserVO;
+
+import java.util.List;
 
 /**
  * 用户服务
@@ -22,6 +25,7 @@ public interface UserService extends IService<User> {
     /**
      * 获取用户分页信息
      *
+     * @param userId 用户ID
      * @param userType 用户类型
      * @param gender 性别
      * @param state 用户状态
@@ -29,7 +33,7 @@ public interface UserService extends IService<User> {
      * @param page 分页
      * @return 用户分页信息
      * */
-    PageVO<UserVO> getUserPages(Integer userType, Integer gender, Integer state, String nickname, Page<User> page) throws Exception;
+    PageVO<UserVO> getUserPages(Long userId, Integer userType, Integer gender, Integer state, String nickname, Page<User> page) throws Exception;
 
     /**
      * 根据用户id获取用户信息
@@ -38,6 +42,13 @@ public interface UserService extends IService<User> {
      * @return 用户信息
      * */
     UserVO getUserinfo(Long userId) throws Exception;
+
+    /**
+     * 获取用户统计信息
+     *
+     * @return 用户统计信息
+     * */
+    List<UserStatisticsVO> getUserStatistics() throws Exception;
 
     /**
      * 更新用户信息

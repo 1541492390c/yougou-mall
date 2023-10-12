@@ -6,7 +6,10 @@ import per.ccm.ygmall.feign.order.bo.OrderBO;
 import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.order.dto.OrderDTO;
 import per.ccm.ygmall.order.entity.Order;
+import per.ccm.ygmall.order.vo.OrderStatisticsVO;
 import per.ccm.ygmall.order.vo.OrderVO;
+
+import java.util.List;
 
 public interface OrderService extends IService<Order> {
     /**
@@ -52,9 +55,23 @@ public interface OrderService extends IService<Order> {
     PageVO<OrderVO> getOrderPages(Integer state, String orderNo, Page<Order> page) throws Exception;
 
     /**
-     * 更新订单
+     * 获取订单统计信息
+     *
+     * @return 订单统计数据信息
+     * */
+    List<OrderStatisticsVO> getOrderStatistics() throws Exception;
+
+    /**
+     * 更新订单信息
      *
      * @param orderDTO 订单传输数据
      * */
     void update(OrderDTO orderDTO) throws Exception;
+
+    /**
+     * 删除订单信息
+     *
+     * @param orderId 订单ID
+     * */
+    void delete(Long orderId) throws Exception;
 }

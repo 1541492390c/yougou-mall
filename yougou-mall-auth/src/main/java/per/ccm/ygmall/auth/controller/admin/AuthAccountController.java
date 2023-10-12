@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import per.ccm.ygmall.auth.dto.AuthAccountDTO;
 import per.ccm.ygmall.auth.manager.LoginManager;
 import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
@@ -45,11 +47,28 @@ public class AuthAccountController {
         return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
     }
 
-    @GetMapping("/get_by_user_id")
+    @GetMapping("/get_one")
     @Operation(summary = "根据用户ID获取认证授权账号", description = "根据用户ID获取认证授权账号")
     @Parameter(name = "user_id", description = "用户ID", required = true)
     public ResponseEntity<AuthAccountVO> getAuthAccountByUserId(@RequestParam("user_id") Long userId) throws Exception {
         AuthAccountVO authAccountVO = authAccountService.getAuthAccountByUserId(userId);
         return ResponseEntity.success(authAccountVO);
+    }
+
+    @PutMapping("/update_role")
+    @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
+    @Operation(summary = "更新用户(管理员)权限", description = "更新用户(管理员)权限")
+    @Parameters({
+            @Parameter(name = "auth_account_id", description = "管理员认证授权ID", required = true),
+            @Parameter(name = "role", description = "管理员角色", required = true)
+    })
+    public ResponseEntity<Void> updateRole(@RequestParam("auth_account_id") Long authAccountId, @RequestParam("role") String role) throws Exception {
+        AuthAccountDTO authAccountDTO = new AuthAccountDTO();
+        // 设置认证授权ID
+        authAccountDTO.setAuthAccountId(authAccountId);
+        // 设置用户角色
+        authAccountDTO.setRole(role);
+        authAccountService.update(authAccountDTO);
+        return ResponseEntity.success();
     }
 }

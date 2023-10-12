@@ -26,6 +26,12 @@ public class ProductController {
         return ResponseEntity.success();
     }
 
+    @GetMapping("/count")
+    @Operation(summary = "统计商品数量", description = "统计商品数量")
+    public ResponseEntity<Long> getProductCount() {
+        return ResponseEntity.success(productService.count());
+    }
+
     @PutMapping("/update")
     @Operation(summary = "更新商品信息", description = "更新商品信息")
     public ResponseEntity<Void> update(@RequestBody ProductDTO productDTO) throws Exception {

@@ -38,4 +38,9 @@ public class AuthAccountBO {
      * 电话号
      * */
     private String mobile;
+
+    /**
+     * 用户角色
+     * */
+    private String role;
 }

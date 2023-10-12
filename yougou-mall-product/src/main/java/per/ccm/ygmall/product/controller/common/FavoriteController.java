@@ -33,7 +33,7 @@ public class FavoriteController {
         return ResponseEntity.success();
     }
 
-    @GetMapping("/my_favorite")
+    @GetMapping("/pages")
     @Operation(summary = "获取用户收藏分页信息", description = "获取用户收藏分页信息")
     @Parameters({
             @Parameter(name = "page_num", description = "当前页"),

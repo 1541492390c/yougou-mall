@@ -1,5 +1,6 @@
 package per.ccm.ygmall.extra.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +20,7 @@ public class SmsController {
     private SmsManager smsManager;
 
     @PostMapping("/send")
+    @Operation(summary = "发送短信验证码", description = "发送短信验证码")
     @Parameter(name = "mobile", description = "手机号")
     public ResponseEntity<Void> sendSms(String mobile) throws Exception {
         smsManager.sendSms(mobile);
@@ -26,6 +28,7 @@ public class SmsController {
     }
 
     @PostMapping("/validate")
+    @Operation(summary = "验证短信验证码", description = "验证短信验证码")
     @Parameters({
             @Parameter(name = "mobile", description = "手机号"),
             @Parameter(name = "code", description = "验证码")

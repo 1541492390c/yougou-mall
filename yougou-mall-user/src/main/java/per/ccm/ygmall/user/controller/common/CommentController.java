@@ -27,7 +27,7 @@ public class CommentController {
 
     @PostMapping("/save")
     @PreAuthorize("hasRole(@roleConfig.USER)")
-    @Operation(summary = "保存评论", description = "保存评论")
+    @Operation(summary = "保存评论信息", description = "保存评论信息")
     public ResponseEntity<Void> save(@RequestBody CommentDTO commentDTO) throws Exception {
         Long userId = SecurityContextUtils.getUserId();
 

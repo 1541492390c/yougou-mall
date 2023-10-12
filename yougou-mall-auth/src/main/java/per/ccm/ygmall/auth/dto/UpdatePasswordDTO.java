@@ -13,8 +13,14 @@ import lombok.ToString;
 @ToString
 public class UpdatePasswordDTO {
 
+    @Schema(description = "修改密码类型 1-忘记密码 2-修改密码")
+    private Integer updatePassType;
+
     @Schema(description = "手机号")
     private String mobile;
+
+    @Schema(description = "原密码")
+    private String password;
 
     @Schema(description = "新密码")
     private String newPassword;

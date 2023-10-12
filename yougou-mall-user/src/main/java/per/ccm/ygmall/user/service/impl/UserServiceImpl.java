@@ -21,6 +21,7 @@ import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.mapper.UserMapper;
 import per.ccm.ygmall.user.service.UserService;
+import per.ccm.ygmall.user.vo.UserStatisticsVO;
 import per.ccm.ygmall.user.vo.UserVO;
 
 import java.util.List;
@@ -49,9 +50,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public PageVO<UserVO> getUserPages(Integer userType, Integer gender, Integer state, String nickname, Page<User> page) {
+    public PageVO<UserVO> getUserPages(Long userId, Integer userType, Integer gender, Integer state, String nickname, Page<User> page) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
+        // 排除操作者
+        queryWrapper.ne(User::getUserId, userId);
         // 用户类型
         if (!ObjectUtils.isEmpty(userType)) {
             queryWrapper.eq(User::getUserType, userType);
@@ -78,6 +81,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public UserVO getUserinfo(Long userId) {
         User user = userMapper.selectById(userId);
         return ConvertUtils.convertProperties(user, UserVO.class);
+    }
+
+    @Override
+    public List<UserStatisticsVO> getUserStatistics() {
+        return userMapper.selectUserStatistics();
     }
 
     @Override

@@ -65,4 +65,13 @@
             AND `order`.`enabled` = TRUE
         </where>
     </select>
+
+    <select id="selectOrderStatistics" resultType="per.ccm.ygmall.order.vo.OrderStatisticsVO">
+        SELECT
+            COUNT(*) AS `total`,
+            SUM(pay_amount) AS `totalAmount`,
+            DATE_FORMAT(create_time, '%y') AS `year`,
+            DATE_FORMAT(create_time, '%m') AS `month`
+        FROM `order` WHERE year(create_time) = year(NOW()) AND is_pay AND `state` != 0 AND `state` != 1 GROUP BY `month`
+    </select>
 </mapper>

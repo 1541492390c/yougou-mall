@@ -1,5 +1,6 @@
 package per.ccm.ygmall.user.controller.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,11 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.vo.PageVO;
 import per.ccm.ygmall.common.security.enums.UserTypeEnum;
+import per.ccm.ygmall.common.security.util.SecurityContextUtils;
 import per.ccm.ygmall.user.dto.UserRegisterDTO;
 import per.ccm.ygmall.user.dto.UserUpdateDTO;
 import per.ccm.ygmall.user.entity.User;
 import per.ccm.ygmall.user.service.UserService;
+import per.ccm.ygmall.user.vo.UserStatisticsVO;
 import per.ccm.ygmall.user.vo.UserVO;
+
+import java.util.List;
 
 @RestController("adminUserController")
 @RequestMapping("/admin/user")
@@ -52,9 +57,24 @@ public class UserController {
             @RequestParam(value = "gender", required = false) Integer gender,
             @RequestParam(value = "state", required = false) Integer state,
             @RequestParam(value = "nickname", required = false) String nickname) throws Exception {
+        Long userId = SecurityContextUtils.getUserId();
+
         Page<User> page = new Page<>(pageNum, pageSize);
-        PageVO<UserVO> pageVO = userService.getUserPages(userType, gender, state, nickname, page);
+        PageVO<UserVO> pageVO = userService.getUserPages(userId, userType, gender, state, nickname, page);
         return ResponseEntity.success(pageVO);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "统计用户数量", description = "统计用户数量")
+    public ResponseEntity<Long> getUserCount() {
+        return ResponseEntity.success(userService.count(new LambdaQueryWrapper<User>().eq(User::getUserType, UserTypeEnum.USER.getValue())));
+    }
+
+    @GetMapping("/statistics")
+    @Operation(summary = "获取用户统计信息", description = "获取用户统计信息")
+    public ResponseEntity<List<UserStatisticsVO>> getUserStatistics() throws Exception {
+        List<UserStatisticsVO> userStatistics = userService.getUserStatistics();
+        return ResponseEntity.success(userStatistics);
     }
 
     @PutMapping("/update_state")

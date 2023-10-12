@@ -55,7 +55,12 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
     @Override
     public List<BrandVO> getBrandList(String categoryNode) {
         LambdaQueryWrapper<Brand> queryWrapper = new LambdaQueryWrapper<>();
-        List<Brand> brandList = brandMapper.selectList(queryWrapper.eq(Brand::getCategoryNode, categoryNode));
+
+        // 分类节点
+        if (!ObjectUtils.isEmpty(categoryNode)) {
+            queryWrapper.eq(Brand::getCategoryNode, categoryNode);
+        }
+        List<Brand> brandList = brandMapper.selectList(queryWrapper);
         return ConvertUtils.converList(brandList, BrandVO.class);
     }
 

@@ -25,6 +25,7 @@ public class SkuController {
     private SkuService skuService;
 
     @GetMapping("/pages")
+    @Operation(summary = "获取商品sku信息列表", description = "获取商品sku信息列表")
     @Parameters({
             @Parameter(name = "product_id", description = "商品ID", required = true),
             @Parameter(name = "page_num", description = "当前页"),
@@ -40,7 +41,7 @@ public class SkuController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新sku", description = "更新sku")
+    @Operation(summary = "更新sku信息", description = "更新sku信息")
     public ResponseEntity<Void> update(@RequestBody SkuDTO skuDTO) throws Exception {
         skuService.update(skuDTO);
         return ResponseEntity.success();
