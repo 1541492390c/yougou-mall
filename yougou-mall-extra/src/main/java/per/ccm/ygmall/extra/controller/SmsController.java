@@ -21,7 +21,7 @@ public class SmsController {
 
     @PostMapping("/send")
     @Operation(summary = "发送短信验证码", description = "发送短信验证码")
-    @Parameter(name = "mobile", description = "手机号")
+    @Parameter(name = "mobile", description = "手机号", required = true)
     public ResponseEntity<Void> sendSms(String mobile) throws Exception {
         smsManager.sendSms(mobile);
         return ResponseEntity.success();
@@ -30,8 +30,8 @@ public class SmsController {
     @PostMapping("/validate")
     @Operation(summary = "验证短信验证码", description = "验证短信验证码")
     @Parameters({
-            @Parameter(name = "mobile", description = "手机号"),
-            @Parameter(name = "code", description = "验证码")
+            @Parameter(name = "mobile", description = "手机号", required = true),
+            @Parameter(name = "code", description = "验证码", required = true)
     })
     public ResponseEntity<Void> validate(String mobile, String code) {
         smsManager.validate(mobile, code);

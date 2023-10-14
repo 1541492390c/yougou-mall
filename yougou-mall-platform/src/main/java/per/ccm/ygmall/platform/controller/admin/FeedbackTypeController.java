@@ -52,11 +52,10 @@ public class FeedbackTypeController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "删除用户反馈类型", description = "传入用户反馈类型ID删除反馈类型")
-    @Parameter(name = "feedback_type_id", description = "用户反馈类型ID", required = true)
-    public ResponseEntity<Void> delete(@RequestParam("feedback_type_id") Long feedbackTypeId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long feedbackTypeId) {
         feedbackTypeService.removeById(feedbackTypeId);
         return ResponseEntity.success();
     }

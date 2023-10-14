@@ -55,11 +55,10 @@ public class BrandController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "删除品牌", description = "传入品牌ID删除相关品牌")
-    @Parameter(name = "brand_d", description = "品牌ID", required = true)
-    public ResponseEntity<Void> delete(@RequestParam("brand_id") Long brandId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long brandId) {
         brandService.removeById(brandId);
         return ResponseEntity.success();
     }

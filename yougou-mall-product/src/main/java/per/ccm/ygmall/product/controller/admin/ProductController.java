@@ -1,7 +1,6 @@
 package per.ccm.ygmall.product.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,11 +38,10 @@ public class ProductController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "根据主键ID删除商品", description = "根据主键ID删除商品")
-    @Parameter(name = "product_id", description = "主键ID", required = true)
-    public ResponseEntity<Void> delete(@RequestParam("product_id") Long productId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long productId) {
         productService.removeById(productId);
         return ResponseEntity.success();
     }

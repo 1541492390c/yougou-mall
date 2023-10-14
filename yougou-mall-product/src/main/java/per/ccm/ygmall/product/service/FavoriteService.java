@@ -30,4 +30,12 @@ public interface FavoriteService extends IService<Favorite> {
      * @param productId 商品ID
      * */
     Boolean isFavorite(Long userId, Long productId) throws Exception;
+
+    /**
+     * 删除用户收藏信息
+     *
+     * @param userId 用户ID
+     * @param favoriteId 用户收藏ID
+     * */
+    void delete(Long userId, Long favoriteId) throws Exception;
 }

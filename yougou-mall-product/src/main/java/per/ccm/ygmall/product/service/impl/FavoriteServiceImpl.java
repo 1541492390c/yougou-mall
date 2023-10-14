@@ -46,4 +46,13 @@ public class FavoriteServiceImpl extends ServiceImpl<FavoriteMapper, Favorite> i
         queryWrapper.eq(Favorite::getUserId, userId).eq(Favorite::getProductId, productId);
         return favoriteMapper.exists(queryWrapper);
     }
+
+    @Override
+    public void delete(Long userId, Long favoriteId) {
+        LambdaQueryWrapper<Favorite> queryWrapper = new LambdaQueryWrapper<>();
+        if (!favoriteMapper.exists(queryWrapper.eq(Favorite::getUserId, userId).eq(Favorite::getFavoriteId, favoriteId))) {
+            throw new YougouException(ResponseCodeEnum.PRODUCT_ERROR_C5002);
+        }
+        favoriteMapper.deleteById(favoriteId);
+    }
 }

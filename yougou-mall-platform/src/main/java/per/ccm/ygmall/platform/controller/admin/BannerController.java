@@ -56,11 +56,10 @@ public class BannerController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "删除轮播图", description = "传入轮播图ID删除轮播图")
-    @Parameter(name = "banner_id", description = "轮播图ID", required = true)
-    public ResponseEntity<Void> delete(@RequestParam("banner_id") Long bannerId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long bannerId) {
         bannerService.removeById(bannerId);
         return ResponseEntity.success();
     }

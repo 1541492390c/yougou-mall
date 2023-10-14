@@ -1,7 +1,6 @@
 package per.ccm.ygmall.user.controller.common;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,10 +48,9 @@ public class AddrController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "根据主键ID删除收货地址信息", description = "根据主键ID删除收货地址信息")
-    @Parameter(name = "addr_id", description = "主键ID", required = true)
-    public ResponseEntity<Void> delete(@RequestParam("addr_id") Long addrId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long addrId) {
         addrService.removeById(addrId);
         return ResponseEntity.success();
     }

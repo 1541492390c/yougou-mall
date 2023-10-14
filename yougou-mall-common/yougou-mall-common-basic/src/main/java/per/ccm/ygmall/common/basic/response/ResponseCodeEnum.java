@@ -182,6 +182,11 @@ public enum ResponseCodeEnum {
     PRODUCT_ERROR_C5001("C5001", "用户已收藏该商品"),
 
     /**
+     * 用户未收藏该商品
+     * */
+    PRODUCT_ERROR_C5002("C5002", "用户未收藏该商品"),
+
+    /**
      * 订单只能对应一个订单收货地址
      * */
     ORDER_ERROR_D0001("D0001", "订单只能对应一个订单收货地址"),

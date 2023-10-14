@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.basic.vo.PageVO;
@@ -70,10 +71,10 @@ public class OrderController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "删除订单", description = "删除订单")
-    @Parameter(name = "order_id", description = "订单ID")
-    public ResponseEntity<Void> delete(@RequestParam("order_id") Long orderId) throws Exception {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long orderId) throws Exception {
         orderService.delete(orderId);
         return ResponseEntity.success();
     }

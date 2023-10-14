@@ -58,11 +58,10 @@ public class CouponController {
         return ResponseEntity.success();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole(@roleConfig.SUPER_ADMIN)")
     @Operation(summary = "删除优惠券", description = "传入优惠券ID删除优惠券")
-    @Parameter(name = "coupon_id", description = "优惠券ID", required = true)
-    public ResponseEntity<Void> delete(@RequestParam("coupon_id") Long couponId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long couponId) {
         couponService.removeById(couponId);
         return ResponseEntity.success();
     }
