@@ -30,7 +30,7 @@ public class CacheNames {
     /**
      * 验证码缓存
      * */
-    public static final String BIZ_VALIDATE_CODE_NAME = "biz_validate_code";
+    public static final String EXTRA_VALIDATE_CODE_NAME = "extra_validate_code";
 
     /**
      * 轮播图缓存

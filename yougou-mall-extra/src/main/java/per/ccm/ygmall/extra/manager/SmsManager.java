@@ -55,7 +55,7 @@ public class SmsManager {
         SendSmsResponseBody responseBody = client.sendSmsWithOptions(sendSmsRequest, runtimeOptions).getBody();
         // 将验证码保存到缓存
         if (ObjectUtils.nullSafeEquals(responseBody.getCode(), "OK")) {
-            Objects.requireNonNull(cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME)).put(mobile, code);
+            Objects.requireNonNull(cacheManager.getCache(CacheNames.EXTRA_VALIDATE_CODE_NAME)).put(mobile, code);
         } else {
             log.info("{}", responseBody.getMessage());
             throw new YougouException(ResponseCodeEnum.SERVER_ERROR_00003);
@@ -73,7 +73,7 @@ public class SmsManager {
         if (ObjectUtils.nullSafeEquals(active, "dev") && ObjectUtils.nullSafeEquals(code, "111111")) {
             return;
         }
-        Cache cache = Objects.requireNonNull(cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME));
+        Cache cache = Objects.requireNonNull(cacheManager.getCache(CacheNames.EXTRA_VALIDATE_CODE_NAME));
         if (!ObjectUtils.nullSafeEquals(cache.get(mobile), code)) {
             cache.evict(mobile);
         }

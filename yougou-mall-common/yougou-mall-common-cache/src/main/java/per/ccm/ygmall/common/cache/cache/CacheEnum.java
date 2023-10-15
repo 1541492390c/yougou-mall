@@ -40,7 +40,7 @@ public enum CacheEnum {
     /**
      * 验证码
      * */
-    BIZ_VALIDATE_CODE(CacheNames.BIZ_VALIDATE_CODE_NAME, 5 * 60L);
+    EXTRA_VALIDATE_CODE(CacheNames.EXTRA_VALIDATE_CODE_NAME, 5 * 60L);
 
     private final String value;
 

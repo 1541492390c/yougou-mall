@@ -35,7 +35,7 @@ public class CaptchaManager {
 
         // 将验证码保存到缓存
         String code = circleCaptcha.getCode();
-        Objects.requireNonNull(cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME)).put(ipAddress, code);
+        Objects.requireNonNull(cacheManager.getCache(CacheNames.EXTRA_VALIDATE_CODE_NAME)).put(ipAddress, code);
         return circleCaptcha;
     }
 
@@ -47,7 +47,7 @@ public class CaptchaManager {
      * @return 是否验证成功
      * */
     public Boolean validate(String ipAddress, String code) {
-        Cache cache = cacheManager.getCache(CacheNames.BIZ_VALIDATE_CODE_NAME);
+        Cache cache = cacheManager.getCache(CacheNames.EXTRA_VALIDATE_CODE_NAME);
         // 获取验证码
         String validateCode = Objects.requireNonNull(cache).get(ipAddress, String.class);
         if (!ObjectUtils.isEmpty(validateCode) && ObjectUtils.nullSafeEquals(validateCode.toLowerCase(), code.toLowerCase())) {
