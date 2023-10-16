@@ -9,7 +9,6 @@ import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import per.ccm.ygmall.feign.order.bo.OrderBO;
@@ -18,6 +17,7 @@ import per.ccm.ygmall.feign.order.feign.OrderFeign;
 import per.ccm.ygmall.common.basic.exception.YougouException;
 import per.ccm.ygmall.common.basic.response.ResponseCodeEnum;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
+import per.ccm.ygmall.payment.config.AliPayConfig;
 import per.ccm.ygmall.payment.entity.CouponUser;
 import per.ccm.ygmall.payment.entity.CouponUserLog;
 import per.ccm.ygmall.payment.entity.PaymentLog;
@@ -36,6 +36,9 @@ import java.util.Map;
 public class AliPayManager {
 
     @Autowired
+    private AliPayConfig aliPayConfig;
+
+    @Autowired
     private AlipayClient alipayClient;
 
     @Autowired
@@ -50,18 +53,6 @@ public class AliPayManager {
     @Autowired
     private CouponUserService couponUserService;
 
-    @Value("${alipay.alipay-public-key}")
-    private String aliPayPublicKey;
-
-    @Value("${alipay.sign-type}")
-    private String signType;
-
-    @Value("${alipay.return-url}")
-    private String returnUrl;
-
-    @Value("${alipay.notify-url}")
-    private String notifyUrl;
-
     public String payment(Long orderId) throws Exception {
         ResponseEntity<OrderBO> response = orderFeign.getOrderBOById(orderId);
         // 内部请求错误
@@ -73,9 +64,9 @@ public class AliPayManager {
         // 构建支付宝支付请求
         AlipayTradePagePayRequest alipayTradePagePayRequest = new AlipayTradePagePayRequest();
         // 设置返回地址
-        alipayTradePagePayRequest.setReturnUrl(returnUrl);
+        alipayTradePagePayRequest.setReturnUrl(aliPayConfig.getReturnUrl());
         // 设置异步通知地址
-        alipayTradePagePayRequest.setNotifyUrl(notifyUrl);
+        alipayTradePagePayRequest.setNotifyUrl(aliPayConfig.getNotifyUrl());
         // 请求参数
         AlipayTradePagePayModel bizModel = new AlipayTradePagePayModel();
         bizModel.setOutTradeNo(orderBO.getOrderNo());
@@ -99,7 +90,7 @@ public class AliPayManager {
 
     @GlobalTransactional(rollbackFor = Exception.class)
     public void verity(Map<String, String> params) throws Exception {
-        boolean isValid = AlipaySignature.verifyV1(params, aliPayPublicKey, "UTF-8", signType);
+        boolean isValid = AlipaySignature.verifyV1(params, aliPayConfig.getAliPayPublicKey(), "UTF-8", aliPayConfig.getSignType());
         // 验签成功记录支付信息
         if (isValid) {
             PaymentLog paymentLog = new PaymentLog();
@@ -136,6 +127,7 @@ public class AliPayManager {
      * 创建商品详情列表
      *
      * @param orderBO 商品内部传输数据
+     * @return 商品详情列表
      * */
     private List<GoodsDetail> getGoodsDetails(OrderBO orderBO) {
         List<GoodsDetail> goodsDetailList = new ArrayList<>();

@@ -4,7 +4,6 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,11 +14,8 @@ import per.ccm.ygmall.common.basic.util.RandomUtils;
 @Component
 public class ResourceManager {
 
-    @Value("${minio.bucket}")
-    private String bucket;
-
-    @Value("${minio.endpoint}")
-    private String endpoint;
+    @Autowired
+    private MinioConfig minioConfig;
 
     @Autowired
     private MinioClient minioClient;
@@ -43,13 +39,13 @@ public class ResourceManager {
         String filename = RandomUtils.randomUUID() + fileSuffix;
         String objectName = ResourceTypeEnum.getValueOf(resourceType).getPath() + filename;
         PutObjectArgs args = PutObjectArgs.builder()
-                .bucket(bucket)
+                .bucket(minioConfig.getBucket())
                 .object(objectName)
                 .stream(file.getInputStream(), file.getSize(), -1)
                 .build();
         minioClient.putObject(args);
         // 上传成功后返回文件地址
-        return endpoint + "/" + MinioConfig.URL_PREFIX + "/" + objectName;
+        return minioConfig.getEndpoint() + "/" + MinioConfig.URL_PREFIX + "/" + objectName;
     }
 
     /**
@@ -62,7 +58,7 @@ public class ResourceManager {
         // 文件路径
         String path = ResourceTypeEnum.getValueOf(resourceType).getPath();
         RemoveObjectArgs args = RemoveObjectArgs.builder()
-                .bucket(bucket)
+                .bucket(minioConfig.getBucket())
                 .object(path + fileName)
                 .build();
         minioClient.removeObject(args);

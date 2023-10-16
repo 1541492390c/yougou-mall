@@ -9,8 +9,8 @@ USE yougou_mall_auth;
 DROP TABLE IF EXISTS `auth_account`;
 
 CREATE TABLE `auth_account` (
-  `auth_account_id` bigint NOT NULL COMMENT '主键',
-  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `auth_account_id` bigint NOT NULL COMMENT '主键ID',
+  `user_id` bigint DEFAULT NULL COMMENT '用户ID',
   `state` int DEFAULT '1' COMMENT '状态 0-禁用  1-正常',
   `user_type` tinyint DEFAULT '2' COMMENT '用户类型 1-管理员 2-普通用户',
   `username` varchar(255) NOT NULL COMMENT '用户名',

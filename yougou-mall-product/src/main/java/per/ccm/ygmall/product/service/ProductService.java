@@ -19,19 +19,19 @@ public interface ProductService extends IService<Product> {
     void save(ProductDTO productDTO) throws Exception;
 
     /**
-     * 获取推荐的商品信息
-     *
-     * @return 推荐商品商品信息列表
-     * */
-    List<ProductVO> getRecommendedProductList() throws Exception;
-
-    /**
      * 获取商品内部传输数据列表
      *
      * @param skuIdList skuID列表
      * @return 商品内部传输数据列表
      * */
     List<ProductBO> getProductBOList(List<Long> skuIdList) throws Exception;
+
+    /**
+     * 获取推荐的商品信息
+     *
+     * @return 推荐商品商品信息列表
+     * */
+    List<ProductVO> getRecommendedProductList() throws Exception;
 
     /**
      * 分页获取商品信息

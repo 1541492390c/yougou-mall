@@ -74,6 +74,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
+    @Cacheable(cacheNames = CacheNames.PRODUCT_CATEGORY_CACHE_NAME, key = "'node:' + #node", sync = true)
     public CategoryVO getCategoryByNode(String node) {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
 
@@ -131,7 +132,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     private List<CategoryVO> setChildrenCategoryList(CategoryVO parentCategory, List<CategoryVO> allCategoryList) {
         return allCategoryList.stream()
                 .filter(item -> ObjectUtils.nullSafeEquals(item.getParentId(), parentCategory.getCategoryId()))
-                .peek(item -> item.setChildren(setChildrenCategoryList(item, allCategoryList)))
+                .peek(item -> item.setChildren(this.setChildrenCategoryList(item, allCategoryList)))
                 .collect(Collectors.toList());
     }
 }

@@ -1,10 +1,12 @@
 package per.ccm.ygmall.extra.config;
 
 import io.minio.MinioClient;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Getter
 @Configuration
 public class MinioConfig {
 
@@ -18,6 +20,9 @@ public class MinioConfig {
 
     @Value("${minio.secret-key}")
     private String secretKey;
+
+    @Value("${minio.bucket}")
+    private String bucket;
 
     @Bean
     public MinioClient minioClient() {

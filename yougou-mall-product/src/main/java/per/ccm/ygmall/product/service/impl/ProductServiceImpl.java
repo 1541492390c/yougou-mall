@@ -73,12 +73,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     }
 
     @Override
-    @Cacheable(cacheNames = CacheNames.PRODUCT_CACHE_NAME, key = "'recommended_list'", sync = true)
-    public List<ProductVO> getRecommendedProductList() {
-        return productMapper.selectRecommendedProductList();
-    }
-
-    @Override
     public List<ProductBO> getProductBOList(List<Long> skuIdList) throws Exception {
         List<SkuBO> skuBOList = skuService.getSkuBOList(skuIdList);
 
@@ -101,6 +95,15 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     }
 
     @Override
+    @Cacheable(cacheNames = CacheNames.PRODUCT_CACHE_NAME, key = "'recommended_list'", sync = true)
+    public List<ProductVO> getRecommendedProductList() {
+        return productMapper.selectRecommendedProductList();
+    }
+
+    @Override
+    @Cacheable(
+            cacheNames = CacheNames.PRODUCT_CACHE_NAME, 
+            key = "#page.pages + ':' + #page.size + #categoryNode + ':' + #isDiscount + ':' + #recommended", sync = true)
     public PageVO<ProductVO> getProductPages(String name, String categoryNode, Boolean isDiscount, Boolean recommended, Page<Product> page) {
         Page<ProductVO> pageInfo = productMapper.selectProductPages(name, categoryNode, isDiscount, recommended, page);
         return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
