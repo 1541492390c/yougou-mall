@@ -13,7 +13,6 @@ import per.ccm.ygmall.auth.service.AuthAccountService;
 import per.ccm.ygmall.auth.vo.AuthAccountVO;
 import per.ccm.ygmall.common.basic.response.ResponseEntity;
 import per.ccm.ygmall.common.security.enums.UserTypeEnum;
-import per.ccm.ygmall.common.security.util.TokenUtils;
 import per.ccm.ygmall.common.security.vo.TokenVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +42,8 @@ public class AuthAccountController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("code") String code) {
-        String accessToken = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, ADMIN_TYPE);
-        return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
+        TokenVO tokenVO = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, ADMIN_TYPE);
+        return ResponseEntity.success(tokenVO);
     }
 
     @GetMapping("/get_one")

@@ -17,13 +17,6 @@ public class TokenUtils {
 
     private static final Long EXPIRED = 14 * 24 * 60 * 60 * 1000L;
 
-    public static TokenVO getTokenVO(String accessToken) {
-        TokenVO tokenVO = new TokenVO();
-        tokenVO.setAccessToken(accessToken);
-        tokenVO.setExpiredIn(new Date().getTime() + EXPIRED);
-        return tokenVO;
-    }
-
     public static String readToken(String bearer) {
         return bearer.substring(bearer.lastIndexOf(' ') + 1);
     }
@@ -32,9 +25,10 @@ public class TokenUtils {
         return userId + ":" + ipAddress;
     }
 
-    public static String createToken(AuthPrincipal authPrincipal) {
+    public static TokenVO createToken(AuthPrincipal authPrincipal) {
         Date currentDate = new Date();
-        return JWT.create()
+        Date expiredDate = new Date(currentDate.getTime() + EXPIRED);
+        String accessToken = JWT.create()
                 .withClaim("auth_account_id", authPrincipal.getAuthAccountId())
                 .withClaim("user_id", authPrincipal.getUserId())
                 .withClaim("username", authPrincipal.getUsername())
@@ -42,8 +36,9 @@ public class TokenUtils {
                 .withClaim("role", authPrincipal.getAuthorities().get(0).getAuthority())
                 .withIssuer(ISSUER)
                 .withIssuedAt(currentDate)
-                .withExpiresAt(new Date(currentDate.getTime() + EXPIRED))
+                .withExpiresAt(expiredDate)
                 .sign(Algorithm.HMAC256(SECRET));
+        return new TokenVO(accessToken, expiredDate.getTime());
     }
 
     public static DecodedJWT verity(String token) {

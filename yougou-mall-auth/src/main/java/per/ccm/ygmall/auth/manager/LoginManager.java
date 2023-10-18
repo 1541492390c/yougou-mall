@@ -10,6 +10,7 @@ import per.ccm.ygmall.common.cache.cache.CacheNames;
 import per.ccm.ygmall.common.security.enums.UserTypeEnum;
 import per.ccm.ygmall.common.security.principal.AuthPrincipal;
 import per.ccm.ygmall.common.security.util.TokenUtils;
+import per.ccm.ygmall.common.security.vo.TokenVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +34,9 @@ public class LoginManager {
      * @param password     密码
      * @param code         验证码
      * @param userTypeEnum 用户类型枚举
-     * @return 认证token
+     * @return 认证token信息
      */
-    public String usernamePasswordLogin(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) {
+    public TokenVO usernamePasswordLogin(String ipAddress, String username, String password, String code, UserTypeEnum userTypeEnum) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
         // 添加附加信息
         Map<String, String> params = new HashMap<>();
@@ -47,8 +48,8 @@ public class LoginManager {
         Authentication authentication = authenticationManager.authenticate(token);
         AuthPrincipal authPrincipal = (AuthPrincipal) authentication.getPrincipal();
         // 将认证token存入redis中
-        String accessToken = TokenUtils.createToken(authPrincipal);
-        Objects.requireNonNull(cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME)).put(TokenUtils.createTokenKey(authPrincipal.getUserId(), authPrincipal.getIpAddress()), accessToken);
-        return accessToken;
+        TokenVO tokenVO = TokenUtils.createToken(authPrincipal);
+        Objects.requireNonNull(cacheManager.getCache(CacheNames.ACCESS_TOKEN_NAME)).put(TokenUtils.createTokenKey(authPrincipal.getUserId(), authPrincipal.getIpAddress()), tokenVO.getAccessToken());
+        return tokenVO;
     }
 }

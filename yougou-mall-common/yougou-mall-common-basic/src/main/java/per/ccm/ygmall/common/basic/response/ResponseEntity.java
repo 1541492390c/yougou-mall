@@ -37,15 +37,15 @@ public class ResponseEntity<T> {
         return responseEntity;
     }
 
-    public static <T> ResponseEntity<T> fail() {
-        ResponseEntity<T> responseEntity = new ResponseEntity<>();
+    public static ResponseEntity<Void> fail() {
+        ResponseEntity<Void> responseEntity = new ResponseEntity<>();
         responseEntity.setCode(ResponseCodeEnum.SERVER_ERROR_00001.getValue());
         responseEntity.setMessage(ResponseCodeEnum.SERVER_ERROR_00001.getMessage());
         return responseEntity;
     }
 
-    public static <T> ResponseEntity<T> fail(ResponseCodeEnum responseCodeEnum) {
-        ResponseEntity<T> responseEntity = new ResponseEntity<>();
+    public static ResponseEntity<Void> fail(ResponseCodeEnum responseCodeEnum) {
+        ResponseEntity<Void> responseEntity = new ResponseEntity<>();
         responseEntity.setCode(responseCodeEnum.getValue());
         responseEntity.setMessage(responseCodeEnum.getMessage());
         return responseEntity;

@@ -44,8 +44,8 @@ public class AuthAccountController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("code") String code) {
-        String accessToken = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, USER_TYPE);
-        return ResponseEntity.success(TokenUtils.getTokenVO(accessToken));
+        TokenVO tokenVO = loginManager.usernamePasswordLogin(request.getRemoteAddr(), username, password, code, USER_TYPE);
+        return ResponseEntity.success(tokenVO);
     }
 
     @GetMapping("/logout")
