@@ -116,7 +116,7 @@ yougou-mall
 - 登录页面
   ![登录页面](https://gitee.com/chi-congmin/yougou-mall/raw/master/readme/img/%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png)
 
-- ### 管理平台端地址
+- ### 管理平台端运行截图
 
 - 订单管理
 
