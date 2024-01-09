@@ -16,7 +16,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     Page<OrderVO> selectOrderPages(@Param("userId") Long userId, Page<Order> page);
 
-    Page<OrderVO> searchOrderPages(@Param("state") Integer state, @Param("orderNo") String orderNo, Page<Order> page);
+    Page<OrderVO> selectOrderPages(@Param("state") Integer state, @Param("orderNo") String orderNo, Page<Order> page);
 
     List<OrderStatisticsVO> selectOrderStatistics();
 }

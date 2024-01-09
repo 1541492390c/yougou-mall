@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.order.mapper.OrderAddrMapper">
+    <resultMap id="orderAddrVOMap" type="per.ccm.ygmall.order.vo.OrderAddrVO">
+        <id column="order_addr_id" property="orderAddrId" jdbcType="BIGINT" />
+        <result column="order_id" property="orderId" jdbcType="BIGINT" />
+        <result column="addr_id" property="addrId" jdbcType="BIGINT" />
+        <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+        <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="district" property="district" jdbcType="VARCHAR" />
+        <result column="detailedAddr" property="detailedAddr" jdbcType="VARCHAR" />
+    </resultMap>
 
+    <sql id="order_addr_vo_column">
+        `order_addr_id`, `order_id`, `addr_id`, `consignee`, `telephone`, `province` , `city`, `district`, `detailed_addr`
+    </sql>
+
+    <select id="selectOrderAddrByOrderId" resultMap="orderAddrVOMap">
+        SELECT <include refid="order_addr_vo_column" /> FROM order_addr WHERE `order_id` = #{orderId}
+    </select>
 </mapper>

@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.payment.mapper.CouponMapper">
+    <resultMap id="couponVOMap" type="per.ccm.ygmall.payment.vo.CouponVO">
+        <id column="coupon_id" property="couponId" jdbcType="BIGINT" />
+        <result column="quota" property="quota" jdbcType="INTEGER" />
+        <result column="expired" property="expired" jdbcType="INTEGER" />
+        <result column="take_count" property="takeCount" jdbcType="INTEGER" />
+        <result column="used_amount" property="usedAmount" jdbcType="DECIMAL" />
+        <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+        <result column="category_node" property="categoryNode" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="coupon_vo_column">
+        `coupon_id`, `quota`, `expired`, `take_count`, `used_amount`, `discount_amount`, `category_node`, `description`
+    </sql>
+
+    <select id="selectCouponById" resultMap="couponVOMap">
+        SELECT <include refid="coupon_vo_column" /> FROM coupon WHERE `coupon_id` = #{couponId}
+    </select>
 </mapper>

@@ -15,54 +15,29 @@
         <result column="pay_time" property="payTime" jdbcType="DATETIMEOFFSET" />
         <result column="delivery_time" property="deliveryTime" jdbcType="DATETIMEOFFSET" />
         <result column="finish_time" property="finishTime" jdbcType="DATETIMEOFFSET" />
-        <association property="orderAddrVO" javaType="per.ccm.ygmall.order.vo.OrderAddrVO" fetchType="eager">
-            <id column="order_addr_id" property="orderAddrId" jdbcType="BIGINT" />
-            <result column="order_id" property="orderId" jdbcType="BIGINT" />
-            <result column="addr_id" property="addrId" jdbcType="BIGINT" />
-            <result column="consignee" property="consignee" jdbcType="VARCHAR" />
-            <result column="telephone" property="telephone" jdbcType="VARCHAR" />
-            <result column="province" property="province" jdbcType="VARCHAR" />
-            <result column="city" property="city" jdbcType="VARCHAR" />
-            <result column="district" property="district" jdbcType="VARCHAR" />
-            <result column="detailedAddr" property="detailedAddr" jdbcType="VARCHAR" />
-        </association>
+        <association property="orderAddrVO" javaType="per.ccm.ygmall.order.vo.OrderAddrVO" fetchType="eager" column="{orderId = order_id}"
+                    select="per.ccm.ygmall.order.mapper.OrderAddrMapper.selectOrderAddrByOrderId" />
         <collection property="orderItemList" ofType="per.ccm.ygmall.order.vo.OrderItemVO"  fetchType="eager" column="{orderId = order_id}"
-                    select="per.ccm.ygmall.order.mapper.OrderItemMapper.selectOrderItemListByOrderId">
-        </collection>
+                    select="per.ccm.ygmall.order.mapper.OrderItemMapper.selectOrderItemListByOrderId" />
     </resultMap>
 
     <sql id="order_vo_column">
-        `order`.`order_id`, `order`.`user_id`, `order`.`state`, `order`.`total_amount`, `order`.`pay_amount`, `order`.`is_pay`,
-        `order`.`order_no`, `order`.`remark`, `order`.`submit_time`, `order`.`cancel_time`, `order`.`pay_time`, `order`.`delivery_time`, `order`.`finish_time`,
-
-        order_addr.`order_addr_id`, order_addr.`order_id`, order_addr.`addr_id`, order_addr.`consignee`, order_addr.`telephone`,
-        order_addr.`province` ,order_addr.`city`, order_addr.`district`, order_addr.`detailed_addr`
-    </sql>
-
-    <sql id="order_left_join_order_item_and_order_addr">
-        FROM `order`
-        LEFT JOIN order_addr ON `order`.`order_id` = order_addr.`order_id`
+        `order_id`, `user_id`, `state`, `total_amount`, `pay_amount`, `is_pay`,`order_no`, `remark`,
+        `submit_time`, `cancel_time`, `pay_time`, `delivery_time`, `finish_time`
     </sql>
 
     <select id="selectOrderById" resultMap="orderVOMap">
-        SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
-        WHERE `order`.`order_id` = #{orderId}
+        SELECT <include refid="order_vo_column" /> FROM `order`
+        WHERE `order_id` = #{orderId}
     </select>
 
     <select id="selectOrderPages" resultMap="orderVOMap">
-        SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
+        SELECT <include refid="order_vo_column" /> FROM `order`
         <where>
-            <if test="userId != null">`order`.`user_id` = #{userId}</if>
-            AND `order`.`enabled` = TRUE
-        </where>
-    </select>
-
-    <select id="searchOrderPages" resultMap="orderVOMap">
-        SELECT <include refid="order_vo_column" /> <include refid="order_left_join_order_item_and_order_addr" />
-        <where>
-            <if test="state != null">`order`.`state` = #{state}</if>
-            <if test="orderNo != '' and orderNo != null">`order`.`order_no` = #{orderNo}</if>
-            AND `order`.`enabled` = TRUE
+            <if test="userId != null">`user_id` = #{userId}</if>
+            <if test="state != null">`state` = #{state}</if>
+            <if test="orderNo != '' and orderNo != null">`order_no` = #{orderNo}</if>
+            AND `enabled` = TRUE
         </where>
     </select>
 

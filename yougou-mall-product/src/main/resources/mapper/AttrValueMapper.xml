@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ccm.ygmall.product.mapper.AttrValueMapper">
+    <resultMap id="attrValueVOMap" type="per.ccm.ygmall.product.vo.AttrValueVO">
+        <id column="attr_value_id" property="attrValueId" jdbcType="BIGINT" />
+        <result column="attr_id" property="attrId" jdbcType="BIGINT" />
+        <result column="attr_value_name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="attr_value_vo_column">
+        `attr_value_id`, `attr_id`, `name` AS `attr_value_name`
+    </sql>
+
+    <select id="selectAttrValueListByAttrId" resultMap="attrValueVOMap">
+        SELECT <include refid="attr_value_vo_column" /> FROM attr_value WHERE `attr_id` = #{attrId}
+    </select>
 </mapper>

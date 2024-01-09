@@ -5,27 +5,15 @@
         <id column="attr_id" property="attrId" jdbcType="BIGINT" />
         <result column="product_id" property="productId" jdbcType="BIGINT" />
         <result column="name" property="name" jdbcType="VARCHAR" />
-        <collection property="attrValueList" ofType="per.ccm.ygmall.product.vo.AttrValueVO" fetchType="eager">
-            <id column="attr_value_id" property="attrValueId" jdbcType="BIGINT" />
-            <result column="attr_id" property="attrId" jdbcType="BIGINT" />
-            <result column="attr_value_name" property="name" jdbcType="VARCHAR" />
-        </collection>
+        <collection property="attrValueList" ofType="per.ccm.ygmall.product.vo.AttrValueVO" fetchType="eager" column="{attrId = attr_id}"
+                    select="per.ccm.ygmall.product.mapper.AttrValueMapper.selectAttrValueListByAttrId" />
     </resultMap>
 
     <sql id="attr_vo_column">
-        attr.`attr_id`,
-        attr.`product_id`,
-        attr.`name`,
-        attr_value.`attr_value_id`,
-        attr_value.`attr_id`,
-        attr_value.`name` AS `attr_value_name`
-    </sql>
-
-    <sql id="attr_left_join_attr_value">
-        FROM attr LEFT JOIN attr_value ON attr.`attr_id` = attr_value.`attr_id`
+        `attr_id`, `product_id`, `name`
     </sql>
 
     <select id="selectAttrList" resultMap="attrVOMap">
-        SELECT <include refid="attr_vo_column" /> <include refid="attr_left_join_attr_value" /> WHERE attr.`product_id` = #{productId}
+        SELECT <include refid="attr_vo_column" /> FROM attr WHERE `product_id` = #{productId}
     </select>
 </mapper>

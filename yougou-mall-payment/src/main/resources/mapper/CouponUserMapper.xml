@@ -7,34 +7,20 @@
         <result column="state" property="state" jdbcType="INTEGER" />
         <result column="receive_time" property="receiveTime" jdbcType="DATETIMEOFFSET" />
         <result column="expired_time" property="expiredTime" jdbcType="DATETIMEOFFSET" />
-        <association property="coupon" javaType="per.ccm.ygmall.payment.vo.CouponVO" fetchType="eager">
-            <id column="coupon_id" property="couponId" jdbcType="BIGINT" />
-            <result column="quota" property="quota" jdbcType="INTEGER" />
-            <result column="expired" property="expired" jdbcType="INTEGER" />
-            <result column="take_count" property="takeCount" jdbcType="DECIMAL" />
-            <result column="used_amount" property="usedAmount" jdbcType="DECIMAL" />
-            <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
-            <result column="category_node" property="categoryNode" jdbcType="VARCHAR" />
-            <result column="description" property="description" jdbcType="VARCHAR" />
-        </association>
+        <association property="coupon" javaType="per.ccm.ygmall.payment.vo.CouponVO" fetchType="eager" column="{couponId = coupon_id}"
+                     select="per.ccm.ygmall.payment.mapper.CouponMapper.selectCouponById" />
     </resultMap>
 
     <sql id="coupon_user_vo_column">
-        coupon_user.`coupon_user_id`, coupon_user.`coupon_id`, coupon_user.`state`, coupon_user.`receive_time`, coupon_user.`expired_time`,
-        coupon.`coupon_id`, coupon.`quota`, coupon.`expired`, coupon.`take_count`, coupon.`used_amount`, coupon.`discount_amount`,
-        coupon.`category_node`, coupon.`description`
-    </sql>
-
-    <sql id="coupon_user_left_join_coupon">
-        FROM coupon_user LEFT JOIN coupon ON coupon_user.`coupon_id` = coupon.`coupon_id`
+        `coupon_user_id`, `coupon_id`, `state`, `receive_time`, `expired_time`
     </sql>
 
     <select id="selectCouponUserListByUserId" resultMap="couponUserMap">
-        SELECT <include refid="coupon_user_vo_column" /> <include refid="coupon_user_left_join_coupon" />
-        WHERE coupon_user.`user_id` = #{userId} AND coupon_user.`state` = 1
+        SELECT <include refid="coupon_user_vo_column" /> FROM coupon_user
+        WHERE `user_id` = #{userId} AND `state` = 1
     </select>
 
     <select id="selectCouponUserListByCouponUserId" resultMap="couponUserMap">
-        SELECT <include refid="coupon_user_vo_column" /> <include refid="coupon_user_left_join_coupon" /> WHERE coupon_user.`coupon_user_id` = #{couponUserId}
+        SELECT <include refid="coupon_user_vo_column" /> FROM coupon_user WHERE `coupon_user_id` = #{couponUserId}
     </select>
 </mapper>

@@ -203,7 +203,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public PageVO<OrderVO> getOrderPages(Integer state, String orderNo, Page<Order> page) {
-        Page<OrderVO> pageInfo = orderMapper.searchOrderPages(state, orderNo, page);
+        Page<OrderVO> pageInfo = orderMapper.selectOrderPages(state, orderNo, page);
         return new PageVO<>(pageInfo.getTotal(), pageInfo.getRecords());
     }
 
